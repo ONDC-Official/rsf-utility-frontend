@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { Box, Typography } from '@mui/material'
+import colors from '@theme/colors'
+import { typography } from '@theme/typography'
 
 export const PageContainer = styled(Box)`
-  background: #f5f5f5;
+  background: ${colors.background.main};
   min-height: 100%;
 `
 
@@ -26,29 +28,29 @@ export const HeaderRight = styled(Box)`
 `
 
 export const PageTitle = styled(Typography)`
-  font-family: 'Inter-Bold';
-  font-weight: 600;
-  color: #213049;
-  font-size: 32px;
-  line-height: 40px;
+  font-family: ${typography.h3_semibold.fontFamily};
+  font-weight: ${typography.h3_semibold.fontWeight};
+  color: ${colors.text.primary};
+  font-size: ${typography.h3_semibold.fontSize};
+  line-height: ${typography.h3_semibold.lineHeight};
 `
 
 export const PageSubtitle = styled(Typography)`
-  color: #5b6578;
-  font-family: 'Inter-Regular';
-  font-size: 16px;
+  color: ${colors.text.secondary};
+  font-family: ${typography.body1_regular.fontFamily};
+  font-size: ${typography.body1_regular.fontSize};
 `
 
 export const ReceiverLabel = styled(Typography)`
-  color: #213049;
-  font-family: 'Inter-Medium';
-  font-weight: 500;
-  font-size: 14px;
+  color: ${colors.text.primary};
+  font-family: ${typography.body2_medium.fontFamily};
+  font-weight: ${typography.body2_medium.fontWeight};
+  font-size: ${typography.body2_medium.fontSize};
 `
 
 export const TableContainer = styled(Box)`
-  background: #ffffff;
-  box-shadow: 6px 6px 54px 0px rgba(0, 0, 0, 0.05);
+  background: ${colors.background.light};
+  box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
   border-radius: 8px;
   overflow: hidden;
 `
@@ -58,7 +60,7 @@ export const TableHeader = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid ${colors.border.main};
 `
 
 export const TableActions = styled(Box)`
@@ -68,8 +70,8 @@ export const TableActions = styled(Box)`
 `
 
 export const TableTitle = styled(Typography)`
-  font-family: 'Inter-SemiBold';
-  font-weight: 600;
-  color: #213049;
-  font-size: 20px;
+  font-family: ${typography.h6_semibold.fontFamily};
+  font-weight: ${typography.h6_semibold.fontWeight};
+  color: ${colors.text.primary};
+  font-size: ${typography.h6_semibold.fontSize};
 `

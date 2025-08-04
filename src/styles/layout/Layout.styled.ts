@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import { Box } from '@mui/material'
+import colors from '@theme/colors'
+import { typography } from '@theme/typography'
 
 export const LayoutContainer = styled(Box)`
   display: flex;
@@ -10,7 +12,7 @@ export const MainContent = styled(Box)`
   flex: 1;
   margin-left: 280px;
   margin-top: 64px;
-  background: #f5f5f5;
+  background: ${colors.background.main};
   min-height: calc(100vh - 64px);
   overflow-y: auto;
 `
@@ -21,11 +23,11 @@ export const ContentArea = styled(Box)`
 `
 
 export const Footer = styled(Box)`
-  background: #ffffff;
+  background: ${colors.background.light};
   padding: 16px 24px;
-  border-top: 1px solid #ebebeb;
+  border-top: 1px solid ${colors.border.main};
   text-align: center;
-  color: #5b6578;
-  font-size: 14px;
-  font-family: 'Inter-Regular';
+  color: ${colors.text.secondary};
+  font-size: ${typography.body2_regular.fontSize};
+  font-family: ${typography.body2_regular.fontFamily};
 `

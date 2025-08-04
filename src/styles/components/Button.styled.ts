@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import { Button } from '@mui/material'
+import colors from '@theme/colors'
+import { typography } from '@theme/typography'
 
 export const StyledButton = styled(Button)`
   text-transform: none;
@@ -7,22 +9,22 @@ export const StyledButton = styled(Button)`
 `
 
 export const OutlinedFilterButton = styled(Button)`
-  color: #5b6578;
-  border-color: #ebebeb;
+  color: ${colors.text.secondary};
+  border-color: ${colors.border.main};
   text-transform: none;
-  font-family: 'Inter-Medium';
+  font-family: ${typography.body1_medium.fontFamily};
 
   &:hover {
-    border-color: #5b6578;
+    border-color: ${colors.text.secondary};
   }
 `
 
 export const ContainedExportButton = styled(Button)`
-  background-color: #0b3352;
+  background-color: ${colors.primary.main};
   text-transform: none;
-  font-family: 'Inter-Medium';
+  font-family: ${typography.body1_medium.fontFamily};
 
   &:hover {
-    background-color: #0d3656;
+    background-color: ${colors.primary.dark};
   }
 `

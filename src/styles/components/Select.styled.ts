@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FormControl, Select } from '@mui/material'
+import colors from '@theme/colors'
 
 export const StyledFormControl = styled(FormControl)`
   min-width: 120px;
@@ -7,7 +8,7 @@ export const StyledFormControl = styled(FormControl)`
 
 export const NavbarSelect = styled(Select)`
   & .MuiSelect-select {
-    color: white;
+    color: ${colors.primary.contrastText};
     background-color: rgba(255, 255, 255, 0.1);
   }
 

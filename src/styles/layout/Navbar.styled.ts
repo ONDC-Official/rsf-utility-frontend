@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { AppBar, Toolbar, Box, Typography, Avatar } from '@mui/material'
+import colors from '@theme/colors'
+import { typography } from '@theme/typography'
 
 export const StyledAppBar = styled(AppBar)`
-  background: #0b3352 !important;
+  background: ${colors.primary.main} !important;
   box-shadow: none !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `
@@ -24,20 +26,20 @@ export const RightSection = styled(Box)`
 `
 
 export const NavbarTitle = styled(Typography)`
-  color: white;
-  font-family: 'Inter-Medium';
-  font-weight: 500;
-  font-size: 18px;
+  color: ${colors.primary.contrastText};
+  font-family: ${typography.caption1_semibold.fontFamily};
+  font-weight: ${typography.caption1_semibold.fontWeight};
+  font-size: ${typography.caption1_semibold.fontSize};
 `
 
 export const ConfigurationLabel = styled(Typography)`
-  color: white;
-  font-family: 'Inter-Medium';
-  font-size: 14px;
+  color: ${colors.primary.contrastText};
+  font-family: ${typography.body2_medium.fontFamily};
+  font-size: ${typography.body2_medium.fontSize};
 `
 
 export const UserAvatar = styled(Avatar)`
   width: 32px;
   height: 32px;
-  background-color: #1c75bc;
+  background-color: ${colors.primary.light};
 `
