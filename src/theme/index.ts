@@ -1,6 +1,6 @@
-import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles';
-import colors from './colors';
-import typography from './typography';
+import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles'
+import colors from './colors'
+import typography from './typography'
 
 const theme: ThemeOptions = createTheme({
   palette: {
@@ -129,6 +129,6 @@ const theme: ThemeOptions = createTheme({
       },
     },
   },
-});
+})
 
-export default theme;
+export default theme

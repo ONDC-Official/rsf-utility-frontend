@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
   }
 
   const handleLogout = () => {
-    console.log('Logout clicked')
+    // TODO: Implement logout functionality
   }
 
   return (

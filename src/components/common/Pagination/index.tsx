@@ -17,18 +17,12 @@ interface PaginationProps {
   onRowsPerPageChange?: (rowsPerPage: number) => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  count,
-  page,
-  rowsPerPage,
-  onPageChange,
-  onRowsPerPageChange,
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }
 
-  const handleRowsPerPageChange = (event: SelectChangeEvent) => {
+  const handleRowsPerPageChange = (event: SelectChangeEvent<unknown>) => {
     onRowsPerPageChange?.(Number(event.target.value))
   }
 

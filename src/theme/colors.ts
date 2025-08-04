@@ -1,4 +1,4 @@
-import { IColors } from './types/palette';
+import { IColors } from './types/palette'
 
 const colors: IColors = {
   error: {
@@ -43,6 +43,7 @@ const colors: IColors = {
     tertiaryMain: '#FCFCFC',
   },
   text: {
+    main: '#213049',
     primary: '#213049',
     secondary: '#5B6578',
     disabled: '#4A4A4A',
@@ -52,6 +53,7 @@ const colors: IColors = {
     caption: '#2E2E2E',
   },
   border: {
+    main: '#EBEBEB',
     primary: '#EBEBEB',
     secondary: '#FFC107',
     disabled: '#EBECEF',
@@ -59,10 +61,12 @@ const colors: IColors = {
     tertiary: '#DEDEDE',
   },
   status: {
+    main: '#28A745',
     accepted: '#28A745',
     pending: '#6C757D',
   },
   shadow: {
+    main: '#1B2F5717',
     primary: '#1B2F5717',
     secondary: '#0A0D120D',
     tertiary: '#E6E6E6',
@@ -76,6 +80,7 @@ const colors: IColors = {
     contrastText: '#0D0D0D',
   },
   button: {
+    main: '#3B5998',
     primary: '#3B5998',
     secondary: '#E5E7EB',
     tertiary: '#D1D5DB',
@@ -95,6 +100,6 @@ const colors: IColors = {
     dark: '#F0FDF4',
     contrastText: '#848A9C',
   },
-};
+}
 
-export default colors;
+export default colors

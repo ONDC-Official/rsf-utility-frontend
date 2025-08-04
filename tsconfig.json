@@ -21,11 +21,14 @@
       "@pages/*": ["pages/*"],  
       "@theme/*": ["theme/*"],
       "@types/*": ["types/*"],
+      "@interfaces/*": ["interfaces/*"],
       "@constants/*": ["constants/*"],
       "@assets/*": ["assets/*"],
       "@data/*": ["data/*"],
       "@routes/*": ["routes/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@services/*": ["services/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"]

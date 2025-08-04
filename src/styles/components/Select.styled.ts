@@ -10,15 +10,15 @@ export const NavbarSelect = styled(Select)`
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   & .MuiOutlinedInput-notchedOutline {
     border-color: rgba(255, 255, 255, 0.3);
   }
-  
+
   &:hover .MuiOutlinedInput-notchedOutline {
     border-color: rgba(255, 255, 255, 0.5);
   }
-  
+
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: rgba(255, 255, 255, 0.7);
   }

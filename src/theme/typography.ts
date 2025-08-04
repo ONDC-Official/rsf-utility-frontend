@@ -1,58 +1,58 @@
-import { TypographyVariantsOptions, TypographyStyle } from '@mui/material/styles';
-import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from '../constants/fonts';
+import { TypographyVariantsOptions, TypographyStyle } from '@mui/material/styles'
+import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from '@constants/fonts'
 
 interface ITypography extends TypographyVariantsOptions {
-  h3_semibold: TypographyStyle;
-  h5_semibold: TypographyStyle;
-  h6_semibold: TypographyStyle;
-  body1_regular: TypographyStyle;
-  body1_medium: TypographyStyle;
-  body1_semibold: TypographyStyle;
-  body2_regular: TypographyStyle;
-  body2_semibold: TypographyStyle;
-  body2_medium: TypographyStyle;
-  body3_medium: TypographyStyle;
-  body3_regular: TypographyStyle;
-  body4_bold: TypographyStyle;
-  body5_light: TypographyStyle;
-  body5_medium: TypographyStyle;
-  body5_regular: TypographyStyle;
-  body5_semibold: TypographyStyle;
-  h7: TypographyStyle;
-  body4_semibold: TypographyStyle;
-  caption1_semibold: TypographyStyle;
+  h3_semibold: TypographyStyle
+  h5_semibold: TypographyStyle
+  h6_semibold: TypographyStyle
+  body1_regular: TypographyStyle
+  body1_medium: TypographyStyle
+  body1_semibold: TypographyStyle
+  body2_regular: TypographyStyle
+  body2_semibold: TypographyStyle
+  body2_medium: TypographyStyle
+  body3_medium: TypographyStyle
+  body3_regular: TypographyStyle
+  body4_bold: TypographyStyle
+  body5_light: TypographyStyle
+  body5_medium: TypographyStyle
+  body5_regular: TypographyStyle
+  body5_semibold: TypographyStyle
+  h7: TypographyStyle
+  body4_semibold: TypographyStyle
+  caption1_semibold: TypographyStyle
 }
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    h3_semibold: true;
-    h5_semibold: true;
-    h6_semibold: true;
-    body1_regular: true;
-    body1_medium: true;
-    body1_semibold: true;
-    body2_regular: true;
-    body2_semibold: true;
-    body2_medium: true;
-    body3_medium: true;
-    body3_regular: true;
-    body4_bold: true;
-    body4_semibold: true;
-    body5_light: true;
-    body5_medium: true;
-    body5_regular: true;
-    body5_semibold: true;
-    h7: true;
-    caption1_semibold: true;
+    h3_semibold: true
+    h5_semibold: true
+    h6_semibold: true
+    body1_regular: true
+    body1_medium: true
+    body1_semibold: true
+    body2_regular: true
+    body2_semibold: true
+    body2_medium: true
+    body3_medium: true
+    body3_regular: true
+    body4_bold: true
+    body4_semibold: true
+    body5_light: true
+    body5_medium: true
+    body5_regular: true
+    body5_semibold: true
+    h7: true
+    caption1_semibold: true
   }
 }
 
-const body1 = { fontSize: '16px', lineHeight: '24px' };
-const body2 = { fontSize: '14px', lineHeight: '20px' };
-const body3 = { fontSize: '10px', lineHeight: '16px' };
-const body4 = { fontSize: '20px', lineHeight: '28px' };
-const body5 = { fontSize: '12px', lineHeight: '28px' };
-const caption1 = { fontSize: '18px', lineHeight: '26px' };
+const body1 = { fontSize: '16px', lineHeight: '24px' }
+const body2 = { fontSize: '14px', lineHeight: '20px' }
+const body3 = { fontSize: '10px', lineHeight: '16px' }
+const body4 = { fontSize: '20px', lineHeight: '28px' }
+const body5 = { fontSize: '12px', lineHeight: '28px' }
+const caption1 = { fontSize: '18px', lineHeight: '26px' }
 
 export const typography: ITypography = {
   h1: {
@@ -199,6 +199,6 @@ export const typography: ITypography = {
     fontFamily: SEMI_BOLD,
     ...caption1,
   },
-};
+}
 
-export default typography;
+export default typography
