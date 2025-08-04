@@ -7,14 +7,20 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: ['@typescript-eslint', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    '@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+  ],
   rules: {
     'node/no-unsupported-features/es-syntax': 'off',
     '@typescript-eslint/indent': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -23,40 +29,25 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-extra-semi': 'off',
     'no-console': 'warn',
-    'padding-line-between-statements': [
-      'error',
-      { blankLine: 'always', prev: 'class', next: '*' },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-      { blankLine: 'always', prev: 'function', next: '*' },
-      {
-        blankLine: 'any',
-        prev: ['const', 'let', 'var'],
-        next: ['const', 'let', 'var'],
-      },
-    ],
-    'no-unused-vars': [
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'error',
       {
         vars: 'all',
-        args: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
       },
     ],
-    'id-match': 0,
-
-    // Turn on prettier rules
-    'prettier/prettier': 'error',
-    'comma-dangle': ['error', 'only-multiline'],
-    'max-len': [
-      2,
+    'prettier/prettier': [
+      'error',
       {
-        code: 120,
-        tabWidth: 2,
-        ignoreUrls: true,
-        ignoreComments: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true,
+        endOfLine: 'auto',
       },
     ],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 }
