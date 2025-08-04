@@ -2,6 +2,9 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from '@components/layout/Layout'
 import OrdersInProgress from '@pages/OrdersInProgress'
+import SettlementDashboard from '@pages/SettlementDashboard'
+import MiscSettlements from '@pages/MiscSettlements'
+import Reconciliation from '@pages/Reconciliation'
 import ComingSoon from '@components/common/ComingSoon'
 import PrivateRoute from './PrivateRoute'
 
@@ -54,7 +57,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Settlement Dashboard" />
+              <SettlementDashboard />
             </Layout>
           </PrivateRoute>
         }
@@ -64,7 +67,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Reconciliation" />
+              <Reconciliation />
             </Layout>
           </PrivateRoute>
         }
@@ -74,7 +77,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Misc Settlements" />
+              <MiscSettlements />
             </Layout>
           </PrivateRoute>
         }

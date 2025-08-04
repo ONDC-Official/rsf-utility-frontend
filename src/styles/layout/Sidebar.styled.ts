@@ -8,7 +8,6 @@ export const StyledDrawer = styled(Drawer)`
     width: 280px;
     background: ${colors.primary.main};
     color: ${colors.primary.contrastText};
-    border: none;
   }
 `
 
@@ -27,6 +26,10 @@ export const LogoText = styled(Typography)`
 export const MenuList = styled(List)`
   padding: 20px 16px;
   flex: 1;
+  .css-1p9uxgt-MuiListItem-root {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 `
 
 export const LogoutContainer = styled(Box)`
@@ -46,8 +49,10 @@ export const StyledListItemButton = styled(ListItemButton)<{ selected?: boolean 
     background: linear-gradient(90deg, ${colors.primary.light} 0%, ${colors.primary.dark} 100%) !important;
     width: 220px;
     
+    
     &:hover {
       background: linear-gradient(90deg, ${colors.primary.light} 0%, ${colors.primary.dark} 100%) !important;
+      
     }
   `}
 `

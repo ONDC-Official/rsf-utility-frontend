@@ -19,27 +19,29 @@ const Navbar: React.FC = () => {
   ]
 
   return (
-    <StyledAppBar position="fixed">
-      <StyledToolbar>
-        <TitleContainer>
-          <NavbarTitle>Reconciliation and Settlement System</NavbarTitle>
-        </TitleContainer>
+    <div>
+      <StyledAppBar position="fixed">
+        <StyledToolbar>
+          <TitleContainer>
+            <NavbarTitle>Reconciliation and Settlement System</NavbarTitle>
+          </TitleContainer>
 
-        <RightSection>
-          <ConfigurationLabel>Settlement Configuration</ConfigurationLabel>
+          <RightSection>
+            <ConfigurationLabel>Settlement Configuration</ConfigurationLabel>
 
-          <NavbarSelect value="config1" size="small">
-            {configurationOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </NavbarSelect>
+            <NavbarSelect value="config1" size="small">
+              {configurationOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </NavbarSelect>
 
-          <UserAvatar>JD</UserAvatar>
-        </RightSection>
-      </StyledToolbar>
-    </StyledAppBar>
+            <UserAvatar>JD</UserAvatar>
+          </RightSection>
+        </StyledToolbar>
+      </StyledAppBar>
+    </div>
   )
 }
 

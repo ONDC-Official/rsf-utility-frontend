@@ -10,7 +10,7 @@ export const StyledAppBar = styled(AppBar)`
 `
 
 export const StyledToolbar = styled(Toolbar)`
-  padding-left: 300px !important;
+  margin-left: 300px !important;
   padding-right: 24px !important;
   min-height: 64px !important;
 `
