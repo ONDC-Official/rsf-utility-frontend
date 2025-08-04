@@ -2,8 +2,9 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from '@components/layout/Layout'
 import OrdersInProgress from '@pages/OrdersInProgress'
+import OrdersReady from '@pages/OrdersReady'
 import ComingSoon from '@components/common/ComingSoon'
-import PrivateRoute from './PrivateRoute'
+import PrivateRoute from '@routes/PrivateRoute'
 
 const AppRoutes: React.FC = () => {
   return (
@@ -34,7 +35,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Orders Ready" />
+              <OrdersReady />
             </Layout>
           </PrivateRoute>
         }
