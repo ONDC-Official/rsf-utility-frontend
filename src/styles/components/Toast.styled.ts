@@ -59,7 +59,7 @@ export const ToastCloseButton = styled(Box)`
   justify-content: center;
   padding: 4px;
   color: ${colors.text.secondary};
-  
+
   &:hover {
     color: ${colors.text.primary};
   }

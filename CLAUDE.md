@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a React TypeScript application for ONDC RSF (Retail Seller Frontend) built with:
 
 ### Core Stack
+
 - **React 17** with TypeScript
 - **Material-UI v7** for UI components with custom theme
 - **React Router v6** for navigation
@@ -24,6 +25,7 @@ This is a React TypeScript application for ONDC RSF (Retail Seller Frontend) bui
 - **Axios** for HTTP requests
 
 ### Project Structure
+
 - **Layout System**: Sidebar + Navbar layout with main content area
 - **Path Aliases**: Configured in tsconfig.json with `@` prefixes:
   - `@components/*` → `src/components/*`
@@ -34,6 +36,7 @@ This is a React TypeScript application for ONDC RSF (Retail Seller Frontend) bui
   - Additional aliases for assets, constants, data, routes
 
 ### Key Architectural Patterns
+
 - **Component Organization**: Separated into `common` (reusable) and `layout` components
 - **Styling Approach**: Mix of styled-components and MUI theme system
 - **Data Fetching**: Custom hooks `useGet` and `usePost` wrapping React Query
@@ -41,12 +44,14 @@ This is a React TypeScript application for ONDC RSF (Retail Seller Frontend) bui
 - **Routing**: Private route wrapper pattern with layout composition
 
 ### Current State
+
 - Main feature: Orders management (OrdersInProgress page)
 - Uses custom Table, Pagination, Select, Button components
 - Font integration: Inter font family with multiple weights
 - Environment-based API configuration via `REACT_APP_BASE_URL`
 
 ### Development Notes
+
 - Git hooks configured with Husky for pre-commit linting
 - Prettier + ESLint integration with lint-staged
 - Type interfaces located in `src/interfaces/` (not `src/types/`)

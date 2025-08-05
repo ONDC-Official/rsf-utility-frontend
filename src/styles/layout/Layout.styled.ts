@@ -3,12 +3,12 @@ import { Box } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const LayoutContainer = styled(Box)`
+export const Container = styled(Box)`
   display: flex;
   min-height: 100vh;
 `
 
-export const MainContent = styled(Box)`
+export const Wrapper = styled(Box)`
   flex: 1;
   margin-left: 280px;
   margin-top: 64px;

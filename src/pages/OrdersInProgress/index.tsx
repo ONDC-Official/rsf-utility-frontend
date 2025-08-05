@@ -3,14 +3,14 @@ import { TableRow, TableCell, Checkbox } from '@mui/material'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from '@components/common/Table'
 import Select from '@components/common/Select'
-import { ITableColumn } from '@interfaces/table'
 import { IOrder } from '@interfaces/order'
 import { generateOrdersData } from '@data/ordersData'
+import { receiverOptions, columns } from '@pages/OrdersInProgress/data'
 import { StatusChip } from '@styles/components/Chip.styled'
 import { OutlinedFilterButton, ContainedExportButton } from '@styles/components/Button.styled'
 import {
-  PageContainer,
-  PageHeader,
+  Container,
+  Header,
   HeaderLeft,
   HeaderRight,
   PageTitle,
@@ -32,23 +32,7 @@ const OrdersInProgress: React.FC = () => {
   const startIndex = (page - 1) * rowsPerPage
   const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
 
-  const receiverOptions = [
-    { value: 'BPP_001', label: 'BPP_001' },
-    { value: 'BPP_002', label: 'BPP_002' },
-    { value: 'BPP_003', label: 'BPP_003' },
-  ]
-
-  const columns: ITableColumn<IOrder>[] = [
-    { id: 'orderId', label: 'Order ID' },
-    { id: 'collectorId', label: 'Collector ID' },
-    { id: 'receiverId', label: 'Receiver ID' },
-    { id: 'orderStatus', label: 'Order Status' },
-    { id: 'totalOrderValue', label: 'Total Order Value' },
-    { id: 'bffPercent', label: 'BFF %' },
-    { id: 'dueDate', label: 'Due Date' },
-  ]
-
-  const renderRow = (order: IOrder, index: number) => (
+  const renderRow = (order: IOrder) => (
     <TableRow key={order.id}>
       <TableCell padding="checkbox">
         <Checkbox />
@@ -75,8 +59,8 @@ const OrdersInProgress: React.FC = () => {
   }
 
   return (
-    <PageContainer>
-      <PageHeader>
+    <Container>
+      <Header>
         <HeaderLeft>
           <PageTitle>Orders In Progress</PageTitle>
           <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
@@ -88,9 +72,10 @@ const OrdersInProgress: React.FC = () => {
             value={receiverId}
             onChange={(e) => setReceiverId(e.target.value as string)}
             options={receiverOptions}
+            size="small"
           />
         </HeaderRight>
-      </PageHeader>
+      </Header>
 
       <TableContainer>
         <TableHeader>
@@ -117,7 +102,7 @@ const OrdersInProgress: React.FC = () => {
           renderRow={renderRow}
         />
       </TableContainer>
-    </PageContainer>
+    </Container>
   )
 }
 

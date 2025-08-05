@@ -1,12 +1,12 @@
-import React from 'react'
+import { FC, ReactNode } from 'react'
 import { ButtonProps } from '@mui/material'
 import { StyledButton } from '@styles/components/Button.styled'
 
 interface CustomButtonProps extends ButtonProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const Button: React.FC<CustomButtonProps> = ({ children, ...props }) => {
+const Button: FC<CustomButtonProps> = ({ children, ...props }) => {
   return <StyledButton {...props}>{children}</StyledButton>
 }
 

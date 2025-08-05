@@ -155,6 +155,7 @@ const SettlementGenerator: React.FC = () => {
             onChange={(e: SelectChangeEvent<unknown>) => setCounterpartyId(e.target.value as string)}
             options={counterpartyOptions}
             displayEmpty
+            size="small"
             renderValue={(selected) => {
               if (!selected) {
                 return <span style={{ color: '#9CA3AF' }}>Choose...</span>

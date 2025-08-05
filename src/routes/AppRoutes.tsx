@@ -1,18 +1,20 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Layout from '@components/layout/Layout'
 import OrdersInProgress from '@pages/OrdersInProgress'
 import OrdersReady from '@pages/OrdersReady'
 import SettlementGenerator from '@pages/SettlementGenerator'
+import Layout from '@components/layout/Layout'
 import ComingSoon from '@components/common/ComingSoon'
 import PrivateRoute from '@routes/PrivateRoute'
+import { ROUTES } from '@constants/routes.constants'
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/orders-progress" replace />} />
+      <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.ORDERS_PROGRESS} replace />} />
+
       <Route
-        path="/orders-progress"
+        path={ROUTES.ORDERS_PROGRESS}
         element={
           <PrivateRoute>
             <Layout>
@@ -21,8 +23,9 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/configuration"
+        path={ROUTES.CONFIGURATION}
         element={
           <PrivateRoute>
             <Layout>
@@ -31,8 +34,9 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/orders-ready"
+        path={ROUTES.ORDERS_READY}
         element={
           <PrivateRoute>
             <Layout>
@@ -41,18 +45,20 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/settlement-generator"
+        path={ROUTES.SETTLEMENT_GENERATOR}
         element={
           <PrivateRoute>
             <Layout>
-              <SettlementGenerator/>
+              <SettlementGenerator />
             </Layout>
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/settlement-dashboard"
+        path={ROUTES.SETTLEMENT_DASHBOARD}
         element={
           <PrivateRoute>
             <Layout>
@@ -61,8 +67,9 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/reconciliation"
+        path={ROUTES.RECONCILIATION}
         element={
           <PrivateRoute>
             <Layout>
@@ -71,8 +78,9 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/misc-settlements"
+        path={ROUTES.MISC_SETTLEMENTS}
         element={
           <PrivateRoute>
             <Layout>
@@ -81,8 +89,9 @@ const AppRoutes: React.FC = () => {
           </PrivateRoute>
         }
       />
+
       <Route
-        path="/nil-settlement"
+        path={ROUTES.NIL_SETTLEMENT}
         element={
           <PrivateRoute>
             <Layout>

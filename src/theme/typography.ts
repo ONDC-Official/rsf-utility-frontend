@@ -1,27 +1,4 @@
-import { TypographyVariantsOptions, TypographyStyle } from '@mui/material/styles'
 import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from '@constants/fonts'
-
-interface ITypography extends TypographyVariantsOptions {
-  h3_semibold: TypographyStyle
-  h5_semibold: TypographyStyle
-  h6_semibold: TypographyStyle
-  body1_regular: TypographyStyle
-  body1_medium: TypographyStyle
-  body1_semibold: TypographyStyle
-  body2_regular: TypographyStyle
-  body2_semibold: TypographyStyle
-  body2_medium: TypographyStyle
-  body3_medium: TypographyStyle
-  body3_regular: TypographyStyle
-  body4_bold: TypographyStyle
-  body5_light: TypographyStyle
-  body5_medium: TypographyStyle
-  body5_regular: TypographyStyle
-  body5_semibold: TypographyStyle
-  h7: TypographyStyle
-  body4_semibold: TypographyStyle
-  caption1_semibold: TypographyStyle
-}
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
@@ -54,7 +31,7 @@ const body4 = { fontSize: '20px', lineHeight: '28px' }
 const body5 = { fontSize: '12px', lineHeight: '28px' }
 const caption1 = { fontSize: '18px', lineHeight: '26px' }
 
-export const typography: ITypography = {
+export const typography = {
   h1: {
     fontSize: '52px',
     lineHeight: '64px',

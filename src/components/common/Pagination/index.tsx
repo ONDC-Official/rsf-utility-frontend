@@ -54,6 +54,7 @@ const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPag
               { value: 10, label: '10' },
               { value: 20, label: '20' },
             ]}
+            size="small"
           />
           <PaginationShowText>entries</PaginationShowText>
         </PaginationShowContainer>

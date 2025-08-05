@@ -3,12 +3,12 @@ import { Box, Typography } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const PageContainer = styled(Box)`
+export const Container = styled(Box)`
   background: ${colors.background.main};
   min-height: 100%;
 `
 
-export const PageHeader = styled(Box)`
+export const Header = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

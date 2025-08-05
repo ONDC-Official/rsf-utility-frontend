@@ -159,7 +159,7 @@ const OrdersReady: React.FC = () => {
 
         <HeaderRight>
           <ReceiverLabel>Receiver ID</ReceiverLabel>
-          <Select value={receiverId} onChange={handleReceiverChange} options={receiverOptions} />
+          <Select value={receiverId} onChange={handleReceiverChange} options={receiverOptions} size="small" />
           <Box sx={{ position: 'relative' }} ref={setButtonRef}>
             <PrepareButton
               variant="outlined"

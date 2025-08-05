@@ -3,9 +3,9 @@ import { Button } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const PrepareButton = styled(Button)<{ 
+export const PrepareButton = styled(Button)<{
   $isDisabled?: boolean
-  $isActive?: boolean 
+  $isActive?: boolean
 }>`
   text-transform: none;
   font-family: ${typography.body2_medium.fontFamily};

@@ -1,17 +1,8 @@
 import React from 'react'
-import { List, ListItem, ListItemIcon } from '@mui/material'
-import {
-  Settings,
-  Assignment,
-  CheckCircle,
-  Dashboard,
-  Assessment,
-  AccountBalance,
-  Receipt,
-  Description,
-  ExitToApp,
-} from '@mui/icons-material'
+import { ListItem, ListItemIcon } from '@mui/material'
+import { ExitToApp } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { sidebarMenuItems } from '@components/layout/Sidebar/sidebarMenuItems'
 import {
   StyledDrawer,
   LogoContainer,
@@ -21,17 +12,6 @@ import {
   StyledListItemButton,
   MenuItemText,
 } from '@styles/layout/Sidebar.styled'
-
-const menuItems = [
-  { text: 'Configuration', icon: Settings, path: '/configuration' },
-  { text: 'Orders In Progress', icon: Assignment, path: '/orders-progress' },
-  { text: 'Orders Ready', icon: CheckCircle, path: '/orders-ready' },
-  { text: 'Settlement Generator', icon: Dashboard, path: '/settlement-generator' },
-  { text: 'Settlement Dashboard', icon: Assessment, path: '/settlement-dashboard' },
-  { text: 'Reconciliation', icon: AccountBalance, path: '/reconciliation' },
-  { text: 'Misc Settlements', icon: Receipt, path: '/misc-settlements' },
-  { text: 'Nil Settlement', icon: Description, path: '/nil-settlement' },
-]
 
 const Sidebar: React.FC = () => {
   const location = useLocation()
@@ -52,7 +32,7 @@ const Sidebar: React.FC = () => {
       </LogoContainer>
 
       <MenuList>
-        {menuItems.map((item) => {
+        {sidebarMenuItems.map((item) => {
           const Icon = item.icon
           return (
             <ListItem key={item.text} disablePadding>

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Table as MUITable, TableCell, TableHead, TableRow, TableBody, TableContainer, Checkbox } from '@mui/material'
+import { Table as MUITable, TableRow, TableBody, TableContainer, Checkbox } from '@mui/material'
 import Pagination from '@components/common/Pagination'
 import { StyledTableContainer, StyledTableHead, StyledTableCell } from '@styles/components/Table.styled'
 import { ITableProps } from '@interfaces/table'
 
-function Table<T extends Record<string, unknown>>({
+const Table = <T extends Record<string, unknown>>({
   columns,
   data,
   totalCount,
@@ -13,7 +13,7 @@ function Table<T extends Record<string, unknown>>({
   onPageChange,
   onRowsPerPageChange,
   renderRow,
-}: ITableProps<T>) {
+}: ITableProps<T>) => {
   return (
     <StyledTableContainer elevation={0}>
       <TableContainer>
