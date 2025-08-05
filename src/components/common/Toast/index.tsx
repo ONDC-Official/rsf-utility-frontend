@@ -1,6 +1,5 @@
 import { FC } from 'react'
-import { Close } from '@mui/icons-material'
-import { Package } from 'lucide-react'
+import { Close, Inventory2 } from '@mui/icons-material'
 import { ToastProps } from 'components/common/Toast/types'
 import {
   ToastContainer,
@@ -16,7 +15,7 @@ const Toast: FC<ToastProps> = ({ isVisible, title, message, onClose }) => (
   <ToastContainer $isVisible={isVisible}>
     <ToastContent>
       <ToastIconContainer>
-        <Package size={20} />
+        <Inventory2 fontSize="small" />
       </ToastIconContainer>
       <ToastTextContainer>
         <ToastTitle>{title}</ToastTitle>

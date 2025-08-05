@@ -12,8 +12,6 @@ import {
 
 const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
-    // event is required by MUI but not used in our implementation
-    void event
     onPageChange?.(value)
   }
 
