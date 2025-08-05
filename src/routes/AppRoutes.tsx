@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from '@components/layout/Layout'
 import OrdersInProgress from '@pages/OrdersInProgress'
 import OrdersReady from '@pages/OrdersReady'
+import SettlementGenerator from '@pages/SettlementGenerator'
 import ComingSoon from '@components/common/ComingSoon'
 import PrivateRoute from '@routes/PrivateRoute'
 
@@ -45,7 +46,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Settlement Generator" />
+              <SettlementGenerator/>
             </Layout>
           </PrivateRoute>
         }

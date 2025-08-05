@@ -7,20 +7,33 @@ export const StyledFormControl = styled(FormControl)`
 `
 
 export const NavbarSelect = styled(Select)`
+  background: ${colors.primary.main};
+  border: 1px solid ${colors.button.subHeading};
+  border-radius: 4px;
+
   & .MuiSelect-select {
-    color: ${colors.primary.contrastText};
-    background-color: rgba(255, 255, 255, 0.1);
+    color: ${colors.primary.contrastText} !important;
+    background-color: ${colors.primary.main} !important;
+    padding: 8px 12px;
+  }
+
+  & .MuiOutlinedInput-root {
+    background-color: ${colors.primary.main} !important;
+  }
+
+  & .MuiSelect-icon {
+    color: ${colors.primary.contrastText} !important;
   }
 
   & .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.3);
+    border: none;
   }
 
   &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.5);
+    border: none;
   }
 
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.7);
+    border: none;
   }
 `

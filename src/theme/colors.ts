@@ -100,6 +100,18 @@ const colors: IColors = {
     dark: '#F0FDF4',
     contrastText: '#848A9C',
   },
+  alert: {
+    main: '#DC3545',
+    light: '#FCEBEC',
+    dark: '#C82333',
+    contrastText: '#FFFFFF',
+  },
+  neutral: {
+    main: '#DFE0E5',
+    light: '#F8F9FA',
+    dark: '#6C757D',
+    contrastText: '#495057',
+  },
 }
 
 export default colors

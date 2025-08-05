@@ -31,4 +31,6 @@ export interface IColors {
   button: IColorVariant;
   playgroundBorder: IColorVariant;
   playgroundBackground: IColorVariant;
+  alert: IColorVariant;
+  neutral: IColorVariant;
 }

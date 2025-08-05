@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StyledAppBar,
   StyledToolbar,
@@ -9,14 +9,19 @@ import {
   UserAvatar,
 } from '@styles/layout/Navbar.styled'
 import { NavbarSelect } from '@styles/components/Select.styled'
-import { MenuItem } from '@mui/material'
+import { MenuItem, SelectChangeEvent } from '@mui/material'
 
 const Navbar: React.FC = () => {
+  const [selectedConfig, setSelectedConfig] = useState('')
+
   const configurationOptions = [
-    { value: 'config1', label: 'Choose...' },
     { value: 'config2', label: 'Configuration 1' },
     { value: 'config3', label: 'Configuration 2' },
   ]
+
+  const handleConfigChange = (event: SelectChangeEvent<unknown>) => {
+    setSelectedConfig(event.target.value as string)
+  }
 
   return (
     <StyledAppBar position="fixed">
@@ -28,7 +33,19 @@ const Navbar: React.FC = () => {
         <RightSection>
           <ConfigurationLabel>Settlement Configuration</ConfigurationLabel>
 
-          <NavbarSelect value="config1" size="small">
+          <NavbarSelect 
+            value={selectedConfig} 
+            size="small"
+            displayEmpty
+            onChange={handleConfigChange}
+            renderValue={(selected) => {
+              if (!selected) {
+                return <span style={{ color: '#FFFFFF' }}>Choose...</span>
+              }
+              const option = configurationOptions.find(opt => opt.value === selected)
+              return option?.label as React.ReactNode
+            }}
+          >
             {configurationOptions.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}

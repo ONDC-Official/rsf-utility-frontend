@@ -10,13 +10,25 @@ interface SelectOption {
 interface CustomSelectProps extends Omit<SelectProps, 'children'> {
   label?: string
   options: SelectOption[]
+  displayEmpty?: boolean
+  renderValue?: (value: unknown) => React.ReactNode
 }
 
-const Select: React.FC<CustomSelectProps> = ({ label, options, ...props }) => {
+const Select: React.FC<CustomSelectProps> = ({ 
+  label, 
+  options, 
+  displayEmpty, 
+  renderValue, 
+  ...props 
+}) => {
   return (
     <StyledFormControl size="small">
       {label && <InputLabel>{label}</InputLabel>}
-      <MUISelect {...props}>
+      <MUISelect 
+        displayEmpty={displayEmpty}
+        renderValue={renderValue}
+        {...props}
+      >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
