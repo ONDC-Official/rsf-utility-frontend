@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
-import { columns, receiverOptions } from '@pages/OrdersReady/data'
+import { columns, receiverOptions } from 'pages/OrdersReady/data'
 import { generateOrdersReadyData } from 'data/ordersReadyData'
 import { IToastState, PrepareButtonState } from 'interfaces/ordersReady'
 import { ROUTES } from 'constants/routes.constants'
