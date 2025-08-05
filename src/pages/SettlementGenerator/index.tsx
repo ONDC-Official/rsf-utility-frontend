@@ -6,7 +6,7 @@ import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
 import { ISettlementSummary } from 'interfaces/settlementGenerator'
 import { generateSettlementOrdersData, generatePayloadData } from 'data/settlementGeneratorData'
-import { PageContainer } from 'styles/pages/SettlementGenerator.styled'
+import { Container } from 'styles/pages/SettlementGenerator.styled'
 
 const SettlementGenerator: FC = () => {
   const [page, setPage] = useState(1)
@@ -44,7 +44,7 @@ const SettlementGenerator: FC = () => {
   const payloadData = generatePayloadData(Array.from(selectedOrders), summary.totalAmount)
 
   return (
-    <PageContainer>
+    <Container>
       <HeaderSection />
       <ModeSelection
         isManualMode={isManualMode}
@@ -71,7 +71,7 @@ const SettlementGenerator: FC = () => {
         />
       )}
       {showPayloadPreview && <PayloadPreview data={payloadData} />}
-    </PageContainer>
+    </Container>
   )
 }
 

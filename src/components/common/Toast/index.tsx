@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Close, Inventory2 } from '@mui/icons-material'
 import { ToastProps } from 'components/common/Toast/types'
 import {
-  ToastContainer,
+  Container,
   ToastContent,
   ToastIconContainer,
   ToastTextContainer,
@@ -12,7 +12,7 @@ import {
 } from 'styles/components/Toast.styled'
 
 const Toast: FC<ToastProps> = ({ isVisible, title, message, onClose }) => (
-  <ToastContainer $isVisible={isVisible}>
+  <Container $isVisible={isVisible}>
     <ToastContent>
       <ToastIconContainer>
         <Inventory2 fontSize="small" />
@@ -25,7 +25,7 @@ const Toast: FC<ToastProps> = ({ isVisible, title, message, onClose }) => (
         <Close fontSize="small" />
       </ToastCloseButton>
     </ToastContent>
-  </ToastContainer>
+  </Container>
 )
 
 export default Toast

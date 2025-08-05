@@ -16,7 +16,7 @@ export const PaginationInfo = styled(Typography)({
   flex: 1,
 })
 
-export const PaginationControls = styled(Box)({
+export const Wrapper = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

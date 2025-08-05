@@ -1,24 +1,17 @@
 import { FC } from 'react'
 import { Box } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
+import { OrdersReadyHeaderProps } from 'pages/OrdersReady/types'
+import { RECEIVER_OPTIONS } from 'pages/OrdersReady/data'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
 import {
   ReceiverLabel,
-  PageHeader,
+  PageHeader as Container,
   HeaderLeft,
   HeaderRight,
   PageTitle,
   PageSubtitle,
 } from 'styles/pages/OrdersReady.styled'
-
-interface OrdersReadyHeaderProps {
-  receiverId: string
-  selectedCount: number
-  prepareButtonState: 'disabled' | 'prepare' | 'generate'
-  handleReceiverChange: (e: SelectChangeEvent<unknown>) => void
-  handlePrepareClick: () => void
-}
 
 const OrdersReadyHeader: FC<OrdersReadyHeaderProps> = ({
   receiverId,
@@ -34,23 +27,14 @@ const OrdersReadyHeader: FC<OrdersReadyHeaderProps> = ({
   }
 
   return (
-    <PageHeader>
+    <Container>
       <HeaderLeft>
         <PageTitle>Orders Ready</PageTitle>
         <PageSubtitle>Select orders to prepare for settlement</PageSubtitle>
       </HeaderLeft>
       <HeaderRight>
         <ReceiverLabel>Receiver ID</ReceiverLabel>
-        <Select
-          value={receiverId}
-          onChange={handleReceiverChange}
-          options={[
-            { value: 'BPP_001', label: 'BPP_001' },
-            { value: 'BPP_002', label: 'BPP_002' },
-            { value: 'BPP_003', label: 'BPP_003' },
-          ]}
-          size="small"
-        />
+        <Select value={receiverId} onChange={handleReceiverChange} options={RECEIVER_OPTIONS} size="small" />
         <Box>
           <PrepareButton
             variant="outlined"
@@ -63,7 +47,7 @@ const OrdersReadyHeader: FC<OrdersReadyHeaderProps> = ({
           </PrepareButton>
         </Box>
       </HeaderRight>
-    </PageHeader>
+    </Container>
   )
 }
 

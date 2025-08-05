@@ -1,16 +1,10 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
+import { columns, receiverOptions } from '@pages/OrdersReady/data'
 import { generateOrdersReadyData } from 'data/ordersReadyData'
-import { IOrderReady, IToastState, PrepareButtonState } from 'interfaces/ordersReady'
-import { ITableColumn } from 'interfaces/table'
+import { IToastState, PrepareButtonState } from 'interfaces/ordersReady'
 import { ROUTES } from 'constants/routes.constants'
-
-const receiverOptions = [
-  { value: 'BPP_001', label: 'BPP_001' },
-  { value: 'BPP_002', label: 'BPP_002' },
-  { value: 'BPP_003', label: 'BPP_003' },
-]
 
 const useOrdersReady = () => {
   const navigate = useNavigate()
@@ -26,16 +20,6 @@ const useOrdersReady = () => {
   const totalCount = allOrders.length
   const startIndex = (page - 1) * rowsPerPage
   const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
-
-  const columns: ITableColumn<IOrderReady>[] = [
-    { id: 'orderId', label: 'Order ID' },
-    { id: 'collectorId', label: 'Collector ID' },
-    { id: 'receiverId', label: 'Receiver ID' },
-    { id: 'totalOrderValue', label: 'Total Order Value' },
-    { id: 'commission', label: 'Commission' },
-    { id: 'sellerType', label: 'Seller Type' },
-    { id: 'dueDate', label: 'Due Date' },
-  ]
 
   useEffect(() => {
     const selectedCount = selectedOrders.size

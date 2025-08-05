@@ -53,7 +53,7 @@ const Table = <T extends Record<string, unknown>>({
                   <Checkbox />
                 </StyledTableCell>
               )}
-              {columns.map((column, index) => (
+              {(columns || []).map((column, index) => (
                 <StyledTableCell key={column.id} sx={{ typography: 'body5_semibold', color: 'text.tertiary' }}>
                   {index === 0 ? ( // Assuming first column is Order ID
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -88,7 +88,7 @@ const Table = <T extends Record<string, unknown>>({
             </TableRow>
           </StyledTableHead>
           <TableBody>
-            {data.map((row, index) => (
+            {(data || []).map((row, index) => (
               <StyledTableRow key={index} isLast={index === data.length - 1}>
                 {renderRow(row, index)}
               </StyledTableRow>

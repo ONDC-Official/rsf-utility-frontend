@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 
 export interface PrivateRouteProps {
-  children: ReactNode
+  children: ReactElement
   isAuthenticated?: boolean
 }

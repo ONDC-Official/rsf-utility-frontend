@@ -3,6 +3,7 @@ import { SelectChangeEvent } from '@mui/material'
 import Switch from 'components/common/Switch'
 import Select from 'components/common/Select'
 import { counterpartyOptions } from 'pages/SettlementGenerator/data'
+import { ModeSelectionProps } from '@pages/SettlementGenerator/types'
 import {
   SettlementModeContainer,
   ModeContent,
@@ -13,14 +14,7 @@ import {
   CounterpartyLabel,
 } from 'styles/pages/SettlementGenerator.styled'
 
-interface Props {
-  isManualMode: boolean
-  onToggleMode: (checked: boolean) => void
-  counterpartyId: string
-  setCounterpartyId: (value: string) => void
-}
-
-const ModeSelection: FC<Props> = ({ isManualMode, onToggleMode, counterpartyId, setCounterpartyId }) => (
+const ModeSelection: FC<ModeSelectionProps> = ({ isManualMode, onToggleMode, counterpartyId, setCounterpartyId }) => (
   <SettlementModeContainer>
     <ModeContent>
       <ModeTitle>Settlement Mode</ModeTitle>

@@ -5,7 +5,7 @@ import { PaginationProps } from 'components/common/Pagination/types'
 import {
   Container,
   PaginationInfo,
-  PaginationControls,
+  Wrapper,
   PaginationShowContainer,
   PaginationShowText,
 } from 'styles/components/Pagination.styled'
@@ -24,7 +24,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
 
   return (
     <Container>
-      <PaginationControls>
+      <Wrapper>
         <PaginationInfo variant="body5_regular">
           Showing {startEntry} to {endEntry} of {count} entries
         </PaginationInfo>
@@ -51,7 +51,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
           />
           <PaginationShowText variant="body5_regular">entries</PaginationShowText>
         </PaginationShowContainer>
-      </PaginationControls>
+      </Wrapper>
     </Container>
   )
 }

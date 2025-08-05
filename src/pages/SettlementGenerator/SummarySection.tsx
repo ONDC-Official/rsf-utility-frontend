@@ -2,9 +2,9 @@ import { FC } from 'react'
 import { Event, Visibility } from '@mui/icons-material'
 import SummaryCard from 'components/common/SummaryCard'
 import InputField from 'components/common/InputField'
-import { ISettlementSummary } from 'interfaces/settlementGenerator'
+import { Props } from 'pages/SettlementGenerator/types'
 import {
-  SummaryContainer,
+  SummaryContainer as Container,
   SummaryHeader,
   SummaryCards,
   Divider,
@@ -13,15 +13,8 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
-interface Props {
-  summary: ISettlementSummary
-  customDueDate: string
-  setCustomDueDate: (val: string) => void
-  onGeneratePreview: () => void
-}
-
 const SummarySection: FC<Props> = ({ summary, customDueDate, setCustomDueDate, onGeneratePreview }) => (
-  <SummaryContainer>
+  <Container>
     <SummaryHeader>Settlement Summary</SummaryHeader>
 
     <SummaryCards>
@@ -55,7 +48,7 @@ const SummarySection: FC<Props> = ({ summary, customDueDate, setCustomDueDate, o
         Schedule Settlement
       </OutlinedFilterButton>
     </ButtonSection>
-  </SummaryContainer>
+  </Container>
 )
 
 export default SummarySection

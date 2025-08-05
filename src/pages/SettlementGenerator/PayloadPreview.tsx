@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Visibility, Download } from '@mui/icons-material'
 import {
-  PayloadPreviewContainer,
+  PayloadPreviewContainer as Container,
   PayloadHeader,
   PayloadActions,
   JsonPreview,
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PayloadPreview: FC<Props> = ({ data }) => (
-  <PayloadPreviewContainer>
+  <Container>
     <PayloadHeader>
       <SectionTitle>Settlement Payload Preview</SectionTitle>
       <PayloadActions>
@@ -28,7 +28,7 @@ const PayloadPreview: FC<Props> = ({ data }) => (
     </PayloadHeader>
 
     <JsonPreview>{JSON.stringify(data, null, 2)}</JsonPreview>
-  </PayloadPreviewContainer>
+  </Container>
 )
 
 export default PayloadPreview

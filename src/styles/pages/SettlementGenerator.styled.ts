@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const PageContainer = styled(Box)({
+export const Container = styled(Box)({
   background: colors.background.main,
   minHeight: '100%',
 })

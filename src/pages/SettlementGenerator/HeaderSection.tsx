@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Warning } from '@mui/icons-material'
 import {
-  PageHeader,
+  PageHeader as Container,
   HeaderLeft,
   HeaderRight,
   PageTitle,
@@ -10,7 +10,7 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 
 const HeaderSection: FC = () => (
-  <PageHeader>
+  <Container>
     <HeaderLeft>
       <PageTitle>Settlement Generator</PageTitle>
       <PageSubtitle>Select orders to prepare for settlement</PageSubtitle>
@@ -21,7 +21,7 @@ const HeaderSection: FC = () => (
         Settlement Window closes at 11:00 PM
       </AlertContainer>
     </HeaderRight>
-  </PageHeader>
+  </Container>
 )
 
 export default HeaderSection

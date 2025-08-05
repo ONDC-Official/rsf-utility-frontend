@@ -5,7 +5,7 @@ import OrdersReadyRow from 'pages/OrdersReady/OrdersReadyRow'
 import OrdersReadyTable from 'pages/OrdersReady/OrdersReadyTable'
 import { IOrderReady } from 'interfaces/ordersReady'
 import useOrdersReady from 'hooks/useOrdersReady'
-import { PageContainer } from 'styles/pages/OrdersReady.styled'
+import { PageContainer as Container } from 'styles/pages/OrdersReady.styled'
 
 const OrdersReady: FC = () => {
   const {
@@ -36,7 +36,7 @@ const OrdersReady: FC = () => {
   )
 
   return (
-    <PageContainer>
+    <Container>
       <Toast isVisible={toast.isVisible} title="Orders Prepared" message={toast.message} onClose={handleToastClose} />
 
       <OrdersReadyHeader
@@ -57,7 +57,7 @@ const OrdersReady: FC = () => {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
       />
-    </PageContainer>
+    </Container>
   )
 }
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { SummaryCardProps } from 'components/common/SummaryCard/types'
-import { SummaryCardContainer, SummaryCardLabel, SummaryCardValue } from 'styles/components/SummaryCard.styled'
+import { Container, SummaryCardLabel, SummaryCardValue } from 'styles/components/SummaryCard.styled'
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ label, value, bgColor }) => (
-  <SummaryCardContainer $bgColor={bgColor}>
+  <Container $bgColor={bgColor}>
     <SummaryCardLabel>{label}</SummaryCardLabel>
     <SummaryCardValue>{value}</SummaryCardValue>
-  </SummaryCardContainer>
+  </Container>
 )
 
 export default SummaryCard
