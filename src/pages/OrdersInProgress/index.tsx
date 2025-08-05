@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { TableCell } from '@mui/material'
 import { CalendarToday, GetApp } from '@mui/icons-material'
-import Table from '@components/common/Table'
-import Select from '@components/common/Select'
-import { IOrder } from '@interfaces/order'
-import { generateOrdersData } from '@data/ordersData'
-import { receiverOptions, columns } from '@pages/OrdersInProgress/data'
-import { StatusChip } from '@styles/components/Chip.styled'
-import { OutlinedFilterButton, ContainedExportButton } from '@styles/components/Button.styled'
+import Table from 'components/common/Table'
+import Select from 'components/common/Select'
+import { IOrder } from 'interfaces/order'
+import { generateOrdersData } from 'data/ordersData'
+import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
+import { StatusChip } from 'styles/components/Chip.styled'
+import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
   Container,
   Header,
@@ -20,7 +20,7 @@ import {
   TableHeader,
   TableActions,
   TableTitle,
-} from '@styles/pages/OrdersInProgress.styled'
+} from 'styles/pages/OrdersInProgress.styled'
 
 const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)

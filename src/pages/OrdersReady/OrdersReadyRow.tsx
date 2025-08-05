@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableRow, TableCell, Checkbox } from '@mui/material'
-import { IOrderReady } from '@interfaces/ordersReady'
+import { IOrderReady } from 'interfaces/ordersReady'
 
 interface OrdersReadyRowProps {
   order: IOrderReady

@@ -7,7 +7,7 @@ import {
   PageTitle,
   PageSubtitle,
   AlertContainer,
-} from '@styles/pages/SettlementGenerator.styled'
+} from 'styles/pages/SettlementGenerator.styled'
 
 const HeaderSection: FC = () => (
   <PageHeader>

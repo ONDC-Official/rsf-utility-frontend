@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { Drawer, Box, Typography, List, ListItemButton, ListItemText } from '@mui/material'
-import colors from '@theme/colors'
-import { typography } from '@theme/typography'
+import colors from 'theme/colors'
+import { typography } from 'theme/typography'
 
 export const StyledDrawer = styled(Drawer)({
   '& .MuiDrawer-paper': {

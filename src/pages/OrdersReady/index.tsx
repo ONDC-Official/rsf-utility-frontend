@@ -1,11 +1,11 @@
 import { FC } from 'react'
-import Toast from '@components/common/Toast'
-import OrdersReadyHeader from '@pages/OrdersReady/OrdersReadyHeader'
-import OrdersReadyRow from '@pages/OrdersReady/OrdersReadyRow'
-import OrdersReadyTable from '@pages/OrdersReady/OrdersReadyTable'
-import { IOrderReady } from '@interfaces/ordersReady'
-import useOrdersReady from '@hooks/useOrdersReady'
-import { PageContainer } from '@styles/pages/OrdersReady.styled'
+import Toast from 'components/common/Toast'
+import OrdersReadyHeader from 'pages/OrdersReady/OrdersReadyHeader'
+import OrdersReadyRow from 'pages/OrdersReady/OrdersReadyRow'
+import OrdersReadyTable from 'pages/OrdersReady/OrdersReadyTable'
+import { IOrderReady } from 'interfaces/ordersReady'
+import useOrdersReady from 'hooks/useOrdersReady'
+import { PageContainer } from 'styles/pages/OrdersReady.styled'
 
 const OrdersReady: FC = () => {
   const {

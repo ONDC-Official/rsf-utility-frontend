@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { ListItem, ListItemIcon } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { sidebarMenuItems } from '@components/layout/Sidebar/sidebarMenuItems'
+import { sidebarMenuItems } from 'components/layout/Sidebar/sidebarMenuItems'
 import {
   StyledDrawer,
   LogoContainer,
@@ -11,7 +11,7 @@ import {
   LogoutContainer,
   StyledListItemButton,
   MenuItemText,
-} from '@styles/layout/Sidebar.styled'
+} from 'styles/layout/Sidebar.styled'
 
 const Sidebar: FC = () => {
   const location = useLocation()

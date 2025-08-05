@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { InputAdornment, Box } from '@mui/material'
-import { CustomInputFieldProps } from '@components/common/InputField/types'
-import { StyledTextField } from '@styles/components/InputField.styled'
-import { CustomDateLabel } from '@styles/pages/SettlementGenerator.styled'
+import { CustomInputFieldProps } from 'components/common/InputField/types'
+import { StyledTextField } from 'styles/components/InputField.styled'
+import { CustomDateLabel } from 'styles/pages/SettlementGenerator.styled'
 
 const InputField: FC<CustomInputFieldProps> = ({ trailingIcon, customLabel, label, ...props }) => (
   <Box>

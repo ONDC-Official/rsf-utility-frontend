@@ -1,10 +1,10 @@
 import { FC, ReactNode } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
-import Table from '@components/common/Table'
-import { IOrderReady } from '@interfaces/ordersReady'
-import { ITableColumn } from '@interfaces/table'
-import { TableContainer, TableHeader, TableActions, TableTitle } from '@styles/pages/OrdersReady.styled'
-import { OutlinedFilterButton, ContainedExportButton } from '@styles/components/Button.styled'
+import Table from 'components/common/Table'
+import { IOrderReady } from 'interfaces/ordersReady'
+import { ITableColumn } from 'interfaces/table'
+import { TableContainer, TableHeader, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
+import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 
 interface Props {
   columns: ITableColumn<IOrderReady>[]

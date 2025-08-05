@@ -1,4 +1,4 @@
-import { ISettlementOrder, ISettlementPayload } from '@interfaces/settlementGenerator'
+import { ISettlementOrder, ISettlementPayload } from 'interfaces/settlementGenerator'
 
 export const settlementOrdersData: ISettlementOrder[] = [
   {

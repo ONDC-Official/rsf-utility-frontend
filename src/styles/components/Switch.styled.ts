@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
-import colors from '@theme/colors'
+import colors from 'theme/colors'
 
 export const IOSSwitch = styled(Switch)(({ theme }) => ({
   width: 42,

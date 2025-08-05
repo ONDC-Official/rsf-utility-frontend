@@ -1,6 +1,6 @@
 import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles'
-import colors from '@theme/colors'
-import typography from '@theme/typography'
+import colors from 'theme/colors'
+import typography from 'theme/typography'
 
 const theme: ThemeOptions = createTheme({
   palette: {

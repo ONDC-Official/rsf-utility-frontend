@@ -1,4 +1,4 @@
-import { IColors } from '@theme/types/palette'
+import { IColors } from 'theme/types/palette'
 
 const colors: IColors = {
   error: {

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
-import colors from '@theme/colors'
-import { typography } from '@theme/typography'
+import colors from 'theme/colors'
+import { typography } from 'theme/typography'
 
 export const StyledButton = styled(Button)({
   textTransform: 'none',

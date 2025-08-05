@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import Switch from '@components/common/Switch'
-import Select from '@components/common/Select'
-import { counterpartyOptions } from '@pages/SettlementGenerator/data'
+import Switch from 'components/common/Switch'
+import Select from 'components/common/Select'
+import { counterpartyOptions } from 'pages/SettlementGenerator/data'
 import {
   SettlementModeContainer,
   ModeContent,
@@ -11,7 +11,7 @@ import {
   ModeDescription,
   ModeRight,
   CounterpartyLabel,
-} from '@styles/pages/SettlementGenerator.styled'
+} from 'styles/pages/SettlementGenerator.styled'
 
 interface Props {
   isManualMode: boolean

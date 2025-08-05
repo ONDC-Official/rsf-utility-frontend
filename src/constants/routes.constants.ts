@@ -8,4 +8,5 @@ export const ROUTES = {
   RECONCILIATION: '/reconciliation',
   MISC_SETTLEMENTS: '/misc-settlements',
   NIL_SETTLEMENT: '/nil-settlement',
+  LOGIN: '/login',
 }

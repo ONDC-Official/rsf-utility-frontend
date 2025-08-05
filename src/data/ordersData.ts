@@ -1,4 +1,4 @@
-import { IOrder } from '@interfaces/order'
+import { IOrder } from 'interfaces/order'
 
 export const ordersData: IOrder[] = [
   {

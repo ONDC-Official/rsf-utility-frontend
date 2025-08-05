@@ -1,12 +1,12 @@
 import { FC, useState } from 'react'
-import HeaderSection from '@pages/SettlementGenerator/HeaderSection'
-import ModeSelection from '@pages/SettlementGenerator/ModeSelection'
-import OrderTable from '@pages/SettlementGenerator/OrderTable'
-import SummarySection from '@pages/SettlementGenerator/SummarySection'
-import PayloadPreview from '@pages/SettlementGenerator/PayloadPreview'
-import { ISettlementSummary } from '@interfaces/settlementGenerator'
-import { generateSettlementOrdersData, generatePayloadData } from '@data/settlementGeneratorData'
-import { PageContainer } from '@styles/pages/SettlementGenerator.styled'
+import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
+import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
+import OrderTable from 'pages/SettlementGenerator/OrderTable'
+import SummarySection from 'pages/SettlementGenerator/SummarySection'
+import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
+import { ISettlementSummary } from 'interfaces/settlementGenerator'
+import { generateSettlementOrdersData, generatePayloadData } from 'data/settlementGeneratorData'
+import { PageContainer } from 'styles/pages/SettlementGenerator.styled'
 
 const SettlementGenerator: FC = () => {
   const [page, setPage] = useState(1)

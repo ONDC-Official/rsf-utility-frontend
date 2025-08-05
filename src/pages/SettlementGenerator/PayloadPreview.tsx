@@ -6,8 +6,8 @@ import {
   PayloadActions,
   JsonPreview,
   SectionTitle,
-} from '@styles/pages/SettlementGenerator.styled'
-import { ContainedExportButton, OutlinedFilterButton } from '@styles/components/Button.styled'
+} from 'styles/pages/SettlementGenerator.styled'
+import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
 interface Props {
   data: Record<string, unknown>

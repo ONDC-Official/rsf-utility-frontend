@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
-import { generateOrdersReadyData } from '@data/ordersReadyData'
-import { IOrderReady, IToastState, PrepareButtonState } from '@interfaces/ordersReady'
-import { ITableColumn } from '@interfaces/table'
-import { ROUTES } from '@constants/routes.constants'
+import { generateOrdersReadyData } from 'data/ordersReadyData'
+import { IOrderReady, IToastState, PrepareButtonState } from 'interfaces/ordersReady'
+import { ITableColumn } from 'interfaces/table'
+import { ROUTES } from 'constants/routes.constants'
 
 const receiverOptions = [
   { value: 'BPP_001', label: 'BPP_001' },

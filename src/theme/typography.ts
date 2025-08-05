@@ -1,4 +1,4 @@
-import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from '@constants/fonts'
+import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from 'constants/fonts'
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {

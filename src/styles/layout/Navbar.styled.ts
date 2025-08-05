@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { AppBar, Toolbar, Box, Typography, Avatar } from '@mui/material'
-import colors from '@theme/colors'
+import colors from 'theme/colors'
 
 export const StyledAppBar = styled(AppBar)({
   background: `${colors.primary.main} !important`,

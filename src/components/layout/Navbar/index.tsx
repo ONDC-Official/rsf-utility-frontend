@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
-import { configurationOptions } from '@components/layout/Navbar/configurationOptions'
+import { configurationOptions } from 'components/layout/Navbar/configurationOptions'
 import {
   StyledAppBar,
   StyledToolbar,
@@ -9,8 +9,8 @@ import {
   NavbarTitle,
   ConfigurationLabel,
   UserAvatar,
-} from '@styles/layout/Navbar.styled'
-import { NavbarSelect } from '@styles/components/Select.styled'
+} from 'styles/layout/Navbar.styled'
+import { NavbarSelect } from 'styles/components/Select.styled'
 
 const Navbar: FC = () => {
   const [selectedConfig, setSelectedConfig] = useState<string>('')

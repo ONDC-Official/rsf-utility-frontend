@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { TableRow, TableCell, Checkbox } from '@mui/material'
-import Table from '@components/common/Table'
-import { ISettlementOrder } from '@interfaces/settlementGenerator'
-import { columns } from '@pages/SettlementGenerator/data'
+import Table from 'components/common/Table'
+import { ISettlementOrder } from 'interfaces/settlementGenerator'
+import { columns } from 'pages/SettlementGenerator/data'
 
 interface Props {
   orders: ISettlementOrder[]

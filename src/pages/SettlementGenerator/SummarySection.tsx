@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Event, Visibility } from '@mui/icons-material'
-import SummaryCard from '@components/common/SummaryCard'
-import InputField from '@components/common/InputField'
-import { ISettlementSummary } from '@interfaces/settlementGenerator'
+import SummaryCard from 'components/common/SummaryCard'
+import InputField from 'components/common/InputField'
+import { ISettlementSummary } from 'interfaces/settlementGenerator'
 import {
   SummaryContainer,
   SummaryHeader,
@@ -10,8 +10,8 @@ import {
   Divider,
   CustomDateSection,
   ButtonSection,
-} from '@styles/pages/SettlementGenerator.styled'
-import { ContainedExportButton, OutlinedFilterButton } from '@styles/components/Button.styled'
+} from 'styles/pages/SettlementGenerator.styled'
+import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
 interface Props {
   summary: ISettlementSummary

@@ -1,5 +1,5 @@
-import { ITableColumn } from '@interfaces/table'
-import { ISettlementOrder } from '@interfaces/settlementGenerator'
+import { ITableColumn } from 'interfaces/table'
+import { ISettlementOrder } from 'interfaces/settlementGenerator'
 
 export const counterpartyOptions = [
   { value: 'COUNTER_001', label: 'Counterparty 001' },

@@ -10,9 +10,9 @@ import {
   IconButton,
 } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
-import Pagination from '@components/common/Pagination'
-import { StyledTableContainer, StyledTableHead, StyledTableCell, StyledTableRow } from '@styles/components/Table.styled'
-import { ITableProps } from '@interfaces/table'
+import Pagination from 'components/common/Pagination'
+import { StyledTableContainer, StyledTableHead, StyledTableCell, StyledTableRow } from 'styles/components/Table.styled'
+import { ITableProps } from 'interfaces/table'
 
 const Table = <T extends Record<string, unknown>>({
   columns,

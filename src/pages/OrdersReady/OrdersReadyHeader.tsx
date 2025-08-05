@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Box } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material'
-import Select from '@components/common/Select'
-import { PrepareButton } from '@styles/components/PrepareButton.styled'
+import Select from 'components/common/Select'
+import { PrepareButton } from 'styles/components/PrepareButton.styled'
 import {
   ReceiverLabel,
   PageHeader,
@@ -10,7 +10,7 @@ import {
   HeaderRight,
   PageTitle,
   PageSubtitle,
-} from '@styles/pages/OrdersReady.styled'
+} from 'styles/pages/OrdersReady.styled'
 
 interface OrdersReadyHeaderProps {
   receiverId: string

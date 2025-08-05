@@ -1,5 +1,5 @@
-import { ITableColumn } from '@interfaces/table'
-import { IOrder } from '@interfaces/order'
+import { ITableColumn } from 'interfaces/table'
+import { IOrder } from 'interfaces/order'
 
 export const receiverOptions = [
   { value: 'BPP_001', label: 'BPP_001' },

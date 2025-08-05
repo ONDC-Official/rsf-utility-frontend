@@ -1,14 +1,14 @@
 import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
-import Select from '@components/common/Select'
-import { PaginationProps } from '@components/common/Pagination/types'
+import Select from 'components/common/Select'
+import { PaginationProps } from 'components/common/Pagination/types'
 import {
   Container,
   PaginationInfo,
   PaginationControls,
   PaginationShowContainer,
   PaginationShowText,
-} from '@styles/components/Pagination.styled'
+} from 'styles/components/Pagination.styled'
 
 const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {

@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { InputLabel, Select as MUISelect, MenuItem } from '@mui/material'
-import { CustomSelectProps } from '@components/common/Select/types'
-import { StyledFormControl } from '@styles/components/Select.styled'
+import { CustomSelectProps } from 'components/common/Select/types'
+import { StyledFormControl } from 'styles/components/Select.styled'
 
 const Select: FC<CustomSelectProps> = ({ label, options, displayEmpty, renderValue, formControlProps, ...props }) => (
   <StyledFormControl size={props.size} {...formControlProps}>
