@@ -3,8 +3,8 @@ import { Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const Container = styled(Box)<{ $bgColor: string }>(({ $bgColor }) => ({
-  background: `linear-gradient(135deg, ${$bgColor} 0%, rgba(255, 255, 255, 0.1) 100%)`,
+export const Container = styled(Box)<{ bgColor: string }>(({ bgColor }) => ({
+  background: `linear-gradient(135deg, ${bgColor} 0%, rgba(255, 255, 255, 0.1) 100%)`,
   borderRadius: 8,
   padding: 20,
   position: 'relative',

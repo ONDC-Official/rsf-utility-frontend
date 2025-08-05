@@ -54,7 +54,10 @@ export const ordersReadyData: IOrderReady[] = [
 ]
 
 export const generateOrdersReadyData = (count: number): IOrderReady[] => {
-  const baseData = [...ordersReadyData]
+  const baseData = Array.isArray(ordersReadyData) ? [...ordersReadyData] : []
+
+  if (baseData.length === 0 || count <= 0) return []
+
   const generatedData: IOrderReady[] = []
 
   for (let i = 0; i < count; i++) {

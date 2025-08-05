@@ -15,8 +15,8 @@ import { StyledTableContainer, StyledTableHead, StyledTableCell, StyledTableRow 
 import { ITableProps } from 'interfaces/table'
 
 const Table = <T extends Record<string, unknown>>({
-  columns,
-  data,
+  columns = [],
+  data = [],
   totalCount,
   page,
   rowsPerPage,

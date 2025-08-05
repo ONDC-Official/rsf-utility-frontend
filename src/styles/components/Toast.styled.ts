@@ -3,14 +3,14 @@ import { Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const Container = styled(Box)<{ $isVisible: boolean }>(({ $isVisible }) => ({
+export const Container = styled(Box)<{ isVisible: boolean }>(({ isVisible }) => ({
   position: 'absolute',
   top: 50,
   right: 0,
   zIndex: 9999,
   transition: 'all 0.3s ease-in-out',
-  opacity: $isVisible ? 1 : 0,
-  visibility: $isVisible ? 'visible' : 'hidden',
+  opacity: isVisible ? 1 : 0,
+  visibility: isVisible ? 'visible' : 'hidden',
 }))
 
 export const ToastContent = styled(Box)({

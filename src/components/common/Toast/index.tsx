@@ -12,7 +12,7 @@ import {
 } from 'styles/components/Toast.styled'
 
 const Toast: FC<IToastProps> = ({ isVisible, title, message, onClose }) => (
-  <Container $isVisible={isVisible}>
+  <Container isVisible={isVisible}>
     <ToastContent>
       <ToastIconContainer>
         <Inventory2 fontSize="small" />

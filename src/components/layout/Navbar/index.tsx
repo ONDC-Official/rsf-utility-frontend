@@ -43,15 +43,15 @@ const Navbar: FC = () => {
                 )
               }
 
-              const option = configurationOptions.find((opt) => opt.value === selected)
-              return <Typography variant="body5_light">{option?.label}</Typography>
+              const option = configurationOptions?.find((opt) => opt.value === selected)
+              return <Typography variant="body5_light">{option?.label || selected}</Typography>
             }}
           >
-            {configurationOptions.map((option) => (
+            {configurationOptions?.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
-            ))}
+            )) ?? <MenuItem disabled>No options available</MenuItem>}
           </NavbarSelect>
 
           <UserAvatar>JD</UserAvatar>

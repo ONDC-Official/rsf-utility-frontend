@@ -8,7 +8,6 @@ export interface ISelectOption {
 export interface ICustomSelectProps extends Omit<SelectProps, 'children'> {
   label?: string
   options: ISelectOption[]
-  displayEmpty?: boolean
   renderValue?: (value: unknown) => React.ReactNode
   formControlProps?: FormControlProps
 }
