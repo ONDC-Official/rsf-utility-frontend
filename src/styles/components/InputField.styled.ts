@@ -1,30 +1,30 @@
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { TextField } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const StyledTextField = styled(TextField)`
-  & .MuiOutlinedInput-root {
-    font-family: ${typography.body2_regular.fontFamily};
-    font-size: ${typography.body2_regular.fontSize};
-    background-color: ${colors.background.light};
-    border-radius: 4px;
+export const StyledTextField = styled(TextField)({
+  '& .MuiOutlinedInput-root': {
+    fontFamily: typography.body2_regular.fontFamily,
+    fontSize: typography.body2_regular.fontSize,
+    backgroundColor: colors.background.light,
+    borderRadius: 4,
 
-    & fieldset {
-      border-color: ${colors.border.main};
-    }
+    '& fieldset': {
+      borderColor: colors.border.main,
+    },
 
-    &:hover fieldset {
-      border-color: ${colors.border.primary};
-    }
+    '&:hover fieldset': {
+      borderColor: colors.border.primary,
+    },
 
-    &.Mui-focused fieldset {
-      border-color: ${colors.primary.main};
-    }
-  }
+    '&.Mui-focused fieldset': {
+      borderColor: colors.primary.main,
+    },
+  },
 
-  & .MuiInputLabel-root {
-    font-family: ${typography.body2_medium.fontFamily};
-    color: ${colors.text.secondary};
-  }
-`
+  '& .MuiInputLabel-root': {
+    fontFamily: typography.body2_medium.fontFamily,
+    color: colors.text.secondary,
+  },
+})

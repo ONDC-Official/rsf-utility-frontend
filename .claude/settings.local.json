@@ -14,7 +14,9 @@
       "Bash(timeout 20 npm start)",
       "Bash(rm:*)",
       "Bash(timeout 30 npm start)",
-      "Bash(timeout 60 npm run build)"
+      "Bash(timeout 60 npm run build)",
+      "Bash(cp:*)",
+      "Bash(npm run lint:*)"
     ],
     "deny": []
   }

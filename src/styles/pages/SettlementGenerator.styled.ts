@@ -1,217 +1,217 @@
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { Box, Typography } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const PageContainer = styled(Box)`
-  background: ${colors.background.main};
-  min-height: 100%;
-`
+export const PageContainer = styled(Box)({
+  background: colors.background.main,
+  minHeight: '100%',
+})
 
-export const PageHeader = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-`
+export const PageHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginBottom: 24,
+})
 
-export const HeaderLeft = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
+export const HeaderLeft = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+})
 
-export const HeaderRight = styled(Box)`
-  display: flex;
-  align-items: center;
-`
+export const HeaderRight = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+})
 
-export const PageTitle = styled(Typography)`
-  font-family: ${typography.h3_semibold.fontFamily};
-  font-weight: ${typography.h3_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h3_semibold.fontSize};
-  line-height: ${typography.h3_semibold.lineHeight};
-`
+export const PageTitle = styled(Typography)({
+  fontFamily: typography.h3_semibold.fontFamily,
+  fontWeight: typography.h3_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h3_semibold.fontSize,
+  lineHeight: typography.h3_semibold.lineHeight,
+})
 
-export const PageSubtitle = styled(Typography)`
-  color: ${colors.text.secondary};
-  font-family: ${typography.body1_regular.fontFamily};
-  font-size: ${typography.body1_regular.fontSize};
-`
+export const PageSubtitle = styled(Typography)({
+  color: colors.text.secondary,
+  fontFamily: typography.body1_regular.fontFamily,
+  fontSize: typography.body1_regular.fontSize,
+})
 
-export const AlertContainer = styled(Box)`
-  background: ${colors.alert?.light || '#FCEBEC'};
-  border: 1px solid ${colors.alert?.main || '#DC3545'};
-  color: ${colors.alert?.main || '#DC3545'};
-  border-radius: 8px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: ${typography.body2_medium.fontFamily};
-  font-size: ${typography.body2_medium.fontSize};
-`
+export const AlertContainer = styled(Box)({
+  background: colors.alert?.light || '#FCEBEC',
+  border: `1px solid ${colors.alert?.main || '#DC3545'}`,
+  color: colors.alert?.main || '#DC3545',
+  borderRadius: 8,
+  padding: '12px 16px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
+  fontFamily: typography.body2_medium.fontFamily,
+  fontSize: typography.body2_medium.fontSize,
+})
 
-export const SettlementModeContainer = styled(Box)`
-  background: ${colors.background.light};
-  border: 1px solid ${colors.neutral?.main || '#DFE0E5'};
-  border-radius: 8px;
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
+export const SettlementModeContainer = styled(Box)({
+  background: colors.background.light,
+  border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
+  borderRadius: 8,
+  padding: '20px 24px',
+  marginBottom: 24,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+})
 
-export const ModeLeft = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`
+export const ModeLeft = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
 
-export const ModeRight = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`
+export const ModeRight = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
 
-export const ModeContent = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
+export const ModeContent = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+})
 
-export const ModeRow = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`
+export const ModeRow = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+})
 
-export const CustomDateLabel = styled(Typography)`
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.body2_medium.fontSize};
-  margin-bottom: 8px;
-`
+export const CustomDateLabel = styled(Typography)({
+  fontFamily: typography.body2_medium.fontFamily,
+  fontWeight: typography.body2_medium.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.body2_medium.fontSize,
+  marginBottom: 8,
+})
 
-export const ModeTitle = styled(Typography)`
-  font-family: ${typography.h6_semibold.fontFamily};
-  font-weight: ${typography.h6_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h6_semibold.fontSize};
-`
+export const ModeTitle = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+})
 
-export const ModeDescription = styled(Typography)`
-  font-family: ${typography.body2_regular.fontFamily};
-  color: ${colors.text.secondary};
-  font-size: ${typography.body2_regular.fontSize};
-`
+export const ModeDescription = styled(Typography)({
+  fontFamily: typography.body2_regular.fontFamily,
+  color: colors.text.secondary,
+  fontSize: typography.body2_regular.fontSize,
+})
 
-export const CounterpartyLabel = styled(Typography)`
-  color: ${colors.text.primary};
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-`
+export const CounterpartyLabel = styled(Typography)({
+  color: colors.text.primary,
+  fontFamily: typography.body2_medium.fontFamily,
+  fontWeight: typography.body2_medium.fontWeight,
+  fontSize: typography.body2_medium.fontSize,
+})
 
-export const OrderSelectionContainer = styled(Box)`
-  background: ${colors.background.light};
-  box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 24px;
-`
+export const OrderSelectionContainer = styled(Box)({
+  background: colors.background.light,
+  boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
+  borderRadius: 8,
+  overflow: 'hidden',
+  marginBottom: 24,
+})
 
-export const OrderSelectionHeader = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid ${colors.border.main};
-`
+export const OrderSelectionHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '20px 24px',
+  borderBottom: `1px solid ${colors.border.main}`,
+})
 
-export const SectionTitle = styled(Typography)`
-  font-family: ${typography.h6_semibold.fontFamily};
-  font-weight: ${typography.h6_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h6_semibold.fontSize};
-`
+export const SectionTitle = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+})
 
-export const ActionButtons = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`
+export const ActionButtons = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
 
-export const SummaryContainer = styled(Box)`
-  background: ${colors.background.light};
-  box-shadow: 6px 6px 54px 0px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  padding: 24px;
-  margin-bottom: 24px;
-`
+export const SummaryContainer = styled(Box)({
+  background: colors.background.light,
+  boxShadow: '6px 6px 54px 0px rgba(0, 0, 0, 0.05)',
+  borderRadius: 8,
+  padding: 24,
+  marginBottom: 24,
+})
 
-export const SummaryHeader = styled(Typography)`
-  font-family: ${typography.h6_semibold.fontFamily};
-  font-weight: ${typography.h6_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h6_semibold.fontSize};
-  margin-bottom: 20px;
-`
+export const SummaryHeader = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+  marginBottom: 20,
+})
 
-export const SummaryCards = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-`
+export const SummaryCards = styled(Box)({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: 16,
+  marginBottom: 24,
+})
 
-export const Divider = styled(Box)`
-  height: 1px;
-  background: ${colors.border.main};
-  margin: 24px 0;
-`
+export const Divider = styled(Box)({
+  height: 1,
+  background: colors.border.main,
+  margin: '24px 0',
+})
 
-export const CustomDateSection = styled(Box)`
-  margin-bottom: 24px;
-`
+export const CustomDateSection = styled(Box)({
+  marginBottom: 24,
+})
 
-export const ButtonSection = styled(Box)`
-  display: flex;
-  gap: 16px;
-`
+export const ButtonSection = styled(Box)({
+  display: 'flex',
+  gap: 16,
+})
 
-export const PayloadPreviewContainer = styled(Box)`
-  background: ${colors.background.light};
-  box-shadow: 6px 6px 54px 0px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  padding: 24px;
-`
+export const PayloadPreviewContainer = styled(Box)({
+  background: colors.background.light,
+  boxShadow: '6px 6px 54px 0px rgba(0, 0, 0, 0.05)',
+  borderRadius: 8,
+  padding: 24,
+})
 
-export const PayloadHeader = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`
+export const PayloadHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 20,
+})
 
-export const PayloadActions = styled(Box)`
-  display: flex;
-  gap: 16px;
-`
+export const PayloadActions = styled(Box)({
+  display: 'flex',
+  gap: 16,
+})
 
-export const JsonPreview = styled(Box)`
-  background: ${colors.background.main};
-  border-radius: 8px;
-  padding: 16px;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 12px;
-  line-height: 1.4;
-  color: ${colors.text.primary};
-  white-space: pre-wrap;
-  overflow-x: auto;
-  max-height: 400px;
-  overflow-y: auto;
-`
+export const JsonPreview = styled(Box)({
+  background: colors.background.main,
+  borderRadius: 8,
+  padding: 16,
+  fontFamily: "'Monaco', 'Menlo', 'Ubuntu Mono', monospace",
+  fontSize: 12,
+  lineHeight: 1.4,
+  color: colors.text.primary,
+  whiteSpace: 'pre-wrap',
+  overflowX: 'auto',
+  maxHeight: 400,
+  overflowY: 'auto',
+})

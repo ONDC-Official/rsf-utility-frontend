@@ -27,7 +27,12 @@ const OrdersReady: FC = () => {
   } = useOrdersReady()
 
   const renderRow = (order: IOrderReady, index: number) => (
-    <OrdersReadyRow order={order} selected={selectedOrders.has(order.id)} onCheckboxChange={handleCheckboxChange} />
+    <OrdersReadyRow
+      key={index}
+      order={order}
+      selected={selectedOrders.has(order.id)}
+      onCheckboxChange={handleCheckboxChange}
+    />
   )
 
   return (

@@ -23,7 +23,6 @@
       "@types/*": ["types/*"],
       "@interfaces/*": ["interfaces/*"],
       "@constants/*": ["constants/*"],
-      "@assets/*": ["assets/*"],
       "@data/*": ["data/*"],
       "@routes/*": ["routes/*"],
       "@styles/*": ["styles/*"],

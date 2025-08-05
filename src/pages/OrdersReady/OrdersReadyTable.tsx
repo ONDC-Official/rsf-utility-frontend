@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from '@components/common/Table'
 import { IOrderReady } from '@interfaces/ordersReady'
@@ -12,7 +12,7 @@ interface Props {
   totalCount: number
   page: number
   rowsPerPage: number
-  renderRow?: (order: IOrderReady) => JSX.Element
+  renderRow: (order: IOrderReady, index: number) => React.ReactNode
   onPageChange: (page: number) => void
   onRowsPerPageChange: (rows: number) => void
 }

@@ -11,7 +11,9 @@ import {
 } from '@styles/components/Pagination.styled'
 
 const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
-  const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
+    // event is required by MUI but not used in our implementation
+    void event
     onPageChange?.(value)
   }
 

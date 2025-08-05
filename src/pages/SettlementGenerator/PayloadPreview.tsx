@@ -10,7 +10,7 @@ import {
 import { ContainedExportButton, OutlinedFilterButton } from '@styles/components/Button.styled'
 
 interface Props {
-  data: object
+  data: Record<string, unknown>
 }
 
 const PayloadPreview: FC<Props> = ({ data }) => (

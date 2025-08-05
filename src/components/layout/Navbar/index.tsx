@@ -15,7 +15,7 @@ import { NavbarSelect } from '@styles/components/Select.styled'
 const Navbar: FC = () => {
   const [selectedConfig, setSelectedConfig] = useState<string>('')
 
-  const handleConfigChange = (event: SelectChangeEvent<string>) => {
+  const handleConfigChange = (event: SelectChangeEvent<unknown>) => {
     setSelectedConfig(event.target.value as string)
   }
 

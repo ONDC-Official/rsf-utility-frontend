@@ -17,26 +17,6 @@ const theme: ThemeOptions = createTheme({
   shape: { borderRadius: 8 },
   typography,
   components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Inter-Regular';
-          src: url('./assets/fonts/Inter-Regular.ttf') format('truetype');
-        }
-        @font-face {
-          font-family: 'Inter-Medium';
-          src: url('./assets/fonts/Inter-Medium.ttf') format('truetype');
-        }
-        @font-face {
-          font-family: 'Inter-Bold';
-          src: url('./assets/fonts/Inter-Bold.ttf') format('truetype');
-        }
-        @font-face {
-          font-family: 'Inter-SemiBold';
-          src: url('./assets/fonts/Inter-SemiBold.ttf') format('truetype');
-        }
-      `,
-    },
     MuiTable: {
       styleOverrides: {
         root: {

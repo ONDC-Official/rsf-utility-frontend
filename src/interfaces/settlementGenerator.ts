@@ -19,7 +19,7 @@ export interface ISettlementSummary {
   batchSize: string
 }
 
-export interface ISettlementPayload {
+export interface ISettlementPayload extends Record<string, unknown> {
   context: {
     domain: string
     action: string
