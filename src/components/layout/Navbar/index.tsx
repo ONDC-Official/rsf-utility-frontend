@@ -1,15 +1,14 @@
+// Navbar.tsx
+
 import React from 'react'
 import {
-  StyledAppBar,
-  StyledToolbar,
-  TitleContainer,
-  RightSection,
-  NavbarTitle,
-  ConfigurationLabel,
-  UserAvatar,
+  NavbarContainer,
+  SystemTitle,
+  ConfigContainer,
+  ConfigLabel,
+  StyledSelect,
+  Avatar,
 } from '@styles/layout/Navbar.styled'
-import { NavbarSelect } from '@styles/components/Select.styled'
-import { MenuItem } from '@mui/material'
 
 const Navbar: React.FC = () => {
   const configurationOptions = [
@@ -19,29 +18,21 @@ const Navbar: React.FC = () => {
   ]
 
   return (
-    <div>
-      <StyledAppBar position="fixed">
-        <StyledToolbar>
-          <TitleContainer>
-            <NavbarTitle>Reconciliation and Settlement System</NavbarTitle>
-          </TitleContainer>
+    <NavbarContainer>
+      <SystemTitle>Reconciliation and Settlement System</SystemTitle>
 
-          <RightSection>
-            <ConfigurationLabel>Settlement Configuration</ConfigurationLabel>
-
-            <NavbarSelect value="config1" size="small">
-              {configurationOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </NavbarSelect>
-
-            <UserAvatar>JD</UserAvatar>
-          </RightSection>
-        </StyledToolbar>
-      </StyledAppBar>
-    </div>
+      <ConfigContainer>
+        <ConfigLabel>Settlement Configuration</ConfigLabel>
+        <StyledSelect>
+          {configurationOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </StyledSelect>
+        <Avatar />
+      </ConfigContainer>
+    </NavbarContainer>
   )
 }
 

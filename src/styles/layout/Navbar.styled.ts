@@ -1,45 +1,68 @@
+// @styles/layout/Navbar.styled.ts
+
 import styled from 'styled-components'
-import { AppBar, Toolbar, Box, Typography, Avatar } from '@mui/material'
-import colors from '@theme/colors'
-import { typography } from '@theme/typography'
+import { Typography } from '@mui/material'
 
-export const StyledAppBar = styled(AppBar)`
-  background: ${colors.primary.main} !important;
-  box-shadow: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+export const NavbarContainer = styled.div`
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  padding: 14px 24px;
+  background: #0b3352;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
-export const StyledToolbar = styled(Toolbar)`
-  margin-left: 300px !important;
-  padding-right: 24px !important;
-  min-height: 64px !important;
+export const SystemTitle = styled(Typography)`
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #ffffff;
 `
 
-export const TitleContainer = styled(Box)`
-  flex: 1;
-`
-
-export const RightSection = styled(Box)`
+export const ConfigContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 `
 
-export const NavbarTitle = styled(Typography)`
-  color: ${colors.primary.contrastText};
-  font-family: ${typography.caption1_semibold.fontFamily};
-  font-weight: ${typography.caption1_semibold.fontWeight};
-  font-size: ${typography.caption1_semibold.fontSize};
+export const ConfigLabel = styled.div`
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: right;
+  vertical-align: middle;
+  color: #ffffff;
 `
 
-export const ConfigurationLabel = styled(Typography)`
-  color: ${colors.primary.contrastText};
-  font-family: ${typography.body2_medium.fontFamily};
-  font-size: ${typography.body2_medium.fontSize};
+export const StyledSelect = styled.select`
+  width: 140px;
+  height: 32px;
+  padding: 8px 10px;
+  border: 1px solid #bfbfbf;
+  border-radius: 8px;
+  font-family: Inter;
+  font-size: 12px;
+  background: #0B3352;
+  color: white;
+
+  option {
+    font-family: Inter;
+    font-size: 12px;
+  }
+
+  option:disabled {
+    color: #FFFFFF; 
+  }
 `
 
-export const UserAvatar = styled(Avatar)`
+
+export const Avatar = styled.div`
   width: 32px;
   height: 32px;
-  background-color: ${colors.primary.light};
+  border-radius: 50%;
+  background-color: #ccc;
 `

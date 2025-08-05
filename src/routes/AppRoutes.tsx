@@ -7,6 +7,7 @@ import MiscSettlements from '@pages/MiscSettlements'
 import Reconciliation from '@pages/Reconciliation'
 import ComingSoon from '@components/common/ComingSoon'
 import PrivateRoute from './PrivateRoute'
+import NetworkConfiguration from '@pages/NetworkConfiguration'
 
 const AppRoutes: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ const AppRoutes: React.FC = () => {
         element={
           <PrivateRoute>
             <Layout>
-              <ComingSoon title="Configuration" />
+              <NetworkConfiguration/>
             </Layout>
           </PrivateRoute>
         }

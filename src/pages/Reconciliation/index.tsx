@@ -70,11 +70,7 @@ const Reconciliation: React.FC = () => {
   }
 
   const handleRowSelect = (orderId: string) => {
-    setSelectedRows(prev =>
-      prev.includes(orderId)
-        ? prev.filter(id => id !== orderId)
-        : [...prev, orderId]
-    )
+    setSelectedRows((prev) => (prev.includes(orderId) ? prev.filter((id) => id !== orderId) : [...prev, orderId]))
   }
 
   const handleSelectAll = () => {
@@ -185,31 +181,19 @@ const Reconciliation: React.FC = () => {
     <ReconciliationContainer>
       <HeaderSection>
         <Box>
-          <Typography variant="h4" component="h1" gutterBottom>
+          <Typography variant="h3_semibold" component="h1" gutterBottom>
             Reconciliation Manager
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="h6_semibold" color="text.secondary">
             Manage reconciliation requests for not settled orders.
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
           <TabContainer>
-            <TabButton
-              variant={tabValue === 0 ? 'contained' : 'outlined'}
-              onClick={() => setTabValue(0)}
-            >
+            <TabButton variant={tabValue === 0 ? 'contained' : 'outlined'} onClick={() => setTabValue(0)}>
               Generate Recon Request
             </TabButton>
-            <TabButton
-              variant={tabValue === 1 ? 'contained' : 'outlined'}
-              onClick={() => setTabValue(1)}
-            >
-              Review Recon Requests
-            </TabButton>
           </TabContainer>
-          <GenerateButton variant="contained" color="primary">
-            + Generate Recon Request
-          </GenerateButton>
         </Box>
       </HeaderSection>
 
@@ -265,11 +249,7 @@ const Reconciliation: React.FC = () => {
                     <TableCell>{row.settlementAmount}</TableCell>
                     <TableCell>{row.commission}</TableCell>
                     <TableCell>
-                      <StatusChip
-                        label={row.orderStatus}
-                        color="error"
-                        size="small"
-                      />
+                      <StatusChip label={row.orderStatus} color="error" size="small" />
                     </TableCell>
                     <TableCell>{row.error}</TableCell>
                   </TableRow>
@@ -279,9 +259,7 @@ const Reconciliation: React.FC = () => {
           </TableContainer>
 
           <PaginationContainer>
-            <Typography variant="body2">
-              Showing 1 to 10 of 258 entries
-            </Typography>
+            <Typography variant="body2">Showing 1 to 10 of 258 entries</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Pagination count={17} page={1} size="small" />
               <EntriesContainer>
@@ -361,9 +339,7 @@ const Reconciliation: React.FC = () => {
           </TableContainer>
 
           <PaginationContainer>
-            <Typography variant="body2">
-              Showing 1 to 10 of 258 entries
-            </Typography>
+            <Typography variant="body2">Showing 1 to 10 of 258 entries</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Pagination count={17} page={1} size="small" />
               <EntriesContainer>
@@ -389,4 +365,4 @@ const Reconciliation: React.FC = () => {
   )
 }
 
-export default Reconciliation 
+export default Reconciliation

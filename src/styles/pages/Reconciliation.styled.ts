@@ -7,15 +7,11 @@ export const ReconciliationContainer = styled(Box)`
   min-height: 100vh;
 `
 
-export const HeaderSection = styled(Box)`
+export const HeaderSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24px;
-  background: white;
-  padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `
 
 export const TabContainer = styled(Box)`
