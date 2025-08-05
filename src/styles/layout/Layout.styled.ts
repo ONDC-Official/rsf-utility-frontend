@@ -23,7 +23,7 @@ export const ContentArea = styled(Box)`
 `
 
 export const Footer = styled(Box)`
-  background: ${colors.background.light};
+  background: ${colors.background.tertiary};
   padding: 16px 24px;
   border-top: 1px solid ${colors.border.main};
   text-align: center;

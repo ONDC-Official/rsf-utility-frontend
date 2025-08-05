@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TableRow, TableCell, Checkbox } from '@mui/material'
+import { TableCell } from '@mui/material'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from '@components/common/Table'
 import Select from '@components/common/Select'
@@ -26,27 +26,25 @@ const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState('BPP_001')
-
   const allOrders = generateOrdersData(256)
   const totalCount = allOrders.length
   const startIndex = (page - 1) * rowsPerPage
   const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
 
   const renderRow = (order: IOrder) => (
-    <TableRow key={order.id}>
-      <TableCell padding="checkbox">
-        <Checkbox />
-      </TableCell>
-      <TableCell>{order.orderId}</TableCell>
-      <TableCell>{order.collectorId}</TableCell>
-      <TableCell>{order.receiverId}</TableCell>
-      <TableCell>
+    <>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.orderId}</TableCell>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.collectorId}</TableCell>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.receiverId}</TableCell>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>
         <StatusChip label={order.orderStatus} size="small" />
       </TableCell>
-      <TableCell>₹{order.totalOrderValue.toFixed(2)}</TableCell>
-      <TableCell>{order.bffPercent}%</TableCell>
-      <TableCell>{order.dueDate}</TableCell>
-    </TableRow>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>
+        ₹{order.totalOrderValue.toFixed(2)}
+      </TableCell>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.bffPercent}%</TableCell>
+      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.dueDate}</TableCell>
+    </>
   )
 
   const handlePageChange = (newPage: number) => {
@@ -65,7 +63,6 @@ const OrdersInProgress: React.FC = () => {
           <PageTitle variant="h3_semibold">Orders In Progress</PageTitle>
           <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
         </HeaderLeft>
-
         <HeaderRight>
           <ReceiverLabel variant="body2_semibold">Receiver ID</ReceiverLabel>
           <Select
@@ -76,11 +73,9 @@ const OrdersInProgress: React.FC = () => {
           />
         </HeaderRight>
       </Header>
-
       <TableContainer>
         <TableHeader>
           <TableTitle variant="caption1_semibold">BPP_001</TableTitle>
-
           <TableActions>
             <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
@@ -90,7 +85,6 @@ const OrdersInProgress: React.FC = () => {
             </ContainedExportButton>
           </TableActions>
         </TableHeader>
-
         <Table
           columns={columns}
           data={currentOrders}
@@ -100,6 +94,7 @@ const OrdersInProgress: React.FC = () => {
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowsPerPageChange}
           renderRow={renderRow}
+          hideCheckboxes={true}
         />
       </TableContainer>
     </Container>

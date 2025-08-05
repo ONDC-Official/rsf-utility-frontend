@@ -8,27 +8,31 @@ export const PaginationContainer = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-top: 1px solid ${colors.border.main};
 `
 
 export const PaginationInfo = styled(Typography)`
-  color: ${colors.text.secondary};
+  color: ${colors.text.tertiary};
   font-size: ${typography.body2_regular.fontSize};
+  flex: 1;
 `
 
 export const PaginationControls = styled(Box)`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
+  flex: 1;
 `
 
 export const PaginationShowContainer = styled(Box)`
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
 `
 
 export const PaginationShowText = styled(Typography)`
-  color: ${colors.text.secondary};
+  color: ${colors.text.tertiary};
   font-size: ${typography.body2_regular.fontSize};
 `

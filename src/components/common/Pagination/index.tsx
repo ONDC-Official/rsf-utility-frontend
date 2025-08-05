@@ -24,11 +24,11 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
 
   return (
     <PaginationContainer>
-      <PaginationInfo>
-        Showing {startEntry} to {endEntry} of {count} entries
-      </PaginationInfo>
-
       <PaginationControls>
+        <PaginationInfo variant="body5_regular">
+          Showing {startEntry} to {endEntry} of {count} entries
+        </PaginationInfo>
+
         <MUIPagination
           count={Math.ceil(count / rowsPerPage)}
           page={page}
@@ -38,7 +38,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
         />
 
         <PaginationShowContainer>
-          <PaginationShowText>Show</PaginationShowText>
+          <PaginationShowText variant="body5_regular">Show</PaginationShowText>
           <Select
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
@@ -49,7 +49,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
             ]}
             size="small"
           />
-          <PaginationShowText>entries</PaginationShowText>
+          <PaginationShowText variant="body5_regular">entries</PaginationShowText>
         </PaginationShowContainer>
       </PaginationControls>
     </PaginationContainer>
