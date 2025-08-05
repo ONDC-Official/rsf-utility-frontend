@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { InputLabel, Select as MUISelect, MenuItem } from '@mui/material'
-import { CustomSelectProps } from 'components/common/Select/types'
+import { ICustomSelectProps } from 'components/common/Select/types'
 import { StyledFormControl } from 'styles/components/Select.styled'
 
-const Select: FC<CustomSelectProps> = ({
+const Select: FC<ICustomSelectProps> = ({
   label,
   options = [],
   displayEmpty,

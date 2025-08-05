@@ -1,5 +1,5 @@
 import { SwitchProps } from '@mui/material'
 
-export interface CustomSwitchProps extends SwitchProps {
+export interface ICustomSwitchProps extends SwitchProps {
   label?: string
 }

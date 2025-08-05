@@ -1,4 +1,4 @@
-export interface ToastProps {
+export interface IToastProps {
   isVisible: boolean
   title: string
   message: string

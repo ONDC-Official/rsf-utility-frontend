@@ -1,3 +1,3 @@
-export interface ComingSoonProps {
+export interface IComingSoonProps {
   title?: string
 }

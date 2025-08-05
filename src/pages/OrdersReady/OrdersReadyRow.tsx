@@ -1,8 +1,8 @@
 import React from 'react'
 import { TableRow, TableCell, Checkbox } from '@mui/material'
-import { OrdersReadyRowProps } from 'pages/OrdersReady/types'
+import { IOrdersReadyRowProps } from 'pages/OrdersReady/types'
 
-const OrdersReadyRow: React.FC<OrdersReadyRowProps> = ({ order, selected, onCheckboxChange }) => (
+const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({ order, selected, onCheckboxChange }) => (
   <TableRow key={order.id}>
     <TableCell padding="checkbox">
       <Checkbox checked={selected} onChange={(e) => onCheckboxChange(order.id, e.target.checked)} />

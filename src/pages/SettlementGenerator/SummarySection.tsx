@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Event, Visibility } from '@mui/icons-material'
 import SummaryCard from 'components/common/SummaryCard'
 import InputField from 'components/common/InputField'
-import { Props } from 'pages/SettlementGenerator/types'
+import { IProps } from 'pages/SettlementGenerator/types'
 import {
   SummaryContainer as Container,
   SummaryHeader,
@@ -13,7 +13,7 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
-const SummarySection: FC<Props> = ({ summary, customDueDate, setCustomDueDate, onGeneratePreview }) => (
+const SummarySection: FC<IProps> = ({ summary, customDueDate, setCustomDueDate, onGeneratePreview }) => (
   <Container>
     <SummaryHeader>Settlement Summary</SummaryHeader>
 

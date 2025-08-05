@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-export interface PrivateRouteProps {
+export interface IPrivateRouteProps {
   children: ReactElement
   isAuthenticated?: boolean
 }

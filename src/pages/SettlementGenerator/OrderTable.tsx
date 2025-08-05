@@ -4,7 +4,7 @@ import Table from 'components/common/Table'
 import { ISettlementOrder } from 'interfaces/settlementGenerator'
 import { columns } from 'pages/SettlementGenerator/data'
 
-interface Props {
+interface IProps {
   orders: ISettlementOrder[]
   columnsCount: number
   page: number
@@ -15,7 +15,7 @@ interface Props {
   onCheckboxChange: (id: string, checked: boolean) => void
 }
 
-const OrderTable: FC<Props> = ({
+const OrderTable: FC<IProps> = ({
   orders,
   columnsCount,
   page,

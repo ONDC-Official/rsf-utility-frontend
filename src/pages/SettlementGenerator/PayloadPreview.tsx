@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { Visibility, Download } from '@mui/icons-material'
+import { IPayloadPreviewProps } from 'pages/SettlementGenerator/types'
 import {
   PayloadPreviewContainer as Container,
   PayloadHeader,
@@ -9,11 +10,7 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
-interface Props {
-  data: Record<string, unknown>
-}
-
-const PayloadPreview: FC<Props> = ({ data }) => (
+const PayloadPreview: FC<IPayloadPreviewProps> = ({ data }) => (
   <Container>
     <PayloadHeader>
       <SectionTitle>Settlement Payload Preview</SectionTitle>

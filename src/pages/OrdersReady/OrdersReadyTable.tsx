@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
-import { OrdersReadyTableProps } from 'pages/OrdersReady/types'
+import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { TableContainer, TableHeader, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 
-const OrdersReadyTable: FC<OrdersReadyTableProps> = ({
+const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
   columns,
   data,
   totalCount,

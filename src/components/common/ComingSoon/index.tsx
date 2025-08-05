@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Box, Typography } from '@mui/material'
 import { Construction } from '@mui/icons-material'
-import { ComingSoonProps } from 'components/common/ComingSoon/types'
+import { IComingSoonProps } from 'components/common/ComingSoon/types'
 
-const ComingSoon: FC<ComingSoonProps> = ({ title = 'Coming Soon' }) => (
+const ComingSoon: FC<IComingSoonProps> = ({ title = 'Coming Soon' }) => (
   <Box
     display="flex"
     flexDirection="column"

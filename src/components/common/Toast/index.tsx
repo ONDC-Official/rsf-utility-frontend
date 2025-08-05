@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Close, Inventory2 } from '@mui/icons-material'
-import { ToastProps } from 'components/common/Toast/types'
+import { IToastProps } from 'components/common/Toast/types'
 import {
   Container,
   ToastContent,
@@ -11,7 +11,7 @@ import {
   ToastCloseButton,
 } from 'styles/components/Toast.styled'
 
-const Toast: FC<ToastProps> = ({ isVisible, title, message, onClose }) => (
+const Toast: FC<IToastProps> = ({ isVisible, title, message, onClose }) => (
   <Container $isVisible={isVisible}>
     <ToastContent>
       <ToastIconContainer>

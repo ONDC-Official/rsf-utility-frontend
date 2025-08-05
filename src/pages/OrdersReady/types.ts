@@ -3,7 +3,7 @@ import { SelectChangeEvent } from '@mui/material'
 import { IOrderReady } from 'interfaces/ordersReady'
 import { ITableColumn } from 'interfaces/table'
 
-export interface OrdersReadyTableProps {
+export interface IOrdersReadyTableProps {
   columns: ITableColumn<IOrderReady>[]
   data: IOrderReady[]
   totalCount: number
@@ -14,13 +14,13 @@ export interface OrdersReadyTableProps {
   onRowsPerPageChange: (rows: number) => void
 }
 
-export interface OrdersReadyRowProps {
+export interface IOrdersReadyRowProps {
   order: IOrderReady
   selected: boolean
   onCheckboxChange: (orderId: string, checked: boolean) => void
 }
 
-export interface OrdersReadyHeaderProps {
+export interface IOrdersReadyHeaderProps {
   receiverId: string
   selectedCount: number
   prepareButtonState: 'disabled' | 'prepare' | 'generate'

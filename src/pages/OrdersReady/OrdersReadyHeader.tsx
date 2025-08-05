@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Box } from '@mui/material'
 import Select from 'components/common/Select'
-import { OrdersReadyHeaderProps } from 'pages/OrdersReady/types'
+import { IOrdersReadyHeaderProps } from 'pages/OrdersReady/types'
 import { RECEIVER_OPTIONS } from 'pages/OrdersReady/data'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
 import {
@@ -13,7 +13,7 @@ import {
   PageSubtitle,
 } from 'styles/pages/OrdersReady.styled'
 
-const OrdersReadyHeader: FC<OrdersReadyHeaderProps> = ({
+const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   receiverId,
   selectedCount,
   prepareButtonState,

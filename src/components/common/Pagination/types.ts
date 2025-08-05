@@ -1,4 +1,4 @@
-export interface PaginationProps {
+export interface IPaginationProps {
   count: number
   page: number
   rowsPerPage: number

@@ -1,13 +1,13 @@
 import { SelectProps, FormControlProps } from '@mui/material'
 
-export interface SelectOption {
+export interface ISelectOption {
   value: string | number
   label: string
 }
 
-export interface CustomSelectProps extends Omit<SelectProps, 'children'> {
+export interface ICustomSelectProps extends Omit<SelectProps, 'children'> {
   label?: string
-  options: SelectOption[]
+  options: ISelectOption[]
   displayEmpty?: boolean
   renderValue?: (value: unknown) => React.ReactNode
   formControlProps?: FormControlProps
