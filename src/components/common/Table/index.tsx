@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-import {
-  Table as MUITable,
-  TableRow,
-  TableBody,
-  TableContainer,
-  Checkbox,
-  Menu,
-  MenuItem,
-  IconButton,
-} from '@mui/material'
+import { Table as MUITable, TableRow, TableBody, Checkbox, Menu, MenuItem } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import Pagination from 'components/common/Pagination'
-import { StyledTableContainer, StyledTableHead, StyledTableCell, StyledTableRow } from 'styles/components/Table.styled'
+import {
+  Container,
+  StyledTableHead,
+  StyledTableCell,
+  StyledTableRow,
+  Wrapper,
+  StyledIconButton,
+  TableHeaderCheckboxCell,
+  HeaderLabelContainer,
+} from 'styles/components/Table.styled'
 import { ITableProps } from 'interfaces/table'
 
 const Table = <T extends Record<string, unknown>>({
@@ -39,34 +39,31 @@ const Table = <T extends Record<string, unknown>>({
   const handleOrderIdSort = (order: 'asc' | 'desc') => {
     setOrderIdSortOrder(order)
     handleOrderIdClose()
-    // Add your sorting logic here
   }
 
   return (
-    <StyledTableContainer elevation={0}>
-      <TableContainer sx={{ padding: '0 24px' }}>
+    <Container elevation={0}>
+      <Wrapper>
         <MUITable>
           <StyledTableHead>
             <TableRow>
               {!hideCheckboxes && (
-                <StyledTableCell padding="checkbox" sx={{ typography: 'body5_semibold', color: 'text.tertiary' }}>
+                <TableHeaderCheckboxCell>
                   <Checkbox />
-                </StyledTableCell>
+                </TableHeaderCheckboxCell>
               )}
               {(columns || []).map((column, index) => (
-                <StyledTableCell key={column.id} sx={{ typography: 'body5_semibold', color: 'text.tertiary' }}>
-                  {index === 0 ? ( // Assuming first column is Order ID
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <StyledTableCell key={column.id}>
+                  {index === 0 ? (
+                    <HeaderLabelContainer>
                       {column.label}
-                      <IconButton size="small" onClick={handleOrderIdClick} sx={{ padding: '2px' }}>
+                      <StyledIconButton size="small" onClick={handleOrderIdClick}>
                         {orderIdSortOrder === 'asc' ? (
                           <KeyboardArrowUp fontSize="small" />
-                        ) : orderIdSortOrder === 'desc' ? (
-                          <KeyboardArrowDown fontSize="small" />
                         ) : (
                           <KeyboardArrowDown fontSize="small" />
                         )}
-                      </IconButton>
+                      </StyledIconButton>
                       <Menu
                         anchorEl={orderIdAnchorEl}
                         open={Boolean(orderIdAnchorEl)}
@@ -79,7 +76,7 @@ const Table = <T extends Record<string, unknown>>({
                         <MenuItem onClick={() => handleOrderIdSort('asc')}>Sort Ascending</MenuItem>
                         <MenuItem onClick={() => handleOrderIdSort('desc')}>Sort Descending</MenuItem>
                       </Menu>
-                    </div>
+                    </HeaderLabelContainer>
                   ) : (
                     column.label
                   )}
@@ -95,7 +92,7 @@ const Table = <T extends Record<string, unknown>>({
             ))}
           </TableBody>
         </MUITable>
-      </TableContainer>
+      </Wrapper>
       <Pagination
         count={totalCount}
         page={page}
@@ -103,7 +100,7 @@ const Table = <T extends Record<string, unknown>>({
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
       />
-    </StyledTableContainer>
+    </Container>
   )
 }
 

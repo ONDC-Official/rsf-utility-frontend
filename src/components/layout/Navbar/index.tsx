@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
 import { configurationOptions } from 'components/layout/Navbar/configurationOptions'
+import { TypographyVariant } from 'enums/typography'
 import {
   StyledAppBar,
   StyledToolbar,
@@ -23,11 +24,11 @@ const Navbar: FC = () => {
     <StyledAppBar position="fixed">
       <StyledToolbar>
         <TitleContainer>
-          <NavbarTitle variant="caption1_semibold">Reconciliation and Settlement System</NavbarTitle>
+          <NavbarTitle variant={TypographyVariant.Caption1Semibold}>Reconciliation and Settlement System</NavbarTitle>
         </TitleContainer>
 
         <RightSection>
-          <ConfigurationLabel variant="body5_medium">Settlement Configuration</ConfigurationLabel>
+          <ConfigurationLabel variant={TypographyVariant.Body5Medium}>Settlement Configuration</ConfigurationLabel>
 
           <NavbarSelect
             value={selectedConfig}
@@ -37,14 +38,14 @@ const Navbar: FC = () => {
             renderValue={(selected) => {
               if (!selected) {
                 return (
-                  <Typography variant="body5_light" color="#FFFFFF">
+                  <Typography variant={TypographyVariant.Body5Light} color="#FFFFFF">
                     Choose...
                   </Typography>
                 )
               }
 
               const option = configurationOptions?.find((opt) => opt.value === selected)
-              return <Typography variant="body5_light">{option?.label}</Typography>
+              return <Typography variant={TypographyVariant.Body5Light}>{option?.label}</Typography>
             }}
           >
             {configurationOptions?.map((option) => (

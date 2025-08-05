@@ -1,8 +1,9 @@
 import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
-import { IPaginationProps, TypographyVariant } from 'components/common/Pagination/types'
+import { IPaginationProps } from 'components/common/Pagination/types'
 import { ROWS_PER_PAGE_OPTIONS } from 'components/common/Pagination/data'
+import { TypographyVariant } from 'enums/typography'
 import {
   Container,
   PaginationInfo,

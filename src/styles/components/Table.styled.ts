@@ -1,9 +1,9 @@
 import { styled } from '@mui/material/styles'
-import { Paper, TableHead, TableCell, TableRow } from '@mui/material'
+import { Paper, TableHead, TableCell, TableRow, TableContainer, IconButton } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const StyledTableContainer = styled(Paper)({
+export const Container = styled(Paper)({
   background: colors.background.light,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
@@ -50,4 +50,24 @@ export const StyledTableRow = styled(TableRow)<{ isLast?: boolean }>(({ isLast }
     fontSize: typography.body2_regular.fontSize,
     color: colors.text.tertiary,
   },
+}))
+
+export const Wrapper = styled(TableContainer)({
+  padding: '0 24px',
+})
+
+export const StyledIconButton = styled(IconButton)({
+  padding: '2px',
+})
+
+export const HeaderLabelContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+})
+
+export const TableHeaderCheckboxCell = styled(TableCell)(({}) => ({
+  fontWeight: typography.body5_semibold?.fontWeight || '600',
+  fontSize: typography.body5_semibold?.fontSize || '12px',
+  color: colors.text.tertiary,
 }))

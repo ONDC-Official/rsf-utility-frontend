@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+=import React, { useState } from 'react'
 import { TableCell } from '@mui/material'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
@@ -6,7 +6,8 @@ import Select from 'components/common/Select'
 import { IOrder } from 'interfaces/order'
 import { generateOrdersData } from 'data/ordersData'
 import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
-import { defaultCellSx } from 'pages/OrdersInProgress/types'
+import { TableCellStyles } from 'enums/styles'
+import { TypographyVariant } from 'enums/typography'
 import { StatusChip } from 'styles/components/Chip.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
@@ -34,15 +35,15 @@ const OrdersInProgress: React.FC = () => {
 
   const renderRow = (order: IOrder) => (
     <>
-      <TableCell sx={defaultCellSx}>{order.orderId}</TableCell>
-      <TableCell sx={defaultCellSx}>{order.collectorId}</TableCell>
-      <TableCell sx={defaultCellSx}>{order.receiverId}</TableCell>
-      <TableCell sx={defaultCellSx}>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.orderId}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.collectorId}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.receiverId}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>
         <StatusChip label={order.orderStatus} size="small" />
       </TableCell>
-      <TableCell sx={defaultCellSx}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
-      <TableCell sx={defaultCellSx}>{order.bffPercent}%</TableCell>
-      <TableCell sx={defaultCellSx}>{order.dueDate}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}%</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
     </>
   )
   const handlePageChange = (newPage: number) => {
@@ -58,11 +59,11 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle variant="h3_semibold">Orders In Progress</PageTitle>
+          <PageTitle variant={TypographyVariant.H3Semibold}>Orders In Progress</PageTitle>
           <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
         </HeaderLeft>
         <HeaderRight>
-          <ReceiverLabel variant="body2_semibold">Receiver ID</ReceiverLabel>
+          <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Receiver ID</ReceiverLabel>
           <Select
             value={receiverId}
             onChange={(e) => setReceiverId(e.target.value as string)}
@@ -73,7 +74,7 @@ const OrdersInProgress: React.FC = () => {
       </Header>
       <Wrapper>
         <TableHeader>
-          <TableTitle variant="caption1_semibold">BPP_001</TableTitle>
+          <TableTitle variant={TypographyVariant.Caption1Semibold}>BPP_001</TableTitle>
           <TableActions>
             <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
