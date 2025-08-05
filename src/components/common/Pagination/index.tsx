@@ -2,6 +2,7 @@ import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
 import { IPaginationProps } from 'components/common/Pagination/types'
+import { ROWS_PER_PAGE_OPTIONS } from 'components/common/Pagination/data'
 import {
   Container,
   PaginationInfo,
@@ -39,16 +40,7 @@ const Pagination: FC<IPaginationProps> = ({ count, page, rowsPerPage, onPageChan
 
         <PaginationShowContainer>
           <PaginationShowText variant="body5_regular">Show</PaginationShowText>
-          <Select
-            value={rowsPerPage}
-            onChange={handleRowsPerPageChange}
-            options={[
-              { value: 5, label: '5' },
-              { value: 10, label: '10' },
-              { value: 20, label: '20' },
-            ]}
-            size="small"
-          />
+          <Select value={rowsPerPage} onChange={handleRowsPerPageChange} options={ROWS_PER_PAGE_OPTIONS} size="small" />
           <PaginationShowText variant="body5_regular">entries</PaginationShowText>
         </PaginationShowContainer>
       </Wrapper>

@@ -31,7 +31,7 @@ const SummarySection: FC<IProps> = ({ summary, customDueDate, setCustomDueDate, 
 
     <CustomDateSection>
       <InputField
-        customLabel="Custom Due Date (optional)"
+        label="Custom Due Date (optional)"
         placeholder="dd/mm/yyyy"
         value={customDueDate}
         onChange={(e) => setCustomDueDate(e.target.value)}

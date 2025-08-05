@@ -44,7 +44,7 @@ const Navbar: FC = () => {
               }
 
               const option = configurationOptions?.find((opt) => opt.value === selected)
-              return <Typography variant="body5_light">{option?.label || selected}</Typography>
+              return <Typography variant="body5_light">{option?.label}</Typography>
             }}
           >
             {configurationOptions?.map((option) => (

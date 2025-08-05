@@ -17,7 +17,7 @@ import { ITableProps } from 'interfaces/table'
 const Table = <T extends Record<string, unknown>>({
   columns = [],
   data = [],
-  totalCount,
+  totalCount = 0,
   page,
   rowsPerPage,
   onPageChange,
