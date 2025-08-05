@@ -1,6 +1,7 @@
-import React from 'react'
+import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
 import Select from '@components/common/Select'
+import { PaginationProps } from '@components/common/Pagination/types'
 import {
   PaginationContainer,
   PaginationInfo,
@@ -9,16 +10,8 @@ import {
   PaginationShowText,
 } from '@styles/components/Pagination.styled'
 
-interface PaginationProps {
-  count: number
-  page: number
-  rowsPerPage: number
-  onPageChange?: (page: number) => void
-  onRowsPerPageChange?: (rowsPerPage: number) => void
-}
-
-const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
-  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
+  const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }
 

@@ -1,12 +1,8 @@
-import React from 'react'
-import { SwitchProps } from '@mui/material'
+import { FC } from 'react'
 import { IOSSwitch } from '@styles/components/Switch.styled'
+import { CustomSwitchProps } from '@components/common/Switch/types'
 
-interface CustomSwitchProps extends SwitchProps {
-  label?: string
-}
-
-const Switch: React.FC<CustomSwitchProps> = ({ label, ...props }) => {
+const Switch: FC<CustomSwitchProps> = ({ label, ...props }) => {
   return <IOSSwitch {...props} />
 }
 

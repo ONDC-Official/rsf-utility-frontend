@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Close } from '@mui/icons-material'
 import { Package } from 'lucide-react'
+import { ToastProps } from '@components/common/Toast/types'
 import {
   ToastContainer,
   ToastContent,
@@ -11,14 +12,7 @@ import {
   ToastCloseButton,
 } from '@styles/components/Toast.styled'
 
-interface ToastProps {
-  isVisible: boolean
-  title: string
-  message: string
-  onClose: () => void
-}
-
-const Toast: React.FC<ToastProps> = ({ isVisible, title, message, onClose }) => {
+const Toast: FC<ToastProps> = ({ isVisible, title, message, onClose }) => {
   return (
     <ToastContainer $isVisible={isVisible}>
       <ToastContent>

@@ -75,6 +75,7 @@ const OrdersReady: React.FC = () => {
     } else {
       newSelectedOrders.delete(orderId)
     }
+
     setSelectedOrders(newSelectedOrders)
   }
 

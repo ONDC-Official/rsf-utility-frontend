@@ -19,7 +19,6 @@ import {
   PageSubtitle,
   AlertContainer,
   SettlementModeContainer,
-  ModeLeft,
   ModeRight,
   ModeContent,
   ModeTitle,
@@ -40,7 +39,6 @@ import {
   PayloadActions,
   JsonPreview,
   ModeRow,
-  CustomDateLabel,
 } from '@styles/pages/SettlementGenerator.styled'
 
 const SettlementGenerator: React.FC = () => {
@@ -81,6 +79,7 @@ const SettlementGenerator: React.FC = () => {
     } else {
       newSelectedOrders.delete(orderId)
     }
+
     setSelectedOrders(newSelectedOrders)
   }
 
@@ -160,6 +159,7 @@ const SettlementGenerator: React.FC = () => {
               if (!selected) {
                 return <span style={{ color: '#9CA3AF' }}>Choose...</span>
               }
+
               return selected as React.ReactNode
             }}
           />
