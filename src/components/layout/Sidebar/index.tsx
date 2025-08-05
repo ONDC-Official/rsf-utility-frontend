@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ListItem, ListItemIcon } from '@mui/material'
+import { ListItem } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { sidebarMenuItems } from 'components/layout/Sidebar/sidebarMenuItems'
@@ -11,6 +11,7 @@ import {
   LogoutContainer,
   StyledListItemButton,
   MenuItemText,
+  StyledListItemIcon,
 } from 'styles/layout/Sidebar.styled'
 
 const Sidebar: FC = () => {
@@ -40,9 +41,9 @@ const Sidebar: FC = () => {
                 selected={location.pathname === item.path}
                 onClick={() => handleNavigation(item.path)}
               >
-                <ListItemIcon style={{ color: 'inherit', minWidth: 40 }}>
+                <StyledListItemIcon>
                   <Icon />
-                </ListItemIcon>
+                </StyledListItemIcon>
                 <MenuItemText primary={item.text} />
               </StyledListItemButton>
             </ListItem>
@@ -52,9 +53,9 @@ const Sidebar: FC = () => {
 
       <LogoutContainer>
         <StyledListItemButton onClick={handleLogout}>
-          <ListItemIcon style={{ color: 'inherit', minWidth: 40 }}>
+          <StyledListItemIcon>
             <ExitToApp />
-          </ListItemIcon>
+          </StyledListItemIcon>
           <MenuItemText primary="Logout" />
         </StyledListItemButton>
       </LogoutContainer>

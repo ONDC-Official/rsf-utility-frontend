@@ -1,7 +1,7 @@
 import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
-import { IPaginationProps } from 'components/common/Pagination/types'
+import { IPaginationProps, TypographyVariant } from 'components/common/Pagination/types'
 import { ROWS_PER_PAGE_OPTIONS } from 'components/common/Pagination/data'
 import {
   Container,
@@ -11,7 +11,13 @@ import {
   PaginationShowText,
 } from 'styles/components/Pagination.styled'
 
-const Pagination: FC<IPaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
+const Pagination: FC<IPaginationProps> = ({
+  count = 0,
+  page = 1,
+  rowsPerPage = 10,
+  onPageChange,
+  onRowsPerPageChange,
+}) => {
   const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }
@@ -20,13 +26,13 @@ const Pagination: FC<IPaginationProps> = ({ count, page, rowsPerPage, onPageChan
     onRowsPerPageChange?.(Number(event.target.value))
   }
 
-  const startEntry = (page - 1) * rowsPerPage + 1
+  const startEntry = count > 0 ? (page - 1) * rowsPerPage + 1 : 0
   const endEntry = Math.min(page * rowsPerPage, count)
 
   return (
     <Container>
       <Wrapper>
-        <PaginationInfo variant="body5_regular">
+        <PaginationInfo variant={TypographyVariant.Body5Regular}>
           Showing {startEntry} to {endEntry} of {count} entries
         </PaginationInfo>
 
@@ -39,9 +45,9 @@ const Pagination: FC<IPaginationProps> = ({ count, page, rowsPerPage, onPageChan
         />
 
         <PaginationShowContainer>
-          <PaginationShowText variant="body5_regular">Show</PaginationShowText>
+          <PaginationShowText variant={TypographyVariant.Body5Regular}>Show</PaginationShowText>
           <Select value={rowsPerPage} onChange={handleRowsPerPageChange} options={ROWS_PER_PAGE_OPTIONS} size="small" />
-          <PaginationShowText variant="body5_regular">entries</PaginationShowText>
+          <PaginationShowText variant={TypographyVariant.Body5Regular}>entries</PaginationShowText>
         </PaginationShowContainer>
       </Wrapper>
     </Container>

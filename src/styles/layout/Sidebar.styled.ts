@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import { Drawer, Box, Typography, List, ListItemButton, ListItemText } from '@mui/material'
+import { Drawer, Box, Typography, List, ListItemButton, ListItemText, ListItemIcon } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
@@ -57,3 +57,8 @@ export const MenuItemText = styled(ListItemText)({
     fontSize: typography.body2_medium.fontSize,
   },
 })
+
+export const StyledListItemIcon = styled(ListItemIcon)(({}) => ({
+  color: 'inherit',
+  minWidth: 40,
+}))

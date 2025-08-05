@@ -6,6 +6,7 @@ import Select from 'components/common/Select'
 import { IOrder } from 'interfaces/order'
 import { generateOrdersData } from 'data/ordersData'
 import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
+import { defaultCellSx } from 'pages/OrdersInProgress/types'
 import { StatusChip } from 'styles/components/Chip.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
@@ -33,20 +34,17 @@ const OrdersInProgress: React.FC = () => {
 
   const renderRow = (order: IOrder) => (
     <>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.orderId}</TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.collectorId}</TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.receiverId}</TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>
+      <TableCell sx={defaultCellSx}>{order.orderId}</TableCell>
+      <TableCell sx={defaultCellSx}>{order.collectorId}</TableCell>
+      <TableCell sx={defaultCellSx}>{order.receiverId}</TableCell>
+      <TableCell sx={defaultCellSx}>
         <StatusChip label={order.orderStatus} size="small" />
       </TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>
-        ₹{order.totalOrderValue.toFixed(2)}
-      </TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.bffPercent}%</TableCell>
-      <TableCell sx={{ typography: 'body2_regular', color: 'text.tertiary' }}>{order.dueDate}</TableCell>
+      <TableCell sx={defaultCellSx}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
+      <TableCell sx={defaultCellSx}>{order.bffPercent}%</TableCell>
+      <TableCell sx={defaultCellSx}>{order.dueDate}</TableCell>
     </>
   )
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }

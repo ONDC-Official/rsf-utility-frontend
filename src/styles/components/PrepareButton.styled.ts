@@ -4,9 +4,9 @@ import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
 export const PrepareButton = styled(Button)<{
-  $isDisabled?: boolean
-  $isActive?: boolean
-}>(({ $isDisabled, $isActive }) => ({
+  isDisabled?: boolean
+  isActive?: boolean
+}>(({ isDisabled, isActive }) => ({
   textTransform: 'none',
   fontFamily: typography.body2_medium.fontFamily,
   fontWeight: typography.body2_medium.fontWeight,
@@ -15,7 +15,7 @@ export const PrepareButton = styled(Button)<{
   padding: '8px 16px',
   minHeight: 36,
 
-  ...($isDisabled && {
+  ...(isDisabled && {
     background: colors.background.light,
     border: `1px solid ${colors.border.tertiary}`,
     color: colors.button.subHeading,
@@ -26,7 +26,7 @@ export const PrepareButton = styled(Button)<{
     },
   }),
 
-  ...($isActive && {
+  ...(isActive && {
     background: colors.primary.main,
     border: `1px solid ${colors.border.tertiary}`,
     color: colors.primary.contrastText,

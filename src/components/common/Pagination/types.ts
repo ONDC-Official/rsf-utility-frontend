@@ -5,3 +5,7 @@ export interface IPaginationProps {
   onPageChange?: (page: number) => void
   onRowsPerPageChange?: (rowsPerPage: number) => void
 }
+
+export enum TypographyVariant {
+  Body5Regular = 'body5_regular',
+}

@@ -40,8 +40,8 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
             variant="outlined"
             onClick={handlePrepareClick}
             disabled={prepareButtonState === 'disabled'}
-            $isDisabled={prepareButtonState === 'disabled'}
-            $isActive={prepareButtonState !== 'disabled'}
+            isDisabled={prepareButtonState === 'disabled'}
+            isActive={prepareButtonState !== 'disabled'}
           >
             {getButtonText()}
           </PrepareButton>
