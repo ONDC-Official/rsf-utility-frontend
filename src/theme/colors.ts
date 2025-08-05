@@ -15,25 +15,12 @@ const colors: IColors = {
     tertiaryMain: '#EB7413',
     tertiaryWarning: '#FFFDFB',
   },
-  success: {
-    main: '#28A745',
-    light: '#757575',
-    dark: '#1C7530',
-    contrastText: '#EAF6EC',
-    secondary: '#F0F5F3',
-  },
   primary: {
     main: '#0B3352',
     contrastText: '#FFFFFF',
     light: '#1C75BC',
     dark: '#0D3656',
     inputFieldText: '#323639',
-  },
-  secondary: {
-    main: '#1B2F57',
-    light: '#798190',
-    dark: '#575757',
-    contrastText: '#1C1C1C',
   },
   background: {
     main: '#F5F5F5',
@@ -60,11 +47,6 @@ const colors: IColors = {
     contrastText: '#18273A',
     tertiary: '#DEDEDE',
   },
-  status: {
-    main: '#28A745',
-    accepted: '#28A745',
-    pending: '#6C757D',
-  },
   shadow: {
     main: '#1B2F5717',
     primary: '#1B2F5717',
@@ -72,12 +54,6 @@ const colors: IColors = {
     tertiary: '#E6E6E6',
     disabled: '#E9EBEF',
     contrastText: '#FCFCFC',
-  },
-  placeholder: {
-    main: '#BDBDBD',
-    dark: '#1C2129',
-    light: '#2B2F40',
-    contrastText: '#0D0D0D',
   },
   button: {
     main: '#3B5998',
@@ -87,18 +63,6 @@ const colors: IColors = {
     disabled: '#3B3B3B',
     subHeading: '#BFBFBF',
     contrastText: '#061632',
-  },
-  playgroundBorder: {
-    main: '#9EC2FF',
-    light: '#37333B',
-    dark: '#243465',
-    contrastText: '#C4C8D3',
-  },
-  playgroundBackground: {
-    main: '#DBE8FF',
-    light: '#BBF7D0',
-    dark: '#F0FDF4',
-    contrastText: '#848A9C',
   },
   alert: {
     main: '#DC3545',

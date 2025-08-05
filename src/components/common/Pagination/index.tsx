@@ -3,7 +3,7 @@ import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
 import Select from '@components/common/Select'
 import { PaginationProps } from '@components/common/Pagination/types'
 import {
-  PaginationContainer,
+  Container,
   PaginationInfo,
   PaginationControls,
   PaginationShowContainer,
@@ -23,7 +23,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
   const endEntry = Math.min(page * rowsPerPage, count)
 
   return (
-    <PaginationContainer>
+    <Container>
       <PaginationControls>
         <PaginationInfo variant="body5_regular">
           Showing {startEntry} to {endEntry} of {count} entries
@@ -52,7 +52,7 @@ const Pagination: FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChang
           <PaginationShowText variant="body5_regular">entries</PaginationShowText>
         </PaginationShowContainer>
       </PaginationControls>
-    </PaginationContainer>
+    </Container>
   )
 }
 

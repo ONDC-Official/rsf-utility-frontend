@@ -44,7 +44,7 @@ export const ReceiverLabel = styled(Typography)`
   color: ${colors.text.primary};
 `
 
-export const TableContainer = styled(Box)`
+export const Wrapper = styled(Box)`
   background: ${colors.background.light};
   box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
   border-radius: 8px;

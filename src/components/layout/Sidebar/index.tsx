@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { ListItem, ListItemIcon } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ import {
   MenuItemText,
 } from '@styles/layout/Sidebar.styled'
 
-const Sidebar: React.FC = () => {
+const Sidebar: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
 

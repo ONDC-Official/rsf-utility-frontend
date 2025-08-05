@@ -16,7 +16,7 @@ import {
   PageTitle,
   PageSubtitle,
   ReceiverLabel,
-  TableContainer,
+  Wrapper,
   TableHeader,
   TableActions,
   TableTitle,
@@ -73,7 +73,7 @@ const OrdersInProgress: React.FC = () => {
           />
         </HeaderRight>
       </Header>
-      <TableContainer>
+      <Wrapper>
         <TableHeader>
           <TableTitle variant="caption1_semibold">BPP_001</TableTitle>
           <TableActions>
@@ -96,7 +96,7 @@ const OrdersInProgress: React.FC = () => {
           renderRow={renderRow}
           hideCheckboxes={true}
         />
-      </TableContainer>
+      </Wrapper>
     </Container>
   )
 }

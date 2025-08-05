@@ -19,18 +19,12 @@ export interface IColorVariant {
 export interface IColors {
   error: IColorVariant
   warning: IColorVariant
-  success: IColorVariant
   primary: IColorVariant
-  secondary: IColorVariant
   background: IColorVariant
   text: IColorVariant
   border: IColorVariant
-  status: IColorVariant
   shadow: IColorVariant
-  placeholder: IColorVariant
   button: IColorVariant
-  playgroundBorder: IColorVariant
-  playgroundBackground: IColorVariant
   alert: IColorVariant
   neutral: IColorVariant
 }

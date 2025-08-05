@@ -7,19 +7,16 @@ declare module '@mui/material/Typography' {
     h6_semibold: true
     body1_regular: true
     body1_medium: true
-    body1_semibold: true
     body2_regular: true
     body2_semibold: true
     body2_medium: true
     body3_medium: true
     body3_regular: true
     body4_bold: true
-    body4_semibold: true
     body5_light: true
     body5_medium: true
     body5_regular: true
     body5_semibold: true
-    h7: true
     caption1_semibold: true
   }
 }
@@ -75,11 +72,6 @@ export const typography = {
     lineHeight: '28px',
     fontFamily: BOLD,
   },
-  h7: {
-    fontSize: '24px',
-    lineHeight: '32px',
-    fontFamily: SEMI_BOLD,
-  },
   h6_semibold: {
     fontSize: '20px',
     lineHeight: '28px',
@@ -93,11 +85,6 @@ export const typography = {
   body1_regular: {
     fontWeight: 400,
     fontFamily: REGULAR,
-    ...body1,
-  },
-  body1_semibold: {
-    fontWeight: 600,
-    fontFamily: SEMI_BOLD,
     ...body1,
   },
   body1_medium: {
@@ -140,11 +127,6 @@ export const typography = {
     fontWeight: 600,
     ...body4,
   },
-  body4_semibold: {
-    fontFamily: SEMI_BOLD,
-    fontWeight: 600,
-    ...body4,
-  },
   body5_light: {
     fontFamily: REGULAR,
     fontWeight: 400,
@@ -164,17 +146,6 @@ export const typography = {
     fontFamily: SEMI_BOLD,
     fontWeight: 600,
     ...body5,
-  },
-  subtitle1: {
-    fontFamily: REGULAR,
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: 400,
-  },
-  subtitle2: {
-    fontFamily: REGULAR,
-    fontSize: '10px',
-    lineHeight: '14px',
   },
   caption1_semibold: {
     fontFamily: SEMI_BOLD,

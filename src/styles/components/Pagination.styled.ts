@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material'
 import colors from '@theme/colors'
 import { typography } from '@theme/typography'
 
-export const PaginationContainer = styled(Box)`
+export const Container = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
