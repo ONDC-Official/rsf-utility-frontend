@@ -48,7 +48,7 @@ export const ReceiverLabel = styled(Typography)({
   fontSize: typography.body2_medium.fontSize,
 })
 
-export const TableContainer = styled(Box)({
+export const Container = styled(Box)({
   background: colors.background.light,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,

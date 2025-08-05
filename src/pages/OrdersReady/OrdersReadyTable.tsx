@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
-import { TableContainer, TableHeader, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
+import { Container, TableHeader, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 
 const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
@@ -15,7 +15,7 @@ const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
   onPageChange,
   onRowsPerPageChange,
 }) => (
-  <TableContainer>
+  <Container>
     <TableHeader>
       <TableTitle>BPP_001</TableTitle>
       <TableActions>
@@ -37,7 +37,7 @@ const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
       onRowsPerPageChange={onRowsPerPageChange}
       renderRow={renderRow}
     />
-  </TableContainer>
+  </Container>
 )
 
 export default OrdersReadyTable
