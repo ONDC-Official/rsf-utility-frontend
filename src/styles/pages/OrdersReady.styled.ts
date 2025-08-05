@@ -55,19 +55,13 @@ export const Container = styled(Box)({
   overflow: 'hidden',
 })
 
-export const TableHeader = styled(Box)({
+export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '20px 24px',
   borderBottom: `1px solid ${colors.border.main}`,
 })
-
-// export const TableHeaderLeft = styled(Box)({
-//   display: 'flex',
-//   alignItems: 'center',
-//   gap: 16,
-// })
 
 export const TableActions = styled(Box)({
   display: 'flex',

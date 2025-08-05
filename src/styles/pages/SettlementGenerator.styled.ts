@@ -15,13 +15,13 @@ export const PageHeader = styled(Box)({
   marginBottom: 24,
 })
 
-export const HeaderLeft = styled(Box)({
+export const Left = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: 8,
 })
 
-export const HeaderRight = styled(Box)({
+export const Right = styled(Box)({
   display: 'flex',
   alignItems: 'center',
 })
@@ -214,4 +214,8 @@ export const JsonPreview = styled(Box)({
   overflowX: 'auto',
   maxHeight: 400,
   overflowY: 'auto',
+})
+
+export const PlaceholderText = styled('span')({
+  color: '#9CA3AF',
 })

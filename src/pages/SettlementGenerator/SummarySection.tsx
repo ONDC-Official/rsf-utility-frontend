@@ -35,7 +35,7 @@ const SummarySection: FC<IProps> = ({ summary, customDueDate, setCustomDueDate, 
         placeholder="dd/mm/yyyy"
         value={customDueDate}
         onChange={(e) => setCustomDueDate(e.target.value)}
-        trailingIcon={<Event />}
+        endAdornment={<Event />}
         size="small"
       />
     </CustomDateSection>

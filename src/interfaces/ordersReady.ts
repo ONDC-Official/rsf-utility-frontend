@@ -15,4 +15,8 @@ export interface IToastState {
   count: number
 }
 
-export type PrepareButtonState = 'disabled' | 'prepare' | 'generate'
+export enum PrepareButtonState {
+  DISABLED = 'disabled',
+  PREPARE = 'prepare',
+  GENERATE = 'generate',
+}

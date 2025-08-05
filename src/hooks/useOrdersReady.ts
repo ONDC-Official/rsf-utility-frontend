@@ -13,7 +13,7 @@ const useOrdersReady = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState('BPP_001')
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
-  const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>('disabled')
+  const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>(PrepareButtonState.DISABLED)
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
 
   const allOrders = generateOrdersReadyData(256)
@@ -24,9 +24,12 @@ const useOrdersReady = () => {
   useEffect(() => {
     const selectedCount = selectedOrders.size
     if (selectedCount === 0) {
-      setPrepareButtonState('disabled')
-    } else if (prepareButtonState === 'disabled' || prepareButtonState === 'prepare') {
-      setPrepareButtonState('prepare')
+      setPrepareButtonState(PrepareButtonState.DISABLED)
+    } else if (
+      prepareButtonState === PrepareButtonState.DISABLED ||
+      prepareButtonState === PrepareButtonState.PREPARE
+    ) {
+      setPrepareButtonState(PrepareButtonState.PREPARE)
     }
   }, [selectedOrders, prepareButtonState])
 
@@ -40,14 +43,14 @@ const useOrdersReady = () => {
 
   const handlePrepareClick = () => {
     const count = selectedOrders.size
-    if (prepareButtonState === 'prepare') {
+    if (prepareButtonState === PrepareButtonState.PREPARE) {
       setToast({
         isVisible: true,
         message: `${count} order${count > 1 ? 's' : ''} have been prepared for settlement.`,
         count,
       })
-      setPrepareButtonState('generate')
-    } else if (prepareButtonState === 'generate') {
+      setPrepareButtonState(PrepareButtonState.GENERATE)
+    } else if (prepareButtonState === PrepareButtonState.GENERATE) {
       navigate(ROUTES.SETTLEMENT_GENERATOR)
     }
   }

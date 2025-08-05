@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Table as MUITable, TableRow, TableBody, Checkbox, Menu, MenuItem } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import Pagination from 'components/common/Pagination'
+import { ITableProps } from 'interfaces/table'
+import { SortOrder } from 'components/common/Table/type'
 import {
   Container,
   StyledTableHead,
@@ -12,7 +14,6 @@ import {
   TableHeaderCheckboxCell,
   HeaderLabelContainer,
 } from 'styles/components/Table.styled'
-import { ITableProps } from 'interfaces/table'
 
 const Table = <T extends Record<string, unknown>>({
   columns = [],
@@ -26,7 +27,7 @@ const Table = <T extends Record<string, unknown>>({
   hideCheckboxes = false,
 }: ITableProps<T>) => {
   const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
-  const [orderIdSortOrder, setOrderIdSortOrder] = useState<'asc' | 'desc' | null>(null)
+  const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
 
   const handleOrderIdClick = (event: React.MouseEvent<HTMLElement>) => {
     setOrderIdAnchorEl(event.currentTarget)
@@ -36,7 +37,7 @@ const Table = <T extends Record<string, unknown>>({
     setOrderIdAnchorEl(null)
   }
 
-  const handleOrderIdSort = (order: 'asc' | 'desc') => {
+  const handleOrderIdSort = (order: SortOrder) => {
     setOrderIdSortOrder(order)
     handleOrderIdClose()
   }
@@ -73,8 +74,8 @@ const Table = <T extends Record<string, unknown>>({
                           horizontal: 'left',
                         }}
                       >
-                        <MenuItem onClick={() => handleOrderIdSort('asc')}>Sort Ascending</MenuItem>
-                        <MenuItem onClick={() => handleOrderIdSort('desc')}>Sort Descending</MenuItem>
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.ASC)}>Sort Ascending</MenuItem>
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.DESC)}>Sort Descending</MenuItem>
                       </Menu>
                     </HeaderLabelContainer>
                   ) : (

@@ -12,6 +12,7 @@ import {
   ModeDescription,
   ModeRight,
   CounterpartyLabel,
+  PlaceholderText,
 } from 'styles/pages/SettlementGenerator.styled'
 
 const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, counterpartyId, setCounterpartyId }) => (
@@ -33,7 +34,7 @@ const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, co
         displayEmpty
         size="small"
         renderValue={(selected) =>
-          !selected ? <span style={{ color: '#9CA3AF' }}>Choose...</span> : (selected as React.ReactNode)
+          !selected ? <PlaceholderText>Choose...</PlaceholderText> : (selected as React.ReactNode)
         }
       />
     </ModeRight>

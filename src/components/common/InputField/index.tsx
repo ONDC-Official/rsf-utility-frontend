@@ -3,12 +3,11 @@ import { InputAdornment, Box, TextFieldProps } from '@mui/material'
 import { ICustomInputFieldProps } from 'components/common/InputField/types'
 import { StyledTextField } from 'styles/components/InputField.styled'
 
-const InputField: FC<ICustomInputFieldProps & TextFieldProps> = ({ trailingIcon, ...props }) => (
+const InputField: FC<ICustomInputFieldProps & TextFieldProps> = ({ endAdornment, ...props }) => (
   <Box>
     <StyledTextField
-      fullWidth
       InputProps={{
-        endAdornment: trailingIcon ? <InputAdornment position="end">{trailingIcon}</InputAdornment> : undefined,
+        endAdornment: endAdornment ? <InputAdornment position="end">{endAdornment}</InputAdornment> : undefined,
       }}
       {...props}
     />

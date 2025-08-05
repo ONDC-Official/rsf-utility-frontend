@@ -2,8 +2,8 @@ import { FC } from 'react'
 import { Warning } from '@mui/icons-material'
 import {
   PageHeader as Container,
-  HeaderLeft,
-  HeaderRight,
+  Left,
+  Right,
   PageTitle,
   PageSubtitle,
   AlertContainer,
@@ -11,16 +11,16 @@ import {
 
 const HeaderSection: FC = () => (
   <Container>
-    <HeaderLeft>
+    <Left>
       <PageTitle>Settlement Generator</PageTitle>
       <PageSubtitle>Select orders to prepare for settlement</PageSubtitle>
-    </HeaderLeft>
-    <HeaderRight>
+    </Left>
+    <Right>
       <AlertContainer>
         <Warning fontSize="small" />
         Settlement Window closes at 11:00 PM
       </AlertContainer>
-    </HeaderRight>
+    </Right>
   </Container>
 )
 
