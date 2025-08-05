@@ -10,9 +10,6 @@ declare module '@mui/material/Typography' {
     body2_regular: true
     body2_semibold: true
     body2_medium: true
-    body3_medium: true
-    body3_regular: true
-    body4_bold: true
     body5_light: true
     body5_medium: true
     body5_regular: true
@@ -23,8 +20,6 @@ declare module '@mui/material/Typography' {
 
 const body1 = { fontSize: '16px', lineHeight: '24px' }
 const body2 = { fontSize: '14px', lineHeight: '20px' }
-const body3 = { fontSize: '10px', lineHeight: '16px' }
-const body4 = { fontSize: '20px', lineHeight: '28px' }
 const body5 = { fontSize: '12px', lineHeight: '28px' }
 const caption1 = { fontSize: '18px', lineHeight: '26px' }
 
@@ -111,21 +106,6 @@ export const typography = {
     fontFamily: MEDIUM,
     fontWeight: 500,
     ...body2,
-  },
-  body3_medium: {
-    fontFamily: MEDIUM,
-    fontWeight: 500,
-    ...body3,
-  },
-  body3_regular: {
-    fontFamily: REGULAR,
-    fontWeight: 400,
-    ...body3,
-  },
-  body4_bold: {
-    fontFamily: BOLD,
-    fontWeight: 600,
-    ...body4,
   },
   body5_light: {
     fontFamily: REGULAR,
