@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { AppBar, Toolbar, Box, Typography, Avatar } from '@mui/material'
 import colors from '@theme/colors'
-import { typography } from '@theme/typography'
 
 export const StyledAppBar = styled(AppBar)`
   background: ${colors.primary.main} !important;
@@ -27,15 +26,10 @@ export const RightSection = styled(Box)`
 
 export const NavbarTitle = styled(Typography)`
   color: ${colors.primary.contrastText};
-  font-family: ${typography.caption1_semibold.fontFamily};
-  font-weight: ${typography.caption1_semibold.fontWeight};
-  font-size: ${typography.caption1_semibold.fontSize};
 `
 
 export const ConfigurationLabel = styled(Typography)`
   color: ${colors.primary.contrastText};
-  font-family: ${typography.body2_medium.fontFamily};
-  font-size: ${typography.body2_medium.fontSize};
 `
 
 export const UserAvatar = styled(Avatar)`

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MenuItem, SelectChangeEvent } from '@mui/material'
+import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
 import { configurationOptions } from '@components/layout/Navbar/configurationOptions'
 import {
   StyledAppBar,
@@ -23,11 +23,11 @@ const Navbar: React.FC = () => {
     <StyledAppBar position="fixed">
       <StyledToolbar>
         <TitleContainer>
-          <NavbarTitle>Reconciliation and Settlement System</NavbarTitle>
+          <NavbarTitle variant="caption1_semibold">Reconciliation and Settlement System</NavbarTitle>
         </TitleContainer>
 
         <RightSection>
-          <ConfigurationLabel>Settlement Configuration</ConfigurationLabel>
+          <ConfigurationLabel variant="body5_medium">Settlement Configuration</ConfigurationLabel>
 
           <NavbarSelect
             value={selectedConfig}
@@ -36,11 +36,15 @@ const Navbar: React.FC = () => {
             onChange={handleConfigChange}
             renderValue={(selected) => {
               if (!selected) {
-                return <span style={{ color: '#FFFFFF' }}>Choose...</span>
+                return (
+                  <Typography variant="body5_light" color="#FFFFFF">
+                    Choose...
+                  </Typography>
+                )
               }
 
               const option = configurationOptions.find((opt) => opt.value === selected)
-              return option?.label as React.ReactNode
+              return <Typography variant="body5_light">{option?.label}</Typography>
             }}
           >
             {configurationOptions.map((option) => (

@@ -28,7 +28,6 @@ export const HeaderRight = styled(Box)`
 `
 
 export const PageTitle = styled(Typography)`
-  font-family: ${typography.h3_semibold.fontFamily};
   font-weight: ${typography.h3_semibold.fontWeight};
   color: ${colors.text.primary};
   font-size: ${typography.h3_semibold.fontSize};
@@ -43,9 +42,6 @@ export const PageSubtitle = styled(Typography)`
 
 export const ReceiverLabel = styled(Typography)`
   color: ${colors.text.primary};
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
 `
 
 export const TableContainer = styled(Box)`
@@ -60,7 +56,6 @@ export const TableHeader = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid ${colors.border.main};
 `
 
 export const TableActions = styled(Box)`

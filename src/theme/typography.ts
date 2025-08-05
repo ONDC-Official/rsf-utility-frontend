@@ -52,6 +52,7 @@ export const typography = {
     fontSize: '32px',
     lineHeight: '40px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   h4: {
     fontSize: '28px',
@@ -67,6 +68,7 @@ export const typography = {
     fontSize: '24px',
     lineHeight: '32px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   h6: {
     fontSize: '20px',
@@ -82,6 +84,7 @@ export const typography = {
     fontSize: '20px',
     lineHeight: '28px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   body1: {
     ...body1,
@@ -114,6 +117,7 @@ export const typography = {
   },
   body2_semibold: {
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
     ...body2,
   },
   body2_medium: {
@@ -174,6 +178,7 @@ export const typography = {
   },
   caption1_semibold: {
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
     ...caption1,
   },
 }

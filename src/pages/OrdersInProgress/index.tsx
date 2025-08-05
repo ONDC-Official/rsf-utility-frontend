@@ -62,12 +62,12 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle>Orders In Progress</PageTitle>
+          <PageTitle variant="h3_semibold">Orders In Progress</PageTitle>
           <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
         </HeaderLeft>
 
         <HeaderRight>
-          <ReceiverLabel>Receiver ID</ReceiverLabel>
+          <ReceiverLabel variant="body2_semibold">Receiver ID</ReceiverLabel>
           <Select
             value={receiverId}
             onChange={(e) => setReceiverId(e.target.value as string)}
@@ -79,13 +79,13 @@ const OrdersInProgress: React.FC = () => {
 
       <TableContainer>
         <TableHeader>
-          <TableTitle>BPP_001</TableTitle>
+          <TableTitle variant="caption1_semibold">BPP_001</TableTitle>
 
           <TableActions>
             <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
             </OutlinedFilterButton>
-            <ContainedExportButton variant="contained" startIcon={<GetApp />}>
+            <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
               Export
             </ContainedExportButton>
           </TableActions>

@@ -9,22 +9,15 @@ export const StyledButton = styled(Button)`
 `
 
 export const OutlinedFilterButton = styled(Button)`
-  color: ${colors.text.secondary};
-  border-color: ${colors.border.main};
+  color: ${colors.text.tertiary} !important;
+  border-color: ${colors.border.tertiary} !important;
   text-transform: none;
   font-family: ${typography.body1_medium.fontFamily};
-
-  &:hover {
-    border-color: ${colors.text.secondary};
-  }
 `
 
 export const ContainedExportButton = styled(Button)`
-  background-color: ${colors.primary.main};
+  color: ${colors.text.tertiary} !important;
+  border-color: ${colors.border.tertiary} !important;
   text-transform: none;
   font-family: ${typography.body1_medium.fontFamily};
-
-  &:hover {
-    background-color: ${colors.primary.dark};
-  }
 `

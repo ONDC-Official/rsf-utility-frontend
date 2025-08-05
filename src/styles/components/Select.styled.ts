@@ -10,15 +10,20 @@ export const NavbarSelect = styled(Select)`
   background: ${colors.primary.main};
   border: 1px solid ${colors.button.subHeading};
   border-radius: 4px;
+  width: 140px;
 
   & .MuiSelect-select {
     color: ${colors.primary.contrastText} !important;
     background-color: ${colors.primary.main} !important;
-    padding: 8px 12px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0px 12px; /* Optional: restore padding */
   }
 
   & .MuiOutlinedInput-root {
     background-color: ${colors.primary.main} !important;
+    height: 24px;
   }
 
   & .MuiSelect-icon {
