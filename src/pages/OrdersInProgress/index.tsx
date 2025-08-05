@@ -1,4 +1,4 @@
-=import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { TableCell } from '@mui/material'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
