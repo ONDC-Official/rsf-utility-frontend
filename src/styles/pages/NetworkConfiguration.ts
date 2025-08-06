@@ -1,9 +1,8 @@
 import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
-import colors from '@theme/colors'
+import colors from 'theme/colors'
 
-export const 
-Container = styled('div')(() => ({
+export const Container = styled('div')(() => ({
   width: '100%',
   marginTop: '30px',
   display: 'flex',

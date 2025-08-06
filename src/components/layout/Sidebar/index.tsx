@@ -4,8 +4,6 @@ import { menuItems } from './data'
 import OndcLogo from 'assets/images/svg/OndcLogo'
 import { StyledIcon, MenuContainer, MenuItem, SidebarContainer, StyledText } from 'styles/layout/Layout.styled'
 
-
-
 const Sidebar: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()

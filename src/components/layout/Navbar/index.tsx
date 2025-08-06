@@ -1,12 +1,5 @@
 import { FC } from 'react'
-import {
-  Container,
-  Title,
-  ConfigContainer,
-  ConfigLabel,
-  StyledSelect,
-  Avatar,
-} from 'styles/layout/Navbar.styled'
+import { Container, Title, ConfigContainer, ConfigLabel, StyledSelect, Avatar } from 'styles/layout/Navbar.styled'
 import { configurationOptions } from './configurationOptions'
 
 const Navbar: FC = () => {

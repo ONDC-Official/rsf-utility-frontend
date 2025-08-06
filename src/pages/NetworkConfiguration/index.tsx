@@ -31,9 +31,7 @@ const NetworkConfiguration = () => (
     <HeaderSection>
       <HeaderCard>
         <SectionTitle>Network Configuration</SectionTitle>
-        <SectionDescription>
-          Configure your ONDC network parameters and settlement details
-        </SectionDescription>
+        <SectionDescription>Configure your ONDC network parameters and settlement details</SectionDescription>
       </HeaderCard>
       <ActionButton variant="outlined">
         <AddIcon />
@@ -128,4 +126,3 @@ const NetworkConfiguration = () => (
 )
 
 export default NetworkConfiguration
-
