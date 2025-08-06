@@ -3,7 +3,7 @@ import { TextField, Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const InputContainer = styled(Box)({
+export const Container = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',

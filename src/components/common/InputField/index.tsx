@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { InputAdornment, TextFieldProps } from '@mui/material'
 import { ICustomInputFieldProps } from 'components/common/InputField/types'
-import { StyledTextField, InputLabel, InputContainer } from 'styles/components/InputField.styled'
+import { StyledTextField, InputLabel, Container } from 'styles/components/InputField.styled'
 
 const InputField: FC<ICustomInputFieldProps & Omit<TextFieldProps, 'label'>> = ({ endAdornment, label, ...props }) => (
-  <InputContainer>
+  <Container>
     {label && <InputLabel>{label}</InputLabel>}
     <StyledTextField
       InputProps={{
@@ -13,7 +13,7 @@ const InputField: FC<ICustomInputFieldProps & Omit<TextFieldProps, 'label'>> = (
       fullWidth
       {...props}
     />
-  </InputContainer>
+  </Container>
 )
 
 export default InputField
