@@ -38,10 +38,14 @@ const ReconciliationManager: FC = () => {
         message={toast.message}
         onClose={handleToastClose}
       />
-      <HeaderSection />
+
+      <HeaderSection showGenerateButton={activeTab === 0} />
+
       <ReconciliationTabs activeTab={activeTab} onTabChange={setActiveTab} />
+
       {activeTab === 0 && <GenerateReconRequest allOrders={allOrders} onToastShow={handleToastShow} />}
-      {activeTab === 1 && <ReviewReconRequests />}
+
+      {activeTab === 1 && <ReviewReconRequests onToastShow={handleToastShow} />}
     </Container>
   )
 }

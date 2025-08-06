@@ -144,3 +144,10 @@ export const ButtonContainer = styled(Box)({
 export const ErrorCell = styled(StyledTableBodyCell)({
   color: colors.error.main,
 })
+
+export const ModalSubtitle = styled(Typography)({
+  fontFamily: typography.body2_regular.fontFamily,
+  fontSize: typography.body2_regular.fontSize,
+  color: colors.text.secondary,
+  marginBottom: '16px',
+})

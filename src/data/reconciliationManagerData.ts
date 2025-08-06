@@ -1,4 +1,4 @@
-import { IReconciliationOrder, IOutgoingRequest } from 'interfaces/reconciliationManager'
+import { IReconciliationOrder, IOutgoingRequest, IIncomingRequest } from 'interfaces/reconciliationManager'
 
 export const reconciliationData: IReconciliationOrder[] = [
   {
@@ -44,6 +44,33 @@ export const outgoingRequestData: IOutgoingRequest[] = [
   },
 ]
 
+export const incomingRequestData: IIncomingRequest[] = [
+  {
+    id: '1',
+    reconTransactionId: 'RECT001',
+    orderId: 'ORD001',
+    receiverId: 'RECV001',
+    requestedAmount: 1200.0,
+    currentAmount: 1250.0,
+    requestedCommission: 120.0,
+    currentCommission: 125.0,
+    reason: 'Commission rate disagreement due to policy changes',
+    receivedDate: '2024-01-20',
+  },
+  {
+    id: '2',
+    reconTransactionId: 'RECT002',
+    orderId: 'ORD002',
+    receiverId: 'RECV001',
+    requestedAmount: 1100.0,
+    currentAmount: 1150.0,
+    requestedCommission: 110.0,
+    currentCommission: 115.0,
+    reason: 'Settlement amount mismatch',
+    receivedDate: '2024-01-20',
+  },
+]
+
 export const generateReconciliationData = (count: number): IReconciliationOrder[] => {
   const baseData = [...reconciliationData]
   const generatedData: IReconciliationOrder[] = []
@@ -75,6 +102,32 @@ export const generateOutgoingRequests = (count: number): IOutgoingRequest[] => {
       ...baseRequest,
       id: `outgoing-request-${i + 1}`,
       orderId: `ORD${String(i + 1).padStart(3, '0')}`,
+    })
+  }
+
+  return generatedData
+}
+
+export const generateIncomingRequests = (count: number): IIncomingRequest[] => {
+  const baseData = [...incomingRequestData]
+  const generatedData: IIncomingRequest[] = []
+
+  const reasons = [
+    'Commission rate disagreement due to policy changes',
+    'Settlement amount mismatch',
+    'Invalid Bank Details provided by merchant',
+    'Tax calculation differences',
+  ]
+
+  for (let i = 0; i < count; i++) {
+    const baseRequest = baseData[i % baseData.length]
+
+    generatedData.push({
+      ...baseRequest,
+      id: `incoming-request-${i + 1}`,
+      reconTransactionId: `RECT${String(i + 1).padStart(3, '0')}`,
+      orderId: `ORD${String(i + 1).padStart(3, '0')}`,
+      reason: reasons[i % reasons.length],
     })
   }
 

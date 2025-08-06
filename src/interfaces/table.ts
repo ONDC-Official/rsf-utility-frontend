@@ -26,4 +26,5 @@ export interface ITableProps<T extends Record<string, unknown>, SortFieldType ex
   selectedItems?: Set<string>
   onSelectAll?: (checked: boolean, currentPageItems: T[]) => void
   getItemId?: (item: T) => string
+  expandable?: boolean
 }

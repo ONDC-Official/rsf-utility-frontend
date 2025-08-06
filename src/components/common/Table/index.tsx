@@ -28,6 +28,7 @@ const Table = <T extends Record<string, unknown>>({
   selectedItems = new Set(),
   onSelectAll,
   getItemId,
+  expandable = false,
 }: ITableProps<T>) => {
   const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
   const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
@@ -73,6 +74,7 @@ const Table = <T extends Record<string, unknown>>({
         <MUITable stickyHeader>
           <StyledTableHead>
             <TableRow>
+              {expandable && <StyledTableCell></StyledTableCell>}
               {!hideCheckboxes && (
                 <TableHeaderCheckboxCell>
                   <Checkbox
@@ -85,7 +87,7 @@ const Table = <T extends Record<string, unknown>>({
               )}
               {(columns || []).map((column, index) => (
                 <StyledTableCell key={column.id}>
-                  {index === 0 ? (
+                  {index === (expandable ? 1 : 0) ? (
                     <HeaderLabelContainer>
                       {column.label}
                       <StyledIconButton size="small" onClick={handleOrderIdClick}>
