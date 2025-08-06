@@ -13,6 +13,7 @@ import {
 import { NavbarSelect } from 'styles/components/Select.styled'
 import { IUser } from '@interfaces/user'
 import { useUserContext } from 'context/userContext'
+import { AccountCircle } from '@mui/icons-material'
 
 const Navbar: FC = () => {
   const { users, selectedUser, setSelectedUser } = useUserContext()
@@ -69,7 +70,9 @@ const Navbar: FC = () => {
             )}
           </NavbarSelect>
 
-          <UserAvatar src="/assets/images/user.png" />
+          <UserAvatar>
+            <AccountCircle />
+          </UserAvatar>
         </RightSection>
       </StyledToolbar>
     </StyledAppBar>
