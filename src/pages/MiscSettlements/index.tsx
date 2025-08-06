@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
-import { CalendarToday, GetApp, Upload } from '@mui/icons-material'
+import { Assessment, CalendarToday, GetApp, Upload } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import { generateMiscSettlementsData } from 'data/miscSettlementsData'
 import { columns } from 'pages/MiscSettlements/data'
@@ -72,15 +72,16 @@ const MiscSettlements: FC = () => {
           <PageSubtitle>Create ad-hoc settlements for special cases</PageSubtitle>
         </HeaderLeft>
         <HeaderRight>
-          <ContainedExportButton variant="outlined" startIcon={<Upload />}>
+          <Button variant="outlined" startIcon={<Upload />}>
             Bulk Upload
-          </ContainedExportButton>
+          </Button>
         </HeaderRight>
       </Header>
 
       <SettlementDetailsContainer>
         <Header>
-          <HeaderLeft>
+          <HeaderLeft sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Assessment />
             <SectionTitle variant={TypographyVariant.H3Semibold}>Settlement Details</SectionTitle>
           </HeaderLeft>
         </Header>
