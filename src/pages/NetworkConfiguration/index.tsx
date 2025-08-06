@@ -25,12 +25,13 @@ import {
   BulkButton,
   SaveButtonContainer,
 } from 'styles/pages/NetworkConfiguration'
+import { TypographyVariant } from 'enums/typography'
 
 const NetworkConfiguration = () => (
   <Container>
     <HeaderSection>
       <HeaderCard>
-        <SectionTitle>Network Configuration</SectionTitle>
+        <SectionTitle variant={TypographyVariant.H3Semibold}>Network Configuration</SectionTitle>
         <SectionDescription>Configure your ONDC network parameters and settlement details</SectionDescription>
       </HeaderCard>
       <ActionButton variant="outlined">

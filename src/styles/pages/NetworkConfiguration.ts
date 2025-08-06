@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles'
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import colors from 'theme/colors'
+import typography from 'theme/typography'
 
 export const Container = styled('div')(() => ({
   width: '100%',
@@ -24,13 +25,11 @@ export const HeaderCard = styled('div')(() => ({
   gap: '20px',
 }))
 
-export const SectionTitle = styled('div')(() => ({
-  fontFamily: 'Inter',
-  fontWeight: 700,
-  fontSize: '32px',
-  lineHeight: '40px',
-  color: colors.background.dark,
-  margin: 0,
+export const SectionTitle = styled(Typography)(() => ({
+  fontWeight: typography.h3_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h3_semibold.fontSize,
+  lineHeight: typography.h3_semibold.lineHeight,
 }))
 
 export const SectionDescription = styled('div')(() => ({
@@ -70,7 +69,7 @@ export const NetworkIdentityTitle = styled('div')(() => ({
   fontWeight: 700,
   fontSize: '24px',
   lineHeight: '32px',
-  color: colors.background.dark,
+  color: colors.text.primary,
 }))
 
 export const ActionButton = styled(Button)(() => ({
