@@ -38,7 +38,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_VALUE}`
   }
 
-  const truncateText = (text: string, maxLength: number = 20) => {
+  const truncateText = (text: string, maxLength = 20) => {
     if (text.length <= maxLength) return text
     return `${text.substring(0, maxLength)}...`
   }

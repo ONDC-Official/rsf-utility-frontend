@@ -16,7 +16,6 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    'node/no-unsupported-features/es-syntax': 'warn',
     '@typescript-eslint/indent': 'warn',
     '@typescript-eslint/no-use-before-define': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
