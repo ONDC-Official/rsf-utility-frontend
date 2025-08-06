@@ -11,7 +11,7 @@ import {
   UserAvatar,
 } from 'styles/layout/Navbar.styled'
 import { NavbarSelect } from 'styles/components/Select.styled'
-import { IUser } from 'types/user'
+import { IUser } from '@interfaces/user'
 import { useUserContext } from 'context/userContext'
 
 const Navbar: FC = () => {
@@ -69,7 +69,7 @@ const Navbar: FC = () => {
             )}
           </NavbarSelect>
 
-          <UserAvatar>JD</UserAvatar>
+          <UserAvatar src="/assets/images/user.png" />
         </RightSection>
       </StyledToolbar>
     </StyledAppBar>

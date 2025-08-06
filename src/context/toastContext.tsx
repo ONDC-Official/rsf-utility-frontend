@@ -1,10 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { Snackbar, Alert } from '@mui/material'
-
-interface IToast {
-  message: string
-  severity: 'success' | 'error' | 'info' | 'warning'
-}
+import { IToast } from 'interfaces/toastMessages'
 
 const ToastContext = createContext<((toast: IToast) => void) | undefined>(undefined)
 

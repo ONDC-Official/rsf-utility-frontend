@@ -1,13 +1,6 @@
 import React, { createContext, useState, useContext } from 'react'
 import useGetUsers from 'hooks/queries/useGetUsers'
-import { IUser } from 'types/user'
-
-interface IUserContext {
-  users: IUser[] | undefined
-  selectedUser: IUser | null
-  setSelectedUser: (user: IUser | null) => void
-  isLoading: boolean
-}
+import { IUser, IUserContext } from '@interfaces/user'
 
 const UserContext = createContext<IUserContext | null>(null)
 

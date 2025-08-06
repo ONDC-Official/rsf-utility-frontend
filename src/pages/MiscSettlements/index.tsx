@@ -18,9 +18,10 @@ import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
 import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
 import { useUserContext } from 'context/userContext'
-import SettlementDetailsForm, { FormValues } from './components/SettlementDetailsForm'
+import SettlementDetailsForm from './components/SettlementDetailsForm'
 import SettlementsTable from './components/SettlementsTable'
 import Button from 'components/common/Button'
+import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 
 const MiscSettlements: React.FC = () => {
   const toast = useToast()
@@ -29,7 +30,7 @@ const MiscSettlements: React.FC = () => {
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: MiscSettlementFormValues) => {
     const payload = {
       provider: {
         name: values.providerName,
@@ -50,18 +51,17 @@ const MiscSettlements: React.FC = () => {
       },
     }
 
-    miscMutation.trigger(payload, {
-      onSuccess: (res) => {
-        toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
-        if (res?.success) {
-          triggerAction.trigger('settle', {
-            onSuccess: () => toast(TRIGGER_ACTION.SUCCESS),
-            onError: () => toast(TRIGGER_ACTION.ERROR),
-          })
-        }
-      },
-      onError: () => toast(GENERATE_MISC_SETTLEMENT.ERROR),
-    })
+    try {
+      const res = await miscMutation.triggerAsync(payload)
+      toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
+
+      if (res?.success) {
+        await triggerAction.triggerAsync('settle')
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+    } catch (e) {
+      toast(GENERATE_MISC_SETTLEMENT.ERROR)
+    }
   }
 
   return (

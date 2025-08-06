@@ -15,3 +15,10 @@ export interface IUser {
   provider_details: ProviderDetails[]
   _id: string
 }
+
+export interface IUserContext {
+  users: IUser[] | undefined
+  selectedUser: IUser | null
+  setSelectedUser: (user: IUser | null) => void
+  isLoading: boolean
+}

@@ -1,20 +1,15 @@
-// hooks/mutations/useGenerateNilSettlement.ts
-import usePost, { IParams } from 'hooks/usePost'
-import { MutateOptions } from 'react-query'
+import usePost from 'hooks/usePost'
 
 const useGenerateNilSettlement = (userId: string) => {
   const mutation = usePost()
 
-  const trigger = (_: void, options?: MutateOptions<any, any, IParams>) =>
-    mutation.mutate(
-      {
-        url: `/ui/generate/${userId}/settle/nil`,
-        payload: { type: 'NIL' },
-      },
-      options,
-    )
+  const triggerAsync = () =>
+    mutation.mutateAsync({
+      url: `/ui/generate/${userId}/settle/nil`,
+      payload: { type: 'NIL' },
+    })
 
-  return { ...mutation, trigger }
+  return { ...mutation, triggerAsync }
 }
 
 export default useGenerateNilSettlement

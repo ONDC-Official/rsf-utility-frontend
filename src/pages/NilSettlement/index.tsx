@@ -26,23 +26,21 @@ const NilSettlement = () => {
 
   if (!selectedUser) return null
 
-  const { trigger: triggerNil, isLoading: isTriggeringNil } = useGenerateNilSettlement(selectedUser._id)
+  const { triggerAsync: triggerNil, isLoading: isTriggeringNil } = useGenerateNilSettlement(selectedUser._id)
+  const { triggerAsync: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser._id)
 
-  const { trigger: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser._id)
+  const handleTriggerNil = async () => {
+    try {
+      const res = await triggerNil()
+      toast(GENERATE_NIL_SETTLEMENT.SUCCESS)
 
-  const handleTriggerNil = () => {
-    triggerNil(undefined, {
-      onSuccess: (res) => {
-        toast(GENERATE_NIL_SETTLEMENT.SUCCESS)
-        if (res?.success) {
-          triggerAction('settle', {
-            onSuccess: () => toast(TRIGGER_ACTION.SUCCESS),
-            onError: () => toast(TRIGGER_ACTION.ERROR),
-          })
-        }
-      },
-      onError: () => toast(GENERATE_NIL_SETTLEMENT.ERROR),
-    })
+      if (res?.success) {
+        await triggerAction('settle')
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+    } catch (err) {
+      toast(GENERATE_NIL_SETTLEMENT.ERROR)
+    }
   }
 
   return (
@@ -56,8 +54,7 @@ const NilSettlement = () => {
 
       <Wrapper>
         <Typography variant={TypographyVariant.H5Semibold}>
-          <InfoOutlined sx={{ mr: 1 }} />
-          Nil Settlement Trigger
+          <InfoOutlined sx={{ mr: 1 }} /> Nil Settlement Trigger
         </Typography>
 
         <NoticeBox>
@@ -84,7 +81,6 @@ const NilSettlement = () => {
           >
             Trigger Nil Settlement
           </Button>
-
           <Button
             variant="outlined"
             startIcon={<CalendarTodayOutlined />}

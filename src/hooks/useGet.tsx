@@ -1,14 +1,18 @@
 import { IApiResponse } from '@interfaces/api'
-import { useQuery, UseQueryResult } from 'react-query'
+import { useQuery, UseQueryResult, UseQueryOptions } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 
-function useGet<TResponse = any>(key: string, url: string, configs?: any): UseQueryResult<IApiResponse<TResponse>> {
+function useGet<TResponse = any>(
+  key: string,
+  url: string,
+  configs?: UseQueryOptions<IApiResponse<TResponse>>,
+): UseQueryResult<IApiResponse<TResponse>> {
   const get = async () => {
     const { data } = await axiosInstance.get<IApiResponse<TResponse>>(url)
     return data
   }
 
-  const defaultConfig = {
+  const defaultConfig: UseQueryOptions<IApiResponse<TResponse>> = {
     enabled: false,
     refetchOnWindowFocus: false,
     retry: false,

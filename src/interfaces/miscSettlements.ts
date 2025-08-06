@@ -29,3 +29,11 @@ export interface IMiscSettlement extends Record<string, unknown> {
   providerAmount: number
   date: string
 }
+
+export type MiscSettlementFormValues = {
+  selfAmount: string
+  providerAmount: string
+  providerName: string
+  bankAccountNumber: string
+  ifscCode: string
+}

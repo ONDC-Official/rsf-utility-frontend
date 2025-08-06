@@ -16,7 +16,7 @@ const SettlementsTable: React.FC = () => {
     enabled: !!selectedUser,
   })
   const rows = settlements?.data ?? []
-  const totalCount = settlements?.data?.total ?? 0
+  const totalCount = 0
 
   const renderRow = (item: any) => (
     <>

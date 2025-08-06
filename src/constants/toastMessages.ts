@@ -1,14 +1,4 @@
-import { AlertColor } from '@mui/material'
-
-interface IToastMessage {
-  message: string
-  severity: AlertColor
-}
-
-interface IToastGroup {
-  SUCCESS: IToastMessage
-  ERROR: IToastMessage
-}
+import { IToastGroup } from 'interfaces/toastMessages'
 
 export const GENERATE_MISC_SETTLEMENT: IToastGroup = {
   SUCCESS: {

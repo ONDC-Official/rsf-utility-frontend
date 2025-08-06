@@ -15,17 +15,10 @@ import {
 import InputField from 'components/common/InputField'
 import Button from 'components/common/Button'
 import { TypographyVariant } from 'enums/typography'
-
-export type FormValues = {
-  selfAmount: string
-  providerAmount: string
-  providerName: string
-  bankAccountNumber: string
-  ifscCode: string
-}
+import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 
 interface Props {
-  onSubmit: (values: FormValues) => void
+  onSubmit: (values: MiscSettlementFormValues) => void
   isSubmitting?: boolean
 }
 
@@ -35,7 +28,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<MiscSettlementFormValues>({
     defaultValues: {
       selfAmount: '',
       providerAmount: '',

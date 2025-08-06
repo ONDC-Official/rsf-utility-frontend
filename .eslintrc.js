@@ -9,20 +9,24 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
-
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+  ],
   rules: {
-    'node/no-unsupported-features/es-syntax': 'off',
-    '@typescript-eslint/indent': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-inferrable-types': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-extra-semi': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'no-extra-semi': 'off',
+    'node/no-unsupported-features/es-syntax': 'warn',
+    '@typescript-eslint/indent': 'warn',
+    '@typescript-eslint/no-use-before-define': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-var-requires': 'warn',
+    '@typescript-eslint/no-inferrable-types': 'warn',
+    '@typescript-eslint/explicit-module-boundary-types': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    '@typescript-eslint/no-extra-semi': 'warn',
+    'react/react-in-jsx-scope': 'warn',
+    'no-extra-semi': 'warn',
     'no-console': 'warn',
 
     'padding-line-between-statements': [
@@ -50,7 +54,6 @@ module.exports = {
 
     'id-match': 0,
 
-    // Prettier formatting
     'prettier/prettier': 'error',
     'comma-dangle': ['error', 'only-multiline'],
     'max-len': [

@@ -1,21 +1,17 @@
-import { MutateOptions } from 'react-query'
 import usePost from 'hooks/usePost'
 import { IGenerateMiscSettlementPayload } from '@interfaces/miscSettlements'
-import { IParams } from '@interfaces/api'
 
 const useGenerateMiscSettlement = (userId: string) => {
   const mutation = usePost()
 
-  const trigger = (payload: IGenerateMiscSettlementPayload, options?: MutateOptions<any, any, IParams>) =>
-    mutation.mutate(
-      {
-        url: `/ui/generate/${userId}/settle/misc`,
-        payload,
-      },
-      options,
-    )
+  const triggerAsync = (payload: IGenerateMiscSettlementPayload) => {
+    return mutation.mutateAsync({
+      url: `/ui/generate/${userId}/settle/misc`,
+      payload,
+    })
+  }
 
-  return { ...mutation, trigger }
+  return { ...mutation, triggerAsync }
 }
 
 export default useGenerateMiscSettlement

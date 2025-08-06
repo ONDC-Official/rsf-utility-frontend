@@ -1,21 +1,16 @@
-// hooks/mutations/useTriggerAction.ts
-import usePost, { IParams } from 'hooks/usePost'
-import { MutateOptions } from 'react-query'
+import usePost from 'hooks/usePost'
 
 type TriggerActionName = 'settle' | 'recon' | 'on_recon' | 'report'
 
 const useTriggerAction = (userId: string) => {
   const mutation = usePost()
 
-  const trigger = (action: TriggerActionName, options?: MutateOptions<any, any, IParams>) =>
-    mutation.mutate(
-      {
-        url: `/ui/trigger/${userId}/${action}`,
-      },
-      options,
-    )
+  const triggerAsync = (action: TriggerActionName) =>
+    mutation.mutateAsync({
+      url: `/ui/trigger/${userId}/${action}`,
+    })
 
-  return { ...mutation, trigger }
+  return { ...mutation, triggerAsync }
 }
 
 export default useTriggerAction
