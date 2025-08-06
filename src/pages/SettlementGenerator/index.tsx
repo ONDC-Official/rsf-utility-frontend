@@ -19,6 +19,10 @@ const SettlementGenerator: FC = () => {
     setSelectedOrders(newSelected)
   }
 
+  const handleToggleMode = () => {
+    // future logic here
+  }
+
   const calculateSummary = (): ISettlementSummary => {
     const selectedList = Array.from(selectedOrders)
     const selectedData = allOrders.filter((order) => selectedList.includes(order.id))
@@ -39,7 +43,7 @@ const SettlementGenerator: FC = () => {
       <HeaderSection />
       <ModeSelection
         isManualMode={true}
-        onToggleMode={() => {}}
+        onToggleMode={handleToggleMode}
         counterpartyId={counterpartyId}
         setCounterpartyId={setCounterpartyId}
       />

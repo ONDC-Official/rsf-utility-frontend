@@ -1,10 +1,29 @@
-export interface IMiscSettlement extends Record<string, unknown> {
-  id: string
-  settlementReferenceNumber: string
+export interface IGenerateMiscSettlementPayload {
+  provider: {
+    id?: string
+    name: string
+    bank_details: {
+      account_no: string
+      ifsc_code: string
+    }
+    amount: {
+      currency: string
+      value: string
+    }
+  }
+  self?: {
+    amount: {
+      currency: string
+      value: string
+    }
+  }
+}
+
+export type MiscSettlementFormValues = {
+  selfAmount: string
+  providerId: string
+  providerAmount: string
   providerName: string
-  accountNumber: string
+  bankAccountNumber: string
   ifscCode: string
-  amount: number
-  providerAmount: number
-  date: string
 }

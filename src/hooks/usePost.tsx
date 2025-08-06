@@ -1,16 +1,20 @@
-import { useMutation } from 'react-query'
+// hooks/usePost.ts
+import { useMutation, UseMutationResult } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 
-interface IParams {
+export interface IParams {
   url: string
   payload?: any
 }
 
-const post = async ({ url, payload }: IParams) => {
-  const { data } = await axiosInstance.post(url, payload)
+const post = async <TResponse,>({ url, payload }: IParams): Promise<TResponse> => {
+  const { data } = await axiosInstance.post<TResponse>(url, payload)
   return data
 }
 
-const usePost = () => useMutation(post)
+// expose generic hook
+function usePost<TResponse = any>(): UseMutationResult<TResponse, unknown, IParams, unknown> {
+  return useMutation<TResponse, unknown, IParams, unknown>(post)
+}
 
 export default usePost

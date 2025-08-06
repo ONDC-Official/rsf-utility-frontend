@@ -5,7 +5,7 @@ import { IReconciliationTabsProps } from 'pages/ReconciliationManager/types'
 import { Container } from 'styles/pages/ReconciliationManager.styled'
 
 const ReconciliationTabs: FC<IReconciliationTabsProps> = ({ activeTab, onTabChange }) => {
-  const handleChange = (_:ChangeEvent<unknown>, newValue: number) => {
+  const handleChange = (_: ChangeEvent<unknown>, newValue: number) => {
     onTabChange(newValue)
   }
 

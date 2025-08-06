@@ -10,7 +10,8 @@ export const NavbarSelect = styled(Select)({
   background: colors.primary.main,
   border: `1px solid ${colors.button.subHeading}`,
   borderRadius: 4,
-  width: 140,
+  minWidth: 140,
+  maxWidth: 350,
 
   '& .MuiSelect-select': {
     color: `${colors.primary.contrastText} `,
