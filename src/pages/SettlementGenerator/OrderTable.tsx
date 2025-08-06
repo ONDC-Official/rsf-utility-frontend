@@ -1,44 +1,41 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
 import Table from 'components/common/Table'
 import { ISettlementOrder } from 'interfaces/settlementGenerator'
 import { columns } from 'pages/SettlementGenerator/data'
+import { IOrderTableProps } from 'pages/SettlementGenerator/types'
+import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
 
-interface IProps {
-  orders: ISettlementOrder[]
-  columnsCount: number
-  page: number
-  rowsPerPage: number
-  setPage: (p: number) => void
-  setRowsPerPage: (r: number) => void
-  selectedOrders: Set<string>
-  onCheckboxChange: (id: string, checked: boolean) => void
-  onSelectAll: (checked: boolean, currentPageItems: ISettlementOrder[]) => void
-}
+const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange }) => {
+  const {
+    currentItems: orders,
+    selectedItems: selectedOrders,
+    totalCount,
+    page,
+    rowsPerPage,
+    handlePageChange,
+    handleRowsPerPageChange,
+    handleCheckboxChange,
+    handleSelectAll,
+  } = usePaginatedSelectableData<ISettlementOrder>(allOrders)
 
-const OrderTable: FC<IProps> = ({
-  orders,
-  columnsCount,
-  page,
-  rowsPerPage,
-  setPage,
-  setRowsPerPage,
-  selectedOrders,
-  onCheckboxChange,
-  onSelectAll,
-}) => {
+  // Notify parent on selection change
+  useEffect(() => {
+    onSelectedOrdersChange(selectedOrders)
+  }, [selectedOrders, onSelectedOrdersChange])
+
   const getItemId = (item: ISettlementOrder) => item.id
 
-  const renderRow = (order: ISettlementOrder, index: number) => (
+  const renderRow = (order: ISettlementOrder) => (
     <>
       <TableBodyCheckboxCell>
         <Checkbox
           checked={selectedOrders.has(order.id)}
-          onChange={(e) => onCheckboxChange(order.id, e.target.checked)}
+          onChange={(e) => handleCheckboxChange(order.id, e.target.checked)}
           size="small"
         />
       </TableBodyCheckboxCell>
@@ -71,14 +68,14 @@ const OrderTable: FC<IProps> = ({
       <Table
         columns={columns}
         data={orders}
-        totalCount={columnsCount}
+        totalCount={totalCount}
         page={page}
         rowsPerPage={rowsPerPage}
-        onPageChange={setPage}
-        onRowsPerPageChange={setRowsPerPage}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
         renderRow={renderRow}
         selectedItems={selectedOrders}
-        onSelectAll={onSelectAll}
+        onSelectAll={handleSelectAll}
         getItemId={getItemId}
       />
     </Container>

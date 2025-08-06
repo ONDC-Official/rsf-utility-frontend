@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import DashboardRow from 'pages/SettlementDashboard/DashboardRow'
@@ -6,6 +6,7 @@ import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
 import { columns } from 'pages/SettlementDashboard/data'
 import { DASHBOARD_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardTableProps } from 'pages/SettlementDashboard/types'
+import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import {
   TableContainer as Container,
   TableHeader as Header,
@@ -14,25 +15,34 @@ import {
 } from 'styles/pages/SettlementDashboard.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 
-const DashboardTable: FC<IDashboardTableProps> = ({
-  orders,
-  totalCount,
-  page,
-  rowsPerPage,
-  onPageChange,
-  onRowsPerPageChange,
-  selectedOrders,
-  onCheckboxChange,
-  onSelectAll,
-}) => {
+const DashboardTable: FC<IDashboardTableProps> = ({ orders }) => {
+  const {
+    currentItems,
+    selectedItems,
+    page,
+    rowsPerPage,
+    totalCount,
+    handlePageChange,
+    handleRowsPerPageChange,
+    handleCheckboxChange,
+    handleSelectAll,
+    setSelectedItems,
+    setPage,
+  } = usePaginatedSelectableData<ISettlementDashboardOrder>(orders)
+
+  useEffect(() => {
+    setSelectedItems(new Set())
+    setPage(1)
+  }, [orders, setSelectedItems, setPage])
+
   const getItemId = (item: ISettlementDashboardOrder) => item.id
 
   const renderRow = (order: ISettlementDashboardOrder, index: number) => (
     <DashboardRow
       key={order.id}
       order={order}
-      selected={selectedOrders.has(order.id)}
-      onCheckboxChange={onCheckboxChange}
+      selected={selectedItems.has(order.id)}
+      onCheckboxChange={handleCheckboxChange}
     />
   )
 
@@ -49,17 +59,18 @@ const DashboardTable: FC<IDashboardTableProps> = ({
           </ContainedExportButton>
         </Actions>
       </Header>
+
       <Table
         columns={columns}
-        data={orders}
+        data={currentItems}
         totalCount={totalCount}
         page={page}
         rowsPerPage={rowsPerPage}
-        onPageChange={onPageChange}
-        onRowsPerPageChange={onRowsPerPageChange}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
         renderRow={renderRow}
-        selectedItems={selectedOrders}
-        onSelectAll={onSelectAll}
+        selectedItems={selectedItems}
+        onSelectAll={handleSelectAll}
         getItemId={getItemId}
       />
     </Container>

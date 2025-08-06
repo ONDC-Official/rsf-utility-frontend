@@ -8,14 +8,6 @@ export interface IDashboardRowProps {
 
 export interface IDashboardTableProps {
   orders: ISettlementDashboardOrder[]
-  totalCount: number
-  page: number
-  rowsPerPage: number
-  onPageChange: (page: number) => void
-  onRowsPerPageChange: (rowsPerPage: number) => void
-  selectedOrders: Set<string>
-  onCheckboxChange: (id: string, checked: boolean) => void
-  onSelectAll: (checked: boolean, currentPageItems: ISettlementDashboardOrder[]) => void
 }
 
 export interface IHeaderSectionProps {
