@@ -40,3 +40,86 @@ export interface ISettlementOrder {
   errorCode?: string
   errorMessage?: string
 }
+
+// interfaces/settlements.ts
+
+export interface ISettlementItem {
+  _id: string
+  request: {
+    context: {
+      domain: string
+      location: {
+        country: { code: string }
+        city: { code: string }
+      }
+      version: string
+      action: string
+      bap_id: string
+      bap_uri: string
+      bpp_id: string
+      bpp_uri: string
+      transaction_id: string
+      message_id: string
+      timestamp: string
+      ttl: string
+    }
+    message: {
+      settlement: {
+        type: string
+        id: string
+        orders: Array<{
+          provider: {
+            id: string
+            name: string
+            bank_details: {
+              account_no: string
+              ifsc_code: string
+            }
+            amount: {
+              currency: string
+              value: string
+            }
+          }
+          self: {
+            amount: {
+              currency: string
+              value: string
+            }
+          }
+        }>
+      }
+    }
+  }
+  response: {
+    statusCode: string
+    data: {
+      success: boolean
+      message: string
+      data?: {
+        message?: {
+          ack?: {
+            status: string
+          }
+        }
+        code?: string
+        request?: {
+          method: string
+          url: string
+        }
+        response?: {
+          status: number
+          statusText: string
+          data: string
+        }
+      }
+      errorCode?: string
+      details?: {
+        error?: string
+        errors?: string
+      }
+    }
+  }
+  createdAt: string
+  updatedAt: string
+  __v: number
+}

@@ -1,5 +1,5 @@
-import { APIRoute } from 'constants/enum'
 import { IApiResponse } from '@interfaces/api'
+import { APIRoute } from 'enums/api'
 import usePost from 'hooks/usePost'
 import { buildApiUrl } from 'utils/helpers'
 

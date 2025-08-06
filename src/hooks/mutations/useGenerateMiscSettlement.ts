@@ -1,8 +1,8 @@
 import usePost from 'hooks/usePost'
 import { IGenerateMiscSettlementPayload } from '@interfaces/miscSettlements'
 import { IApiResponse } from '@interfaces/api'
-import { APIRoute } from 'constants/enum'
 import { buildApiUrl } from 'utils/helpers'
+import { APIRoute } from 'enums/api'
 
 const useGenerateMiscSettlement = (userId: string) => {
   const mutation = usePost<IApiResponse<any>>()

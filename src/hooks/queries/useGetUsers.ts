@@ -3,7 +3,7 @@ import { IUser } from '@interfaces/user'
 import { UseQueryOptions } from 'react-query'
 import { IApiResponse } from '@interfaces/api'
 import { buildApiUrl } from 'utils/helpers'
-import { APIRoute } from 'constants/enum'
+import { APIRoute } from 'enums/api'
 
 const useGetUsers = (configs?: UseQueryOptions<IApiResponse<IUser[]>>) => {
   return useGet<IUser[]>('users', buildApiUrl(APIRoute.USERS, {}), configs)

@@ -5,7 +5,9 @@ import { TableCellStyles } from 'enums/styles'
 import { useUserContext } from 'context/userContext'
 import useGetSettlements from 'hooks/queries/useGetSettlements'
 import { columns } from 'pages/MiscSettlements/data'
-import { SettlementType } from 'constants/enum'
+import { ISettlementItem } from '@interfaces/settlement'
+import dayjs from 'dayjs'
+import { SettlementType } from 'enums/settlement'
 
 const SettlementsTable: React.FC = () => {
   const { selectedUser } = useUserContext()
@@ -18,17 +20,26 @@ const SettlementsTable: React.FC = () => {
   const rows = settlements?.data ?? []
   const totalCount = 0
 
-  const renderRow = (item: any) => (
-    <>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.settlement_reference}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.provider_id}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.receiver_id}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.status}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>₹{item.total_order_value}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.type}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{item.due_date}</TableCell>
-    </>
-  )
+  const renderRow = (item: ISettlementItem) => {
+    const settlement = item.request.message.settlement
+    const order = settlement.orders[0] ?? {}
+
+    const formattedDate = item.request.context.timestamp
+      ? dayjs(item.request.context.timestamp).format('YYYY-MM-DD')
+      : '-'
+
+    return (
+      <>
+        <TableCell sx={TableCellStyles.DEFAULT}>{settlement.id || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.id || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.bank_details?.account_no || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.bank_details?.ifsc_code || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>₹{order.self?.amount?.value || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.amount?.value || '-'}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{formattedDate}</TableCell>
+      </>
+    )
+  }
 
   return (
     <>

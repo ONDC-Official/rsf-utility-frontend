@@ -24,7 +24,7 @@ import {
   HeaderLabelContainer,
 } from 'styles/components/Table.styled'
 
-const Table = <T extends Record<string, unknown>>({
+const Table = <T,>({
   columns = [],
   data = [],
   totalCount = 0,

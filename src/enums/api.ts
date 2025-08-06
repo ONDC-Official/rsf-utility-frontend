@@ -1,9 +1,3 @@
-export enum SettlementType {
-  MISC = 'MISC',
-  NP_NP = 'NP-NP',
-  NIL = 'NIL',
-}
-
 export enum APIRoute {
   USERS = '/ui/users',
   SETTLEMENTS_PAYLOAD = '/ui/rsf-payloads',

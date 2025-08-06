@@ -1,6 +1,6 @@
 import { IApiResponse } from '@interfaces/api'
+import { APIRoute } from 'enums/api'
 import usePost from 'hooks/usePost'
-import { APIRoute } from 'constants/enum'
 import { buildApiUrl } from 'utils/helpers'
 
 type TriggerActionName = 'settle' | 'recon' | 'on_recon' | 'report'
