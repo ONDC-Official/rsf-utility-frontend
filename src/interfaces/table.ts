@@ -23,4 +23,7 @@ export interface ITableProps<T extends Record<string, unknown>, SortFieldType ex
   renderEmptyState?: () => React.ReactNode
   renderRow: (row: T, index: number) => React.ReactNode
   hideCheckboxes?: boolean
+  selectedItems?: Set<string>
+  onSelectAll?: (checked: boolean, currentPageItems: T[]) => void
+  getItemId?: (item: T) => string
 }

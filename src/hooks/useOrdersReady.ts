@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
 import { columns, receiverOptions } from 'pages/OrdersReady/data'
 import { generateOrdersReadyData } from 'data/ordersReadyData'
-import { IToastState, PrepareButtonState } from 'interfaces/ordersReady'
+import { IToastState, PrepareButtonState, IOrderReady } from 'interfaces/ordersReady'
 import { ROUTES } from 'constants/routes.constants'
 
 const useOrdersReady = () => {
@@ -37,6 +37,25 @@ const useOrdersReady = () => {
     setSelectedOrders((prev) => {
       const updated = new Set(prev)
       checked ? updated.add(orderId) : updated.delete(orderId)
+      return updated
+    })
+  }, [])
+
+  const handleSelectAll = useCallback((checked: boolean, currentPageItems: IOrderReady[]) => {
+    setSelectedOrders((prev) => {
+      const updated = new Set(prev)
+      if (checked) {
+        // Add all current page items to selection
+        currentPageItems.forEach((item) => {
+          updated.add(item.id)
+        })
+      } else {
+        // Remove all current page items from selection
+        currentPageItems.forEach((item) => {
+          updated.delete(item.id)
+        })
+      }
+
       return updated
     })
   }, [])
@@ -77,6 +96,8 @@ const useOrdersReady = () => {
 
   const handleReceiverChange = (event: SelectChangeEvent<unknown>) => {
     setReceiverId(event.target.value as string)
+    setSelectedOrders(new Set())
+    setPage(1)
   }
 
   return {
@@ -91,6 +112,7 @@ const useOrdersReady = () => {
     page,
     rowsPerPage,
     handleCheckboxChange,
+    handleSelectAll,
     handlePrepareClick,
     handleToastClose,
     handleReceiverChange,

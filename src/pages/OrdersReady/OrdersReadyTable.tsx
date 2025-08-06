@@ -2,10 +2,16 @@ import { FC } from 'react'
 import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
+import { IOrderReady } from 'interfaces/ordersReady'
 import { Container, Header, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 
-const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
+interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
+  selectedItems: Set<string>
+  onSelectAll: (checked: boolean, currentPageItems: IOrderReady[]) => void
+}
+
+const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   columns,
   data,
   totalCount,
@@ -14,30 +20,39 @@ const OrdersReadyTable: FC<IOrdersReadyTableProps> = ({
   renderRow,
   onPageChange,
   onRowsPerPageChange,
-}) => (
-  <Container>
-    <Header>
-      <TableTitle>BPP_001</TableTitle>
-      <TableActions>
-        <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-          Filter by date
-        </OutlinedFilterButton>
-        <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
-          Export
-        </ContainedExportButton>
-      </TableActions>
-    </Header>
-    <Table
-      columns={columns}
-      data={data}
-      totalCount={totalCount}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      onPageChange={onPageChange}
-      onRowsPerPageChange={onRowsPerPageChange}
-      renderRow={renderRow}
-    />
-  </Container>
-)
+  selectedItems,
+  onSelectAll,
+}) => {
+  const getItemId = (item: IOrderReady) => item.id
+
+  return (
+    <Container>
+      <Header>
+        <TableTitle>BPP_001</TableTitle>
+        <TableActions>
+          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
+            Filter by date
+          </OutlinedFilterButton>
+          <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
+            Export
+          </ContainedExportButton>
+        </TableActions>
+      </Header>
+      <Table
+        columns={columns}
+        data={data}
+        totalCount={totalCount}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+        renderRow={renderRow}
+        selectedItems={selectedItems}
+        onSelectAll={onSelectAll}
+        getItemId={getItemId}
+      />
+    </Container>
+  )
+}
 
 export default OrdersReadyTable

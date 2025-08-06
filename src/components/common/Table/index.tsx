@@ -25,6 +25,9 @@ const Table = <T extends Record<string, unknown>>({
   onRowsPerPageChange,
   renderRow,
   hideCheckboxes = false,
+  selectedItems = new Set(),
+  onSelectAll,
+  getItemId,
 }: ITableProps<T>) => {
   const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
   const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
@@ -42,6 +45,28 @@ const Table = <T extends Record<string, unknown>>({
     handleOrderIdClose()
   }
 
+  const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onSelectAll && getItemId) {
+      onSelectAll(event.target.checked, data)
+    }
+  }
+
+  const getSelectAllCheckboxState = () => {
+    if (!getItemId || data.length === 0) {
+      return { checked: false, indeterminate: false }
+    }
+
+    const currentPageIds = data.map(getItemId)
+    const selectedCurrentPageItems = currentPageIds.filter((id) => selectedItems.has(id))
+    if (selectedCurrentPageItems.length === currentPageIds.length) {
+      return { checked: true, indeterminate: false }
+    } else {
+      return { checked: false, indeterminate: false }
+    }
+  }
+
+  const selectAllState = getSelectAllCheckboxState()
+
   return (
     <Container elevation={0}>
       <Wrapper>
@@ -50,7 +75,12 @@ const Table = <T extends Record<string, unknown>>({
             <TableRow>
               {!hideCheckboxes && (
                 <TableHeaderCheckboxCell>
-                  <Checkbox size="small" />
+                  <Checkbox
+                    size="small"
+                    checked={selectAllState.checked}
+                    indeterminate={selectAllState.indeterminate}
+                    onChange={handleSelectAllChange}
+                  />
                 </TableHeaderCheckboxCell>
               )}
               {(columns || []).map((column, index) => (
