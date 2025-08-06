@@ -10,9 +10,9 @@ import {
   TableHeader,
   TableActions,
   TableTitle,
+  HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
-import { CalendarToday, GetApp } from '@mui/icons-material'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import { CalendarToday, GetApp, Upload } from '@mui/icons-material'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
@@ -20,6 +20,7 @@ import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessage
 import { useUserContext } from 'context/userContext'
 import SettlementDetailsForm, { FormValues } from './components/SettlementDetailsForm'
 import SettlementsTable from './components/SettlementsTable'
+import Button from 'components/common/Button'
 
 const MiscSettlements: React.FC = () => {
   const toast = useToast()
@@ -70,6 +71,11 @@ const MiscSettlements: React.FC = () => {
           <PageTitle variant={TypographyVariant.H3Semibold}>Miscellaneous Settlements</PageTitle>
           <PageSubtitle>Create ad-hoc settlements for special cases</PageSubtitle>
         </HeaderLeft>
+        <HeaderRight>
+          <Button variant="outlined" startIcon={<Upload />}>
+            Upload
+          </Button>
+        </HeaderRight>
       </Header>
 
       <SettlementDetailsForm onSubmit={handleSubmit} isSubmitting={miscMutation.isLoading || triggerAction.isLoading} />
@@ -78,12 +84,12 @@ const MiscSettlements: React.FC = () => {
         <TableHeader>
           <TableTitle variant={TypographyVariant.Caption1Semibold}>Miscellaneous Settlement Details</TableTitle>
           <TableActions>
-            <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
+            <Button variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
-            </OutlinedFilterButton>
-            <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
+            </Button>
+            <Button variant="outlined" startIcon={<GetApp />}>
               Export
-            </ContainedExportButton>
+            </Button>
           </TableActions>
         </TableHeader>
         <SettlementsTable />
