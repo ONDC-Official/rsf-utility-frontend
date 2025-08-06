@@ -37,7 +37,7 @@ import {
   EntriesContainer,
   StatusChip,
   ActionButton,
-} from '@styles/pages/Reconciliation.styled'
+} from '../../styles/pages/Reconciliation.styled'
 
 interface TabPanelProps {
   children?: React.ReactNode

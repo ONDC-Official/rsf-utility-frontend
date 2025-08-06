@@ -1,7 +1,7 @@
 import React from 'react'
-import Sidebar from '@components/layout/Sidebar'
-import Navbar from '@components/layout/Navbar'
-import { LayoutContainer, MainContent } from '@styles/layout/Layout.styled'
+import Sidebar from '../Sidebar'
+import Navbar from '../Navbar'
+import { LayoutContainer, MainContent } from '../../../styles/layout/Layout.styled'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -9,13 +9,11 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-     <LayoutContainer>
+    <LayoutContainer>
       <Sidebar />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <Navbar />
-        <MainContent>
-          {children}
-        </MainContent>
+        <MainContent>{children}</MainContent>
       </div>
     </LayoutContainer>
   )

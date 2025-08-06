@@ -46,7 +46,7 @@ export const StyledSelect = styled.select`
   border-radius: 8px;
   font-family: Inter;
   font-size: 12px;
-  background: #0B3352;
+  background: #0b3352;
   color: white;
 
   option {
@@ -55,10 +55,9 @@ export const StyledSelect = styled.select`
   }
 
   option:disabled {
-    color: #FFFFFF; 
+    color: #ffffff;
   }
 `
-
 
 export const Avatar = styled.div`
   width: 32px;

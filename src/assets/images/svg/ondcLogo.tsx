@@ -1,13 +1,7 @@
-import * as React from "react"
-import { SVGProps } from "react"
+import * as React from 'react'
+import { SVGProps } from 'react'
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={114}
-    height={46}
-    fill="none"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width={114} height={46} fill="none" {...props}>
     <mask
       id="a"
       width={114}
@@ -16,7 +10,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
       y={0}
       maskUnits="userSpaceOnUse"
       style={{
-        maskType: "luminance",
+        maskType: 'luminance',
       }}
     >
       <path fill="#fff" d="M.288.5h113.424v45H.288V.5Z" />
@@ -58,10 +52,7 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
         fill="#F29C49"
         d="M73.913 8.107A4.3 4.3 0 0 0 70.9 6.89a4.299 4.299 0 0 0-3.012 1.217 4.06 4.06 0 0 0 0 5.853 4.299 4.299 0 0 0 3.012 1.217.35.35 0 0 0 .354-.343.35.35 0 0 0-.354-.343c-1.961 0-3.559-1.552-3.559-3.458 0-1.906 1.598-3.457 3.56-3.457s3.559 1.551 3.559 3.457c0 .189.158.343.353.343a.349.349 0 0 0 .352-.343 4.056 4.056 0 0 0-1.252-2.926Z"
       />
-      <path
-        fill="url(#g)"
-        d="M29.384 33.647h5.493V16.575l10.972 8.528v-5.317L29.386 6.991v26.656Z"
-      />
+      <path fill="url(#g)" d="M29.384 33.647h5.493V16.575l10.972 8.528v-5.317L29.386 6.991v26.656Z" />
       <path
         fill="url(#h)"
         d="M65.123 11.033c0-.763.159-1.517.468-2.214l-.958-.933a3.423 3.423 0 0 1-2.658-.895H49.77v22.386l5.493 4.268V12.327H65.28a5.489 5.489 0 0 1-.155-1.294h-.002Z"
@@ -88,135 +79,51 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
     <defs>
-      <linearGradient
-        id="b"
-        x1={18.743}
-        x2={94.909}
-        y1={21.403}
-        y2={39.949}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="b" x1={18.743} x2={94.909} y1={21.403} y2={39.949} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="c"
-        x1={23.49}
-        x2={99.654}
-        y1={1.889}
-        y2={20.436}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="c" x1={23.49} x2={99.654} y1={1.889} y2={20.436} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="d"
-        x1={68.081}
-        x2={72.93}
-        y1={10.428}
-        y2={11.531}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="d" x1={68.081} x2={72.93} y1={10.428} y2={11.531} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="e"
-        x1={61.108}
-        x2={61.631}
-        y1={19.784}
-        y2={19.903}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="e" x1={61.108} x2={61.631} y1={19.784} y2={19.903} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="f"
-        x1={23.812}
-        x2={109.834}
-        y1={10.923}
-        y2={30.457}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="f" x1={23.812} x2={109.834} y1={10.923} y2={30.457} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="g"
-        x1={25.713}
-        x2={82.476}
-        y1={19.106}
-        y2={38.984}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="g" x1={25.713} x2={82.476} y1={19.106} y2={38.984} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="h"
-        x1={28.747}
-        x2={85.509}
-        y1={10.445}
-        y2={30.325}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="h" x1={28.747} x2={85.509} y1={10.445} y2={30.325} gradientUnits="userSpaceOnUse">
         <stop offset={0.05} stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="i"
-        x1={64.782}
-        x2={84.242}
-        y1={14.234}
-        y2={18.972}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="i" x1={64.782} x2={84.242} y1={14.234} y2={18.972} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="j"
-        x1={63.62}
-        x2={87.508}
-        y1={1.027}
-        y2={6.844}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="j" x1={63.62} x2={87.508} y1={1.027} y2={6.844} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="k"
-        x1={53.009}
-        x2={72.471}
-        y1={2.313}
-        y2={7.052}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="k" x1={53.009} x2={72.471} y1={2.313} y2={7.052} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="l"
-        x1={45.843}
-        x2={73.376}
-        y1={14.348}
-        y2={21.052}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="l" x1={45.843} x2={73.376} y1={14.348} y2={21.052} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>
-      <linearGradient
-        id="m"
-        x1={58.981}
-        x2={78.607}
-        y1={17.093}
-        y2={21.872}
-        gradientUnits="userSpaceOnUse"
-      >
+      <linearGradient id="m" x1={58.981} x2={78.607} y1={17.093} y2={21.872} gradientUnits="userSpaceOnUse">
         <stop stopColor="#1C75BC" />
         <stop offset={1} stopColor="#00AEEF" />
       </linearGradient>

@@ -39,4 +39,4 @@ export interface ISettlementOrder {
   hasError: boolean
   errorCode?: string
   errorMessage?: string
-} 
+}

@@ -1,24 +1,8 @@
-import * as React from "react"
-import { SVGProps } from "react"
+import { SVGProps } from 'react'
 const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={24}
-    height={24}
-    fill="none"
-    {...props}
-  >
-    <path
-      stroke="#30323A"
-      strokeLinecap="round"
-      strokeWidth={1.5}
-      d="M12 11v9"
-    />
-    <path
-      stroke="#30323A"
-      strokeWidth={1.5}
-      d="M14 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" {...props}>
+    <path stroke="#30323A" strokeLinecap="round" strokeWidth={1.5} d="M12 11v9" />
+    <path stroke="#30323A" strokeWidth={1.5} d="M14 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
     <path
       stroke="#30323A"
       strokeLinecap="round"

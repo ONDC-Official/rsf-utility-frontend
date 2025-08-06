@@ -14,4 +14,4 @@ export interface IMiscSettlementForm {
   accountNumber: string
   ifscCode: string
   amountToTransfer: number
-} 
+}

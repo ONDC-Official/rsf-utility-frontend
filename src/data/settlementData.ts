@@ -1,4 +1,4 @@
-import { ISettlement, ISettlementSummary, ISettlementOrder } from '@interfaces/settlement'
+import { ISettlement, ISettlementSummary, ISettlementOrder } from '../interfaces/settlement'
 
 export const settlementData: ISettlement[] = [
   {
@@ -14,7 +14,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 45,
     settlementType: 'Daily',
     paymentMethod: 'Bank Transfer',
-    remarks: 'Settlement completed successfully'
+    remarks: 'Settlement completed successfully',
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 23,
     settlementType: 'Daily',
     paymentMethod: 'UPI',
-    remarks: 'Awaiting bank confirmation'
+    remarks: 'Awaiting bank confirmation',
   },
   {
     id: '3',
@@ -44,7 +44,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 67,
     settlementType: 'Weekly',
     paymentMethod: 'Bank Transfer',
-    remarks: 'Processing settlement'
+    remarks: 'Processing settlement',
   },
   {
     id: '4',
@@ -59,7 +59,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 34,
     settlementType: 'Daily',
     paymentMethod: 'Digital Wallet',
-    remarks: 'Bank account details invalid'
+    remarks: 'Bank account details invalid',
   },
   {
     id: '5',
@@ -74,7 +74,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 52,
     settlementType: 'Daily',
     paymentMethod: 'Bank Transfer',
-    remarks: 'Settlement completed successfully'
+    remarks: 'Settlement completed successfully',
   },
   {
     id: '6',
@@ -89,7 +89,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 28,
     settlementType: 'On-Demand',
     paymentMethod: 'UPI',
-    remarks: 'Manual settlement requested'
+    remarks: 'Manual settlement requested',
   },
   {
     id: '7',
@@ -104,7 +104,7 @@ export const settlementData: ISettlement[] = [
     transactionCount: 89,
     settlementType: 'Weekly',
     paymentMethod: 'Bank Transfer',
-    remarks: 'Settlement completed successfully'
+    remarks: 'Settlement completed successfully',
   },
   {
     id: '8',
@@ -119,8 +119,8 @@ export const settlementData: ISettlement[] = [
     transactionCount: 19,
     settlementType: 'Daily',
     paymentMethod: 'Digital Wallet',
-    remarks: 'Processing settlement'
-  }
+    remarks: 'Processing settlement',
+  },
 ]
 
 export const generateSettlementData = (count: number): ISettlement[] => {
@@ -146,7 +146,7 @@ export const settlementSummary: ISettlementSummary = {
   completedAmount: 2150000.0,
   failedAmount: 120000.0,
   averageSettlementValue: 15705.13,
-  successRate: 85.9
+  successRate: 85.9,
 }
 
 export const settlementOrderData: ISettlementOrder[] = [
@@ -155,75 +155,75 @@ export const settlementOrderData: ISettlementOrder[] = [
     orderId: 'ORD001',
     collectorId: 'BAP_001',
     receiverId: 'BPP_001',
-    totalOrderValue: 1500.00,
-    interNPSettlement: 1323.00,
-    commission: 150.00,
+    totalOrderValue: 1500.0,
+    interNPSettlement: 1323.0,
+    commission: 150.0,
     status: 'Not Settled',
     settlementReference: '-',
     error: '70023',
     settlementInitiatedDate: '2024-01-20',
     hasError: true,
     errorCode: '70023',
-    errorMessage: 'Lorem ipsum dolor sit amet, consecte'
+    errorMessage: 'Lorem ipsum dolor sit amet, consecte',
   },
   {
     id: '2',
     orderId: 'ORD003',
     collectorId: 'BAP_002',
     receiverId: 'BPP_001',
-    totalOrderValue: 1200.00,
-    interNPSettlement: 882.00,
-    commission: 100.00,
+    totalOrderValue: 1200.0,
+    interNPSettlement: 882.0,
+    commission: 100.0,
     status: 'Settled',
     settlementReference: 'STL2024011',
     error: '',
     settlementInitiatedDate: '2024-01-20',
-    hasError: false
+    hasError: false,
   },
   {
     id: '3',
     orderId: 'ORD001',
     collectorId: 'BAP_001',
     receiverId: 'BPP_001',
-    totalOrderValue: 1500.00,
-    interNPSettlement: 1323.00,
-    commission: 150.00,
+    totalOrderValue: 1500.0,
+    interNPSettlement: 1323.0,
+    commission: 150.0,
     status: 'Not Settled',
     settlementReference: '-',
     error: '70023',
     settlementInitiatedDate: '2024-01-20',
     hasError: true,
     errorCode: '70023',
-    errorMessage: 'Lorem ipsum dolor sit amet, consecte'
+    errorMessage: 'Lorem ipsum dolor sit amet, consecte',
   },
   {
     id: '4',
     orderId: 'ORD003',
     collectorId: 'BAP_002',
     receiverId: 'BPP_001',
-    totalOrderValue: 1200.00,
-    interNPSettlement: 882.00,
-    commission: 100.00,
+    totalOrderValue: 1200.0,
+    interNPSettlement: 882.0,
+    commission: 100.0,
     status: 'Settled',
     settlementReference: 'STL20240117001',
     error: '',
     settlementInitiatedDate: '2024-01-20',
-    hasError: false
+    hasError: false,
   },
   {
     id: '5',
     orderId: 'ORD003',
     collectorId: 'BAP_002',
     receiverId: 'BPP_001',
-    totalOrderValue: 1200.00,
-    interNPSettlement: 882.00,
-    commission: 100.00,
+    totalOrderValue: 1200.0,
+    interNPSettlement: 882.0,
+    commission: 100.0,
     status: 'Settled',
     settlementReference: 'STL20240117001',
     error: '',
     settlementInitiatedDate: '2024-01-20',
-    hasError: false
-  }
+    hasError: false,
+  },
 ]
 
 export const generateSettlementOrderData = (count: number): ISettlementOrder[] => {
@@ -240,4 +240,4 @@ export const generateSettlementOrderData = (count: number): ISettlementOrder[] =
   }
 
   return generatedData
-} 
+}

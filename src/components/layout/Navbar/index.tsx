@@ -1,6 +1,4 @@
-// Navbar.tsx
-
-import React from 'react'
+import { FC } from 'react'
 import {
   NavbarContainer,
   SystemTitle,
@@ -8,15 +6,10 @@ import {
   ConfigLabel,
   StyledSelect,
   Avatar,
-} from '@styles/layout/Navbar.styled'
+} from '../../../styles/layout/Navbar.styled'
+import { configurationOptions } from './configurationOptions'
 
-const Navbar: React.FC = () => {
-  const configurationOptions = [
-    { value: 'config1', label: 'Choose...' },
-    { value: 'config2', label: 'Configuration 1' },
-    { value: 'config3', label: 'Configuration 2' },
-  ]
-
+const Navbar: FC = () => {
   return (
     <NavbarContainer>
       <SystemTitle>Reconciliation and Settlement System</SystemTitle>

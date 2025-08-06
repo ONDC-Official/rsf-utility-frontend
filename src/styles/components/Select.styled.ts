@@ -1,26 +1,44 @@
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { FormControl, Select } from '@mui/material'
-import colors from '@theme/colors'
+import colors from 'theme/colors'
 
-export const StyledFormControl = styled(FormControl)`
-  min-width: 120px;
-`
+export const StyledFormControl = styled(FormControl)({
+  minWidth: 120,
+})
 
-export const NavbarSelect = styled(Select)`
-  & .MuiSelect-select {
-    color: ${colors.primary.contrastText};
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+export const NavbarSelect = styled(Select)({
+  background: colors.primary.main,
+  border: `1px solid ${colors.button.subHeading}`,
+  borderRadius: 4,
+  width: 140,
 
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.3);
-  }
+  '& .MuiSelect-select': {
+    color: `${colors.primary.contrastText} !important`,
+    backgroundColor: `${colors.primary.main} !important`,
+    height: 24,
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0px 12px',
+  },
 
-  &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.5);
-  }
+  '& .MuiOutlinedInput-root': {
+    backgroundColor: `${colors.primary.main} !important`,
+    height: 24,
+  },
 
-  &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: rgba(255, 255, 255, 0.7);
-  }
-`
+  '& .MuiSelect-icon': {
+    color: `${colors.primary.contrastText} !important`,
+  },
+
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    border: 'none',
+  },
+})

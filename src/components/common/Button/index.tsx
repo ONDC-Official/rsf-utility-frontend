@@ -1,13 +1,7 @@
-import React from 'react'
-import { ButtonProps } from '@mui/material'
-import { StyledButton } from '@styles/components/Button.styled'
+import { FC } from 'react'
+import { ICustomButtonProps } from 'components/common/Button/types'
+import { StyledButton } from 'styles/components/Button.styled'
 
-interface CustomButtonProps extends ButtonProps {
-  children: React.ReactNode
-}
-
-const Button: React.FC<CustomButtonProps> = ({ children, ...props }) => {
-  return <StyledButton {...props}>{children}</StyledButton>
-}
+const Button: FC<ICustomButtonProps> = ({ children, ...props }) => <StyledButton {...props}>{children}</StyledButton>
 
 export default Button

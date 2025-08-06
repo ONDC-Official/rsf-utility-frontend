@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { TableRow, TableCell, Checkbox, TextField, IconButton, Tooltip } from '@mui/material'
 import { CalendarToday, GetApp, CloudUpload, Bolt, Link as LinkIcon } from '@mui/icons-material'
-import Table from '@components/common/Table'
-import { ITableColumn } from '@interfaces/table'
-import { IMiscSettlement, IMiscSettlementForm } from '@interfaces/miscSettlement'
-import { generateMiscSettlementData } from '@data/miscSettlementData'
+import Table from '../../components/common/Table'
+import { ITableColumn } from '../../interfaces/table'
+import { IMiscSettlement, IMiscSettlementForm } from '../../interfaces/miscSettlement'
+import { generateMiscSettlementData } from '../../data/miscSettlementData'
 import {
   PageContainer,
   PageHeader,
@@ -28,7 +28,7 @@ import {
   FilterContainer,
   FilterButton,
   ExportButton,
-} from '@styles/pages/MiscSettlements.styled'
+} from '../../styles/pages/MiscSettlements.styled'
 
 const MiscSettlements: React.FC = () => {
   const [page, setPage] = useState(1)

@@ -1,27 +1,4 @@
-import { TypographyVariantsOptions, TypographyStyle } from '@mui/material/styles'
-import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from '@constants/fonts'
-
-interface ITypography extends TypographyVariantsOptions {
-  h3_semibold: TypographyStyle
-  h5_semibold: TypographyStyle
-  h6_semibold: TypographyStyle
-  body1_regular: TypographyStyle
-  body1_medium: TypographyStyle
-  body1_semibold: TypographyStyle
-  body2_regular: TypographyStyle
-  body2_semibold: TypographyStyle
-  body2_medium: TypographyStyle
-  body3_medium: TypographyStyle
-  body3_regular: TypographyStyle
-  body4_bold: TypographyStyle
-  body5_light: TypographyStyle
-  body5_medium: TypographyStyle
-  body5_regular: TypographyStyle
-  body5_semibold: TypographyStyle
-  h7: TypographyStyle
-  body4_semibold: TypographyStyle
-  caption1_semibold: TypographyStyle
-}
+import { BOLD, MEDIUM, REGULAR, SEMI_BOLD } from 'constants/fonts'
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
@@ -30,31 +7,23 @@ declare module '@mui/material/Typography' {
     h6_semibold: true
     body1_regular: true
     body1_medium: true
-    body1_semibold: true
     body2_regular: true
     body2_semibold: true
     body2_medium: true
-    body3_medium: true
-    body3_regular: true
-    body4_bold: true
-    body4_semibold: true
     body5_light: true
     body5_medium: true
     body5_regular: true
     body5_semibold: true
-    h7: true
     caption1_semibold: true
   }
 }
 
 const body1 = { fontSize: '16px', lineHeight: '24px' }
 const body2 = { fontSize: '14px', lineHeight: '20px' }
-const body3 = { fontSize: '10px', lineHeight: '16px' }
-const body4 = { fontSize: '20px', lineHeight: '28px' }
 const body5 = { fontSize: '12px', lineHeight: '28px' }
 const caption1 = { fontSize: '18px', lineHeight: '26px' }
 
-export const typography: ITypography = {
+export const typography = {
   h1: {
     fontSize: '52px',
     lineHeight: '64px',
@@ -75,6 +44,7 @@ export const typography: ITypography = {
     fontSize: '32px',
     lineHeight: '40px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   h4: {
     fontSize: '28px',
@@ -90,21 +60,18 @@ export const typography: ITypography = {
     fontSize: '24px',
     lineHeight: '32px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   h6: {
     fontSize: '20px',
     lineHeight: '28px',
     fontFamily: BOLD,
   },
-  h7: {
-    fontSize: '24px',
-    lineHeight: '32px',
-    fontFamily: SEMI_BOLD,
-  },
   h6_semibold: {
     fontSize: '20px',
     lineHeight: '28px',
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
   },
   body1: {
     ...body1,
@@ -113,11 +80,6 @@ export const typography: ITypography = {
   body1_regular: {
     fontWeight: 400,
     fontFamily: REGULAR,
-    ...body1,
-  },
-  body1_semibold: {
-    fontWeight: 600,
-    fontFamily: SEMI_BOLD,
     ...body1,
   },
   body1_medium: {
@@ -137,32 +99,13 @@ export const typography: ITypography = {
   },
   body2_semibold: {
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
     ...body2,
   },
   body2_medium: {
     fontFamily: MEDIUM,
     fontWeight: 500,
     ...body2,
-  },
-  body3_medium: {
-    fontFamily: MEDIUM,
-    fontWeight: 500,
-    ...body3,
-  },
-  body3_regular: {
-    fontFamily: REGULAR,
-    fontWeight: 400,
-    ...body3,
-  },
-  body4_bold: {
-    fontFamily: BOLD,
-    fontWeight: 600,
-    ...body4,
-  },
-  body4_semibold: {
-    fontFamily: SEMI_BOLD,
-    fontWeight: 600,
-    ...body4,
   },
   body5_light: {
     fontFamily: REGULAR,
@@ -184,19 +127,9 @@ export const typography: ITypography = {
     fontWeight: 600,
     ...body5,
   },
-  subtitle1: {
-    fontFamily: REGULAR,
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: 400,
-  },
-  subtitle2: {
-    fontFamily: REGULAR,
-    fontSize: '10px',
-    lineHeight: '14px',
-  },
   caption1_semibold: {
     fontFamily: SEMI_BOLD,
+    fontWeight: 600,
     ...caption1,
   },
 }

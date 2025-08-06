@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Box, Typography, Card, CardContent, TextField, Button } from '@mui/material'
-import colors from '@theme/colors'
-import { typography } from '@theme/typography'
+import colors from '../../theme/colors'
+import { typography } from '../../theme/typography'
 
 export const PageContainer = styled(Box)`
   background: ${colors.background.main};

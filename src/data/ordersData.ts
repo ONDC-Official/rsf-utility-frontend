@@ -1,4 +1,4 @@
-import { IOrder } from '@interfaces/order'
+import { IOrder } from 'interfaces/order'
 
 export const ordersData: IOrder[] = [
   {
@@ -54,7 +54,7 @@ export const ordersData: IOrder[] = [
 ]
 
 // Generate more data for pagination demo
-export const generateOrdersData = (count: number): IOrder[] => {
+export const generateOrdersData = (count: number = 0): IOrder[] => {
   const baseData = [...ordersData]
   const generatedData: IOrder[] = []
 

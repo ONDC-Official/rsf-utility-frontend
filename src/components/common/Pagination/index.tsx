@@ -1,24 +1,25 @@
-import React from 'react'
+import { FC, ChangeEvent } from 'react'
 import { Pagination as MUIPagination, SelectChangeEvent } from '@mui/material'
-import Select from '@components/common/Select'
+import Select from 'components/common/Select'
+import { IPaginationProps } from 'components/common/Pagination/types'
+import { ROWS_PER_PAGE_OPTIONS } from 'components/common/Pagination/data'
+import { TypographyVariant } from 'enums/typography'
 import {
-  PaginationContainer,
+  Container,
   PaginationInfo,
-  PaginationControls,
+  Wrapper,
   PaginationShowContainer,
   PaginationShowText,
-} from '@styles/components/Pagination.styled'
+} from 'styles/components/Pagination.styled'
 
-interface PaginationProps {
-  count: number
-  page: number
-  rowsPerPage: number
-  onPageChange?: (page: number) => void
-  onRowsPerPageChange?: (rowsPerPage: number) => void
-}
-
-const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPageChange, onRowsPerPageChange }) => {
-  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+const Pagination: FC<IPaginationProps> = ({
+  count = 0,
+  page = 1,
+  rowsPerPage = 10,
+  onPageChange,
+  onRowsPerPageChange,
+}) => {
+  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }
 
@@ -26,16 +27,16 @@ const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPag
     onRowsPerPageChange?.(Number(event.target.value))
   }
 
-  const startEntry = (page - 1) * rowsPerPage + 1
+  const startEntry = count > 0 ? (page - 1) * rowsPerPage + 1 : 0
   const endEntry = Math.min(page * rowsPerPage, count)
 
   return (
-    <PaginationContainer>
-      <PaginationInfo>
-        Showing {startEntry} to {endEntry} of {count} entries
-      </PaginationInfo>
+    <Container>
+      <Wrapper>
+        <PaginationInfo variant={TypographyVariant.Body5Regular}>
+          Showing {startEntry} to {endEntry} of {count} entries
+        </PaginationInfo>
 
-      <PaginationControls>
         <MUIPagination
           count={Math.ceil(count / rowsPerPage)}
           page={page}
@@ -45,20 +46,12 @@ const Pagination: React.FC<PaginationProps> = ({ count, page, rowsPerPage, onPag
         />
 
         <PaginationShowContainer>
-          <PaginationShowText>Show</PaginationShowText>
-          <Select
-            value={rowsPerPage}
-            onChange={handleRowsPerPageChange}
-            options={[
-              { value: 5, label: '5' },
-              { value: 10, label: '10' },
-              { value: 20, label: '20' },
-            ]}
-          />
-          <PaginationShowText>entries</PaginationShowText>
+          <PaginationShowText variant={TypographyVariant.Body5Regular}>Show</PaginationShowText>
+          <Select value={rowsPerPage} onChange={handleRowsPerPageChange} options={ROWS_PER_PAGE_OPTIONS} size="small" />
+          <PaginationShowText variant={TypographyVariant.Body5Regular}>entries</PaginationShowText>
         </PaginationShowContainer>
-      </PaginationControls>
-    </PaginationContainer>
+      </Wrapper>
+    </Container>
   )
 }
 

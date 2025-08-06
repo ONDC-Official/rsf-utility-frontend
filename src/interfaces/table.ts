@@ -22,4 +22,5 @@ export interface ITableProps<T = Record<string, unknown>, SortFieldType extends 
   renderHeaderContent?: () => React.ReactNode
   renderEmptyState?: () => React.ReactNode
   renderRow: (row: T, index: number) => React.ReactNode
+  hideCheckboxes?: boolean
 }

@@ -1,14 +1,24 @@
-import React from 'react'
-import { Table as MUITable, TableCell, TableHead, TableRow, TableBody, TableContainer, Checkbox, IconButton } from '@mui/material'
-import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material'
-import Pagination from '@components/common/Pagination'
-import { StyledTableContainer, StyledTableHead, StyledTableCell } from '@styles/components/Table.styled'
-import { ITableProps } from '@interfaces/table'
+import React, { useState } from 'react'
+import { Table as MUITable, TableRow, TableBody, Checkbox, Menu, MenuItem } from '@mui/material'
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import Pagination from 'components/common/Pagination'
+import { ITableProps } from 'interfaces/table'
+import { SortOrder } from 'components/common/Table/type'
+import {
+  Container,
+  StyledTableHead,
+  StyledTableCell,
+  StyledTableRow,
+  Wrapper,
+  StyledIconButton,
+  TableHeaderCheckboxCell,
+  HeaderLabelContainer,
+} from 'styles/components/Table.styled'
 
-function Table<T extends Record<string, unknown>>({
-  columns,
-  data,
-  totalCount,
+const Table = <T extends Record<string, unknown>>({
+  columns = [],
+  data = [],
+  totalCount = 0,
   page,
   rowsPerPage,
   onPageChange,
@@ -17,52 +27,76 @@ function Table<T extends Record<string, unknown>>({
   sortField,
   sortDirection,
   renderRow,
-  
-}: ITableProps<T>) {
-  const handleSort = (columnId: string) => {
-    if (onSort && columns.find(col => col.id === columnId)?.sortable) {
-      onSort(columnId)
-    }
+  hideCheckboxes = false,
+}: ITableProps<T>) => {
+  const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
+  const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
+
+  const handleOrderIdClick = (event: React.MouseEvent<HTMLElement>) => {
+    setOrderIdAnchorEl(event.currentTarget)
   }
 
-  const renderSortIcon = (columnId: string) => {
-    if (sortField !== columnId) return null
-    return sortDirection === 'asc' ? <KeyboardArrowUp /> : <KeyboardArrowDown />
+  const handleOrderIdClose = () => {
+    setOrderIdAnchorEl(null)
+  }
+
+  const handleOrderIdSort = (order: SortOrder) => {
+    setOrderIdSortOrder(order)
+    handleOrderIdClose()
   }
 
   return (
-    <StyledTableContainer elevation={0}>
-      <TableContainer>
+    <Container elevation={0}>
+      <Wrapper>
         <MUITable>
           <StyledTableHead>
             <TableRow>
-              <StyledTableCell padding="checkbox">
-                <Checkbox />
-              </StyledTableCell>
-              {columns.map((column) => (
-                <StyledTableCell 
-                  key={column.id}
-                  onClick={() => handleSort(column.id)}
-                  style={{ 
-                    cursor: column.sortable ? 'pointer' : 'default',
-                    userSelect: 'none'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    {column.label}
-                    {column.sortable && renderSortIcon(column.id)}
-                  </div>
+              {!hideCheckboxes && (
+                <TableHeaderCheckboxCell>
+                  <Checkbox />
+                </TableHeaderCheckboxCell>
+              )}
+              {(columns || []).map((column, index) => (
+                <StyledTableCell key={column.id}>
+                  {index === 0 ? (
+                    <HeaderLabelContainer>
+                      {column.label}
+                      <StyledIconButton size="small" onClick={handleOrderIdClick}>
+                        {orderIdSortOrder === 'asc' ? (
+                          <KeyboardArrowUp fontSize="small" />
+                        ) : (
+                          <KeyboardArrowDown fontSize="small" />
+                        )}
+                      </StyledIconButton>
+                      <Menu
+                        anchorEl={orderIdAnchorEl}
+                        open={Boolean(orderIdAnchorEl)}
+                        onClose={handleOrderIdClose}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                      >
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.ASC)}>Sort Ascending</MenuItem>
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.DESC)}>Sort Descending</MenuItem>
+                      </Menu>
+                    </HeaderLabelContainer>
+                  ) : (
+                    column.label
+                  )}
                 </StyledTableCell>
               ))}
             </TableRow>
           </StyledTableHead>
           <TableBody>
-            {data.map((row, index) => (
-              <React.Fragment key={index}>{renderRow(row, index)}</React.Fragment>
+            {(data || []).map((row, index) => (
+              <StyledTableRow key={index} isLast={index === data.length - 1}>
+                {renderRow(row, index)}
+              </StyledTableRow>
             ))}
           </TableBody>
         </MUITable>
-      </TableContainer>
+      </Wrapper>
       <Pagination
         count={totalCount}
         page={page}
@@ -70,7 +104,7 @@ function Table<T extends Record<string, unknown>>({
         onPageChange={onPageChange}
         onRowsPerPageChange={onRowsPerPageChange}
       />
-    </StyledTableContainer>
+    </Container>
   )
 }
 

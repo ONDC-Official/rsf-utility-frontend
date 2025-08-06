@@ -1,4 +1,4 @@
-import { IColors } from './types/palette'
+import { IColors } from 'theme/types/palette'
 
 const colors: IColors = {
   error: {
@@ -15,13 +15,6 @@ const colors: IColors = {
     tertiaryMain: '#EB7413',
     tertiaryWarning: '#FFFDFB',
   },
-  success: {
-    main: '#28A745',
-    light: '#757575',
-    dark: '#1C7530',
-    contrastText: '#EAF6EC',
-    secondary: '#F0F5F3',
-  },
   primary: {
     main: '#0B3352',
     contrastText: '#FFFFFF',
@@ -29,11 +22,12 @@ const colors: IColors = {
     dark: '#0D3656',
     inputFieldText: '#323639',
   },
-  secondary: {
-    main: '#1B2F57',
-    light: '#798190',
-    dark: '#575757',
-    contrastText: '#1C1C1C',
+  success: {
+    main: '#0B3352',
+    contrastText: '#FFFFFF',
+    light: '#1C75BC',
+    dark: '#0D3656',
+    inputFieldText: '#323639',
   },
   background: {
     main: '#F5F5F5',
@@ -60,11 +54,6 @@ const colors: IColors = {
     contrastText: '#18273A',
     tertiary: '#DEDEDE',
   },
-  status: {
-    main: '#28A745',
-    accepted: '#28A745',
-    pending: '#6C757D',
-  },
   shadow: {
     main: '#1B2F5717',
     primary: '#1B2F5717',
@@ -72,12 +61,6 @@ const colors: IColors = {
     tertiary: '#E6E6E6',
     disabled: '#E9EBEF',
     contrastText: '#FCFCFC',
-  },
-  placeholder: {
-    main: '#BDBDBD',
-    dark: '#1C2129',
-    light: '#2B2F40',
-    contrastText: '#0D0D0D',
   },
   button: {
     main: '#3B5998',
@@ -88,17 +71,17 @@ const colors: IColors = {
     subHeading: '#BFBFBF',
     contrastText: '#061632',
   },
-  playgroundBorder: {
-    main: '#9EC2FF',
-    light: '#37333B',
-    dark: '#243465',
-    contrastText: '#C4C8D3',
+  alert: {
+    main: '#DC3545',
+    light: '#FCEBEC',
+    dark: '#C82333',
+    contrastText: '#FFFFFF',
   },
-  playgroundBackground: {
-    main: '#DBE8FF',
-    light: '#BBF7D0',
-    dark: '#F0FDF4',
-    contrastText: '#848A9C',
+  neutral: {
+    main: '#DFE0E5',
+    light: '#F8F9FA',
+    dark: '#6C757D',
+    contrastText: '#495057',
   },
 }
 
