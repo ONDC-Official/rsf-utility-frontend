@@ -6,7 +6,7 @@ import { ISettlementOrder } from 'interfaces/settlementGenerator'
 import { columns } from 'pages/SettlementGenerator/data'
 import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
-import { Container, Header, TableActions, TableTitle } from 'styles/pages/OrdersReady.styled'
+import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
 
 interface IProps {
   orders: ISettlementOrder[]
@@ -57,15 +57,15 @@ const OrderTable: FC<IProps> = ({
   return (
     <Container>
       <Header>
-        <TableTitle>Select Orders for Settlement</TableTitle>
-        <TableActions>
+        <Title>Select Orders for Settlement</Title>
+        <Actions>
           <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
             Filter by date
           </OutlinedFilterButton>
           <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
             Export
           </ContainedExportButton>
-        </TableActions>
+        </Actions>
       </Header>
 
       <Table

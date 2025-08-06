@@ -63,13 +63,13 @@ export const Header = styled(Box)({
   padding: '20px 24px',
 })
 
-export const TableActions = styled(Box)({
+export const Actions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
 })
 
-export const TableTitle = styled(Typography)({
+export const Title = styled(Typography)({
   fontFamily: typography.h6_semibold.fontFamily,
   fontWeight: typography.h6_semibold.fontWeight,
   color: colors.text.primary,

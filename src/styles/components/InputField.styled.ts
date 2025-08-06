@@ -10,7 +10,7 @@ export const Container = styled(Box)({
   width: '100%',
 })
 
-export const InputLabel = styled(Typography)({
+export const StyledLabel = styled(Typography)({
   fontFamily: typography.body2_medium.fontFamily,
   fontSize: typography.body2_medium.fontSize,
   fontWeight: typography.body2_medium.fontWeight,
