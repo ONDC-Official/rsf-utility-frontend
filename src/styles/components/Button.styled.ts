@@ -16,7 +16,7 @@ export const OutlinedFilterButton = styled(Button)({
 })
 
 export const ContainedExportButton = styled(Button)({
-  color: `${colors.background.light} !important`,
+  color: `${colors.text.tertiary} !important`,
   borderColor: `${colors.border.tertiary} !important`,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,

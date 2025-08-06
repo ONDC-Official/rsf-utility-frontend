@@ -27,4 +27,5 @@ export interface IColors {
   button: IColorVariant
   alert: IColorVariant
   neutral: IColorVariant
+  success: IColorVariant
 }

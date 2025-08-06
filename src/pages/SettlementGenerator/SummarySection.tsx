@@ -41,7 +41,7 @@ const SummarySection: FC<IProps> = ({ summary, customDueDate, setCustomDueDate, 
     </CustomDateSection>
 
     <ButtonSection>
-      <ContainedExportButton variant="contained" startIcon={<Visibility />} onClick={onGeneratePreview}>
+      <ContainedExportButton variant="outlined" startIcon={<Visibility />} onClick={onGeneratePreview}>
         Generate & Preview Payload
       </ContainedExportButton>
 
