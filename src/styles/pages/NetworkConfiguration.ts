@@ -77,7 +77,7 @@ export const ActionButton = styled(Button)(() => ({
   height: '50px',
   borderRadius: '8px',
   background: colors.text.light,
-  border: '1px solid ${colors.border.main} !important',
+  border: '1px solid ${colors.border.main}',
   textTransform: 'none',
   fontSize: '14px',
   fontWeight: 600,
@@ -85,7 +85,7 @@ export const ActionButton = styled(Button)(() => ({
   display: 'flex',
   gap: '5px',
   '&:hover': {
-    background: '#f5f5f5 !important',
+    background: '#f5f5f5',
   },
 }))
 
