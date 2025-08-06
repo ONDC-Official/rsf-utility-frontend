@@ -1,207 +1,143 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography, Card, CardContent, TextField, Button } from '@mui/material'
-import colors from '../../theme/colors'
-import { typography } from '../../theme/typography'
+import { Box, Typography } from '@mui/material'
+import colors from 'theme/colors'
+import { typography } from 'theme/typography'
+import { SendRounded } from '@mui/icons-material'
 
-export const Container = styled(Box)`
-  background: ${colors.background.main};
-  min-height: 100%;
-  padding: 24px;
-`
+export const Container = styled(Box)({
+  background: colors.background.main,
+  minHeight: '100%',
+})
 
-export const Header = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-`
+export const Header = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  marginBottom: 24,
+})
 
-export const HeaderLeft = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`
+export const HeaderLeft = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+})
 
-export const PageTitle = styled(Typography)`
-  font-family: ${typography.h3_semibold.fontFamily};
-  font-weight: ${typography.h3_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h3_semibold.fontSize};
-  line-height: ${typography.h3_semibold.lineHeight};
-`
+export const HeaderRight = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
 
-export const PageSubtitle = styled(Typography)`
-  color: ${colors.text.secondary};
-  font-family: ${typography.body1_regular.fontFamily};
-  font-size: ${typography.body1_regular.fontSize};
-`
+export const PageTitle = styled(Typography)({
+  fontWeight: typography.h3_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h3_semibold.fontSize,
+  lineHeight: typography.h3_semibold.lineHeight,
+})
 
-export const BulkUploadButton = styled(Button)`
-  background: ${colors.primary.main};
-  color: white;
-  text-transform: none;
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-  padding: 8px 16px;
-  border-radius: 6px;
+export const PageSubtitle = styled(Typography)({
+  color: colors.text.secondary,
+  fontFamily: typography.body1_regular.fontFamily,
+  fontSize: typography.body1_regular.fontSize,
+})
 
-  &:hover {
-    background: ${colors.primary.dark};
-  }
-`
+export const Wrapper = styled(Box)({
+  background: colors.background.light,
+  boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
+  borderRadius: 8,
+  overflow: 'hidden',
+})
 
-export const Wrapper = styled(Card)`
-  background: ${colors.background.light};
-  box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
-  border-radius: 8px;
-  border: 1px solid ${colors.border.main};
-  margin-bottom: 24px;
-`
+export const TableHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '20px 24px',
+})
 
-export const SettlementDetailsContent = styled(CardContent)`
-  padding: 24px;
+export const TableActions = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
 
-  &:last-child {
-    padding-bottom: 24px;
-  }
-`
+export const TableTitle = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+})
 
-export const CardTitle = styled(Typography)`
-  font-family: ${typography.h6_semibold.fontFamily};
-  font-weight: ${typography.h6_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h6_semibold.fontSize};
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`
+export const SettlementDetailsContainer = styled(Box)({
+  background: colors.background.light,
+  border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
+  borderRadius: 8,
+  padding: '20px 24px',
+  marginBottom: 24,
+})
 
-export const FormGrid = styled(Box)`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
-`
+export const SectionTitle = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+})
 
-export const AmountSection = styled(Box)`
-  margin-bottom: 24px;
-  display: flex;
-  justify-content: space-between;
-`
+export const FieldRow = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+  marginBottom: 16,
+})
 
-export const AmountLabel = styled(Typography)`
-  color: ${colors.text.primary};
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-  margin-bottom: 8px;
-`
+export const FieldLabelBox = styled(Box)({
+  flex: 0.7,
+})
 
-export const AmountInput = styled(TextField)`
-  .MuiOutlinedInput-root {
-    background: ${colors.background.light};
-    border-radius: 6px;
+export const FieldInputBox = styled(Box)({
+  flex: 0.3,
+})
 
-    .MuiOutlinedInput-input {
-      font-family: ${typography.body1_regular.fontFamily};
-      font-size: ${typography.body1_regular.fontSize};
-      color: ${colors.text.primary};
-    }
-  }
-`
+export const FieldBox = styled(Box)({
+  flex: 1,
+})
 
-export const IconContainer = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-`
+export const ActionButtons = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+})
 
-export const IconCircle = styled(Box)<{ color: string }>`
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: ${({ color }) => color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-`
+export const Divider = styled(Box)({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  color: colors.text.secondary,
+  fontFamily: typography.body1_regular.fontFamily,
+  fontSize: typography.body1_regular.fontSize,
+  marginBottom: 16,
 
-export const CreateSettlementButton = styled(Button)`
-  background: ${colors.primary.main};
-  color: white;
-  text-transform: none;
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-  padding: 12px 24px;
-  border-radius: 6px;
+  '&::before, &::after': {
+    content: '""',
+    position: 'absolute',
+    height: '1px',
+    backgroundColor: colors.neutral?.main || '#DFE0E5',
+    top: '50%',
+    width: '45%',
+  },
 
-  &:hover {
-    background: ${colors.primary.dark};
-  }
-`
+  '&::before': {
+    left: 0,
+  },
 
-export const TableContainer = styled(Box)`
-  background: ${colors.background.light};
-  box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
-  border-radius: 8px;
-  overflow: hidden;
-`
+  '&::after': {
+    right: 0,
+  },
+})
 
-export const TableHeader = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-  border-bottom: 1px solid ${colors.border.main};
-`
-
-export const TableTitle = styled(Typography)`
-  font-family: ${typography.h6_semibold.fontFamily};
-  font-weight: ${typography.h6_semibold.fontWeight};
-  color: ${colors.text.primary};
-  font-size: ${typography.h6_semibold.fontSize};
-`
-
-export const FilterContainer = styled(Box)`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-`
-
-export const FilterButton = styled(Button)`
-  border: 1px solid ${colors.border.main};
-  color: ${colors.text.primary};
-  text-transform: none;
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-  padding: 8px 16px;
-  border-radius: 6px;
-
-  &:hover {
-    border-color: ${colors.primary.main};
-    background: rgba(11, 51, 82, 0.04);
-  }
-`
-
-export const ExportButton = styled(Button)`
-  background: ${colors.primary.main};
-  color: white;
-  text-transform: none;
-  font-family: ${typography.body2_medium.fontFamily};
-  font-weight: ${typography.body2_medium.fontWeight};
-  font-size: ${typography.body2_medium.fontSize};
-  padding: 8px 16px;
-  border-radius: 6px;
-
-  &:hover {
-    background: ${colors.primary.dark};
-  }
-`
+export const RotatedSendIcon = styled(SendRounded)({
+  transform: 'rotate(-45deg)',
+  margin: '0 8px',
+})

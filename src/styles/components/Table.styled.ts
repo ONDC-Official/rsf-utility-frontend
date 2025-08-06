@@ -101,3 +101,40 @@ export const TableBodyCheckboxCell = styled(TableCell)({
     padding: '4px',
   },
 })
+
+export const ExpandableCell = styled(StyledTableBodyCell)<{ expanded?: boolean }>(({}) => ({
+  width: '40px',
+  padding: '8px',
+  backgroundColor: 'inherit',
+  textAlign: 'center',
+  '&:hover': {
+    backgroundColor: 'transparent !important',
+  },
+}))
+
+export const ExpandedRow = styled(TableCell)({
+  padding: '16px 24px',
+  backgroundColor: '#F5F5F5',
+  borderBottom: 'none',
+  '& > div': {
+    padding: '12px 0',
+    color: colors.text.secondary,
+    fontSize: typography.body2_regular.fontSize,
+    fontFamily: typography.body2_regular.fontFamily,
+  },
+})
+
+export const ActionIconButton = styled(IconButton)<{
+  acceptButton?: boolean
+  rejectButton?: boolean
+}>(({ acceptButton, rejectButton }) => ({
+  width: 36,
+  height: 32,
+  borderRadius: 8,
+  padding: '8px 10px',
+  gap: 4,
+  border: '1px solid',
+  backgroundColor: acceptButton ? `${colors.success.main}` : rejectButton ? `${colors.error.dark}` : 'inherit',
+  borderColor: acceptButton ? `${colors.success.main}` : rejectButton ? `${colors.error.dark}` : colors.border.main,
+  color: acceptButton || rejectButton ? '#FFFFFF' : colors.text.primary,
+}))

@@ -1,204 +1,154 @@
-import { useState } from 'react'
-import { TableRow, TableCell, Checkbox, TextField } from '@mui/material'
-import { CalendarToday, GetApp, CloudUpload, Bolt, Link as LinkIcon } from '@mui/icons-material'
+import { FC, useEffect } from 'react'
+import { TableCell, Typography } from '@mui/material'
+import { Assessment, CalendarToday, GetApp, Upload } from '@mui/icons-material'
 import Table from 'components/common/Table'
-import { columns } from './data'
-import { IMiscSettlement, IMiscSettlementForm } from 'interfaces/miscSettlement'
-import { generateMiscSettlementData } from 'data/miscSettlementData'
+import { generateMiscSettlementsData } from 'data/miscSettlementsData'
+import { columns } from 'pages/MiscSettlements/data'
+import { TableCellStyles } from 'enums/styles'
+import { TypographyVariant } from 'enums/typography'
+import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import { IMiscSettlement } from '@interfaces/miscSettlements'
 import {
   Container,
   Header,
   HeaderLeft,
+  HeaderRight,
   PageTitle,
   PageSubtitle,
-  BulkUploadButton,
   Wrapper,
-  SettlementDetailsContent,
-  CardTitle,
-  FormGrid,
-  AmountSection,
-  AmountLabel,
-  AmountInput,
-  CreateSettlementButton,
-  TableContainer,
   TableHeader,
+  TableActions,
   TableTitle,
-  FilterContainer,
-  FilterButton,
-  ExportButton,
+  SectionTitle,
+  SettlementDetailsContainer,
+  FieldRow,
+  FieldInputBox,
+  Divider,
+  FieldBox,
+  FieldLabelBox,
+  ActionButtons,
+  RotatedSendIcon,
 } from 'styles/pages/MiscSettlements.styled'
+import InputField from 'components/common/InputField'
+import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
+import Button from 'components/common/Button'
 
-const MiscSettlements: React.FC = () => {
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
-  const [sortField, setSortField] = useState<string>('')
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+const MiscSettlements: FC = () => {
+  const {
+    currentItems,
+    selectedItems,
+    page,
+    rowsPerPage,
+    totalCount,
+    handlePageChange,
+    handleRowsPerPageChange,
+    handleSelectAll,
+    setSelectedItems,
+    setPage,
+  } = usePaginatedSelectableData<IMiscSettlement>(generateMiscSettlementsData(256))
 
-  const [formData, setFormData] = useState<IMiscSettlementForm>({
-    providerName: '',
-    accountNumber: '',
-    ifscCode: '',
-    amountToTransfer: 0,
-  })
-
-  const allSettlements = generateMiscSettlementData(256)
-  const totalCount = allSettlements.length
-  const startIndex = (page - 1) * rowsPerPage
-  const currentSettlements = allSettlements.slice(startIndex, startIndex + rowsPerPage)
-
-  const renderRow = (settlement: IMiscSettlement, index: number) => (
-    <TableRow key={settlement.id}>
-      <TableCell padding="checkbox">
-        <Checkbox />
-      </TableCell>
-      <TableCell>{settlement.settlementReferenceNumber}</TableCell>
-      <TableCell>{settlement.providerName}</TableCell>
-      <TableCell>{settlement.accountNumber}</TableCell>
-      <TableCell>{settlement.ifscCode}</TableCell>
-      <TableCell>₹{settlement.amount.toFixed(2)}</TableCell>
-      <TableCell>₹{settlement.providerAmount.toFixed(2)}</TableCell>
-      <TableCell>{settlement.date}</TableCell>
-    </TableRow>
-  )
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage)
-  }
-
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
-    setRowsPerPage(newRowsPerPage)
+  useEffect(() => {
+    setSelectedItems(new Set())
     setPage(1)
-  }
+  }, [setSelectedItems, setPage])
 
-  const handleSort = (field: string) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortField(field)
-      setSortDirection('asc')
-    }
-  }
-
-  const handleFormChange = (field: keyof IMiscSettlementForm, value: string | number) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
-  }
-
-  const handleCreateSettlement = () => {
-    // TODO: Implement settlement creation logic
-    console.log('Creating settlement:', formData)
-  }
-
-  const handleBulkUpload = () => {
-    // TODO: Implement bulk upload logic
-    console.log('Bulk upload clicked')
-  }
-
-  const handleFilterByDate = () => {
-    // TODO: Implement date filter logic
-    console.log('Filter by date clicked')
-  }
-
-  const handleExport = () => {
-    // TODO: Implement export logic
-    console.log('Export clicked')
-  }
+  const renderRow = (miscSettlement: IMiscSettlement) => (
+    <>
+      <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.settlementReferenceNumber}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.providerName}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.accountNumber}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.ifscCode}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>₹{miscSettlement.amount.toFixed(2)}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>₹{miscSettlement.providerAmount.toFixed(2)}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.date}</TableCell>
+    </>
+  )
 
   return (
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle>Miscellaneous Settlements</PageTitle>
+          <PageTitle variant={TypographyVariant.H3Semibold}>Miscellaneous Settlements</PageTitle>
           <PageSubtitle>Create ad-hoc settlements for special cases</PageSubtitle>
         </HeaderLeft>
-        <BulkUploadButton variant="contained" startIcon={<CloudUpload />} onClick={handleBulkUpload}>
-          Bulk Upload
-        </BulkUploadButton>
+        <HeaderRight>
+          <Button variant="outlined" startIcon={<Upload />}>
+            Bulk Upload
+          </Button>
+        </HeaderRight>
       </Header>
 
-      <Wrapper>
-        <SettlementDetailsContent>
-          <CardTitle>
-            <LinkIcon />
-            Settlement Details
-          </CardTitle>
-
-          <AmountSection>
-            <AmountLabel>Amount to Transfer to Provider</AmountLabel>
-            <AmountInput
-              fullWidth
-              variant="outlined"
-              value={formData.amountToTransfer}
-              onChange={(e) => handleFormChange('amountToTransfer', parseFloat(e.target.value) || 0)}
-              placeholder="0.00"
-              InputProps={{
-                startAdornment: <span style={{ marginRight: '8px' }}>₹</span>,
-              }}
-            />
-          </AmountSection>
-
-          <FormGrid>
-            <TextField
-              fullWidth
-              label="Provider Name"
-              variant="outlined"
-              value={formData.providerName}
-              onChange={(e) => handleFormChange('providerName', e.target.value)}
-              placeholder="Enter provider name"
-            />
-            <TextField
-              fullWidth
-              label="Bank Account Number"
-              variant="outlined"
-              value={formData.accountNumber}
-              onChange={(e) => handleFormChange('accountNumber', e.target.value)}
-              placeholder="Enter account number"
-            />
-            <TextField
-              fullWidth
-              label="IFSC Code"
-              variant="outlined"
-              value={formData.ifscCode}
-              onChange={(e) => handleFormChange('ifscCode', e.target.value)}
-              placeholder="Enter IFSC code"
-            />
-          </FormGrid>
-
-          <CreateSettlementButton variant="contained" startIcon={<Bolt />} onClick={handleCreateSettlement}>
+      <SettlementDetailsContainer>
+        <Header>
+          <HeaderLeft sx={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Assessment />
+            <SectionTitle variant={TypographyVariant.H3Semibold}>Settlement Details</SectionTitle>
+          </HeaderLeft>
+        </Header>
+        <FieldRow>
+          <FieldLabelBox>
+            <Typography variant={TypographyVariant.Body1Medium}>Amount to Transfer to Self</Typography>
+          </FieldLabelBox>
+          <FieldInputBox>
+            <InputField name="selfAmount" placeholder="00.0" fullWidth />
+          </FieldInputBox>
+        </FieldRow>
+        <Divider>OR</Divider>
+        <FieldRow>
+          <FieldLabelBox>
+            <Typography variant={TypographyVariant.Body1Medium}>Amount to Transfer to Provider</Typography>
+          </FieldLabelBox>
+          <FieldInputBox>
+            <InputField name="providerAmount" placeholder="00.0" fullWidth />
+          </FieldInputBox>
+        </FieldRow>
+        <FieldRow>
+          <FieldBox>
+            <Typography variant={TypographyVariant.Body5Light}>Provider Name</Typography>
+            <InputField name="providerName" placeholder="Enter provider name" fullWidth />
+          </FieldBox>
+          <FieldBox>
+            <Typography variant={TypographyVariant.Body5Light}>Bank Account Number</Typography>
+            <InputField name="bankAccountNumber" placeholder="Enter account number" fullWidth />
+          </FieldBox>
+          <FieldBox>
+            <Typography variant={TypographyVariant.Body5Light}>IFSC Code</Typography>
+            <InputField name="ifscCode" placeholder="Enter IFSC code" fullWidth />
+          </FieldBox>
+        </FieldRow>
+        <ActionButtons>
+          <Button variant="contained" startIcon={<RotatedSendIcon />}>
             Create a Trigger Settlement
-          </CreateSettlementButton>
-        </SettlementDetailsContent>
-      </Wrapper>
+          </Button>
+        </ActionButtons>
+      </SettlementDetailsContainer>
 
-      <TableContainer>
+      <Wrapper>
         <TableHeader>
-          <TableTitle>Miscellaneous Settlement Details</TableTitle>
-          <FilterContainer>
-            <FilterButton variant="outlined" startIcon={<CalendarToday />} onClick={handleFilterByDate}>
+          <TableTitle variant={TypographyVariant.Caption1Semibold}>Miscellaneous Settlement Details</TableTitle>
+          <TableActions>
+            <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
-            </FilterButton>
-            <ExportButton variant="contained" startIcon={<GetApp />} onClick={handleExport}>
+            </OutlinedFilterButton>
+            <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
               Export
-            </ExportButton>
-          </FilterContainer>
+            </ContainedExportButton>
+          </TableActions>
         </TableHeader>
-
         <Table
           columns={columns}
-          data={currentSettlements}
+          data={currentItems}
           totalCount={totalCount}
           page={page}
           rowsPerPage={rowsPerPage}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowsPerPageChange}
           renderRow={renderRow}
-          onSort={handleSort}
-          sortField={sortField}
-          sortDirection={sortDirection}
+          selectedItems={selectedItems}
+          onSelectAll={handleSelectAll}
+          hideCheckboxes={true}
         />
-      </TableContainer>
+      </Wrapper>
     </Container>
   )
 }

@@ -44,6 +44,7 @@ const colors: IColors = {
     tertiary: '#1E232C',
     subHeading: '#30343D',
     caption: '#2E2E2E',
+    light: '#FFFFFF',
   },
   border: {
     main: '#EBEBEB',
