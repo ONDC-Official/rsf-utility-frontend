@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { FC, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
 import { CalendarToday, GetApp, Upload } from '@mui/icons-material'
 import Table from 'components/common/Table'
@@ -30,15 +30,26 @@ import {
   RotatedSendIcon,
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
+import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 
-const MiscSettlements: React.FC = () => {
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+const MiscSettlements: FC = () => {
+  const {
+    currentItems,
+    selectedItems,
+    page,
+    rowsPerPage,
+    totalCount,
+    handlePageChange,
+    handleRowsPerPageChange,
+    handleSelectAll,
+    setSelectedItems,
+    setPage,
+  } = usePaginatedSelectableData<IMiscSettlement>(generateMiscSettlementsData(256))
 
-  const allSettlements = generateMiscSettlementsData(256)
-  const totalCount = allSettlements.length
-  const startIndex = (page - 1) * rowsPerPage
-  const currentSettlements = allSettlements.slice(startIndex, startIndex + rowsPerPage)
+  useEffect(() => {
+    setSelectedItems(new Set())
+    setPage(1)
+  }, [setSelectedItems, setPage])
 
   const renderRow = (miscSettlement: IMiscSettlement) => (
     <>
@@ -51,15 +62,6 @@ const MiscSettlements: React.FC = () => {
       <TableCell sx={TableCellStyles.DEFAULT}>{miscSettlement.date}</TableCell>
     </>
   )
-
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage)
-  }
-
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
-    setRowsPerPage(newRowsPerPage)
-    setPage(1)
-  }
 
   return (
     <Container>
@@ -74,6 +76,7 @@ const MiscSettlements: React.FC = () => {
           </ContainedExportButton>
         </HeaderRight>
       </Header>
+
       <SettlementDetailsContainer>
         <Header>
           <HeaderLeft>
@@ -115,6 +118,7 @@ const MiscSettlements: React.FC = () => {
           <PrimaryButton startIcon={<RotatedSendIcon />}>Create a Trigger Settlement</PrimaryButton>
         </ActionButtons>
       </SettlementDetailsContainer>
+
       <Wrapper>
         <TableHeader>
           <TableTitle variant={TypographyVariant.Caption1Semibold}>Miscellaneous Settlement Details</TableTitle>
@@ -129,13 +133,15 @@ const MiscSettlements: React.FC = () => {
         </TableHeader>
         <Table
           columns={columns}
-          data={currentSettlements}
+          data={currentItems}
           totalCount={totalCount}
           page={page}
           rowsPerPage={rowsPerPage}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleRowsPerPageChange}
           renderRow={renderRow}
+          selectedItems={selectedItems}
+          onSelectAll={handleSelectAll}
           hideCheckboxes={true}
         />
       </Wrapper>

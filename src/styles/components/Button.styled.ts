@@ -23,7 +23,7 @@ export const ContainedExportButton = styled(Button)({
 })
 
 export const PrimaryButton = styled(Button)({
-  color: `${colors.text.light} !important`,
+  color: `${colors.text.light}`,
   borderColor: `${colors.border.tertiary} !important`,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,
@@ -31,7 +31,7 @@ export const PrimaryButton = styled(Button)({
 })
 
 export const SecondaryButton = styled(Button)({
-  color: `${colors.text.tertiary} !important`,
+  color: `${colors.text.tertiary}`,
   borderColor: `${colors.border.tertiary} !important`,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,

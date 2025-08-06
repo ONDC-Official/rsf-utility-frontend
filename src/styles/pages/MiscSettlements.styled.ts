@@ -90,11 +90,8 @@ export const FieldRow = styled(Box)({
   marginBottom: 16,
 })
 
-export const FieldLabelBox = styled(Typography)({
+export const FieldLabelBox = styled(Box)({
   flex: 0.7,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
-  color: colors.text.primary,
 })
 
 export const FieldInputBox = styled(Box)({
