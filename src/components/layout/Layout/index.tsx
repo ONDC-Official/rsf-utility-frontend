@@ -1,10 +1,16 @@
-import React from 'react'
+import { FC } from 'react'
 import Sidebar from 'components/layout/Sidebar'
 import Navbar from 'components/layout/Navbar'
 import { ILayoutProps } from 'components/layout/Layout/types'
-import { Container, Wrapper, Footer, FooterText, Content } from 'styles/layout/Layout.styled'
+import {
+  Container,
+  Wrapper,
+  Footer,
+  FooterText,
+  Content,
+} from 'styles/layout/Layout.styled'
 
-const Layout: React.FC<ILayoutProps> = ({ children }) => {
+const Layout: FC<ILayoutProps> = ({ children }) => {
   return (
     <Container>
       <Sidebar />
