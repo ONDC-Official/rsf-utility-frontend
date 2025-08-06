@@ -15,6 +15,12 @@ const colors: IColors = {
     tertiaryMain: '#EB7413',
     tertiaryWarning: '#FFFDFB',
   },
+  success: {
+    main: '#28A745',
+    light: '#EAF6EC',
+    dark: '#1E7E34',
+    contrastText: '#FFFFFF',
+  },
   primary: {
     main: '#0B3352',
     contrastText: '#FFFFFF',
