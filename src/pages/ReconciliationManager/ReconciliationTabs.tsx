@@ -5,7 +5,6 @@ import { IReconciliationTabsProps } from 'pages/ReconciliationManager/types'
 import { Container } from 'styles/pages/ReconciliationManager.styled'
 
 const ReconciliationTabs: FC<IReconciliationTabsProps> = ({ activeTab, onTabChange }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleChange = (_: ChangeEvent<unknown>, newValue: number) => {
     onTabChange(newValue)
   }

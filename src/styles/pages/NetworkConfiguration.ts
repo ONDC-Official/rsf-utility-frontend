@@ -41,6 +41,12 @@ export const SectionDescription = styled('div')(() => ({
   margin: 0,
 }))
 
+export const StyledForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+})
+
 export const ConfigurationBox = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',

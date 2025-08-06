@@ -7,4 +7,4 @@ export const TableCellStyles = {
   },
 } as const
 
-export type ITableCellStyle = typeof TableCellStyles[keyof typeof TableCellStyles]
+export type ITableCellStyle = (typeof TableCellStyles)[keyof typeof TableCellStyles]

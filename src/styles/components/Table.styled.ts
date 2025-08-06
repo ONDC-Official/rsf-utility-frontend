@@ -102,7 +102,7 @@ export const TableBodyCheckboxCell = styled(TableCell)({
   },
 })
 
-export const ExpandableCell = styled(StyledTableBodyCell)<{ expanded?: boolean }>(({}) => ({
+export const ExpandableCell = styled(StyledTableBodyCell)<{ expanded?: boolean }>(() => ({
   width: '40px',
   padding: '8px',
   backgroundColor: 'inherit',

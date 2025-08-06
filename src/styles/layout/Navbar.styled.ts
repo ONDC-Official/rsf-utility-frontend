@@ -1,65 +1,39 @@
 import { styled } from '@mui/material/styles'
-import { Typography } from '@mui/material'
+import { AppBar, Toolbar, Box, Typography, Avatar } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 
-export const Container = styled('div')(() => ({
-  width: '100%',
-  height: '60px',
-  borderRadius: '8px',
-  padding: '14px 24px',
-  background: colors.primary.main,
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-}))
+export const StyledAppBar = styled(AppBar)({
+  background: `${colors.primary.main} !important`,
+  boxShadow: 'none !important',
+  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 20,
+  marginBottom: 16,
+})
 
-export const Title = styled(Typography)(() => ({
-  fontFamily: typography.h5_semibold.fontFamily,
-  fontWeight: 700,
-  fontSize: '18px',
-  lineHeight: '24px',
-  color: colors.primary.contrastText,
-}))
+export const StyledToolbar = styled(Toolbar)({
+  minHeight: '64px !important',
+})
 
-export const ConfigContainer = styled('div')(() => ({
+export const TitleContainer = styled(Box)({
+  flex: 1,
+})
+
+export const RightSection = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  gap: '20px',
-}))
+  gap: 16,
+})
 
-export const ConfigLabel = styled('div')(() => ({
-  fontFamily: typography.body5_medium.fontFamily,
-  fontWeight: 500,
-  fontSize: '12px',
-  lineHeight: '15px',
-  textAlign: 'right',
-  verticalAlign: 'middle',
+export const NavbarTitle = styled(Typography)({
   color: colors.primary.contrastText,
-}))
+})
 
-export const StyledSelect = styled('select')(() => ({
-  width: '140px',
-  height: '32px',
-  padding: '8px 10px',
-  border: `1px solid ${colors.border.main}`,
-  borderRadius: '8px',
-  fontFamily: typography.body5_medium.fontFamily,
-  fontSize: '12px',
-  background: colors.primary.main,
+export const ConfigurationLabel = styled(Typography)({
   color: colors.primary.contrastText,
-  '& option': {
-    fontFamily: typography.body5_medium.fontFamily,
-    fontSize: '12px',
-  },
-  '& option:disabled': {
-    color: colors.primary.contrastText,
-  },
-}))
+})
 
-export const Avatar = styled('div')(() => ({
-  width: '32px',
-  height: '32px',
-  borderRadius: '50%',
-  backgroundColor: colors.neutral.main,
-}))
+export const UserAvatar = styled(Avatar)({
+  width: 32,
+  height: 32,
+  backgroundColor: colors.primary.light,
+})

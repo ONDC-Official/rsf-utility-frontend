@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { Table as MUITable, TableRow, TableBody, Checkbox, Menu, MenuItem } from '@mui/material'
+import {
+  Table as MUITable,
+  TableRow,
+  TableBody,
+  Checkbox,
+  Menu,
+  MenuItem,
+  TableCell,
+  CircularProgress,
+} from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import Pagination from 'components/common/Pagination'
 import { ITableProps } from 'interfaces/table'
@@ -15,7 +24,7 @@ import {
   HeaderLabelContainer,
 } from 'styles/components/Table.styled'
 
-const Table = <T extends Record<string, unknown>>({
+const Table = <T,>({
   columns = [],
   data = [],
   totalCount = 0,
@@ -29,7 +38,8 @@ const Table = <T extends Record<string, unknown>>({
   onSelectAll,
   getItemId,
   expandable = false,
-}: ITableProps<T>) => {
+  loading = false,
+}: ITableProps<T> & { loading?: boolean }) => {
   const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
   const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
 
@@ -118,11 +128,19 @@ const Table = <T extends Record<string, unknown>>({
             </TableRow>
           </StyledTableHead>
           <TableBody>
-            {(data || []).map((row, index) => (
-              <StyledTableRow key={index} isLast={index === data.length - 1}>
-                {renderRow(row, index)}
-              </StyledTableRow>
-            ))}
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length + (!hideCheckboxes ? 1 : 0) + (expandable ? 1 : 0)} align="center">
+                  <CircularProgress size={24} />
+                </TableCell>
+              </TableRow>
+            ) : (
+              (data || []).map((row, index) => (
+                <StyledTableRow key={index} isLast={index === data.length - 1}>
+                  {renderRow(row, index)}
+                </StyledTableRow>
+              ))
+            )}
           </TableBody>
         </MUITable>
       </Wrapper>

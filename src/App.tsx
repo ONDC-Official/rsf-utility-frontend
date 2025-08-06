@@ -5,18 +5,24 @@ import { CssBaseline } from '@mui/material'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import theme from 'theme/index'
 import AppRoutes from 'routes/AppRoutes'
+import { UserProvider } from 'context/userContext'
+import { ToastProvider } from 'context/toastContext'
 
 const queryClient = new QueryClient()
 
 const App: FC = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </ThemeProvider>
-  </QueryClientProvider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <UserProvider>
+            <AppRoutes />
+          </UserProvider>
+        </ToastProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
+  </ThemeProvider>
 )
 
 export default App

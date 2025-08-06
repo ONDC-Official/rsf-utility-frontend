@@ -1,7 +1,7 @@
+import { ISettlementItem } from '@interfaces/settlement'
 import { ITableColumn } from 'interfaces/table'
-import { IMiscSettlement } from '@interfaces/miscSettlements'
 
-export const columns: ITableColumn<IMiscSettlement>[] = [
+export const columns: ITableColumn<ISettlementItem>[] = [
   { id: 'settlementReferenceNumber', label: 'Settlement Reference Number' },
   { id: 'providerName', label: 'Provider Name' },
   { id: 'accountNumber', label: 'Account Number' },

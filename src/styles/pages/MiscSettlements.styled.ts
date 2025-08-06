@@ -68,7 +68,7 @@ export const TableTitle = styled(Typography)({
   fontSize: typography.h6_semibold.fontSize,
 })
 
-export const SettlementDetailsContainer = styled(Box)({
+export const SettlementDetailsContainer = styled(Container)({
   background: colors.background.light,
   border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
   borderRadius: 8,
