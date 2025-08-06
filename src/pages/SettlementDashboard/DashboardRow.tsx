@@ -1,15 +1,9 @@
 import React from 'react'
 import { Checkbox } from '@mui/material'
 import StatusChip from 'components/common/StatusChip'
-import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
 import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
 import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/SettlementDashboard/constants'
-
-interface IDashboardRowProps {
-  order: ISettlementDashboardOrder
-  selected: boolean
-  onCheckboxChange: (orderId: string, checked: boolean) => void
-}
+import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 
 const DashboardRow: React.FC<IDashboardRowProps> = ({
   order = {

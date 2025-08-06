@@ -3,6 +3,7 @@ import { SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
 import { counterpartyOptions } from 'pages/SettlementDashboard/data'
 import { DASHBOARD_LABELS } from 'pages/SettlementDashboard/constants'
+import { IHeaderSectionProps } from 'pages/SettlementDashboard/types'
 import {
   PageHeader as Container,
   Left,
@@ -12,11 +13,6 @@ import {
   CounterpartyLabel,
   PlaceholderText,
 } from 'styles/pages/SettlementDashboard.styled'
-
-interface IHeaderSectionProps {
-  counterpartyId: string
-  onCounterpartyChange: (value: string) => void
-}
 
 const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterpartyChange }) => {
   const handleChange = (event: SelectChangeEvent<unknown>) => {
