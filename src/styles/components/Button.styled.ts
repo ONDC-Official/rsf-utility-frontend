@@ -22,15 +22,15 @@ export const StyledButton = styled(Button)({
 })
 
 export const OutlinedFilterButton = styled(Button)({
-  color: `${colors.text.tertiary} !important`,
-  borderColor: `${colors.border.tertiary} !important`,
+  color: `${colors.text.tertiary} `,
+  borderColor: `${colors.border.tertiary} `,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,
 })
 
 export const ContainedExportButton = styled(Button)({
-  color: `${colors.text.light} !important`,
-  borderColor: `${colors.border.tertiary} !important`,
+  color: `${colors.text.light} `,
+  borderColor: `${colors.border.tertiary} `,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,
 })

@@ -2,17 +2,21 @@ import { FC } from 'react'
 import Sidebar from 'components/layout/Sidebar'
 import Navbar from 'components/layout/Navbar'
 import { ILayoutProps } from 'components/layout/Layout/types'
-import { Container, Wrapper, ContentArea, Footer } from 'styles/layout/Layout.styled'
+import { Container, Wrapper, Footer, FooterText, Content } from 'styles/layout/Layout.styled'
 
-const Layout: FC<ILayoutProps> = ({ children }) => (
-  <Container>
-    <Sidebar />
-    <Navbar />
-    <Wrapper>
-      <ContentArea>{children}</ContentArea>
-      <Footer>© ONDC 2025, All Rights Reserved.</Footer>
-    </Wrapper>
-  </Container>
-)
+const Layout: FC<ILayoutProps> = ({ children }) => {
+  return (
+    <Container>
+      <Sidebar />
+      <Wrapper>
+        <Navbar />
+        <Content>{children}</Content>
+        <Footer>
+          <FooterText>© ONDC 2025, All Rights Reserved.</FooterText>
+        </Footer>
+      </Wrapper>
+    </Container>
+  )
+}
 
 export default Layout

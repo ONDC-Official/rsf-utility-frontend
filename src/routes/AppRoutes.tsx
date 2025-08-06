@@ -6,11 +6,11 @@ import SettlementGenerator from 'pages/SettlementGenerator'
 import SettlementDashboard from 'pages/SettlementDashboard'
 import ReconciliationManager from 'pages/ReconciliationManager'
 import Layout from 'components/layout/Layout'
-import ComingSoon from 'components/common/ComingSoon'
 import PrivateRoute from 'routes/PrivateRoute'
 import { ROUTES } from 'constants/routes.constants'
 import MiscSettlements from 'pages/MiscSettlements'
 import NilSettlement from 'pages/NilSettlement'
+import NetworkConfiguration from 'pages/NetworkConfiguration'
 
 const AppRoutes: FC = () => (
   <Routes>
@@ -32,7 +32,7 @@ const AppRoutes: FC = () => (
       element={
         <PrivateRoute>
           <Layout>
-            <ComingSoon title="Configuration" />
+            <NetworkConfiguration />
           </Layout>
         </PrivateRoute>
       }

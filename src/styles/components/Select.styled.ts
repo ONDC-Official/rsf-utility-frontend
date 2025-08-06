@@ -13,8 +13,8 @@ export const NavbarSelect = styled(Select)({
   width: 140,
 
   '& .MuiSelect-select': {
-    color: `${colors.primary.contrastText} !important`,
-    backgroundColor: `${colors.primary.main} !important`,
+    color: `${colors.primary.contrastText} `,
+    backgroundColor: `${colors.primary.main} `,
     height: 24,
     display: 'flex',
     alignItems: 'center',
@@ -22,12 +22,12 @@ export const NavbarSelect = styled(Select)({
   },
 
   '& .MuiOutlinedInput-root': {
-    backgroundColor: `${colors.primary.main} !important`,
+    backgroundColor: `${colors.primary.main} `,
     height: 24,
   },
 
   '& .MuiSelect-icon': {
-    color: `${colors.primary.contrastText} !important`,
+    color: `${colors.primary.contrastText} `,
   },
 
   '& .MuiOutlinedInput-notchedOutline': {

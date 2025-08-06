@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 import { Tabs, Tab } from '@mui/material'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IReconciliationTabsProps } from 'pages/ReconciliationManager/types'
 import { Container } from 'styles/pages/ReconciliationManager.styled'
 
 const ReconciliationTabs: FC<IReconciliationTabsProps> = ({ activeTab, onTabChange }) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_:ChangeEvent<unknown>, newValue: number) => {
     onTabChange(newValue)
   }
 

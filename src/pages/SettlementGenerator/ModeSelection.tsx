@@ -3,7 +3,7 @@ import { SelectChangeEvent } from '@mui/material'
 import Switch from 'components/common/Switch'
 import Select from 'components/common/Select'
 import { counterpartyOptions } from 'pages/SettlementGenerator/data'
-import { IModeSelectionProps } from '@pages/SettlementGenerator/types'
+import { IModeSelectionProps } from './types'
 import {
   SettlementModeContainer,
   ModeContent,

@@ -19,6 +19,7 @@ export interface IColorVariant {
 export interface IColors {
   error: IColorVariant
   warning: IColorVariant
+  success: IColorVariant
   primary: IColorVariant
   background: IColorVariant
   text: IColorVariant
@@ -27,5 +28,4 @@ export interface IColors {
   button: IColorVariant
   alert: IColorVariant
   neutral: IColorVariant
-  success: IColorVariant
 }

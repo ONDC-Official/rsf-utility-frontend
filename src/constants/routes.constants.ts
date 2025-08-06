@@ -9,4 +9,5 @@ export const ROUTES = {
   MISC_SETTLEMENTS: '/misc-settlements',
   NIL_SETTLEMENT: '/nil-settlement',
   LOGIN: '/login',
+  ORDERS_IN_PROGRESS: '/orders-progress',
 }

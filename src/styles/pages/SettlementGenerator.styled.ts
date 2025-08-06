@@ -41,9 +41,9 @@ export const PageSubtitle = styled(Typography)({
 })
 
 export const AlertContainer = styled(Box)({
-  background: colors.alert?.light || '#FCEBEC',
-  border: `1px solid ${colors.alert?.main || '#DC3545'}`,
-  color: colors.alert?.main || '#DC3545',
+  background: colors.alert.light,
+  border: `1px solid ${colors.alert.main}`,
+  color: colors.alert.main,
   borderRadius: 8,
   padding: '12px 16px',
   display: 'flex',
@@ -55,7 +55,7 @@ export const AlertContainer = styled(Box)({
 
 export const SettlementModeContainer = styled(Box)({
   background: colors.background.light,
-  border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
+  border: `1px solid ${colors.neutral.main}`,
   borderRadius: 8,
   padding: '20px 24px',
   marginBottom: 24,
@@ -217,5 +217,5 @@ export const JsonPreview = styled(Box)({
 })
 
 export const PlaceholderText = styled('span')({
-  color: '#9CA3AF',
+  color: colors.text.disabled,
 })

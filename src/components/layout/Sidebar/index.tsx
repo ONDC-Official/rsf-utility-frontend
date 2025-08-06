@@ -1,18 +1,8 @@
 import { FC } from 'react'
-import { ListItem } from '@mui/material'
-import { ExitToApp } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { sidebarMenuItems } from 'components/layout/Sidebar/sidebarMenuItems'
-import {
-  StyledDrawer,
-  LogoContainer,
-  LogoText,
-  MenuList,
-  LogoutContainer,
-  StyledListItemButton,
-  MenuItemText,
-  StyledListItemIcon,
-} from 'styles/layout/Sidebar.styled'
+import { menuItems } from './data'
+import OndcLogo from 'assets/images/svg/OndcLogo'
+import { StyledIcon, MenuContainer, MenuItem, SidebarContainer, StyledText } from 'styles/layout/Layout.styled'
 
 const Sidebar: FC = () => {
   const location = useLocation()
@@ -22,44 +12,23 @@ const Sidebar: FC = () => {
     navigate(path)
   }
 
-  const handleLogout = () => {
-    // TODO: Implement logout functionality
-  }
-
   return (
-    <StyledDrawer variant="permanent" anchor="left">
-      <LogoContainer>
-        <LogoText>ONDC</LogoText>
-      </LogoContainer>
+    <SidebarContainer>
+      <OndcLogo />
 
-      <MenuList>
-        {sidebarMenuItems.map((item) => {
-          const Icon = item.icon
-          return (
-            <ListItem key={item.text} disablePadding>
-              <StyledListItemButton
-                selected={location.pathname === item.path}
-                onClick={() => handleNavigation(item.path)}
-              >
-                <StyledListItemIcon>
-                  <Icon />
-                </StyledListItemIcon>
-                <MenuItemText primary={item.text} />
-              </StyledListItemButton>
-            </ListItem>
-          )
-        })}
-      </MenuList>
-
-      <LogoutContainer>
-        <StyledListItemButton onClick={handleLogout}>
-          <StyledListItemIcon>
-            <ExitToApp />
-          </StyledListItemIcon>
-          <MenuItemText primary="Logout" />
-        </StyledListItemButton>
-      </LogoutContainer>
-    </StyledDrawer>
+      <MenuContainer>
+        {menuItems && menuItems.length > 0 ? (
+          menuItems.map(({ text, icon, path }) => (
+            <MenuItem key={text} onClick={() => handleNavigation(path)} active={location.pathname === path}>
+              <StyledIcon>{icon}</StyledIcon>
+              <StyledText>{text}</StyledText>
+            </MenuItem>
+          ))
+        ) : (
+          <StyledText>No menu items available</StyledText>
+        )}
+      </MenuContainer>
+    </SidebarContainer>
   )
 }
 
