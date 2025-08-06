@@ -1,11 +1,14 @@
+import { APIRoute } from 'constants/enum'
+import { IApiResponse } from '@interfaces/api'
 import usePost from 'hooks/usePost'
+import { buildApiUrl } from 'utils/helpers'
 
 const useGenerateNilSettlement = (userId: string) => {
-  const mutation = usePost()
+  const mutation = usePost<IApiResponse<any>>()
 
   const triggerAsync = () =>
     mutation.mutateAsync({
-      url: `/ui/generate/${userId}/settle/nil`,
+      url: buildApiUrl(APIRoute.GENERATE_NIL, { userId }),
       payload: { type: 'NIL' },
     })
 

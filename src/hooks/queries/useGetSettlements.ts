@@ -1,7 +1,9 @@
 // hooks/api/useGetSettlements.ts
+import { APIRoute } from 'constants/enum'
 import { IApiResponse } from '@interfaces/api'
 import useGet from 'hooks/useGet'
 import { UseQueryOptions } from 'react-query'
+import { buildApiUrl } from 'utils/helpers'
 
 const useGetSettlements = (
   page: number,
@@ -9,11 +11,10 @@ const useGetSettlements = (
   settlementType: 'MISC' | 'NP-NP' | 'NIL',
   configs?: UseQueryOptions<IApiResponse<any>>,
 ) => {
-  return useGet<any>(
-    `settlements-${settlementType}-${page}-${limit}`,
-    `/ui/rsf-payloads/?page=${page}&limit=${limit}&settlement_type=${settlementType}`,
-    { enabled: !!settlementType, ...configs },
-  )
+  const baseUrl = buildApiUrl(APIRoute.SETTLEMENTS_PAYLOAD, {})
+  const url = `${baseUrl}?page=${page}&limit=${limit}&settlement_type=${settlementType}`
+
+  return useGet<any>(`settlements-${settlementType}-${page}-${limit}`, url, { enabled: !!settlementType, ...configs })
 }
 
 export default useGetSettlements

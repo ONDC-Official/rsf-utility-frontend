@@ -7,13 +7,14 @@ export interface IParams {
   payload?: any
 }
 
-const post = async ({ url, payload }: IParams) => {
-  const { data } = await axiosInstance.post(url, payload)
+const post = async <TResponse,>({ url, payload }: IParams): Promise<TResponse> => {
+  const { data } = await axiosInstance.post<TResponse>(url, payload)
   return data
 }
 
-const usePost = (): UseMutationResult<any, unknown, IParams, unknown> => {
-  return useMutation<any, unknown, IParams, unknown>(post)
+// expose generic hook
+function usePost<TResponse = any>(): UseMutationResult<TResponse, unknown, IParams, unknown> {
+  return useMutation<TResponse, unknown, IParams, unknown>(post)
 }
 
 export default usePost

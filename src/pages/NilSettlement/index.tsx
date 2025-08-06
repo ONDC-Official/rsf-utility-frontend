@@ -35,7 +35,7 @@ const NilSettlement = () => {
       toast(GENERATE_NIL_SETTLEMENT.SUCCESS)
 
       if (res?.success) {
-        await triggerAction('settle')
+        await triggerAction('settle', res.data)
         toast(TRIGGER_ACTION.SUCCESS)
       }
     } catch (err) {

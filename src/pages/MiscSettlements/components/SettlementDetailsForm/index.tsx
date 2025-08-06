@@ -31,6 +31,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
   } = useForm<MiscSettlementFormValues>({
     defaultValues: {
       selfAmount: '',
+      providerId: '',
       providerAmount: '',
       providerName: '',
       bankAccountNumber: '',
@@ -96,6 +97,24 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
 
         <FieldRow>
           <FieldBox>
+            <Typography variant={TypographyVariant.Body5Light}>Provider ID</Typography>
+            <Controller
+              control={control}
+              name="providerId"
+              rules={{ required: 'Required' }}
+              render={({ field }) => (
+                <InputField
+                  {...field}
+                  placeholder="Enter provider ID"
+                  fullWidth
+                  error={!!errors.providerId}
+                  helperText={errors.providerId?.message}
+                />
+              )}
+            />
+          </FieldBox>
+
+          <FieldBox>
             <Typography variant={TypographyVariant.Body5Light}>Provider Name</Typography>
             <Controller
               control={control}
@@ -112,7 +131,9 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
               )}
             />
           </FieldBox>
+        </FieldRow>
 
+        <FieldRow>
           <FieldBox>
             <Typography variant={TypographyVariant.Body5Light}>Bank Account Number</Typography>
             <Controller

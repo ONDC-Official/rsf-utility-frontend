@@ -33,6 +33,7 @@ const MiscSettlements: React.FC = () => {
   const handleSubmit = async (values: MiscSettlementFormValues) => {
     const payload = {
       provider: {
+        id: values.providerId,
         name: values.providerName,
         bank_details: {
           account_no: values.bankAccountNumber,
@@ -56,7 +57,7 @@ const MiscSettlements: React.FC = () => {
       toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
 
       if (res?.success) {
-        await triggerAction.triggerAsync('settle')
+        await triggerAction.triggerAsync('settle', res.data)
         toast(TRIGGER_ACTION.SUCCESS)
       }
     } catch (e) {

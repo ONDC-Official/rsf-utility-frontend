@@ -24,7 +24,7 @@ const SettlementsTable: React.FC = () => {
       <TableCell sx={TableCellStyles.DEFAULT}>{item.provider_id}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{item.receiver_id}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{item.status}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>₹{item.total_order_value.toFixed(2)}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>₹{item.total_order_value}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{item.type}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{item.due_date}</TableCell>
     </>
