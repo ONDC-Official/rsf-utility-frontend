@@ -1,4 +1,4 @@
-import { IMiscSettlement } from '../interfaces/miscSettlement'
+import { IMiscSettlement } from 'interfaces/miscSettlement'
 
 export const generateMiscSettlementData = (count?: number): IMiscSettlement[] => {
   if (typeof count !== 'number' || count < 0) {

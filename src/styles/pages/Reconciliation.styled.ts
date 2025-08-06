@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { Box, Button, Chip, Typography } from '@mui/material'
-import colors from '../../theme/colors'
+import colors from 'theme/colors'
 
 export const Container = styled(Box)`
   padding: 24px;

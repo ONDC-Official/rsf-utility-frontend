@@ -10,11 +10,15 @@ const Navbar: FC = () => {
       <ConfigContainer>
         <ConfigLabel>Settlement Configuration</ConfigLabel>
         <StyledSelect>
-          {configurationOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {configurationOptions && configurationOptions.length > 0 ? (
+            configurationOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))
+          ) : (
+            <option value="">No configurations available</option>
+          )}
         </StyledSelect>
         <Avatar />
       </ConfigContainer>

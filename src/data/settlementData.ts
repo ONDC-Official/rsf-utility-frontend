@@ -1,4 +1,4 @@
-import { ISettlement, ISettlementSummary, ISettlementOrder } from '../interfaces/settlement'
+import { ISettlement, ISettlementSummary, ISettlementOrder } from 'interfaces/settlement'
 
 export const settlementData: ISettlement[] = [
   {

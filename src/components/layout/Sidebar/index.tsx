@@ -17,12 +17,16 @@ const Sidebar: FC = () => {
       <OndcLogo />
 
       <MenuContainer>
-        {menuItems.map(({ text, icon, path }) => (
-          <MenuItem key={text} onClick={() => handleNavigation(path)} active={location.pathname === path}>
-            <StyledIcon>{icon}</StyledIcon>
-            <StyledText>{text}</StyledText>
-          </MenuItem>
-        ))}
+        {menuItems && menuItems.length > 0 ? (
+          menuItems.map(({ text, icon, path }) => (
+            <MenuItem key={text} onClick={() => handleNavigation(path)} active={location.pathname === path}>
+              <StyledIcon>{icon}</StyledIcon>
+              <StyledText>{text}</StyledText>
+            </MenuItem>
+          ))
+        ) : (
+          <StyledText>No menu items available</StyledText>
+        )}
       </MenuContainer>
     </SidebarContainer>
   )
