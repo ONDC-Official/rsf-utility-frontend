@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Box, Typography, IconButton, Button } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
+import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 export const Container = styled(Box)({
   borderBottom: `1px solid ${colors.border.main}`,
@@ -93,14 +94,14 @@ export const ModalContainer = styled(Box)({
   overflowY: 'auto',
 })
 
-export const ModalContent = styled(Box)({
+export const Content = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   padding: 0,
 })
 
-export const ModalHeader = styled(Box)({
+export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -120,7 +121,7 @@ export const CloseButton = styled(IconButton)({
   color: colors.text.secondary,
 })
 
-export const FormContainer = styled(Box)({
+export const StyledForm = styled(Box)({
   padding: '24px',
 })
 
@@ -138,4 +139,8 @@ export const ButtonContainer = styled(Box)({
   marginTop: '24px',
   paddingTop: '24px',
   borderTop: `1px solid ${colors.border.main}`,
+})
+
+export const ErrorCell = styled(StyledTableBodyCell)({
+  color: colors.error.main,
 })

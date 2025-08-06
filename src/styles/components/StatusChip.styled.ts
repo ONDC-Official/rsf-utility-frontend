@@ -16,13 +16,13 @@ const getStatusStyles = (status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejec
     case 'Rejected':
       return {
         background: `${colors.alert.light}`,
-        border: '1px solid #EB8A93',
+        border: `1px solid ${colors.error.dark}`,
         color: `${colors.alert.main}`,
       }
     default:
       return {
         background: `${colors.alert.light}`,
-        border: '1px solid #EB8A93',
+        border: `1px solid ${colors.error.dark}`,
         color: `${colors.alert.main}`,
       }
   }

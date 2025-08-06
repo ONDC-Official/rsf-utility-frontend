@@ -6,12 +6,12 @@ import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IReinitiateModalProps } from 'pages/ReconciliationManager/types'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
-  ModalContainer,
-  ModalContent,
-  ModalHeader,
+  ModalContainer as Container,
+  Content,
+  Header,
   ModalTitle,
   CloseButton,
-  FormContainer,
+  StyledForm,
   FormRow,
   ButtonContainer,
 } from 'styles/pages/ReconciliationManager.styled'
@@ -40,17 +40,17 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order }) =>
   }
 
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="reinitiate-modal-title">
-      <ModalContainer>
-        <ModalContent>
-          <ModalHeader>
+    <Modal open={open} onClose={onClose}>
+      <Container>
+        <Content>
+          <Header>
             <ModalTitle>{RECONCILIATION_LABELS.MODAL_TITLE}</ModalTitle>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>
-          </ModalHeader>
+          </Header>
 
-          <FormContainer>
+          <StyledForm>
             <FormRow>
               <InputField
                 label={`${RECONCILIATION_LABELS.FORM_ORDER_ID} *`}
@@ -107,9 +107,9 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order }) =>
                 {RECONCILIATION_LABELS.FORM_GENERATE}
               </ContainedExportButton>
             </ButtonContainer>
-          </FormContainer>
-        </ModalContent>
-      </ModalContainer>
+          </StyledForm>
+        </Content>
+      </Container>
     </Modal>
   )
 }

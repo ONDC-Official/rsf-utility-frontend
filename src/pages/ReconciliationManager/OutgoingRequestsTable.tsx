@@ -15,6 +15,7 @@ import {
   TableActions as Actions,
   TableTitle as Title,
   ActionButton as Button,
+  ErrorCell,
 } from 'styles/pages/ReconciliationManager.styled'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onReinitiate }) => {
@@ -49,7 +50,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
           </Button>
         )}
       </StyledTableBodyCell>
-      <StyledTableBodyCell style={{ color: '#DC3545' }}>{request.error || '-'}</StyledTableBodyCell>
+      <ErrorCell>{request.error || '-'}</ErrorCell>
     </>
   )
 
