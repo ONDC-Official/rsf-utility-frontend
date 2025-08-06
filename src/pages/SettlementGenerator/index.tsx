@@ -1,10 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
 import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
-import { ISettlementSummary } from 'interfaces/settlementGenerator'
+import { ISettlementSummary, ISettlementOrder } from 'interfaces/settlementGenerator'
 import { generateSettlementOrdersData, generatePayloadData } from 'data/settlementGeneratorData'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
 
@@ -22,11 +22,31 @@ const SettlementGenerator: FC = () => {
   const startIndex = (page - 1) * rowsPerPage
   const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
 
-  const handleCheckboxChange = (orderId: string, checked: boolean) => {
-    const newSelectedOrders = new Set(selectedOrders)
-    checked ? newSelectedOrders.add(orderId) : newSelectedOrders.delete(orderId)
-    setSelectedOrders(newSelectedOrders)
-  }
+  const handleCheckboxChange = useCallback((orderId: string, checked: boolean) => {
+    setSelectedOrders((prev) => {
+      const newSelectedOrders = new Set(prev)
+      checked ? newSelectedOrders.add(orderId) : newSelectedOrders.delete(orderId)
+      return newSelectedOrders
+    })
+  }, [])
+
+  const handleSelectAll = useCallback((checked: boolean, currentPageItems: ISettlementOrder[]) => {
+    setSelectedOrders((prev) => {
+      const updated = new Set(prev)
+
+      if (checked) {
+        currentPageItems.forEach((item) => {
+          updated.add(item.id)
+        })
+      } else {
+        currentPageItems.forEach((item) => {
+          updated.delete(item.id)
+        })
+      }
+
+      return updated
+    })
+  }, [])
 
   const calculateSummary = (): ISettlementSummary => {
     const selectedList = Array.from(selectedOrders)
@@ -61,6 +81,7 @@ const SettlementGenerator: FC = () => {
         setRowsPerPage={setRowsPerPage}
         selectedOrders={selectedOrders}
         onCheckboxChange={handleCheckboxChange}
+        onSelectAll={handleSelectAll}
       />
       {selectedOrders.size > 0 && (
         <SummarySection

@@ -53,6 +53,7 @@ export const Container = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
+  marginBottom: 24,
 })
 
 export const Header = styled(Box)({
