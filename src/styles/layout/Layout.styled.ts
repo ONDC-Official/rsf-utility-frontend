@@ -1,10 +1,30 @@
 import styled from 'styled-components'
+import colors from '../../theme/colors'
+import { typography } from '../../theme/typography'
 
 export const LayoutContainer = styled.div`
   display: flex;
   gap: 20px;
   height: 100vh;
   padding: 20px;
+`
+
+export const LayoutContentWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`
+
+export const FooterWrapper = styled.footer`
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+`
+
+export const FooterText = styled.p`
+  font-size: 14px;
+  color: ${colors.text.secondary};
+  font-family: ${typography.body1_regular.fontFamily};
 `
 
 export const MainContent = styled.main`
@@ -17,22 +37,22 @@ export const SidebarContainer = styled.div`
   height: 97vh;
   border-radius: 20px;
   padding: 30px 0;
-  background: #0b3352;
-  color: #ffffff;
+  background: ${colors.primary.main};
+  color: ${colors.primary.contrastText};
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
 export const StyledText = styled.div`
-  font-family: 'Inter', sans-serif;
+  font-family: ${typography.body2_medium.fontFamily};
   font-weight: 500;
   font-style: normal;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0;
   vertical-align: middle;
-  color: #ffffff;
+  color: ${colors.primary.contrastText};
 `
 
 export const Logo = styled.img`
@@ -57,19 +77,21 @@ export const MenuItem = styled.div<{ active: boolean }>`
   border-radius: 100px;
   cursor: pointer;
 
-  background: ${({ active }) => (active ? 'linear-gradient(90deg, #1C75BC 0%, #0D3656 100%)' : 'transparent')};
-  color: #ffffff;
+  background: ${({ active }) =>
+    active ? `linear-gradient(90deg, ${colors.primary.light} 0%, ${colors.primary.dark} 100%)` : 'transparent'};
+  color: ${colors.primary.contrastText};
   opacity: 1;
 
   transition: background 0.3s ease;
 
-  font-family: 'Inter', sans-serif;
+  font-family: ${typography.body2_medium.fontFamily};
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
 
   &:hover {
-    background: ${({ active }) => (active ? 'linear-gradient(90deg, #1C75BC 0%, #0D3656 100%)' : '#1E4C7A')};
+    background: ${({ active }) =>
+      active ? `linear-gradient(90deg, ${colors.primary.light} 0%, ${colors.primary.dark} 100%)` : colors.primary.dark};
   }
 `
 
@@ -79,7 +101,7 @@ export const Logout = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #d3d3d3;
+  color: ${colors.text.disabled};
 `
 
 export const IconWrapper = styled.div``

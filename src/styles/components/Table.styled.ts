@@ -11,7 +11,7 @@ export const Container = styled(Paper)({
 })
 
 export const StyledTableHead = styled(TableHead)({
-  background: '#f5f5f5',
+  background: colors.background.main,
   borderRadius: 8,
 
   '& .MuiTableRow-root': {
@@ -66,8 +66,8 @@ export const HeaderLabelContainer = styled('div')({
   gap: '4px',
 })
 
-export const TableHeaderCheckboxCell = styled(TableCell)(({}) => ({
+export const TableHeaderCheckboxCell = styled(TableCell)({
   fontWeight: typography.body5_semibold?.fontWeight || '600',
   fontSize: typography.body5_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
-}))
+})

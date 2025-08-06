@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import { Box, Button, Chip, Typography } from '@mui/material'
+import colors from '../../theme/colors'
 
 export const ReconciliationContainer = styled(Box)`
   padding: 24px;
-  background-color: #f5f5f5;
+  background-color: ${colors.background.main};
   min-height: 100vh;
 `
 
@@ -32,18 +33,18 @@ export const GenerateButton = styled(Button)`
   font-weight: 500;
   border-radius: 6px;
   padding: 8px 16px;
-  background-color: #1976d2;
-  color: white;
+  background-color: ${colors.primary.main};
+  color: ${colors.primary.contrastText};
   &:hover {
-    background-color: #1565c0;
+    background-color: ${colors.primary.dark};
   }
 `
 
 export const TableSection = styled(Box)`
-  background: white;
+  background: ${colors.background.light};
   border-radius: 8px;
   padding: 24px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px ${colors.shadow.main};
   margin-bottom: 24px;
 `
 
@@ -57,7 +58,7 @@ export const TableHeader = styled(Box)`
 export const TableTitle = styled(Typography)`
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: ${colors.text.primary};
 `
 
 export const TableControls = styled(Box)`
@@ -71,10 +72,10 @@ export const ExportButton = styled(Button)`
   font-weight: 500;
   border-radius: 6px;
   padding: 6px 12px;
-  border-color: #1976d2;
-  color: #1976d2;
+  border-color: ${colors.primary.main};
+  color: ${colors.primary.main};
   &:hover {
-    border-color: #1565c0;
+    border-color: ${colors.primary.dark};
     background-color: rgba(25, 118, 210, 0.04);
   }
 `
@@ -84,10 +85,10 @@ export const FilterButton = styled(Button)`
   font-weight: 500;
   border-radius: 6px;
   padding: 6px 12px;
-  border-color: #666;
-  color: #666;
+  border-color: ${colors.text.secondary};
+  color: ${colors.text.secondary};
   &:hover {
-    border-color: #555;
+    border-color: ${colors.text.primary};
     background-color: rgba(102, 102, 102, 0.04);
   }
 `
@@ -98,7 +99,7 @@ export const PaginationContainer = styled(Box)`
   align-items: center;
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid ${colors.border.main};
 `
 
 export const EntriesContainer = styled(Box)`
