@@ -52,7 +52,7 @@ const useSubmitNetworkConfig = () => {
       const isUpdate = Boolean(selectedUser?._id)
       const url = isUpdate
         ? buildApiUrl(APIRoute.UPDATE_USER, { id: selectedUser!._id })
-        : buildApiUrl(APIRoute.CREATE_USER, {})
+        : buildApiUrl(APIRoute.USER, {})
 
       const result = isUpdate
         ? await patchMutation.mutateAsync({ url, payload })

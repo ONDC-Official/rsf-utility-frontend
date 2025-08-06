@@ -32,7 +32,7 @@ import { useUserContext } from 'context/userContext'
 import { useEffect } from 'react'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import { useToast } from 'context/toastContext'
-import { NETWORK_CONFIGURATION } from '@constants/toastMessages'
+import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
 
 interface Provider {
   providerId: string
@@ -92,13 +92,15 @@ const NetworkConfiguration = () => {
   const onSubmit = async (data: FormData) => {
     try {
       const response = await submitConfig(data)
-      reset(defaultFormData)
-      setSelectedUser(null)
-      const action = selectedUser?._id ? 'updated' : 'created'
-      toast({
-        message: `User ${action} successfully.`,
-        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
-      })
+      if (response) {
+        reset(defaultFormData)
+        setSelectedUser(null)
+        const action = selectedUser?._id ? 'updated' : 'created'
+        toast({
+          message: `User ${action} successfully.`,
+          severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+        })
+      }
     } catch (error) {
       reset(defaultFormData)
       setSelectedUser(null)
@@ -199,6 +201,7 @@ const NetworkConfiguration = () => {
                 fullWidth
                 variant="outlined"
                 type="number"
+                placeholder="Enter NP to NP Tax (%)"
                 {...register('npToNpTax', {
                   required: 'NP to NP Tax is required',
                   min: { value: 0, message: 'Tax cannot be negative' },
@@ -213,6 +216,7 @@ const NetworkConfiguration = () => {
                 fullWidth
                 variant="outlined"
                 type="number"
+                placeholder="Enter NP to Provider Tax (%)"
                 {...register('npToProviderTax', {
                   required: 'NP-to-Provider Tax is required',
                   min: { value: 0, message: 'Tax cannot be negative' },
@@ -241,10 +245,11 @@ const NetworkConfiguration = () => {
                 <TextField
                   fullWidth
                   variant="outlined"
+                  placeholder="Enter Subscriber URL"
                   {...register('subscriberUrl', {
                     required: 'Subscriber URL is required',
                     pattern: {
-                      value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/,
+                      value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/,
                       message: 'Enter a valid URL',
                     },
                   })}
