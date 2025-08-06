@@ -1,57 +1,32 @@
-import { FC, useState, useCallback } from 'react'
+import { FC, useState } from 'react'
 import HeaderSection from 'pages/SettlementDashboard/HeaderSection'
 import DashboardTable from 'pages/SettlementDashboard/DashboardTable'
 import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
 import { generateSettlementDashboardData } from 'data/settlementDashboardData'
+import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { Container } from 'styles/pages/SettlementDashboard.styled'
 
 const SettlementDashboard: FC = () => {
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [counterpartyId, setCounterpartyId] = useState('')
-  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
-
   const allOrders = generateSettlementDashboardData(256)
-  const totalCount = allOrders.length
-  const startIndex = (page - 1) * rowsPerPage
-  const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
+  const {
+    currentItems: currentOrders,
+    selectedItems: selectedOrders,
+    totalCount,
+    page,
+    rowsPerPage,
+    handlePageChange,
+    handleRowsPerPageChange,
+    handleCheckboxChange,
+    handleSelectAll,
+    resetSelection,
+    setPage,
+  } = usePaginatedSelectableData<ISettlementDashboardOrder>(allOrders)
 
-  const handleCheckboxChange = useCallback((orderId: string, checked: boolean) => {
-    setSelectedOrders((prev) => {
-      const newSelectedOrders = new Set(prev)
-      checked ? newSelectedOrders.add(orderId) : newSelectedOrders.delete(orderId)
-      return newSelectedOrders
-    })
-  }, [])
-
-  const handleSelectAll = useCallback((checked: boolean, currentPageItems: ISettlementDashboardOrder[]) => {
-    setSelectedOrders((prev) => {
-      const updated = new Set(prev)
-
-      if (checked) {
-        currentPageItems.forEach((item) => {
-          updated.add(item.id)
-        })
-      } else {
-        currentPageItems.forEach((item) => {
-          updated.delete(item.id)
-        })
-      }
-
-      return updated
-    })
-  }, [])
-
-  const handlePageChange = (newPage: number) => setPage(newPage)
-
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
-    setRowsPerPage(newRowsPerPage)
-    setPage(1)
-  }
+  const [counterpartyId, setCounterpartyId] = useState('')
 
   const handleCounterpartyChange = (value: string) => {
     setCounterpartyId(value)
-    setSelectedOrders(new Set())
+    resetSelection()
     setPage(1)
   }
 
