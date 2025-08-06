@@ -12,6 +12,7 @@ export const RECONCILIATION_LABELS = {
   TOAST_MESSAGE: 'Reconciliation request has been generated successfully.',
   ACCEPT_TOAST_MESSAGE: 'Request Accepted\nOrder moved to Ready for Settlement Dashboard.',
   REJECT_TOAST_MESSAGE: 'Request Rejected\non_recon payload generated with difference values.',
+  MODAL_TITLE: 'Reinitiate Reconciliation Request',
   ACCEPT_MODAL_TITLE: 'Accept Reconciliation Request',
   ACCEPT_MODAL_SUBTITLE: 'Provide a due date for settlement of Order ID:',
   ACCEPT_BUTTON_TEXT: 'Accept & Set Due Date',

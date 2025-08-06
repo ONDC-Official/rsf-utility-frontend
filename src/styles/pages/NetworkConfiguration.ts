@@ -117,6 +117,7 @@ export const FormContainer = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
+  marginTop: '20px',
 }))
 
 export const ConfigHeader = styled('div')(() => ({

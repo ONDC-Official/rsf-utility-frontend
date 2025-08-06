@@ -62,7 +62,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept
     return acc
   }, [])
 
-  const renderRow = (item: any, index: number) => {
+  const renderRow = (item: any) => {
     const isExpanded = expandedRows.has(item.id)
 
     return (

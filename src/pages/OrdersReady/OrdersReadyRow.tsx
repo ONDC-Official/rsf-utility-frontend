@@ -16,7 +16,9 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
     dueDate: '',
   },
   selected = false,
-  onCheckboxChange = () => {},
+  onCheckboxChange = () => {
+    // Default empty function
+  },
 }) => {
   const formatCurrency = (amount: number | undefined) => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_ORDER_VALUE}`
