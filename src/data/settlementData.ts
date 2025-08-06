@@ -123,7 +123,11 @@ export const settlementData: ISettlement[] = [
   },
 ]
 
-export const generateSettlementData = (count: number): ISettlement[] => {
+export const generateSettlementData = (count?: number): ISettlement[] => {
+  if (typeof count !== 'number' || count < 0) {
+    throw new Error('Invalid count provided. It must be a non-negative number.')
+  }
+
   const baseData = [...settlementData]
   const generatedData: ISettlement[] = []
 

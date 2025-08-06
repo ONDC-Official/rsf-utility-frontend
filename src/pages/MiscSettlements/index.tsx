@@ -1,26 +1,24 @@
-import React, { useState } from 'react'
-import { TableRow, TableCell, Checkbox, TextField, IconButton, Tooltip } from '@mui/material'
+import { useState } from 'react'
+import { TableRow, TableCell, Checkbox, TextField } from '@mui/material'
 import { CalendarToday, GetApp, CloudUpload, Bolt, Link as LinkIcon } from '@mui/icons-material'
-import Table from '../../components/common/Table'
-import { ITableColumn } from '../../interfaces/table'
-import { IMiscSettlement, IMiscSettlementForm } from '../../interfaces/miscSettlement'
-import { generateMiscSettlementData } from '../../data/miscSettlementData'
+import Table from 'components/common/Table'
+import { columns } from './data'
+import { IMiscSettlement, IMiscSettlementForm } from 'interfaces/miscSettlement'
+import { generateMiscSettlementData } from 'data/miscSettlementData'
 import {
-  PageContainer,
-  PageHeader,
+  Container,
+  Header,
   HeaderLeft,
   PageTitle,
   PageSubtitle,
   BulkUploadButton,
-  SettlementDetailsCard,
+  Wrapper,
   SettlementDetailsContent,
   CardTitle,
   FormGrid,
   AmountSection,
   AmountLabel,
   AmountInput,
-  IconContainer,
-  IconCircle,
   CreateSettlementButton,
   TableContainer,
   TableHeader,
@@ -28,7 +26,7 @@ import {
   FilterContainer,
   FilterButton,
   ExportButton,
-} from '../../styles/pages/MiscSettlements.styled'
+} from 'styles/pages/MiscSettlements.styled'
 
 const MiscSettlements: React.FC = () => {
   const [page, setPage] = useState(1)
@@ -47,16 +45,6 @@ const MiscSettlements: React.FC = () => {
   const totalCount = allSettlements.length
   const startIndex = (page - 1) * rowsPerPage
   const currentSettlements = allSettlements.slice(startIndex, startIndex + rowsPerPage)
-
-  const columns: ITableColumn<IMiscSettlement>[] = [
-    { id: 'settlementReferenceNumber', label: 'Settlement Reference Number', sortable: true },
-    { id: 'providerName', label: 'Provider Name', sortable: false },
-    { id: 'accountNumber', label: 'Account Number', sortable: false },
-    { id: 'ifscCode', label: 'IFSC Code', sortable: false },
-    { id: 'amount', label: 'Amount', sortable: false },
-    { id: 'providerAmount', label: 'Provider Amount', sortable: false },
-    { id: 'date', label: 'Date', sortable: false },
-  ]
 
   const renderRow = (settlement: IMiscSettlement, index: number) => (
     <TableRow key={settlement.id}>
@@ -119,8 +107,8 @@ const MiscSettlements: React.FC = () => {
   }
 
   return (
-    <PageContainer>
-      <PageHeader>
+    <Container>
+      <Header>
         <HeaderLeft>
           <PageTitle>Miscellaneous Settlements</PageTitle>
           <PageSubtitle>Create ad-hoc settlements for special cases</PageSubtitle>
@@ -128,9 +116,9 @@ const MiscSettlements: React.FC = () => {
         <BulkUploadButton variant="contained" startIcon={<CloudUpload />} onClick={handleBulkUpload}>
           Bulk Upload
         </BulkUploadButton>
-      </PageHeader>
+      </Header>
 
-      <SettlementDetailsCard>
+      <Wrapper>
         <SettlementDetailsContent>
           <CardTitle>
             <LinkIcon />
@@ -182,7 +170,7 @@ const MiscSettlements: React.FC = () => {
             Create a Trigger Settlement
           </CreateSettlementButton>
         </SettlementDetailsContent>
-      </SettlementDetailsCard>
+      </Wrapper>
 
       <TableContainer>
         <TableHeader>
@@ -211,7 +199,7 @@ const MiscSettlements: React.FC = () => {
           sortDirection={sortDirection}
         />
       </TableContainer>
-    </PageContainer>
+    </Container>
   )
 }
 

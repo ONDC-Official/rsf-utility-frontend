@@ -1,30 +1,27 @@
 import React from 'react'
-import Sidebar from '../Sidebar'
-import Navbar from '../Navbar'
+import Sidebar from 'components/layout/Sidebar'
+import Navbar from 'components/layout/Navbar'
+import { ILayoutProps } from 'components/layout/Layout/types'
 import {
-  LayoutContainer,
-  LayoutContentWrapper,
-  FooterWrapper,
+  Container,
+  Wrapper,
+  Footer,
   FooterText,
-  MainContent,
-} from '../../../styles/layout/Layout.styled'
+  Content,
+} from 'styles/layout/Layout.styled'
 
-interface LayoutProps {
-  children: React.ReactNode
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
-    <LayoutContainer>
+    <Container>
       <Sidebar />
-      <LayoutContentWrapper>
+      <Wrapper>
         <Navbar />
-        <MainContent>{children}</MainContent>
-        <FooterWrapper>
+        <Content>{children}</Content>
+        <Footer>
           <FooterText>© ONDC 2025, All Rights Reserved.</FooterText>
-        </FooterWrapper>
-      </LayoutContentWrapper>
-    </LayoutContainer>
+        </Footer>
+      </Wrapper>
+    </Container>
   )
 }
 

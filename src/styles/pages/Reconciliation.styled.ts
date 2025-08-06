@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Box, Button, Chip, Typography } from '@mui/material'
 import colors from '../../theme/colors'
 
-export const ReconciliationContainer = styled(Box)`
+export const Container = styled(Box)`
   padding: 24px;
   background-color: ${colors.background.main};
   min-height: 100vh;

@@ -1,69 +1,65 @@
-// @styles/layout/Navbar.styled.ts
-
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { Typography } from '@mui/material'
-import colors from '../../theme/colors'
-import { typography } from '../../theme/typography'
+import colors from 'theme/colors'
+import { typography } from 'theme/typography'
 
-export const NavbarContainer = styled.div`
-  width: 100%;
-  height: 60px;
-  border-radius: 8px;
-  padding: 14px 24px;
-  background: ${colors.primary.main};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
+export const Container = styled('div')(() => ({
+  width: '100%',
+  height: '60px',
+  borderRadius: '8px',
+  padding: '14px 24px',
+  background: colors.primary.main,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+}))
 
-export const SystemTitle = styled(Typography)`
-  font-family: ${typography.h5_semibold.fontFamily};
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
-  color: ${colors.primary.contrastText};
-`
+export const Title = styled(Typography)(() => ({
+  fontFamily: typography.h5_semibold.fontFamily,
+  fontWeight: 700,
+  fontSize: '18px',
+  lineHeight: '24px',
+  color: colors.primary.contrastText,
+}))
 
-export const ConfigContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`
+export const ConfigContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '20px',
+}))
 
-export const ConfigLabel = styled.div`
-  font-family: ${typography.body5_medium.fontFamily};
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: right;
-  vertical-align: middle;
-  color: ${colors.primary.contrastText};
-`
+export const ConfigLabel = styled('div')(() => ({
+  fontFamily: typography.body5_medium.fontFamily,
+  fontWeight: 500,
+  fontSize: '12px',
+  lineHeight: '15px',
+  textAlign: 'right',
+  verticalAlign: 'middle',
+  color: colors.primary.contrastText,
+}))
 
-export const StyledSelect = styled.select`
-  width: 140px;
-  height: 32px;
-  padding: 8px 10px;
-  border: 1px solid ${colors.border.main};
-  border-radius: 8px;
-  font-family: ${typography.body5_medium.fontFamily};
-  font-size: 12px;
-  background: ${colors.primary.main};
-  color: ${colors.primary.contrastText};
+export const StyledSelect = styled('select')(() => ({
+  width: '140px',
+  height: '32px',
+  padding: '8px 10px',
+  border: `1px solid ${colors.border.main}`,
+  borderRadius: '8px',
+  fontFamily: typography.body5_medium.fontFamily,
+  fontSize: '12px',
+  background: colors.primary.main,
+  color: colors.primary.contrastText,
+  '& option': {
+    fontFamily: typography.body5_medium.fontFamily,
+    fontSize: '12px',
+  },
+  '& option:disabled': {
+    color: colors.primary.contrastText,
+  },
+}))
 
-  option {
-    font-family: ${typography.body5_medium.fontFamily};
-    font-size: 12px;
-  }
-
-  option:disabled {
-    color: ${colors.primary.contrastText};
-  }
-`
-
-export const Avatar = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: ${colors.neutral.main};
-`
+export const Avatar = styled('div')(() => ({
+  width: '32px',
+  height: '32px',
+  borderRadius: '50%',
+  backgroundColor: colors.neutral.main,
+}))

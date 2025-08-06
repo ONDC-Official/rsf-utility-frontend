@@ -1,6 +1,10 @@
 import { IMiscSettlement } from '../interfaces/miscSettlement'
 
-export const generateMiscSettlementData = (count: number): IMiscSettlement[] => {
+export const generateMiscSettlementData = (count?: number): IMiscSettlement[] => {
+  if (typeof count !== 'number' || count < 0) {
+    throw new Error('Invalid count provided. It must be a non-negative number.')
+  }
+
   const data: IMiscSettlement[] = []
 
   for (let i = 1; i <= count; i++) {

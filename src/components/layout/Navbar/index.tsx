@@ -1,18 +1,18 @@
 import { FC } from 'react'
 import {
-  NavbarContainer,
-  SystemTitle,
+  Container,
+  Title,
   ConfigContainer,
   ConfigLabel,
   StyledSelect,
   Avatar,
-} from '../../../styles/layout/Navbar.styled'
+} from 'styles/layout/Navbar.styled'
 import { configurationOptions } from './configurationOptions'
 
 const Navbar: FC = () => {
   return (
-    <NavbarContainer>
-      <SystemTitle>Reconciliation and Settlement System</SystemTitle>
+    <Container>
+      <Title>Reconciliation and Settlement System</Title>
 
       <ConfigContainer>
         <ConfigLabel>Settlement Configuration</ConfigLabel>
@@ -25,7 +25,7 @@ const Navbar: FC = () => {
         </StyledSelect>
         <Avatar />
       </ConfigContainer>
-    </NavbarContainer>
+    </Container>
   )
 }
 

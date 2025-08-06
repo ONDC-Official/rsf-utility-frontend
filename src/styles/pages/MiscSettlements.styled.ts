@@ -1,15 +1,15 @@
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
 import { Box, Typography, Card, CardContent, TextField, Button } from '@mui/material'
 import colors from '../../theme/colors'
 import { typography } from '../../theme/typography'
 
-export const PageContainer = styled(Box)`
+export const Container = styled(Box)`
   background: ${colors.background.main};
   min-height: 100%;
   padding: 24px;
 `
 
-export const PageHeader = styled(Box)`
+export const Header = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -51,7 +51,7 @@ export const BulkUploadButton = styled(Button)`
   }
 `
 
-export const SettlementDetailsCard = styled(Card)`
+export const Wrapper = styled(Card)`
   background: ${colors.background.light};
   box-shadow: 6px 6px 54px 0px ${colors.shadow.main};
   border-radius: 8px;

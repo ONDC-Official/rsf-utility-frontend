@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   Box,
   Typography,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,23 +9,21 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Chip,
   Checkbox,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
   Pagination,
-  Tabs,
-  Tab,
 } from '@mui/material'
+import { outgoingRequestsData, reconciliationData } from './data'
+import { ITabPanelProps } from './type'
 import { Download, FilterList } from '@mui/icons-material'
 import {
-  ReconciliationContainer,
+  Container,
   HeaderSection,
   TabContainer,
   TabButton,
-  GenerateButton,
   TableSection,
   TableHeader,
   TableTitle,
@@ -37,15 +34,9 @@ import {
   EntriesContainer,
   StatusChip,
   ActionButton,
-} from '../../styles/pages/Reconciliation.styled'
+} from 'styles/pages/Reconciliation.styled'
 
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
-
-function TabPanel(props: TabPanelProps) {
+const TabPanel = (props: ITabPanelProps) => {
   const { children, value, index, ...other } = props
 
   return (
@@ -81,104 +72,8 @@ const Reconciliation: React.FC = () => {
     }
   }
 
-  const reconciliationData = [
-    {
-      orderId: 'ORD001',
-      collectorId: 'COLL001',
-      totalValue: '₹1500.00',
-      settlementAmount: '₹1173.00',
-      commission: '₹150.00',
-      orderStatus: 'Not Settled',
-      error: 'Settlement AP Timeout',
-    },
-    {
-      orderId: 'ORD002',
-      collectorId: 'COLL001',
-      totalValue: '₹1500.00',
-      settlementAmount: '₹1173.00',
-      commission: '₹150.00',
-      orderStatus: 'Not Settled',
-      error: 'Invalid Bank Details',
-    },
-    {
-      orderId: 'ORD003',
-      collectorId: 'COLL001',
-      totalValue: '₹1500.00',
-      settlementAmount: '₹1173.00',
-      commission: '₹150.00',
-      orderStatus: 'Not Settled',
-      error: 'Settlement AP Timeout',
-    },
-    {
-      orderId: 'ORD004',
-      collectorId: 'COLL001',
-      totalValue: '₹1500.00',
-      settlementAmount: '₹1173.00',
-      commission: '₹150.00',
-      orderStatus: 'Not Settled',
-      error: 'Insufficient balance',
-    },
-    {
-      orderId: 'ORD005',
-      collectorId: 'COLL001',
-      totalValue: '₹1500.00',
-      settlementAmount: '₹1173.00',
-      commission: '₹150.00',
-      orderStatus: 'Not Settled',
-      error: 'Settlement AP Timeout',
-    },
-  ]
-
-  const outgoingRequestsData = [
-    {
-      orderId: 'ORD001',
-      receiverId: 'RECV001',
-      status: 'Accepted',
-      dueDate: '2024-01-20',
-      response: 'Accepted with revised due date',
-      actions: ['Move to Ready'],
-      error: '',
-    },
-    {
-      orderId: 'ORD002',
-      receiverId: 'RECV001',
-      status: 'Rejected',
-      dueDate: '2024-01-20',
-      response: 'Accepted with revised due date',
-      actions: ['Reinitiate', 'IGM Complaint'],
-      error: 'IGM Complaint',
-    },
-    {
-      orderId: 'ORD003',
-      receiverId: 'RECV001',
-      status: 'Accepted',
-      dueDate: '2024-01-20',
-      response: 'Accepted with revised due date',
-      actions: ['Move to Ready'],
-      error: '',
-    },
-    {
-      orderId: 'ORD004',
-      receiverId: 'RECV001',
-      status: 'Rejected',
-      dueDate: '2024-01-20',
-      response: 'Accepted with revised due date',
-      actions: ['Reinitiate', 'IGM Complaint'],
-      error: 'IGM Complaint',
-    },
-    {
-      orderId: 'ORD005',
-      receiverId: 'RECV001',
-      status: 'Accepted',
-      dueDate: '2024-01-20',
-      response: 'Accepted with revised due date',
-      actions: ['Move to Ready'],
-      error: '',
-    },
-  ]
-
   return (
-    <ReconciliationContainer>
+    <Container>
       <HeaderSection>
         <Box>
           <Typography variant="h3_semibold" component="h1" gutterBottom>
@@ -361,7 +256,7 @@ const Reconciliation: React.FC = () => {
       <TabPanel value={tabValue} index={1}>
         <Typography>Review Recon Requests content will go here</Typography>
       </TabPanel>
-    </ReconciliationContainer>
+    </Container>
   )
 }
 
