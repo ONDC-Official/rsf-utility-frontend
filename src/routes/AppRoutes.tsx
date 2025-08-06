@@ -4,6 +4,7 @@ import OrdersInProgress from 'pages/OrdersInProgress'
 import OrdersReady from 'pages/OrdersReady'
 import SettlementGenerator from 'pages/SettlementGenerator'
 import SettlementDashboard from 'pages/SettlementDashboard'
+import ReconciliationManager from 'pages/ReconciliationManager'
 import Layout from 'components/layout/Layout'
 import ComingSoon from 'components/common/ComingSoon'
 import PrivateRoute from 'routes/PrivateRoute'
@@ -74,7 +75,7 @@ const AppRoutes: FC = () => (
       element={
         <PrivateRoute>
           <Layout>
-            <ComingSoon title="Reconciliation" />
+            <ReconciliationManager />
           </Layout>
         </PrivateRoute>
       }

@@ -3,23 +3,32 @@ import { Box } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-const getStatusStyles = (status: 'Settled' | 'Not Settled') => {
-  if (status === 'Settled') {
-    return {
-      background: `${colors.success.light}`,
-      border: `1px solid ${colors.success.main}`,
-      color: `${colors.success.main}`,
-    }
-  }
-
-  return {
-    background: `${colors.alert.light}`,
-    border: '1px solid #EB8A93',
-    color: `${colors.alert.main}`,
+const getStatusStyles = (status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejected') => {
+  switch (status) {
+    case 'Settled':
+    case 'Accepted':
+      return {
+        background: `${colors.success.light}`,
+        border: `1px solid ${colors.success.main}`,
+        color: `${colors.success.main}`,
+      }
+    case 'Not Settled':
+    case 'Rejected':
+      return {
+        background: `${colors.alert.light}`,
+        border: `1px solid ${colors.error.dark}`,
+        color: `${colors.alert.main}`,
+      }
+    default:
+      return {
+        background: `${colors.alert.light}`,
+        border: `1px solid ${colors.error.dark}`,
+        color: `${colors.alert.main}`,
+      }
   }
 }
 
-export const Container = styled(Box)<{ status: 'Settled' | 'Not Settled' }>(({ status }) => ({
+export const Container = styled(Box)<{ status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejected' }>(({ status }) => ({
   ...getStatusStyles(status),
   width: 84,
   height: 24,
