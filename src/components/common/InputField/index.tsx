@@ -1,17 +1,19 @@
 import { FC } from 'react'
-import { InputAdornment, Box, TextFieldProps } from '@mui/material'
+import { InputAdornment, TextFieldProps } from '@mui/material'
 import { ICustomInputFieldProps } from 'components/common/InputField/types'
-import { StyledTextField } from 'styles/components/InputField.styled'
+import { StyledTextField, InputLabel, InputContainer } from 'styles/components/InputField.styled'
 
-const InputField: FC<ICustomInputFieldProps & TextFieldProps> = ({ endAdornment, ...props }) => (
-  <Box>
+const InputField: FC<ICustomInputFieldProps & Omit<TextFieldProps, 'label'>> = ({ endAdornment, label, ...props }) => (
+  <InputContainer>
+    {label && <InputLabel>{label}</InputLabel>}
     <StyledTextField
       InputProps={{
         endAdornment: endAdornment ? <InputAdornment position="end">{endAdornment}</InputAdornment> : undefined,
       }}
+      fullWidth
       {...props}
     />
-  </Box>
+  </InputContainer>
 )
 
 export default InputField
