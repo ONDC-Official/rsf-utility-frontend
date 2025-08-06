@@ -6,7 +6,7 @@ import { generateMiscSettlementsData } from 'data/miscSettlementsData'
 import { columns } from 'pages/MiscSettlements/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
-import { OutlinedFilterButton, ContainedExportButton, PrimaryButton } from 'styles/components/Button.styled'
+import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import { IMiscSettlement } from '@interfaces/miscSettlements'
 import {
   Container,
@@ -31,6 +31,7 @@ import {
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
+import Button from 'components/common/Button'
 
 const MiscSettlements: FC = () => {
   const {
@@ -115,7 +116,9 @@ const MiscSettlements: FC = () => {
           </FieldBox>
         </FieldRow>
         <ActionButtons>
-          <PrimaryButton startIcon={<RotatedSendIcon />}>Create a Trigger Settlement</PrimaryButton>
+          <Button variant="contained" startIcon={<RotatedSendIcon />}>
+            Create a Trigger Settlement
+          </Button>
         </ActionButtons>
       </SettlementDetailsContainer>
 

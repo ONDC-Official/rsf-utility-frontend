@@ -13,7 +13,7 @@ import {
 } from 'styles/pages/NilSettlement.styled'
 import { CalendarTodayOutlined, InfoOutlined, WarningAmberOutlined } from '@mui/icons-material'
 import { Typography } from '@mui/material'
-import { PrimaryButton, SecondaryButton } from 'styles/components/Button.styled'
+import Button from 'components/common/Button'
 
 const NilSettlement = () => (
   <Container>
@@ -42,10 +42,12 @@ const NilSettlement = () => (
         </NoticeTextBox>
       </NoticeBox>
       <ActionButtons>
-        <PrimaryButton startIcon={<InfoOutlined />}>Trigger Nil Settlement</PrimaryButton>
-        <SecondaryButton variant="outlined" startIcon={<CalendarTodayOutlined />}>
+        <Button variant="contained" startIcon={<InfoOutlined />}>
+          Trigger Nil Settlement
+        </Button>
+        <Button variant="outlined" startIcon={<CalendarTodayOutlined />}>
           Schedule Nil Settlement
-        </SecondaryButton>
+        </Button>
       </ActionButtons>
     </Wrapper>
   </Container>

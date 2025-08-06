@@ -6,6 +6,19 @@ import { typography } from 'theme/typography'
 export const StyledButton = styled(Button)({
   textTransform: 'none',
   borderRadius: 4,
+  fontFamily: typography.body1_medium.fontFamily,
+
+  '&.MuiButton-contained': {
+    color: colors.text.light,
+    backgroundColor: colors.primary.main,
+    borderColor: colors.border.tertiary,
+  },
+
+  '&.MuiButton-outlined': {
+    color: colors.text.tertiary,
+    backgroundColor: 'transparent',
+    borderColor: colors.border.tertiary,
+  },
 })
 
 export const OutlinedFilterButton = styled(Button)({
@@ -17,21 +30,6 @@ export const OutlinedFilterButton = styled(Button)({
 
 export const ContainedExportButton = styled(Button)({
   color: `${colors.text.light} !important`,
-  borderColor: `${colors.border.tertiary} !important`,
-  textTransform: 'none',
-  fontFamily: typography.body1_medium.fontFamily,
-})
-
-export const PrimaryButton = styled(Button)({
-  color: `${colors.text.light}`,
-  borderColor: `${colors.border.tertiary} !important`,
-  textTransform: 'none',
-  fontFamily: typography.body1_medium.fontFamily,
-  backgroundColor: colors.primary.main,
-})
-
-export const SecondaryButton = styled(Button)({
-  color: `${colors.text.tertiary}`,
   borderColor: `${colors.border.tertiary} !important`,
   textTransform: 'none',
   fontFamily: typography.body1_medium.fontFamily,
