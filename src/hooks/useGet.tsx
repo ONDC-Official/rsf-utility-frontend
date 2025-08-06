@@ -1,19 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useQuery } from 'react-query'
+import { IApiResponse } from '@interfaces/api'
+import { useQuery, UseQueryResult } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 
-const useGet = (key: string, url: string, configs?: any) => {
+function useGet<TResponse = any>(key: string, url: string, configs?: any): UseQueryResult<IApiResponse<TResponse>> {
   const get = async () => {
-    const { data } = await axiosInstance.get(url)
+    const { data } = await axiosInstance.get<IApiResponse<TResponse>>(url)
     return data
   }
+
   const defaultConfig = {
     enabled: false,
     refetchOnWindowFocus: false,
     retry: false,
     ...configs,
   }
-  return useQuery(key, get, defaultConfig)
+
+  return useQuery<IApiResponse<TResponse>>(key, get, defaultConfig)
 }
 
 export default useGet

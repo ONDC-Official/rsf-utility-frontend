@@ -10,6 +10,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
+
   rules: {
     'node/no-unsupported-features/es-syntax': 'off',
     '@typescript-eslint/indent': 'off',
@@ -23,6 +24,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-extra-semi': 'off',
     'no-console': 'warn',
+
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: 'class', next: '*' },
@@ -34,16 +36,21 @@ module.exports = {
         next: ['const', 'let', 'var'],
       },
     ],
-    'no-unused-vars': [
+
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'error',
       {
         vars: 'all',
-        args: 'all',
+        args: 'after-used',
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
       },
     ],
+
     'id-match': 0,
 
-    // Turn on prettier rules
+    // Prettier formatting
     'prettier/prettier': 'error',
     'comma-dangle': ['error', 'only-multiline'],
     'max-len': [
