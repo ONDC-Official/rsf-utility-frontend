@@ -1,5 +1,5 @@
 import { ITableColumn } from 'interfaces/table'
-import { IReconciliationOrder, IOutgoingRequest } from 'interfaces/reconciliationManager'
+import { IReconciliationOrder, IOutgoingRequest, IIncomingRequest } from 'interfaces/reconciliationManager'
 
 export const receiverOptions = [
   { value: 'RECV001', label: 'RECV001' },
@@ -25,4 +25,17 @@ export const outgoingRequestColumns: ITableColumn<IOutgoingRequest>[] = [
   { id: 'response', label: 'Response' },
   { id: 'actions', label: 'Actions' },
   { id: 'error', label: 'Error' },
+]
+
+export const incomingRequestColumns: ITableColumn<IIncomingRequest>[] = [
+  { id: 'reconTransactionId', label: 'Recon Transaction ID' },
+  { id: 'orderId', label: 'Order ID' },
+  { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'requestedAmount', label: 'Requested Amount' },
+  { id: 'currentAmount', label: 'Current Amount' },
+  { id: 'requestedCommission', label: 'Requested Commission' },
+  { id: 'currentCommission', label: 'Current Commission' },
+  { id: 'reason', label: 'Reason' },
+  { id: 'receivedDate', label: 'Received Date' },
+  { id: 'actions', label: 'Actions' },
 ]

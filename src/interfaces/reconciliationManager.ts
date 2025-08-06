@@ -18,3 +18,16 @@ export interface IOutgoingRequest extends Record<string, unknown> {
   response: string
   error?: string
 }
+
+export interface IIncomingRequest extends Record<string, unknown> {
+  id: string
+  reconTransactionId: string
+  orderId: string
+  receiverId: string
+  requestedAmount: number
+  currentAmount: number
+  requestedCommission: number
+  currentCommission: number
+  reason: string
+  receivedDate: string
+}
