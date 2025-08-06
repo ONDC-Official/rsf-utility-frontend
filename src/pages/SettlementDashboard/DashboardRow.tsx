@@ -1,19 +1,22 @@
 import React from 'react'
 import { Checkbox } from '@mui/material'
-import { IOrdersReadyRowProps } from 'pages/OrdersReady/types'
+import StatusChip from 'components/common/StatusChip'
 import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/OrdersReady/constants'
+import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/SettlementDashboard/constants'
+import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 
-const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
+const DashboardRow: React.FC<IDashboardRowProps> = ({
   order = {
     id: '',
     orderId: '',
     collectorId: '',
     receiverId: '',
     totalOrderValue: 0,
+    interNpSettlement: 0,
     commission: 0,
-    sellerType: '',
-    dueDate: '',
+    interNpSettlementStatus: 'Not Settled',
+    selfStatus: 'Not Settled',
+    providerStatus: 'Not Settled',
   },
   selected = false,
   onCheckboxChange = () => {},
@@ -31,11 +34,19 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
       <StyledTableBodyCell>{order.collectorId || TABLE_CELL_DEFAULTS.COLLECTOR_ID}</StyledTableBodyCell>
       <StyledTableBodyCell>{order.receiverId || TABLE_CELL_DEFAULTS.RECEIVER_ID}</StyledTableBodyCell>
       <StyledTableBodyCell>{formatCurrency(order.totalOrderValue)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(order.interNpSettlement)}</StyledTableBodyCell>
       <StyledTableBodyCell>{formatCurrency(order.commission)}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.sellerType || TABLE_CELL_DEFAULTS.SELLER_TYPE}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.dueDate || TABLE_CELL_DEFAULTS.DUE_DATE}</StyledTableBodyCell>
+      <StyledTableBodyCell>
+        <StatusChip status={order.interNpSettlementStatus} />
+      </StyledTableBodyCell>
+      <StyledTableBodyCell>
+        <StatusChip status={order.selfStatus} />
+      </StyledTableBodyCell>
+      <StyledTableBodyCell>
+        <StatusChip status={order.providerStatus} />
+      </StyledTableBodyCell>
     </>
   )
 }
 
-export default OrdersReadyRow
+export default DashboardRow

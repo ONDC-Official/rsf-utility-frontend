@@ -1,4 +1,4 @@
-import { ISettlementSummary } from 'interfaces/settlementGenerator'
+import { ISettlementOrder, ISettlementSummary } from 'interfaces/settlementGenerator'
 
 export interface IProps {
   summary: ISettlementSummary
@@ -16,4 +16,9 @@ export interface IModeSelectionProps {
 
 export interface IPayloadPreviewProps {
   data: Record<string, unknown>
+}
+
+export interface IOrderTableProps {
+  allOrders: ISettlementOrder[]
+  onSelectedOrdersChange: (selected: Set<string>) => void
 }

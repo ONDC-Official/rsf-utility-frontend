@@ -15,14 +15,13 @@ const colors: IColors = {
     tertiaryMain: '#EB7413',
     tertiaryWarning: '#FFFDFB',
   },
-  primary: {
-    main: '#0B3352',
-    contrastText: '#FFFFFF',
-    light: '#1C75BC',
-    dark: '#0D3656',
-    inputFieldText: '#323639',
-  },
   success: {
+    main: '#28A745',
+    light: '#EAF6EC',
+    dark: '#1E7E34',
+    contrastText: '#FFFFFF',
+  },
+  primary: {
     main: '#0B3352',
     contrastText: '#FFFFFF',
     light: '#1C75BC',

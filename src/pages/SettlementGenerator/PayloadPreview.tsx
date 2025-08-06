@@ -15,7 +15,7 @@ const PayloadPreview: FC<IPayloadPreviewProps> = ({ data }) => (
     <PayloadHeader>
       <SectionTitle>Settlement Payload Preview</SectionTitle>
       <PayloadActions>
-        <ContainedExportButton variant="contained" startIcon={<Visibility />}>
+        <ContainedExportButton variant="outlined" startIcon={<Visibility />}>
           Trigger Settlement API
         </ContainedExportButton>
         <OutlinedFilterButton variant="outlined" startIcon={<Download />}>

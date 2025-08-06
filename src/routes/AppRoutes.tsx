@@ -1,98 +1,107 @@
+import { FC } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Layout from '../components/layout/Layout'
-import OrdersInProgress from '../pages/OrdersInProgress'
-import MiscSettlements from '../pages/MiscSettlements'
-import Reconciliation from '../pages/Reconciliation'
-import ComingSoon from '../components/common/ComingSoon'
-import PrivateRoute from './PrivateRoute'
-import NetworkConfiguration from '../pages/NetworkConfiguration'
+import OrdersInProgress from 'pages/OrdersInProgress'
+import OrdersReady from 'pages/OrdersReady'
+import SettlementGenerator from 'pages/SettlementGenerator'
+import SettlementDashboard from 'pages/SettlementDashboard'
+import Layout from 'components/layout/Layout'
+import ComingSoon from 'components/common/ComingSoon'
+import PrivateRoute from 'routes/PrivateRoute'
+import { ROUTES } from 'constants/routes.constants'
+import NetworkConfiguration from 'pages/NetworkConfiguration'
 
-const AppRoutes: React.FC = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/orders-progress" replace />} />
-      <Route
-        path="/orders-progress"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <OrdersInProgress />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/configuration"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <NetworkConfiguration />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/orders-ready"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <ComingSoon title="Orders Ready" />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/settlement-generator"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <ComingSoon title="Settlement Generator" />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/settlement-dashboard"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <ComingSoon title="Settlement Dashboard" />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/reconciliation"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <Reconciliation />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/misc-settlements"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <MiscSettlements />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/nil-settlement"
-        element={
-          <PrivateRoute>
-            <Layout>
-              <ComingSoon title="Nil Settlement" />
-            </Layout>
-          </PrivateRoute>
-        }
-      />
-    </Routes>
-  )
-}
+const AppRoutes: FC = () => (
+  <Routes>
+    <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.ORDERS_PROGRESS} replace />} />
+
+    <Route
+      path={ROUTES.ORDERS_PROGRESS}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <OrdersInProgress />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.CONFIGURATION}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <NetworkConfiguration />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.ORDERS_READY}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <OrdersReady />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.SETTLEMENT_GENERATOR}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <SettlementGenerator />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.SETTLEMENT_DASHBOARD}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <SettlementDashboard />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.RECONCILIATION}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <ComingSoon title="Reconciliation" />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.MISC_SETTLEMENTS}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <ComingSoon title="Misc Settlements" />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+
+    <Route
+      path={ROUTES.NIL_SETTLEMENT}
+      element={
+        <PrivateRoute>
+          <Layout>
+            <ComingSoon title="Nil Settlement" />
+          </Layout>
+        </PrivateRoute>
+      }
+    />
+  </Routes>
+)
 
 export default AppRoutes

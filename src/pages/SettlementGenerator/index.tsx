@@ -9,23 +9,14 @@ import { generateSettlementOrdersData, generatePayloadData } from 'data/settleme
 import { Container } from 'styles/pages/SettlementGenerator.styled'
 
 const SettlementGenerator: FC = () => {
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const allOrders = generateSettlementOrdersData(256)
   const [counterpartyId, setCounterpartyId] = useState('')
-  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
-  const [isManualMode, setIsManualMode] = useState(true)
   const [customDueDate, setCustomDueDate] = useState('')
   const [showPayloadPreview, setShowPayloadPreview] = useState(false)
+  const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
 
-  const allOrders = generateSettlementOrdersData(256)
-  const totalCount = allOrders.length
-  const startIndex = (page - 1) * rowsPerPage
-  const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
-
-  const handleCheckboxChange = (orderId: string, checked: boolean) => {
-    const newSelectedOrders = new Set(selectedOrders)
-    checked ? newSelectedOrders.add(orderId) : newSelectedOrders.delete(orderId)
-    setSelectedOrders(newSelectedOrders)
+  const handleSelectedOrdersChange = (newSelected: Set<string>) => {
+    setSelectedOrders(newSelected)
   }
 
   const calculateSummary = (): ISettlementSummary => {
@@ -47,21 +38,12 @@ const SettlementGenerator: FC = () => {
     <Container>
       <HeaderSection />
       <ModeSelection
-        isManualMode={isManualMode}
-        onToggleMode={setIsManualMode}
+        isManualMode={true}
+        onToggleMode={() => {}}
         counterpartyId={counterpartyId}
         setCounterpartyId={setCounterpartyId}
       />
-      <OrderTable
-        orders={currentOrders}
-        columnsCount={totalCount}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        setPage={setPage}
-        setRowsPerPage={setRowsPerPage}
-        selectedOrders={selectedOrders}
-        onCheckboxChange={handleCheckboxChange}
-      />
+      <OrderTable allOrders={allOrders} onSelectedOrdersChange={handleSelectedOrdersChange} />
       {selectedOrders.size > 0 && (
         <SummarySection
           summary={summary}

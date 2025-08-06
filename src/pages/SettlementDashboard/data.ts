@@ -1,0 +1,20 @@
+import { ITableColumn } from 'interfaces/table'
+import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
+
+export const counterpartyOptions = [
+  { value: 'BPP_001', label: 'BPP_001' },
+  { value: 'BPP_002', label: 'BPP_002' },
+  { value: 'BPP_003', label: 'BPP_003' },
+]
+
+export const columns: ITableColumn<ISettlementDashboardOrder>[] = [
+  { id: 'orderId', label: 'Order ID' },
+  { id: 'collectorId', label: 'Collector ID' },
+  { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'totalOrderValue', label: 'Total Order Value' },
+  { id: 'interNpSettlement', label: 'Inter NP Settlement' },
+  { id: 'commission', label: 'Commission' },
+  { id: 'interNpSettlementStatus', label: 'Inter NP Settlement Status' },
+  { id: 'selfStatus', label: 'Self Status' },
+  { id: 'providerStatus', label: 'Provider Status' },
+]

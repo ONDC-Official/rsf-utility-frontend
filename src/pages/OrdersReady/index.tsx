@@ -22,6 +22,7 @@ const OrdersReady: FC = () => {
     rowsPerPage,
     totalCount,
     handleCheckboxChange,
+    handleSelectAll,
     handlePageChange,
     handleRowsPerPageChange,
   } = useOrdersReady()
@@ -56,6 +57,8 @@ const OrdersReady: FC = () => {
         renderRow={renderRow}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
+        selectedItems={selectedOrders}
+        onSelectAll={handleSelectAll}
       />
     </Container>
   )

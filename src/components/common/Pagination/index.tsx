@@ -19,7 +19,7 @@ const Pagination: FC<IPaginationProps> = ({
   onPageChange,
   onRowsPerPageChange,
 }) => {
-  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }
 

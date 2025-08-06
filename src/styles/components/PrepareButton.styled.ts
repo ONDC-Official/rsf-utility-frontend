@@ -11,7 +11,7 @@ export const PrepareButton = styled(Button)<{
   fontFamily: typography.body2_medium.fontFamily,
   fontWeight: typography.body2_medium.fontWeight,
   fontSize: typography.body2_medium.fontSize,
-  borderRadius: 4,
+  borderRadius: 8,
   padding: '8px 16px',
   minHeight: 36,
 
