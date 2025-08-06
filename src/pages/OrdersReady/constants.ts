@@ -12,3 +12,15 @@ export const ORDER_HEADER_LABELS = {
   prepareWithCount: (count: number) => `Prepare (${count} selected)`,
   generateWithCount: (count: number) => `Generate (${count} selected)`,
 }
+
+export const TABLE_CELL_DEFAULTS = {
+  ORDER_ID: 'N/A',
+  COLLECTOR_ID: 'N/A',
+  RECEIVER_ID: 'N/A',
+  TOTAL_ORDER_VALUE: '0.00',
+  COMMISSION: '0.00',
+  SELLER_TYPE: 'N/A',
+  DUE_DATE: 'N/A',
+} as const
+
+export const CURRENCY_SYMBOL = '₹' as const

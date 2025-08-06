@@ -1,6 +1,8 @@
 import React from 'react'
-import { TableRow, TableCell, Checkbox } from '@mui/material'
+import { Checkbox } from '@mui/material'
 import { IOrdersReadyRowProps } from 'pages/OrdersReady/types'
+import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
+import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/OrdersReady/constants'
 
 const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
   order = {
@@ -15,19 +17,25 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
   },
   selected = false,
   onCheckboxChange = () => {},
-}) => (
-  <TableRow key={order.id}>
-    <TableCell padding="checkbox">
-      <Checkbox checked={selected} onChange={(e) => onCheckboxChange(order.id, e.target.checked)} />
-    </TableCell>
-    <TableCell>{order.orderId || 'N/A'}</TableCell>
-    <TableCell>{order.collectorId || 'N/A'}</TableCell>
-    <TableCell>{order.receiverId || 'N/A'}</TableCell>
-    <TableCell>₹{order.totalOrderValue?.toFixed(2) ?? '0.00'}</TableCell>
-    <TableCell>₹{order.commission?.toFixed(2) ?? '0.00'}</TableCell>
-    <TableCell>{order.sellerType || 'N/A'}</TableCell>
-    <TableCell>{order.dueDate || 'N/A'}</TableCell>
-  </TableRow>
-)
+}) => {
+  const formatCurrency = (amount: number | undefined) => {
+    return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_ORDER_VALUE}`
+  }
+
+  return (
+    <>
+      <TableBodyCheckboxCell>
+        <Checkbox checked={selected} onChange={(e) => onCheckboxChange(order.id, e.target.checked)} size="small" />
+      </TableBodyCheckboxCell>
+      <StyledTableBodyCell>{order.orderId || TABLE_CELL_DEFAULTS.ORDER_ID}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.collectorId || TABLE_CELL_DEFAULTS.COLLECTOR_ID}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.receiverId || TABLE_CELL_DEFAULTS.RECEIVER_ID}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(order.totalOrderValue)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(order.commission)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.sellerType || TABLE_CELL_DEFAULTS.SELLER_TYPE}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.dueDate || TABLE_CELL_DEFAULTS.DUE_DATE}</StyledTableBodyCell>
+    </>
+  )
+}
 
 export default OrdersReadyRow

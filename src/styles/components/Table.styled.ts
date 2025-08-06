@@ -12,8 +12,6 @@ export const Container = styled(Paper)({
 
 export const StyledTableHead = styled(TableHead)({
   background: '#f5f5f5',
-  borderRadius: 8,
-
   '& .MuiTableRow-root': {
     '& .MuiTableCell-root:first-of-type': {
       borderTopLeftRadius: 8,
@@ -30,26 +28,31 @@ export const StyledTableCell = styled(TableCell)({
   fontWeight: typography.body5_semibold?.fontWeight || '600',
   fontSize: typography.body5_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
+  padding: '12px 16px',
+  height: '56px',
+  verticalAlign: 'middle',
 })
 
 export const StyledTableBodyCell = styled(TableCell)({
-  fontWeight: typography.body2_regular?.fontWeight || '600',
+  fontWeight: typography.body2_regular?.fontWeight || '400',
   fontSize: typography.body2_regular?.fontSize || '14px',
   color: colors.text.tertiary,
+  fontFamily: typography.body2_regular.fontFamily,
+  padding: '12px 16px',
+  height: '64px',
+  verticalAlign: 'middle',
+  borderBottom: `1px solid ${colors.border.main}`,
 })
 
 export const StyledTableRow = styled(TableRow)<{ isLast?: boolean }>(({ isLast }) => ({
-  ...(!isLast && {
+  '&:hover': {
+    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+  },
+  ...(isLast && {
     '& .MuiTableCell-root': {
-      borderBottom: `1px solid ${colors.border.main}`,
+      borderBottom: 'none',
     },
   }),
-
-  '& .MuiTableCell-root': {
-    fontFamily: typography.body2_regular.fontFamily,
-    fontSize: typography.body2_regular.fontSize,
-    color: colors.text.tertiary,
-  },
 }))
 
 export const Wrapper = styled(TableContainer)({
@@ -58,16 +61,43 @@ export const Wrapper = styled(TableContainer)({
 
 export const StyledIconButton = styled(IconButton)({
   padding: '2px',
+  marginLeft: '4px',
 })
 
 export const HeaderLabelContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
-  gap: '4px',
+  justifyContent: 'flex-start',
 })
 
-export const TableHeaderCheckboxCell = styled(TableCell)(({}) => ({
+export const TableHeaderCheckboxCell = styled(TableCell)({
   fontWeight: typography.body5_semibold?.fontWeight || '600',
   fontSize: typography.body5_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
-}))
+  padding: '12px 16px',
+  width: '60px',
+  minWidth: '60px',
+  maxWidth: '60px',
+  height: '56px',
+  verticalAlign: 'middle',
+  '& .MuiCheckbox-root': {
+    padding: '4px',
+  },
+})
+
+export const TableBodyCheckboxCell = styled(TableCell)({
+  fontWeight: typography.body2_regular?.fontWeight || '400',
+  fontSize: typography.body2_regular?.fontSize || '14px',
+  color: colors.text.tertiary,
+  fontFamily: typography.body2_regular.fontFamily,
+  padding: '12px 16px',
+  width: '60px',
+  minWidth: '60px',
+  maxWidth: '60px',
+  height: '64px',
+  verticalAlign: 'middle',
+  borderBottom: `1px solid ${colors.border.main}`,
+  '& .MuiCheckbox-root': {
+    padding: '4px',
+  },
+})

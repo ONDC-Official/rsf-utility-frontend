@@ -60,7 +60,6 @@ export const Header = styled(Box)({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '20px 24px',
-  borderBottom: `1px solid ${colors.border.main}`,
 })
 
 export const TableActions = styled(Box)({

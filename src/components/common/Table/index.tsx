@@ -45,12 +45,12 @@ const Table = <T extends Record<string, unknown>>({
   return (
     <Container elevation={0}>
       <Wrapper>
-        <MUITable>
+        <MUITable stickyHeader>
           <StyledTableHead>
             <TableRow>
               {!hideCheckboxes && (
                 <TableHeaderCheckboxCell>
-                  <Checkbox />
+                  <Checkbox size="small" />
                 </TableHeaderCheckboxCell>
               )}
               {(columns || []).map((column, index) => (
