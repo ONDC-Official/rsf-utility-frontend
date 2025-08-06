@@ -1,4 +1,3 @@
-// hooks/usePatch.ts
 import { useMutation, UseMutationResult } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 

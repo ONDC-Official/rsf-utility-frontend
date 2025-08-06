@@ -31,6 +31,8 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
 import { useEffect } from 'react'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
+import { useToast } from 'context/toastContext'
+import { NETWORK_CONFIGURATION } from '@constants/toastMessages'
 
 interface Provider {
   providerId: string
@@ -69,6 +71,7 @@ const defaultFormData: FormData = {
 }
 
 const NetworkConfiguration = () => {
+  const toast = useToast()
   const { selectedUser, isLoading: isUserLoading, setSelectedUser } = useUserContext()
 
   const {
@@ -92,11 +95,14 @@ const NetworkConfiguration = () => {
       reset(defaultFormData)
       setSelectedUser(null)
       const action = selectedUser?._id ? 'updated' : 'created'
-      console.log(`User ${action} successfully:`, response)
+      toast({
+        message: `User ${action} successfully.`,
+        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+      })
     } catch (error) {
       reset(defaultFormData)
       setSelectedUser(null)
-      console.error('Submission failed:', error)
+      toast(NETWORK_CONFIGURATION.ERROR)
     }
   }
 

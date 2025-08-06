@@ -1,4 +1,3 @@
-// hooks/useSubmitNetworkConfig.ts
 import { useCallback } from 'react'
 import { useUserContext } from 'context/userContext'
 import usePost from 'hooks/usePost'
@@ -53,8 +52,7 @@ const useSubmitNetworkConfig = () => {
       const isUpdate = Boolean(selectedUser?._id)
       const url = isUpdate
         ? buildApiUrl(APIRoute.UPDATE_USER, { id: selectedUser!._id })
-
-        : buildApiUrl(APIRoute.CREATE_USER, {}) 
+        : buildApiUrl(APIRoute.CREATE_USER, {})
 
       const result = isUpdate
         ? await patchMutation.mutateAsync({ url, payload })

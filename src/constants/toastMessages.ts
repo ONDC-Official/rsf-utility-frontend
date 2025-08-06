@@ -32,3 +32,14 @@ export const TRIGGER_ACTION: IToastGroup = {
     severity: 'error',
   },
 }
+
+export const NETWORK_CONFIGURATION: IToastGroup = {
+  SUCCESS: {
+    message: 'Configuration saved successfully.',
+    severity: 'success',
+  },
+  ERROR: {
+    message: 'Failed to save configuration.',
+    severity: 'error',
+  },
+}
