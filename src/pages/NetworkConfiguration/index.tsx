@@ -10,7 +10,7 @@ import SaveIcon from 'assets/images/svg/SaveIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
 import { IFormData } from 'pages/NetworkConfiguration/type'
-import { defaultFormData, defaultProvider } from './data'
+import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 
 const NetworkConfiguration = () => {
   const { selectedUser, isLoading, setSelectedUser, refetch } = useUserContext()
