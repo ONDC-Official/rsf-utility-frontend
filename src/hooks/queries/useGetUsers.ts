@@ -6,7 +6,7 @@ import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 
 const useGetUsers = (configs?: UseQueryOptions<IApiResponse<IUser[]>>) => {
-  return useGet<IUser[]>('users', buildApiUrl(APIRoute.USERS, {}), configs)
+  return useGet<IUser[]>('users', buildApiUrl(APIRoute.USER, {}), configs)
 }
 
 export default useGetUsers

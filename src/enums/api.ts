@@ -1,6 +1,5 @@
 export enum APIRoute {
-  USERS = '/ui/users',
-  USER = USERS,
+  USER = '/ui/users',
   SETTLEMENTS_PAYLOAD = '/ui/rsf-payloads',
   GENERATE_MISC = '/ui/generate/{userId}/settle/misc',
   GENERATE_NIL = '/ui/generate/{userId}/settle/nil',

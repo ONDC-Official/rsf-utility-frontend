@@ -5,26 +5,9 @@ import usePatch from 'hooks/usePatch'
 import { IApiResponse } from '@interfaces/api'
 import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
+import { IFormData } from 'pages/NetworkConfiguration/type'
 
-interface Provider {
-  providerId: string
-  ifscCode: string
-  accountNumber: string
-  bankName: string
-}
-
-interface FormData {
-  title: string
-  role: string
-  domainCategory: string
-  npToProviderTax: number
-  type: string
-  npToNpTax: number
-  subscriberUrl: string
-  providers: Provider[]
-}
-
-const mapToPayload = (data: FormData) => ({
+const mapToPayload = (data: IFormData) => ({
   // title: data.title,
   role: data.role === 'Seller App' ? 'BPP' : 'BAP',
   subscriber_url: data.subscriberUrl,
@@ -47,7 +30,7 @@ const useSubmitNetworkConfig = () => {
   const patchMutation = usePatch<IApiResponse<any>>()
 
   const triggerAsync = useCallback(
-    async (data: FormData) => {
+    async (data: IFormData) => {
       const payload = mapToPayload(data)
       const isUpdate = Boolean(selectedUser?._id)
       const url = isUpdate
