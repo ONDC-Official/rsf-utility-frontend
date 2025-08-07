@@ -27,7 +27,7 @@ const Navbar: FC = () => {
   // Auto-select the user only if there is exactly one user available.
   // Prevents overriding manual deselection (e.g., during 'Add Configuration').
   useEffect(() => {
-    if (!selectedUser && Array.isArray(users) && users.length === 1 && users[0]) {
+    if (!selectedUser && Array.isArray(users) && users.length === 0 && users[0]) {
       setSelectedUser(users[0])
     }
   }, [users, selectedUser, setSelectedUser])

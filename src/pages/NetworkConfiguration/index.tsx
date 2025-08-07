@@ -32,6 +32,8 @@ import { defaultFormData, defaultProvider } from './data'
 import { TypographyVariant } from 'enums/typography'
 import { Typography } from '@mui/material'
 
+const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
+
 const NetworkConfiguration = () => {
   const { selectedUser, isLoading, setSelectedUser } = useUserContext()
   const toast = useToast()
@@ -73,7 +75,7 @@ const NetworkConfiguration = () => {
   }, [selectedUser, setValue])
 
   const onSubmit = async (data: IFormData) => {
-    const { providers, ...rest } = data
+    const { providers: _, ...rest } = data
     const payload = data.role === 'Buyer App' ? rest : data
     try {
       await submitConfig(payload)
@@ -199,7 +201,7 @@ const NetworkConfiguration = () => {
                     {...register('subscriberUrl', {
                       required: 'URL is required',
                       pattern: {
-                        value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w.-]*)*\/?$/,
+                        value: regexUrl,
                         message: 'Invalid URL',
                       },
                     })}
