@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
+import { GetApp } from '@mui/icons-material'
+import DateFilterButton from 'components/common/DateFilterButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
 import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
@@ -30,14 +33,23 @@ const OrdersInProgress: React.FC = () => {
   const [receiverId, setReceiverId] = useState('BPP_001')
 
   const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
 
   const {
     data: ordersData,
-    isLoading: _isLoading,
+    isLoading,
     refetch: _refetch,
   } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'In-progress', {
     enabled: !!selectedUser?._id,
   })
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
+    }
+  }, [isLoading, showLoader, hideLoader])
 
   const orders = ordersData?.data || []
   const totalCount = orders.length
@@ -86,12 +98,7 @@ const OrdersInProgress: React.FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
           <TableActions>
-            <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
-              Filter by date
-            </Button>
-            <Button variant="outlined" startIcon={<ExportIcon />}>
-              Export
-            </Button>
+            <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
           </TableActions>
         </TableHeader>
         <Table

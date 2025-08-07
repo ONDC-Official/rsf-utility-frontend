@@ -9,6 +9,7 @@ export const ordersData: IOrder[] = [
     orderStatus: 'In Progress',
     totalOrderValue: 1500.0,
     bffPercent: 2.5,
+    domain: 'retail',
     dueDate: '2024-01-20',
   },
   {
@@ -19,6 +20,7 @@ export const ordersData: IOrder[] = [
     orderStatus: 'In Progress',
     totalOrderValue: 1500.0,
     bffPercent: 2.5,
+    domain: 'grocery',
     dueDate: '2024-01-20',
   },
   {
@@ -29,6 +31,7 @@ export const ordersData: IOrder[] = [
     orderStatus: 'In Progress',
     totalOrderValue: 1500.0,
     bffPercent: 2.5,
+    domain: 'food',
     dueDate: '2024-01-20',
   },
   {
@@ -39,6 +42,7 @@ export const ordersData: IOrder[] = [
     orderStatus: 'In Progress',
     totalOrderValue: 1500.0,
     bffPercent: 2.5,
+    domain: 'mobility',
     dueDate: '2024-01-20',
   },
   {
@@ -49,6 +53,7 @@ export const ordersData: IOrder[] = [
     orderStatus: 'In Progress',
     totalOrderValue: 1500.0,
     bffPercent: 2.5,
+    domain: 'logistics',
     dueDate: '2024-01-20',
   },
 ]

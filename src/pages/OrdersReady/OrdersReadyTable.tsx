@@ -1,14 +1,10 @@
 import { FC } from 'react'
+import { Typography } from '@mui/material'
 import Table from 'components/common/Table'
+import DateFilterButton from 'components/common/DateFilterButton'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { IOrderReady } from 'interfaces/ordersReady'
 import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
-import Button from 'components/common/Button'
-
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
-import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 
 interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
@@ -35,12 +31,7 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
       <Header>
         <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
-            Filter by date
-          </Button>
-          <Button variant="outlined" startIcon={<ExportIcon />}>
-            Export
-          </Button>
+          <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
         </Actions>
       </Header>
       <Table

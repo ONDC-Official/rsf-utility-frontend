@@ -7,7 +7,7 @@ export enum PrepareButtonState {
 export const ORDER_HEADER_LABELS = {
   title: 'Orders Ready',
   subtitle: 'Select orders to prepare for settlement',
-  receiverLabel: 'Receiver ID',
+  receiverLabel: 'Counterparty ID',
   prepareZero: 'Prepare (0 selected)',
   prepareWithCount: (count: number) => `Prepare (${count} selected)`,
   generateWithCount: (count: number) => `Generate (${count} selected)`,
@@ -20,6 +20,7 @@ export const TABLE_CELL_DEFAULTS = {
   TOTAL_ORDER_VALUE: '0.00',
   COMMISSION: '0.00',
   SELLER_TYPE: 'N/A',
+  DOMAIN: 'N/A',
   DUE_DATE: 'N/A',
 } as const
 

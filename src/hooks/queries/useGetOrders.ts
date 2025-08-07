@@ -62,9 +62,10 @@ const transformOrderData = (apiOrders: IOrderApiResponse[]): IOrder[] => {
     orderId: order.order_id,
     collectorId: order.bap_id,
     receiverId: order.bpp_id,
-    orderStatus: 'Pending' as const,
+    orderStatus: 'In Progress' as const,
     totalOrderValue: order.quote?.total_order_value || 0,
     bffPercent: order.buyer_finder_fee_amount,
+    domain: order.domain || '',
     dueDate: formatDate(order.due_date),
     msn: order.msn,
   }))

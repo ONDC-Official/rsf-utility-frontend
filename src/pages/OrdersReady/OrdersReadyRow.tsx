@@ -13,6 +13,7 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
     totalOrderValue: 0,
     commission: 0,
     sellerType: '',
+    domain: '',
     dueDate: '',
   },
   selected = false,
@@ -33,6 +34,7 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
       <StyledTableBodyCell>{formatCurrency(order.totalOrderValue)}</StyledTableBodyCell>
       <StyledTableBodyCell>{formatCurrency(order.commission)}</StyledTableBodyCell>
       <StyledTableBodyCell>{order.sellerType || TABLE_CELL_DEFAULTS.SELLER_TYPE}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.domain || TABLE_CELL_DEFAULTS.DOMAIN}</StyledTableBodyCell>
       <StyledTableBodyCell>{order.dueDate || TABLE_CELL_DEFAULTS.DUE_DATE}</StyledTableBodyCell>
     </>
   )
