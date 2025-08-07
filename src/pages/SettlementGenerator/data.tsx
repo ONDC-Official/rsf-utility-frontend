@@ -16,4 +16,5 @@ export const columns: ITableColumn<ISettlementOrder>[] = [
   { id: 'interNpSettlement', label: 'Inter NP Settlement' },
   { id: 'provider', label: 'Provider' },
   { id: 'dueDate', label: 'Due Date' },
+  { id: 'actions', label: 'Actions' },
 ]

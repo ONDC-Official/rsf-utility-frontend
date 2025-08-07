@@ -123,3 +123,51 @@ export interface ISettlementItem {
   updatedAt: string
   __v: number
 }
+
+export interface IUserSettlementItem {
+  id: string
+  order_id: string
+  user_id: string
+  collector_id: string
+  receiver_id: string
+  settlement_id: string
+  total_order_value: number
+  commission: number
+  tax: number
+  withholding_amount: number
+  inter_np_settlement: number
+  provider_id: string
+  due_date: string
+  settlement_reference: string
+  error: string
+  status: 'PENDING' | 'COMPLETED' | 'FAILED' | string
+  self_status: string
+  provider_status: string
+  collector_settlement: number
+  type: string
+  context: {
+    domain: string
+    location: {
+      country: { code: string }
+      city: { code: string }
+    }
+    version: string
+    action: string
+    bap_id: string
+    bap_uri: string
+    bpp_id: string
+    bpp_uri: string
+    transaction_id: string
+    message_id: string
+    timestamp: string
+    ttl: string
+  }
+  reconInfo: {
+    recon_status: string
+    amount: number
+    commission: number
+    withholding_amount: number
+    tcs: number
+    tds: number
+  }
+}

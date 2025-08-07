@@ -37,3 +37,13 @@ export interface ISettlementPayload extends Record<string, unknown> {
     settlement_date: string
   }
 }
+
+export interface ISettleNpDataItem {
+  order_id: string
+  provider_value: number
+  self_value: number
+}
+
+export interface IGenerateNpSettlementPayload {
+  settle_data: ISettleNpDataItem[]
+}
