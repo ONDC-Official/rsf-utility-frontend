@@ -6,7 +6,6 @@ import { typography } from 'theme/typography'
 export const Container = styled(Box)({
   background: colors.background.main,
   minHeight: '100%',
-  marginTop: '50px',
 })
 
 export const Header = styled(Box)({
