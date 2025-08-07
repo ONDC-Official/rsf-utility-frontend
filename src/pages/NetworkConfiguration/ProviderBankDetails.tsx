@@ -15,6 +15,7 @@ import {
   ConfigHeader,
   FormContainer,
   ActionButton,
+  RemoveWrapper,
 } from 'styles/pages/NetworkConfiguration'
 import { TypographyVariant } from 'enums/typography'
 
@@ -36,7 +37,11 @@ const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => 
         <DomainConfigContainer key={field.id}>
           <ConfigHeader>
             <div>Provider {index + 1}</div>
-            {fields.length > 1 && <RemoveIcon onClick={() => remove(index)} />}
+            {fields.length > 1 && (
+              <RemoveWrapper>
+                <RemoveIcon onClick={() => remove(index)} />
+              </RemoveWrapper>
+            )}
           </ConfigHeader>
           <FormContainer>
             <div>

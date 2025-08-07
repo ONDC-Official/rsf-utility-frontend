@@ -88,6 +88,7 @@ export const ActionButton = styled(Button)(() => ({
   padding: '8px 10px',
   display: 'flex',
   gap: '5px',
+  cursor: 'pointer',
   '&:hover': {
     background: '#f5f5f5',
   },
@@ -150,3 +151,7 @@ export const SaveButtonContainer = styled('div')(() => ({
   justifyContent: 'end',
   marginBottom: '20px',
 }))
+
+export const RemoveWrapper = styled('div')({
+  cursor: 'pointer',
+})
