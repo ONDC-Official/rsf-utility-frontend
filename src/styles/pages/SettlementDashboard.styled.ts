@@ -5,7 +5,6 @@ import { typography } from 'theme/typography'
 
 export const Container = styled(Box)({
   background: colors.background.main,
-  minHeight: '100%',
 })
 
 export const PageHeader = styled(Box)({
@@ -56,15 +55,21 @@ export const PlaceholderText = styled('span')({
 export const TableContainer = styled(Box)({
   backgroundColor: colors.background.light,
   borderRadius: '8px',
-  overflow: 'hidden',
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
+})
+
+export const Wrapper = styled(Box)({
+  background: colors.background.light,
+  borderRadius: 8,
+  padding: '0 32px',
 })
 
 export const TableHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '20px 24px',
+  padding: '32px',
+  paddingBottom: 16,
 })
 
 export const Title = styled(Typography)({

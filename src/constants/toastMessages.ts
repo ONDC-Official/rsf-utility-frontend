@@ -1,5 +1,20 @@
 import { IToastGroup } from 'interfaces/toastMessages'
 
+export const GENERIC: IToastGroup = {
+  SUCCESS: {
+    message: 'Success',
+    severity: 'success',
+  },
+  ERROR: {
+    message: 'Something went wrong.',
+    severity: 'error',
+  },
+  USER_NOT_SELECTED: {
+    message: 'Please select a user before proceeding.',
+    severity: 'warning',
+  },
+}
+
 export const GENERATE_MISC_SETTLEMENT: IToastGroup = {
   SUCCESS: {
     message: 'Misc settlement generated successfully.',

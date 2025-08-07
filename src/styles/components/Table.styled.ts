@@ -5,7 +5,6 @@ import { typography } from 'theme/typography'
 
 export const Container = styled(Paper)({
   background: colors.background.light,
-  boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
 })
@@ -31,6 +30,7 @@ export const StyledTableCell = styled(TableCell)({
   padding: '12px 16px',
   height: '56px',
   verticalAlign: 'middle',
+  whiteSpace: 'nowrap',
 })
 
 export const StyledTableBodyCell = styled(TableCell)({
@@ -60,7 +60,7 @@ export const StyledTableRow = styled(TableRow)<{ isLast?: boolean }>(({ isLast }
 }))
 
 export const Wrapper = styled(TableContainer)({
-  padding: '0 24px',
+  padding: '16px 0',
 })
 
 export const StyledIconButton = styled(IconButton)({

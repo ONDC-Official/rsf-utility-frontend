@@ -16,7 +16,7 @@ export interface IOrderFormInput {
   provider_value: string
 }
 
-export interface IReinitiateReconiliationModalProps {
+export interface IReinitiateReconciliationModalProps {
   data: Partial<ISettlementOrder> | null
   open: boolean
   onClose: () => void

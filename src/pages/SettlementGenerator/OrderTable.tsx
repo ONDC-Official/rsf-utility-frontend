@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import { CalendarToday, GetApp, Edit, Undo } from '@mui/icons-material'
+import { Edit, Undo } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
 import Table from 'components/common/Table'
 import { columns } from 'pages/SettlementGenerator/data'
@@ -11,6 +11,10 @@ import ReinitiateReconciliationModal from 'pages/SettlementGenerator/ReinitiateR
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 import Button from 'components/common/Button'
 import { IUserSettlementItem } from 'interfaces/settlement'
+
+import CalenderIcon from 'assets/images/svg/CalendarIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import ChveronIcon from 'assets/images/svg/ChveronIcon'
 
 const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange }) => {
   const {
@@ -104,10 +108,10 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
         <Title>Select Orders for Settlement</Title>
         <Actions>
           {Object.keys(editedRows).length > 0 && <Button variant="contained">Save edited order</Button>}
-          <Button variant="outlined" startIcon={<CalendarToday />}>
+          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
             Filter by date
           </Button>
-          <Button variant="contained" startIcon={<GetApp />}>
+          <Button variant="outlined" startIcon={<ExportIcon />}>
             Export
           </Button>
         </Actions>

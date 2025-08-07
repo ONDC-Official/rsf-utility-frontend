@@ -1,5 +1,4 @@
 import { FC, useState } from 'react'
-import { GetApp } from '@mui/icons-material'
 import IncomingRequestsTable from 'pages/ReconciliationManager/IncomingRequestsTable'
 import AcceptModal from 'pages/ReconciliationManager/AcceptModal'
 import RejectModal from 'pages/ReconciliationManager/RejectModal'
@@ -11,9 +10,12 @@ import {
   TableContainer as Container,
   TableHeader as Header,
   TableActions as Actions,
-  TableTitle as Title,
+  Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
-import { ContainedExportButton } from 'styles/components/Button.styled'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
+import Button from 'components/common/Button'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
   const [acceptModalOpen, setAcceptModalOpen] = useState(false)
@@ -54,15 +56,17 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
     <>
       <Container>
         <Header>
-          <Title>{RECONCILIATION_LABELS.INCOMING_TITLE}</Title>
+          <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.INCOMING_TITLE}</Typography>
           <Actions>
-            <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
-              {RECONCILIATION_LABELS.EXPORT}
-            </ContainedExportButton>
+            <Button variant="outlined" startIcon={<ExportIcon />}>
+              Export
+            </Button>
           </Actions>
         </Header>
 
-        <IncomingRequestsTable data={incomingRequests} onAccept={handleAccept} onReject={handleReject} />
+        <Wrapper>
+          <IncomingRequestsTable data={incomingRequests} onAccept={handleAccept} onReject={handleReject} />
+        </Wrapper>
       </Container>
 
       <AcceptModal
