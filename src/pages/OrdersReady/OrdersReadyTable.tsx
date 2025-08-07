@@ -1,10 +1,15 @@
 import { FC } from 'react'
-import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { IOrderReady } from 'interfaces/ordersReady'
-import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
+import Button from 'components/common/Button'
+
+import CalenderIcon from 'assets/images/svg/CalendarIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import ChveronIcon from 'assets/images/svg/ChveronIcon'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 
 interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
   selectedItems: Set<string>
@@ -28,14 +33,14 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   return (
     <Container>
       <Header>
-        <Title>BPP_001</Title>
+        <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
+          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
             Filter by date
-          </OutlinedFilterButton>
-          <ContainedExportButton variant="contained" startIcon={<GetApp />}>
+          </Button>
+          <Button variant="outlined" startIcon={<ExportIcon />}>
             Export
-          </ContainedExportButton>
+          </Button>
         </Actions>
       </Header>
       <Table

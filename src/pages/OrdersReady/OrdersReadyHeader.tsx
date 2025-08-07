@@ -1,18 +1,12 @@
 import { FC } from 'react'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Select from 'components/common/Select'
 import { IOrdersReadyHeaderProps } from 'pages/OrdersReady/types'
 import { RECEIVER_OPTIONS } from 'pages/OrdersReady/data'
 import { ORDER_HEADER_LABELS, PrepareButtonState } from 'pages/OrdersReady/constants'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
-import {
-  ReceiverLabel,
-  PageHeader as Container,
-  HeaderLeft,
-  HeaderRight,
-  PageTitle,
-  PageSubtitle,
-} from 'styles/pages/OrdersReady.styled'
+import { PageHeader as Container, HeaderLeft, HeaderRight } from 'styles/pages/OrdersReady.styled'
+import { TypographyVariant } from 'enums/typography'
 
 const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   receiverId,
@@ -29,11 +23,11 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   return (
     <Container>
       <HeaderLeft>
-        <PageTitle>{ORDER_HEADER_LABELS.title}</PageTitle>
-        <PageSubtitle>{ORDER_HEADER_LABELS.subtitle}</PageSubtitle>
+        <Typography variant={TypographyVariant.H4}>{ORDER_HEADER_LABELS.title}</Typography>
+        <Typography variant={TypographyVariant.H6}>{ORDER_HEADER_LABELS.subtitle}</Typography>
       </HeaderLeft>
       <HeaderRight>
-        <ReceiverLabel>{ORDER_HEADER_LABELS.receiverLabel}</ReceiverLabel>
+        <Typography variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
         <Select value={receiverId} onChange={handleReceiverChange} options={RECEIVER_OPTIONS} size="small" />
         <Box>
           <PrepareButton

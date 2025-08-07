@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { SelectChangeEvent } from '@mui/material'
+import { SelectChangeEvent, Typography } from '@mui/material'
 import Select from 'components/common/Select'
 import { counterpartyOptions } from 'pages/SettlementDashboard/data'
 import { DASHBOARD_LABELS } from 'pages/SettlementDashboard/constants'
@@ -8,11 +8,10 @@ import {
   PageHeader as Container,
   Left,
   Right,
-  PageTitle,
-  PageSubtitle,
   CounterpartyLabel,
   PlaceholderText,
 } from 'styles/pages/SettlementDashboard.styled'
+import { TypographyVariant } from 'enums/typography'
 
 const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterpartyChange }) => {
   const handleChange = (event: SelectChangeEvent<unknown>) => {
@@ -22,8 +21,8 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterparty
   return (
     <Container>
       <Left>
-        <PageTitle>{DASHBOARD_LABELS.TITLE}</PageTitle>
-        <PageSubtitle>{DASHBOARD_LABELS.SUBTITLE}</PageSubtitle>
+        <Typography variant={TypographyVariant.H4}>{DASHBOARD_LABELS.TITLE}</Typography>
+        <Typography variant={TypographyVariant.H6}>{DASHBOARD_LABELS.SUBTITLE}</Typography>
       </Left>
       <Right>
         <CounterpartyLabel>{DASHBOARD_LABELS.COUNTERPARTY_LABEL}</CounterpartyLabel>

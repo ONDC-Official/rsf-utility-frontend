@@ -3,8 +3,6 @@ import {
   Container,
   Header,
   HeaderLeft,
-  PageTitle,
-  PageSubtitle,
   NoticeBox,
   NoticeIconBox,
   NoticeTextBox,
@@ -18,19 +16,28 @@ import { useUserContext } from 'context/userContext'
 import useGenerateNilSettlement from 'hooks/mutations/useGenerateNilSettlement'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
-import { GENERATE_NIL_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
+import { GENERATE_NIL_SETTLEMENT, GENERIC, TRIGGER_ACTION } from 'constants/toastMessages'
+import { useLoader } from 'context/loaderContext'
 
 const NilSettlement = () => {
   const { selectedUser } = useUserContext()
   const toast = useToast()
+  const { showLoader, hideLoader } = useLoader()
 
-  if (!selectedUser) return null
+  const isUserSelected = !!selectedUser?._id
 
-  const { triggerAsync: triggerNil, isLoading: isTriggeringNil } = useGenerateNilSettlement(selectedUser._id)
-  const { triggerAsync: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser._id)
+  const { triggerAsync: triggerNil, isLoading: isTriggeringNil } = useGenerateNilSettlement(selectedUser?._id || '')
+
+  const { triggerAsync: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser?._id || '')
 
   const handleTriggerNil = async () => {
+    if (!isUserSelected) {
+      toast(GENERIC.USER_NOT_SELECTED)
+      return
+    }
+
     try {
+      showLoader()
       const res = await triggerNil()
       toast(GENERATE_NIL_SETTLEMENT.SUCCESS)
 
@@ -40,6 +47,8 @@ const NilSettlement = () => {
       }
     } catch (err) {
       toast(GENERATE_NIL_SETTLEMENT.ERROR)
+    } finally {
+      hideLoader()
     }
   }
 
@@ -47,8 +56,10 @@ const NilSettlement = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle variant={TypographyVariant.H3Semibold}>Nil Settlement</PageTitle>
-          <PageSubtitle>Trigger nil settlement when no transactions are recorded for a cycle</PageSubtitle>
+          <Typography variant={TypographyVariant.H4}>Nil Settlement</Typography>
+          <Typography variant={TypographyVariant.H6}>
+            Trigger nil settlement when no transactions are recorded for a cycle
+          </Typography>
         </HeaderLeft>
       </Header>
 
@@ -72,19 +83,25 @@ const NilSettlement = () => {
           </NoticeTextBox>
         </NoticeBox>
 
+        {!isUserSelected && (
+          <Typography color="warning.main" sx={{ my: 2 }}>
+            Please select a user to proceed with Nil Settlement.
+          </Typography>
+        )}
+
         <ActionButtons>
           <Button
             variant="contained"
             startIcon={<InfoOutlined />}
             onClick={handleTriggerNil}
-            disabled={isTriggeringNil || isTriggeringSettle}
+            disabled={!isUserSelected || isTriggeringNil || isTriggeringSettle}
           >
             Trigger Nil Settlement
           </Button>
           <Button
             variant="outlined"
             startIcon={<CalendarTodayOutlined />}
-            disabled={isTriggeringNil || isTriggeringSettle}
+            disabled={!isUserSelected || isTriggeringNil || isTriggeringSettle}
           >
             Schedule Nil Settlement
           </Button>

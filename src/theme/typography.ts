@@ -4,7 +4,9 @@ declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     h3_semibold: true
     h5_semibold: true
+    h5_bold: true
     h6_semibold: true
+    h6_bold: true
     body1_regular: true
     body1_medium: true
     body2_regular: true
@@ -14,6 +16,7 @@ declare module '@mui/material/Typography' {
     body5_medium: true
     body5_regular: true
     body5_semibold: true
+    caption1: true
     caption1_semibold: true
   }
 }
@@ -21,7 +24,7 @@ declare module '@mui/material/Typography' {
 const body1 = { fontSize: '16px', lineHeight: '24px' }
 const body2 = { fontSize: '14px', lineHeight: '20px' }
 const body5 = { fontSize: '12px', lineHeight: '28px' }
-const caption1 = { fontSize: '18px', lineHeight: '26px' }
+const caption1 = { fontSize: '12px', lineHeight: '16px' }
 
 export const typography = {
   h1: {
@@ -47,9 +50,10 @@ export const typography = {
     fontWeight: 600,
   },
   h4: {
-    fontSize: '28px',
+    fontSize: '32px',
     lineHeight: '40px',
     fontFamily: BOLD,
+    fontWeight: 700,
   },
   h5: {
     fontSize: '24px',
@@ -62,16 +66,29 @@ export const typography = {
     fontFamily: SEMI_BOLD,
     fontWeight: 600,
   },
+  h5_bold: {
+    fontSize: '24px',
+    lineHeight: '32px',
+    fontFamily: SEMI_BOLD,
+    fontWeight: 700,
+  },
   h6: {
-    fontSize: '20px',
-    lineHeight: '28px',
+    fontSize: '18px',
+    lineHeight: '24px',
     fontFamily: BOLD,
+    fontWeight: 400,
   },
   h6_semibold: {
-    fontSize: '20px',
-    lineHeight: '28px',
+    fontSize: '18px',
+    lineHeight: '24px',
     fontFamily: SEMI_BOLD,
     fontWeight: 600,
+  },
+  h6_bold: {
+    fontSize: '18px',
+    lineHeight: '24px',
+    fontFamily: SEMI_BOLD,
+    fontWeight: 700,
   },
   body1: {
     ...body1,
@@ -126,6 +143,10 @@ export const typography = {
     fontFamily: SEMI_BOLD,
     fontWeight: 600,
     ...body5,
+  },
+  caption1: {
+    fontFamily: SEMI_BOLD,
+    ...caption1,
   },
   caption1_semibold: {
     fontFamily: SEMI_BOLD,

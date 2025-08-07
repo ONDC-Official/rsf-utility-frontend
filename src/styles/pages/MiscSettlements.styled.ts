@@ -46,13 +46,14 @@ export const Wrapper = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
+  padding: '32px',
 })
 
 export const TableHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '20px 24px',
+  marginBottom: '16px',
 })
 
 export const TableActions = styled(Box)({
@@ -140,4 +141,9 @@ export const Divider = styled(Box)({
 export const RotatedSendIcon = styled(SendRounded)({
   transform: 'rotate(-45deg)',
   margin: '0 8px',
+})
+
+export const BottomAlignedTypography = styled(Typography)({
+  display: 'flex',
+  alignItems: 'center',
 })

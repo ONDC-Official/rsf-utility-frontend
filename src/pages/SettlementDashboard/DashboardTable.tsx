@@ -1,19 +1,22 @@
 import { FC, useEffect } from 'react'
-import { CalendarToday, GetApp } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import DashboardRow from 'pages/SettlementDashboard/DashboardRow'
 import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
 import { columns } from 'pages/SettlementDashboard/data'
-import { DASHBOARD_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardTableProps } from 'pages/SettlementDashboard/types'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import {
   TableContainer as Container,
   TableHeader as Header,
   Actions,
-  Title,
+  Wrapper,
 } from 'styles/pages/SettlementDashboard.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import CalenderIcon from 'assets/images/svg/CalendarIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import ChveronIcon from 'assets/images/svg/ChveronIcon'
+import Button from 'components/common/Button'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 
 const DashboardTable: FC<IDashboardTableProps> = ({ orders }) => {
   const {
@@ -49,30 +52,32 @@ const DashboardTable: FC<IDashboardTableProps> = ({ orders }) => {
   return (
     <Container>
       <Header>
-        <Title>BPP_001</Title>
+        <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-            {DASHBOARD_LABELS.FILTER_BY_DATE}
-          </OutlinedFilterButton>
-          <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
-            {DASHBOARD_LABELS.EXPORT}
-          </ContainedExportButton>
+          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
+            Filter by date
+          </Button>
+          <Button variant="outlined" startIcon={<ExportIcon />}>
+            Export
+          </Button>
         </Actions>
       </Header>
 
-      <Table
-        columns={columns}
-        data={currentItems}
-        totalCount={totalCount}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
-        renderRow={renderRow}
-        selectedItems={selectedItems}
-        onSelectAll={handleSelectAll}
-        getItemId={getItemId}
-      />
+      <Wrapper>
+        <Table
+          columns={columns}
+          data={currentItems}
+          totalCount={totalCount}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          renderRow={renderRow}
+          selectedItems={selectedItems}
+          onSelectAll={handleSelectAll}
+          getItemId={getItemId}
+        />
+      </Wrapper>
     </Container>
   )
 }
