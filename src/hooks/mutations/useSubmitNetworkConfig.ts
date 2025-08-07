@@ -6,19 +6,20 @@ import { IApiResponse } from '@interfaces/api'
 import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
 import { IFormData } from 'pages/NetworkConfiguration/type'
+import { NetworkConfigPayload } from 'interfaces/networkConfigPayload'
 
 const mapToPayload = (data: IFormData) => {
-  const payload: any = {
-    role: data.role === 'Seller App' ? 'BPP' : 'BAP',
-    subscriber_url: data.subscriberUrl,
-    domain: data.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, ''),
-    tcs: parseFloat(`${data.npToNpTax}`),
-    tds: parseFloat(`${data.npToProviderTax}`),
-    msn: data.type === 'MSN',
+  const payload: NetworkConfigPayload = {
+    role: data?.role === 'Seller App' ? 'BPP' : 'BAP',
+    subscriber_url: data?.subscriberUrl,
+    domain: data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, ''),
+    tcs: parseFloat(`${data?.npToNpTax}`),
+    tds: parseFloat(`${data?.npToProviderTax}`),
+    msn: data?.type === 'MSN',
   }
 
-  if (data.providers?.length) {
-    payload.provider_details = data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
+  if (data?.providers?.length) {
+    payload.provider_details = data?.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
       provider_id: providerId,
       account_number: accountNumber,
       ifsc_code: ifscCode,
