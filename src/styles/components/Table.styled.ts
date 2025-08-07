@@ -141,7 +141,7 @@ export const ActionIconButton = styled(IconButton)<{
 
 export const ActionButton = styled('button')({
   backgroundColor: colors.background.light,
-  border: '1px solid #ddd',
+  border: colors.background.primary,
   borderRadius: 8,
   padding: '10px 12px',
   fontSize: typography.body5_semibold.fontSize,
@@ -149,4 +149,10 @@ export const ActionButton = styled('button')({
   textTransform: 'none',
   minWidth: 'auto',
   cursor: 'pointer',
+})
+
+export const ErrorInfoContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
 })
