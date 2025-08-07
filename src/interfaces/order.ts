@@ -7,4 +7,5 @@ export interface IOrder extends Record<string, unknown> {
   totalOrderValue: number
   bffPercent: number
   dueDate: string
+  msn?: boolean
 }

@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
 import { columns, receiverOptions } from 'pages/OrdersReady/data'
-import { generateOrdersReadyData } from 'data/ordersReadyData'
+import useGetOrders from 'hooks/queries/useGetOrders'
+import { useUserContext } from 'context/userContext'
 import { IToastState, PrepareButtonState, IOrderReady } from 'interfaces/ordersReady'
 import { ROUTES } from 'constants/routes.constants'
 
@@ -16,10 +17,28 @@ const useOrdersReady = () => {
   const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>(PrepareButtonState.DISABLED)
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
 
-  const allOrders = generateOrdersReadyData(256)
-  const totalCount = allOrders.length
-  const startIndex = (page - 1) * rowsPerPage
-  const currentOrders = allOrders.slice(startIndex, startIndex + rowsPerPage)
+  const { selectedUser } = useUserContext()
+
+  const {
+    data: ordersData,
+    isLoading: _isLoading,
+    refetch: _refetch,
+  } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'Completed', {
+    enabled: !!selectedUser?._id,
+  })
+
+  const apiOrders = ordersData?.data || []
+  const currentOrders = apiOrders.map((order) => ({
+    id: order.id,
+    orderId: order.orderId,
+    collectorId: order.collectorId,
+    receiverId: order.receiverId,
+    totalOrderValue: order.totalOrderValue,
+    commission: order.bffPercent,
+    sellerType: order.msn ? 'MSN' : 'ISN',
+    dueDate: order.dueDate,
+  }))
+  const totalCount = currentOrders.length
 
   useEffect(() => {
     const selectedCount = selectedOrders.size
