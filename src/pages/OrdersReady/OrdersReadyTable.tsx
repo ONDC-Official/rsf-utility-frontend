@@ -33,7 +33,7 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
           <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
             Filter by date
           </OutlinedFilterButton>
-          <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
+          <ContainedExportButton variant="contained" startIcon={<GetApp />}>
             Export
           </ContainedExportButton>
         </Actions>
