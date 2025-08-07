@@ -41,7 +41,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
       <StyledTableBodyCell>{request.response}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {request.status === 'Accepted' ? (
-          <Button variant="contained" size="small" startIcon={<MoveToInbox />}>
+          <Button variant="contained" size="small" startIcon={<MoveToInbox />} sx={{ height: 'auto' }}>
             Move to Ready
           </Button>
         ) : (

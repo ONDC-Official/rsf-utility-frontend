@@ -88,7 +88,7 @@ const MiscSettlements: React.FC = () => {
             <Button variant="outlined" startIcon={<CalendarToday />}>
               Filter by date
             </Button>
-            <Button variant="outlined" startIcon={<GetApp />}>
+            <Button variant="contained" startIcon={<GetApp />}>
               Export
             </Button>
           </TableActions>

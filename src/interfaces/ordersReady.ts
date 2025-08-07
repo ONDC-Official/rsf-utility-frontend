@@ -20,3 +20,16 @@ export enum PrepareButtonState {
   PREPARE = 'prepare',
   GENERATE = 'generate',
 }
+
+export interface ISettlePrepareRequest {
+  order_ids: string[]
+}
+
+export interface ISettlePrepareResponse {
+  success: boolean
+  errorCode?: string
+  message: string
+  details?: {
+    error?: string
+  }
+}

@@ -1,8 +1,14 @@
 import React from 'react'
-import { Checkbox } from '@mui/material'
+import { Checkbox, Tooltip } from '@mui/material'
+import { Info } from '@mui/icons-material'
 import StatusChip from 'components/common/StatusChip'
-import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/SettlementDashboard/constants'
+import {
+  StyledTableBodyCell,
+  TableBodyCheckboxCell,
+  ActionButton,
+  ErrorInfoContainer,
+} from 'styles/components/Table.styled'
+import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL, ACTION_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 
 const DashboardRow: React.FC<IDashboardRowProps> = ({
@@ -17,12 +23,25 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({
     interNpSettlementStatus: 'Not Settled',
     selfStatus: 'Not Settled',
     providerStatus: 'Not Settled',
+    settlementReference: '',
+    error: '',
+    settlementInitiatedDate: '',
   },
   selected = false,
   onCheckboxChange,
 }) => {
   const formatCurrency = (amount: number | undefined) => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_ORDER_VALUE}`
+  }
+
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) return TABLE_CELL_DEFAULTS.SETTLEMENT_INITIATED_DATE
+    return dateString
+  }
+
+  const handleReconcileClick = () => {
+    // Handle reconcile action
+    console.log('Reconcile clicked for order:', order.id)
   }
 
   return (
@@ -44,6 +63,23 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({
       </StyledTableBodyCell>
       <StyledTableBodyCell>
         <StatusChip status={order.providerStatus} />
+      </StyledTableBodyCell>
+      <StyledTableBodyCell>{order.settlementReference || TABLE_CELL_DEFAULTS.SETTLEMENT_REFERENCE}</StyledTableBodyCell>
+      <StyledTableBodyCell>
+        {order.error ? (
+          <ErrorInfoContainer>
+            <Tooltip title={order.error}>
+              <Info fontSize="small" color="error" />
+            </Tooltip>
+            <span>{order.error.length > 20 ? `${order.error.substring(0, 20)}...` : order.error}</span>
+          </ErrorInfoContainer>
+        ) : (
+          TABLE_CELL_DEFAULTS.ERROR
+        )}
+      </StyledTableBodyCell>
+      <StyledTableBodyCell>{formatDate(order.settlementInitiatedDate)}</StyledTableBodyCell>
+      <StyledTableBodyCell>
+        <ActionButton onClick={handleReconcileClick}>{ACTION_LABELS.RECONCILE}</ActionButton>
       </StyledTableBodyCell>
     </>
   )

@@ -103,7 +103,7 @@ const Reconciliation: React.FC = () => {
                   <MenuItem value="RECV001">RECV001</MenuItem>
                 </Select>
               </FormControl>
-              <ExportButton variant="outlined" startIcon={<Download />}>
+              <ExportButton variant="contained" startIcon={<Download />}>
                 Export
               </ExportButton>
             </TableControls>
@@ -179,7 +179,7 @@ const Reconciliation: React.FC = () => {
               <FilterButton variant="outlined" startIcon={<FilterList />}>
                 Filter by date
               </FilterButton>
-              <ExportButton variant="outlined" startIcon={<Download />}>
+              <ExportButton variant="contained" startIcon={<Download />}>
                 Export
               </ExportButton>
             </TableControls>

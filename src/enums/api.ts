@@ -5,4 +5,5 @@ export enum APIRoute {
   GENERATE_NIL = '/ui/generate/{userId}/settle/nil',
   TRIGGER_ACTION = '/ui/trigger/{userId}/{action}',
   ORDERS = '/ui/orders/{userId}',
+  SETTLE_PREPARE = '/ui/settle/{userId}/prepare',
 }

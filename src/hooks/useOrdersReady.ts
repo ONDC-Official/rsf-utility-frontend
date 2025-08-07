@@ -4,8 +4,12 @@ import { SelectChangeEvent } from '@mui/material'
 import { columns, receiverOptions } from 'pages/OrdersReady/data'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
-import { IToastState, PrepareButtonState, IOrderReady } from 'interfaces/ordersReady'
+import { IToastState, IOrderReady, ISettlePrepareRequest, ISettlePrepareResponse } from 'interfaces/ordersReady'
+import { PrepareButtonState } from 'pages/OrdersReady/constants'
 import { ROUTES } from 'constants/routes.constants'
+import usePost from 'hooks/usePost'
+import { buildApiUrl } from 'utils/helpers'
+import { APIRoute } from 'enums/api'
 
 const useOrdersReady = () => {
   const navigate = useNavigate()
@@ -18,6 +22,7 @@ const useOrdersReady = () => {
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
 
   const { selectedUser } = useUserContext()
+  const settlePreparePost = usePost<ISettlePrepareResponse>()
 
   const {
     data: ordersData,
@@ -44,13 +49,10 @@ const useOrdersReady = () => {
     const selectedCount = selectedOrders.size
     if (selectedCount === 0) {
       setPrepareButtonState(PrepareButtonState.DISABLED)
-    } else if (
-      prepareButtonState === PrepareButtonState.DISABLED ||
-      prepareButtonState === PrepareButtonState.PREPARE
-    ) {
+    } else {
       setPrepareButtonState(PrepareButtonState.PREPARE)
     }
-  }, [selectedOrders, prepareButtonState])
+  }, [selectedOrders])
 
   const handleCheckboxChange = useCallback((orderId: string, checked: boolean) => {
     setSelectedOrders((prev) => {
@@ -79,17 +81,44 @@ const useOrdersReady = () => {
     })
   }, [])
 
-  const handlePrepareClick = () => {
-    const count = selectedOrders.size
-    if (prepareButtonState === PrepareButtonState.PREPARE) {
-      setToast({
-        isVisible: true,
-        message: `${count} order${count > 1 ? 's' : ''} have been prepared for settlement.`,
-        count,
-      })
-      setPrepareButtonState(PrepareButtonState.GENERATE)
-    } else if (prepareButtonState === PrepareButtonState.GENERATE) {
-      navigate(ROUTES.SETTLEMENT_GENERATOR)
+  const handlePrepareClick = async () => {
+    if (prepareButtonState === PrepareButtonState.PREPARE && selectedUser?._id && selectedOrders?.size) {
+      const count = selectedOrders.size
+      const selectedOrderIds = Array.from(selectedOrders)
+      const orderIds = selectedOrderIds
+        .map((selectedId) => {
+          const order = currentOrders?.find((o) => o.id === selectedId)
+          return order?.orderId
+        })
+        .filter(Boolean) as string[]
+
+      const url = buildApiUrl(APIRoute.SETTLE_PREPARE, { userId: selectedUser._id })
+      const payload: ISettlePrepareRequest = { order_ids: orderIds }
+
+      try {
+        const response = await settlePreparePost.mutateAsync({ url, payload })
+
+        if (response.success) {
+          setToast({
+            isVisible: true,
+            message: response.message,
+            count,
+          })
+          navigate(ROUTES.SETTLEMENT_GENERATOR)
+        } else {
+          setToast({
+            isVisible: true,
+            message: response.message,
+            count: 0,
+          })
+        }
+      } catch (error: any) {
+        setToast({
+          isVisible: true,
+          message: error?.response?.data?.message || 'An error occurred while preparing settlement.',
+          count: 0,
+        })
+      }
     }
   }
 

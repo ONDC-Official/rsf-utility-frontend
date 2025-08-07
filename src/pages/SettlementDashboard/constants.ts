@@ -14,6 +14,9 @@ export const TABLE_CELL_DEFAULTS = {
   TOTAL_ORDER_VALUE: '0.00',
   INTER_NP_SETTLEMENT: '0.00',
   COMMISSION: '0.00',
+  SETTLEMENT_REFERENCE: 'N/A',
+  ERROR: 'N/A',
+  SETTLEMENT_INITIATED_DATE: 'N/A',
 } as const
 
 export const CURRENCY_SYMBOL = '₹' as const
@@ -21,4 +24,9 @@ export const CURRENCY_SYMBOL = '₹' as const
 export const STATUS_TYPES = {
   SETTLED: 'Settled',
   NOT_SETTLED: 'Not Settled',
+  PENDING: 'Pending',
+} as const
+
+export const ACTION_LABELS = {
+  RECONCILE: 'Reconcile',
 } as const
