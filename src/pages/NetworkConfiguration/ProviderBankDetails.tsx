@@ -1,11 +1,10 @@
-import { Control, FieldErrors } from 'react-hook-form'
 import { Typography } from '@mui/material'
 import { TextField } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
 import BankIcon from 'assets/images/svg/BankIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
 import RemoveIcon from 'assets/images/svg/RemoveIcon'
-import { IFormData } from './type'
+import { IProviderBankDetailsProps } from 'pages/NetworkConfiguration/type'
 import { defaultProvider } from './data'
 import {
   ConfigurationBox,
@@ -19,12 +18,7 @@ import {
 } from 'styles/pages/NetworkConfiguration'
 import { TypographyVariant } from 'enums/typography'
 
-interface ProviderBankDetailsProps {
-  control: Control<IFormData>
-  errors: FieldErrors<IFormData>
-}
-
-const ProviderBankDetails = ({ control, errors }: ProviderBankDetailsProps) => {
+const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => {
   const { fields, append, remove } = useFieldArray({ control, name: 'providers' })
 
   return (

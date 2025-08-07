@@ -17,7 +17,7 @@ import {
   Pagination,
 } from '@mui/material'
 import { outgoingRequestsData, reconciliationData } from './data'
-import { ITabPanelProps } from './type'
+import { ITabPanelProps } from 'pages/Reconciliation/type'
 import { Download, FilterList } from '@mui/icons-material'
 import {
   Container,

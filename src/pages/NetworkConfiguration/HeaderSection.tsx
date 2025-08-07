@@ -1,6 +1,5 @@
-import { UseFormReset } from 'react-hook-form'
 import AddIcon from 'assets/images/svg/AddIcon'
-import { IFormData } from './type'
+import { IHeaderSectionProps } from 'pages/NetworkConfiguration/type'
 import { defaultFormData } from './data'
 import {
   HeaderSection as HeaderSectionStyled,
@@ -9,12 +8,7 @@ import {
   ActionButton,
 } from 'styles/pages/NetworkConfiguration'
 
-interface HeaderSectionProps {
-  reset: UseFormReset<IFormData>
-  setSelectedUser: (user: any) => void
-}
-
-const HeaderSection = ({ reset, setSelectedUser }: HeaderSectionProps) => {
+const HeaderSection = ({ reset, setSelectedUser }: IHeaderSectionProps) => {
   return (
     <HeaderSectionStyled>
       <HeaderCard>

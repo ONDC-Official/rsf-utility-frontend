@@ -1,9 +1,7 @@
-import { UseFormRegister, FieldErrors, UseFormWatch } from 'react-hook-form'
 import { Typography } from '@mui/material'
 import { MenuItem, Select, FormHelperText, TextField } from '@mui/material'
 import TaxesIcon from 'assets/images/svg/TaxesIcon'
 import { TypographyVariant } from 'enums/typography'
-import { IFormData } from './type'
 import {
   ConfigurationBox,
   SettlementHeader,
@@ -13,18 +11,11 @@ import {
   ConfigHeader,
   FormContainer,
 } from 'styles/pages/NetworkConfiguration'
+import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
-interface DomainConfigurationProps {
-  register: UseFormRegister<IFormData>
-  errors: FieldErrors<IFormData>
-  role: string
-  setValue: (name: keyof IFormData, value: any, options?: any) => void
-  watch: UseFormWatch<IFormData>
-}
-
-const DomainConfiguration = ({ register, errors, role, setValue, watch }: DomainConfigurationProps) => {
+const DomainConfiguration = ({ register, errors, role, setValue, watch }: IDomainConfigurationProps) => {
   const { domainCategory, type } = watch()
 
   return (

@@ -9,7 +9,7 @@ import ProviderBankDetails from './ProviderBankDetails'
 import SaveIcon from 'assets/images/svg/SaveIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
-import { IFormData } from './type'
+import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from './data'
 
 const NetworkConfiguration = () => {
@@ -52,8 +52,14 @@ const NetworkConfiguration = () => {
   }, [selectedUser, setValue])
 
   const onSubmit = async (data: IFormData) => {
-    const { providers: _, ...rest } = data
-    const payload = data.role === 'Buyer App' ? rest : data
+    // If user comes first (no selectedUser) and role is undefined or empty, exclude providers
+    const payload =
+      !selectedUser && (!data.role || data.role === '')
+        ? { ...data, providers: undefined }
+        : data.role === 'Buyer App'
+        ? { ...data, providers: undefined }
+        : data
+
     try {
       await submitConfig(payload)
       refetch()
@@ -77,7 +83,10 @@ const NetworkConfiguration = () => {
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <DomainConfiguration register={register} errors={errors} role={role} setValue={setValue} watch={watch} />
-        {role !== 'Buyer App' && <ProviderBankDetails control={control} errors={errors} />}
+        {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
+        {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
+          <ProviderBankDetails control={control} errors={errors} />
+        )}
         <SaveButtonContainer>
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
             <SaveIcon /> {isSubmitLoading ? 'Submitting...' : selectedUser?._id ? 'Update' : 'Save & Proceed'}

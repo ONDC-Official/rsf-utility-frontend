@@ -1,4 +1,4 @@
-import { IFormData, IProvider } from './type'
+import { IFormData, IProvider } from 'pages/NetworkConfiguration/type'
 
 export const defaultProvider: IProvider = {
   providerId: '',

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useMemo, ReactNode } from 'react'
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import useGetUsers from 'hooks/queries/useGetUsers'
 import { IUser, IUserContext } from '@interfaces/user'
 
