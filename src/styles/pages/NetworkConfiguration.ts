@@ -5,7 +5,6 @@ import typography from 'theme/typography'
 
 export const Container = styled('div')(() => ({
   width: '100%',
-  marginTop: '30px',
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
@@ -14,12 +13,12 @@ export const Container = styled('div')(() => ({
 export const HeaderSection = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'start',
 }))
 
 export const HeaderCard = styled('div')(() => ({
   borderRadius: '12px',
-  padding: '16px',
+  padding: '0 16px 16px 0',
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
