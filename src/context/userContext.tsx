@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { FC, createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import useGetUsers from 'hooks/queries/useGetUsers'
 import { IUser, IUserContext } from '@interfaces/user'
+import { useLoader } from 'context/loaderContext'
 
 const UserContext = createContext<IUserContext | null>(null)
 
@@ -8,17 +9,18 @@ interface UserProviderProps {
   children: ReactNode
 }
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const { data: usersData, isLoading, refetch } = useGetUsers({ enabled: true })
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null)
-
-  const users: IUser[] = usersData?.data || []
+  const { showLoader, hideLoader } = useLoader()
 
   useEffect(() => {
-    if (!selectedUser && users.length > 0) {
-      setSelectedUser(users[0])
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
     }
-  }, [isLoading, selectedUser, users])
+  }, [isLoading, showLoader, hideLoader])
 
   return (
     <UserContext.Provider
