@@ -4,17 +4,42 @@ import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
-import { ISettlementSummary } from 'interfaces/settlementGenerator'
+import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { generateSettlementOrdersData, generatePayloadData } from 'data/settlementGeneratorData'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
+import useGenerateNpSettlement from 'hooks/mutations/useGenerateNpSettlement'
+import { useUserContext } from 'context/userContext'
+import useTriggerAction from 'hooks/mutations/useTriggerAction'
+import { GENERATE_NP_NP_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
+import { useToast } from 'context/toastContext'
 
 const SettlementGenerator: FC = () => {
+  const toast = useToast()
+  const { selectedUser } = useUserContext()
   const allOrders = generateSettlementOrdersData(256)
   const [counterpartyId, setCounterpartyId] = useState('')
   const [customDueDate, setCustomDueDate] = useState('')
   const [showPayloadPreview, setShowPayloadPreview] = useState(false)
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
+  const [formInputs, setFormInputs] = useState<Record<string, ISettleNpDataItem>>({})
 
+  const miscMutation = useGenerateNpSettlement(selectedUser?._id || '')
+  const triggerAction = useTriggerAction(selectedUser?._id || '')
+
+  const handleSubmit = async () => {
+    const payload = { settle_data: Object.values(formInputs) || [] }
+    try {
+      const res = await miscMutation.triggerAsync(payload)
+      toast(GENERATE_NP_NP_SETTLEMENT.SUCCESS)
+
+      if (res?.success) {
+        await triggerAction.triggerAsync('settle', res.data)
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+    } catch (e) {
+      toast(GENERATE_NP_NP_SETTLEMENT.ERROR)
+    }
+  }
   const handleSelectedOrdersChange = (newSelected: Set<string>) => {
     setSelectedOrders(newSelected)
   }
@@ -53,7 +78,13 @@ const SettlementGenerator: FC = () => {
           summary={summary}
           customDueDate={customDueDate}
           setCustomDueDate={setCustomDueDate}
-          onGeneratePreview={() => setShowPayloadPreview(true)}
+          onGeneratePreview={() => {
+            handleSubmit()
+            setShowPayloadPreview(true)
+          }}
+          selectedOrderIds={Array.from(selectedOrders)}
+          formInputs={formInputs}
+          setFormInputs={setFormInputs}
         />
       )}
       {showPayloadPreview && <PayloadPreview data={payloadData} />}

@@ -1,7 +1,8 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
+import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 export const Container = styled(Box)({
   background: colors.background.main,
@@ -180,7 +181,7 @@ export const CustomDateSection = styled(Box)({
 
 export const ButtonSection = styled(Box)({
   display: 'flex',
-  gap: 16,
+  justifyContent: 'space-between',
 })
 
 export const PayloadPreviewContainer = styled(Box)({
@@ -219,3 +220,86 @@ export const JsonPreview = styled(Box)({
 export const PlaceholderText = styled('span')({
   color: colors.text.disabled,
 })
+
+export const ModalContainer = styled(Box)({
+  position: 'absolute',
+  top: '10%',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  width: '600px',
+  maxWidth: '90vw',
+  maxHeight: '80vh',
+  overflowY: 'auto',
+})
+
+export const Content = styled(Box)({
+  background: colors.background.light,
+  borderRadius: 8,
+  boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
+  padding: 0,
+})
+
+export const ModalTitle = styled(Typography)({
+  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_semibold.fontWeight,
+  color: colors.text.primary,
+  fontSize: typography.h6_semibold.fontSize,
+})
+
+export const CloseButton = styled(IconButton)({
+  padding: '8px',
+  color: colors.text.secondary,
+})
+
+export const StyledForm = styled(Box)({
+  padding: '24px',
+})
+
+export const FormRow = styled(Box)({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '16px',
+  marginBottom: '16px',
+})
+
+export const ButtonContainer = styled(Box)({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: '12px',
+  marginTop: '24px',
+  paddingTop: '24px',
+  borderTop: `1px solid ${colors.border.main}`,
+})
+
+export const Header = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '20px 24px',
+  borderBottom: `1px solid ${colors.border.main}`,
+})
+
+export const ActionsCell = styled(StyledTableBodyCell)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+})
+
+export const OrderSummaryFormBox = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1.5rem',
+  maxHeight: '55vh',
+  overflowY: 'auto',
+  paddingRight: '1rem',
+}))
+
+export const OrderSummaryFormRow = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'flex-end',
+  gap: '1rem',
+  flexWrap: 'wrap',
+  border: `1px solid ${colors.border.main}`,
+  padding: '1rem',
+  borderRadius: '8px',
+}))

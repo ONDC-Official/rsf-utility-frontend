@@ -12,12 +12,30 @@ export const StyledButton = styled(Button)({
     color: colors.text.light,
     backgroundColor: colors.primary.main,
     borderColor: colors.border.tertiary,
+
+    '&:hover': {
+      backgroundColor: colors.primary.dark,
+    },
+
+    '&.Mui-disabled': {
+      opacity: 0.5,
+      pointerEvents: 'none',
+    },
   },
 
   '&.MuiButton-outlined': {
     color: colors.text.tertiary,
     backgroundColor: 'transparent',
     borderColor: colors.border.tertiary,
+
+    '&:hover': {
+      backgroundColor: colors.border.tertiary + '10',
+    },
+
+    '&.Mui-disabled': {
+      opacity: 0.5,
+      pointerEvents: 'none',
+    },
   },
 })
 

@@ -22,6 +22,17 @@ export const GENERATE_NIL_SETTLEMENT: IToastGroup = {
   },
 }
 
+export const GENERATE_NP_NP_SETTLEMENT: IToastGroup = {
+  SUCCESS: {
+    message: 'NP-NP settlement generated successfully.',
+    severity: 'success',
+  },
+  ERROR: {
+    message: 'Failed to generate NP-NP settlement.',
+    severity: 'error',
+  },
+}
+
 export const TRIGGER_ACTION: IToastGroup = {
   SUCCESS: {
     message: 'Trigger completed successfully.',
