@@ -42,6 +42,10 @@ export const StyledTableBodyCell = styled(TableCell)({
   height: '64px',
   verticalAlign: 'middle',
   borderBottom: `1px solid ${colors.border.main}`,
+
+  '&.highlight': {
+    backgroundColor: colors.background.dark,
+  },
 })
 
 export const StyledTableRow = styled(TableRow)<{ isLast?: boolean }>(({ isLast }) => ({
@@ -99,6 +103,9 @@ export const TableBodyCheckboxCell = styled(TableCell)({
   borderBottom: `1px solid ${colors.border.main}`,
   '& .MuiCheckbox-root': {
     padding: '4px',
+  },
+  '&.highlight': {
+    backgroundColor: colors.background.dark,
   },
 })
 
