@@ -38,7 +38,7 @@ const OrdersReady: FC = () => {
 
   return (
     <Container>
-      <Toast isVisible={toast.isVisible} title="Orders Prepared" message={toast.message} onClose={handleToastClose} />
+      <Toast isVisible={toast.isVisible} title={toast.message} message={toast.message} onClose={handleToastClose} />
 
       <OrdersReadyHeader
         receiverId={receiverId}
