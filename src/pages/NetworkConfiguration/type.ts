@@ -1,4 +1,5 @@
 import { UseFormRegister, FieldErrors, UseFormWatch, UseFormReset, Control } from 'react-hook-form'
+
 export interface IProvider {
   providerId: string
   ifscCode: string
@@ -23,6 +24,7 @@ export interface IDomainConfigurationProps {
   role: string
   setValue: (name: keyof IFormData, value: any, options?: any) => void
   watch: UseFormWatch<IFormData>
+  selectedUser: any
 }
 
 export interface IHeaderSectionProps {

@@ -52,7 +52,6 @@ const NetworkConfiguration = () => {
   }, [selectedUser, setValue])
 
   const onSubmit = async (data: IFormData) => {
-    // If user comes first (no selectedUser) and role is undefined or empty, exclude providers
     const payload =
       !selectedUser && (!data.role || data.role === '')
         ? { ...data, providers: undefined }
@@ -82,7 +81,14 @@ const NetworkConfiguration = () => {
     <Container>
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration register={register} errors={errors} role={role} setValue={setValue} watch={watch} />
+        <DomainConfiguration
+          register={register}
+          errors={errors}
+          role={role}
+          setValue={setValue}
+          watch={watch}
+          selectedUser={selectedUser}
+        />
         {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
         {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
           <ProviderBankDetails control={control} errors={errors} />
