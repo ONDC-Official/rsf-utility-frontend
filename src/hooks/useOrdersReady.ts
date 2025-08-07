@@ -4,6 +4,7 @@ import { SelectChangeEvent } from '@mui/material'
 import { columns, receiverOptions } from 'pages/OrdersReady/data'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
 import { IToastState, IOrderReady, ISettlePrepareRequest, ISettlePrepareResponse } from 'interfaces/ordersReady'
 import { PrepareButtonState } from 'pages/OrdersReady/constants'
 import { ROUTES } from 'constants/routes.constants'
@@ -22,15 +23,24 @@ const useOrdersReady = () => {
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
 
   const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
   const settlePreparePost = usePost<ISettlePrepareResponse>()
 
   const {
     data: ordersData,
-    isLoading: _isLoading,
+    isLoading,
     refetch: _refetch,
   } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'Completed', {
     enabled: !!selectedUser?._id,
   })
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
+    }
+  }, [isLoading, showLoader, hideLoader])
 
   const apiOrders = ordersData?.data || []
   const currentOrders = apiOrders.map((order) => ({
@@ -41,6 +51,7 @@ const useOrdersReady = () => {
     totalOrderValue: order.totalOrderValue,
     commission: order.bffPercent,
     sellerType: order.msn ? 'MSN' : 'ISN',
+    domain: order.domain || '',
     dueDate: order.dueDate,
   }))
   const totalCount = currentOrders.length
@@ -96,6 +107,7 @@ const useOrdersReady = () => {
       const payload: ISettlePrepareRequest = { order_ids: orderIds }
 
       try {
+        showLoader()
         const response = await settlePreparePost.mutateAsync({ url, payload })
 
         if (response.success) {
@@ -118,6 +130,8 @@ const useOrdersReady = () => {
           message: error?.response?.data?.message || 'An error occurred while preparing settlement.',
           count: 0,
         })
+      } finally {
+        hideLoader()
       }
     }
   }

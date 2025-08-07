@@ -1,29 +1,31 @@
-import React, { useState } from 'react'
-import { TableCell } from '@mui/material'
-import { CalendarToday, GetApp } from '@mui/icons-material'
+import React, { useState, useEffect } from 'react'
+import { TableCell, Typography } from '@mui/material'
+import { GetApp } from '@mui/icons-material'
+import DateFilterButton from 'components/common/DateFilterButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
 import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
 import { StatusChip } from 'styles/components/Chip.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
   Container,
   Header,
   HeaderLeft,
   HeaderRight,
-  PageTitle,
-  PageSubtitle,
   ReceiverLabel,
   Wrapper,
   TableHeader,
   TableActions,
-  TableTitle,
 } from 'styles/pages/OrdersInProgress.styled'
+import Button from 'components/common/Button'
+import CalenderIcon from 'assets/images/svg/CalendarIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import ChveronIcon from 'assets/images/svg/ChveronIcon'
 
 const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)
@@ -31,14 +33,23 @@ const OrdersInProgress: React.FC = () => {
   const [receiverId, setReceiverId] = useState('BPP_001')
 
   const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
 
   const {
     data: ordersData,
-    isLoading: _isLoading,
+    isLoading,
     refetch: _refetch,
   } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'In-progress', {
     enabled: !!selectedUser?._id,
   })
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
+    }
+  }, [isLoading, showLoader, hideLoader])
 
   const orders = ordersData?.data || []
   const totalCount = orders.length
@@ -70,8 +81,8 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle variant={TypographyVariant.H3Semibold}>Orders In Progress</PageTitle>
-          <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
+          <Typography variant={TypographyVariant.H4}>Orders In Progress</Typography>
+          <Typography variant={TypographyVariant.H6}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>
           <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Receiver ID</ReceiverLabel>
@@ -85,14 +96,9 @@ const OrdersInProgress: React.FC = () => {
       </Header>
       <Wrapper>
         <TableHeader>
-          <TableTitle variant={TypographyVariant.Caption1Semibold}>BPP_001</TableTitle>
+          <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
           <TableActions>
-            <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-              Filter by date
-            </OutlinedFilterButton>
-            <ContainedExportButton variant="contained" startIcon={<GetApp />}>
-              Export
-            </ContainedExportButton>
+            <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
           </TableActions>
         </TableHeader>
         <Table

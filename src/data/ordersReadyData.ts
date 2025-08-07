@@ -9,6 +9,7 @@ export const ordersReadyData: IOrderReady[] = [
     totalOrderValue: 1500.0,
     commission: 150.0,
     sellerType: 'MSN',
+    domain: 'retail',
     dueDate: '2024-01-20',
   },
   {
@@ -19,6 +20,7 @@ export const ordersReadyData: IOrderReady[] = [
     totalOrderValue: 1600.0,
     commission: 160.0,
     sellerType: 'ISN',
+    domain: 'grocery',
     dueDate: '2024-01-20',
   },
   {
@@ -29,6 +31,7 @@ export const ordersReadyData: IOrderReady[] = [
     totalOrderValue: 1500.0,
     commission: 150.0,
     sellerType: 'MSN',
+    domain: 'food',
     dueDate: '2024-01-20',
   },
   {
@@ -39,6 +42,7 @@ export const ordersReadyData: IOrderReady[] = [
     totalOrderValue: 1500.0,
     commission: 170.0,
     sellerType: 'ISN',
+    domain: 'mobility',
     dueDate: '2024-01-20',
   },
   {
@@ -49,6 +53,7 @@ export const ordersReadyData: IOrderReady[] = [
     totalOrderValue: 1500.0,
     commission: 150.0,
     sellerType: 'MSN',
+    domain: 'logistics',
     dueDate: '2024-01-20',
   },
 ]

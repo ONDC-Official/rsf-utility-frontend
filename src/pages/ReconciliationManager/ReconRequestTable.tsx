@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
-import { SelectChangeEvent } from '@mui/material'
-import { GetApp } from '@mui/icons-material'
+import { SelectChangeEvent, Typography } from '@mui/material'
 import { Checkbox } from '@mui/material'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
@@ -11,14 +10,16 @@ import { IReconciliationOrder } from 'interfaces/reconciliationManager'
 import { RECONCILIATION_LABELS, TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/ReconciliationManager/constants'
 import { IReconRequestTableProps } from 'pages/ReconciliationManager/types'
 import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { OutlinedFilterButton } from 'styles/components/Button.styled'
 import {
   TableContainer as Container,
   TableHeader as Header,
-  TableTitle as Title,
   TableReceiverSection,
   ReceiverLabel,
+  Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
+import { TypographyVariant } from 'enums/typography'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import Button from 'components/common/Button'
 
 const ReconRequestTable: FC<IReconRequestTableProps> = ({ allOrders, onCheckboxSelect }) => {
   const [receiverId, setReceiverId] = useState('RECV001')
@@ -76,29 +77,31 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ allOrders, onCheckboxS
   return (
     <Container>
       <Header>
-        <Title>RECV001</Title>
+        <Typography variant={TypographyVariant.H6Bold}>RECV001</Typography>
         <TableReceiverSection>
           <ReceiverLabel>{RECONCILIATION_LABELS.RECEIVER_LABEL}</ReceiverLabel>
           <Select value={receiverId} onChange={handleReceiverChange} options={receiverOptions} size="small" />
-          <OutlinedFilterButton variant="outlined" startIcon={<GetApp />}>
-            {RECONCILIATION_LABELS.EXPORT}
-          </OutlinedFilterButton>
+          <Button variant="outlined" startIcon={<ExportIcon />}>
+            Export
+          </Button>
         </TableReceiverSection>
       </Header>
 
-      <Table
-        columns={reconRequestColumns}
-        data={orders}
-        totalCount={totalCount}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
-        renderRow={renderRow}
-        selectedItems={selectedOrders}
-        onSelectAll={handleSelectAll}
-        getItemId={getItemId}
-      />
+      <Wrapper>
+        <Table
+          columns={reconRequestColumns}
+          data={orders}
+          totalCount={totalCount}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          renderRow={renderRow}
+          selectedItems={selectedOrders}
+          onSelectAll={handleSelectAll}
+          getItemId={getItemId}
+        />
+      </Wrapper>
     </Container>
   )
 }

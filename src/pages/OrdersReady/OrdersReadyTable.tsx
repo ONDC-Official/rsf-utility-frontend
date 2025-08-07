@@ -1,10 +1,11 @@
 import { FC } from 'react'
-import { CalendarToday, GetApp } from '@mui/icons-material'
+import { Typography } from '@mui/material'
 import Table from 'components/common/Table'
+import DateFilterButton from 'components/common/DateFilterButton'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { IOrderReady } from 'interfaces/ordersReady'
-import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
+import { TypographyVariant } from 'enums/typography'
 
 interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
   selectedItems: Set<string>
@@ -28,14 +29,9 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   return (
     <Container>
       <Header>
-        <Title>BPP_001</Title>
+        <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-            Filter by date
-          </OutlinedFilterButton>
-          <ContainedExportButton variant="contained" startIcon={<GetApp />}>
-            Export
-          </ContainedExportButton>
+          <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
         </Actions>
       </Header>
       <Table

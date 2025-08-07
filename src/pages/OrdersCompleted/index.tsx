@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TableCell } from '@mui/material'
-import { CalendarToday, GetApp } from '@mui/icons-material'
+import { GetApp } from '@mui/icons-material'
+import DateFilterButton from 'components/common/DateFilterButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
@@ -105,9 +106,10 @@ const OrdersCompleted: React.FC = () => {
         <TableHeader>
           <TableTitle variant={TypographyVariant.Caption1Semibold}>BPP_001</TableTitle>
           <TableActions>
-            <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-              Filter by date
-            </OutlinedFilterButton>
+            <DateFilterButton 
+              variant="outlined"
+              onDateChange={(date) => console.log('Date selected:', date)}
+            />
             <ContainedExportButton variant="contained" startIcon={<GetApp />}>
               Export
             </ContainedExportButton>

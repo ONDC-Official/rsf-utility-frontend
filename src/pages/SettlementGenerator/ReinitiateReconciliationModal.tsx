@@ -3,7 +3,7 @@ import { Modal } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import { RECONCILIATION_LABELS } from 'pages/SettlementGenerator/constants'
-import { IReinitiateReconiliationModalProps } from 'pages/SettlementGenerator/types'
+import { IReinitiateReconciliationModalProps } from 'pages/SettlementGenerator/types'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
   ModalContainer as Container,
@@ -16,7 +16,7 @@ import {
   ButtonContainer,
 } from 'styles/pages/SettlementGenerator.styled'
 
-const ReinitiateReconciliationModal: FC<IReinitiateReconiliationModalProps> = ({ open, onClose, data, onSave }) => {
+const ReinitiateReconciliationModal: FC<IReinitiateReconciliationModalProps> = ({ open, onClose, data, onSave }) => {
   const [formData, setFormData] = useState({
     orderId: data?.orderId || '',
     settlementAmount: '',
@@ -30,7 +30,9 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconiliationModalProps> = ({
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     const parsedData = {
       orderId: formData.orderId,
       settlementAmount: parseFloat(formData.settlementAmount),
@@ -41,10 +43,6 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconiliationModalProps> = ({
     }
 
     onSave(parsedData)
-    onClose()
-  }
-
-  const handleCancel = () => {
     onClose()
   }
 
@@ -59,7 +57,7 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconiliationModalProps> = ({
             </CloseButton>
           </Header>
 
-          <StyledForm>
+          <StyledForm onSubmit={handleSubmit}>
             <FormRow>
               <InputField
                 label={`${RECONCILIATION_LABELS.FORM_ORDER_ID} *`}
@@ -109,10 +107,10 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconiliationModalProps> = ({
             </FormRow>
 
             <ButtonContainer>
-              <OutlinedFilterButton variant="outlined" onClick={handleCancel}>
+              <OutlinedFilterButton variant="outlined" type="button" onClick={onClose}>
                 {RECONCILIATION_LABELS.FORM_CANCEL}
               </OutlinedFilterButton>
-              <ContainedExportButton variant="contained" onClick={handleSubmit}>
+              <ContainedExportButton variant="contained" type="submit">
                 {RECONCILIATION_LABELS.FORM_SAVE}
               </ContainedExportButton>
             </ButtonContainer>

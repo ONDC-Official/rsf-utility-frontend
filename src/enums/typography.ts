@@ -6,8 +6,10 @@ export enum TypographyVariant {
   H4 = 'h4',
   H5 = 'h5',
   H5Semibold = 'h5_semibold',
+  H5Bold = 'h5_bold',
   H6 = 'h6',
   H6Semibold = 'h6_semibold',
+  H6Bold = 'h6_bold',
   Body1 = 'body1',
   Body1Regular = 'body1_regular',
   Body1Medium = 'body1_medium',
@@ -19,5 +21,6 @@ export enum TypographyVariant {
   Body5Medium = 'body5_medium',
   Body5Regular = 'body5_regular',
   Body5Semibold = 'body5_semibold',
+  Caption1 = 'caption1',
   Caption1Semibold = 'caption1_semibold',
 }

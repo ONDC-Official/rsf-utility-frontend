@@ -1,22 +1,26 @@
 import { FC } from 'react'
-import { CalendarToday, GetApp, MoveToInbox, RestartAlt } from '@mui/icons-material'
+import { MoveToInbox, RestartAlt } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import StatusChip from 'components/common/StatusChip'
 import { IOutgoingRequest } from 'interfaces/reconciliationManager'
 import { outgoingRequestColumns } from 'pages/ReconciliationManager/data'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IOutgoingRequestsTableProps } from 'pages/ReconciliationManager/types'
 import {
   TableContainer as Container,
   TableHeader as Header,
   TableActions as Actions,
-  TableTitle as Title,
   ActionButton as Button,
   ErrorCell,
+  Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
+import CalenderIcon from 'assets/images/svg/CalendarIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import ChveronIcon from 'assets/images/svg/ChveronIcon'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onReinitiate }) => {
   const {
@@ -57,29 +61,31 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
   return (
     <Container style={{ marginTop: '24px' }}>
       <Header>
-        <Title>{RECONCILIATION_LABELS.OUTGOING_TITLE}</Title>
+        <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.OUTGOING_TITLE}</Typography>
         <Actions>
-          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
-            {RECONCILIATION_LABELS.FILTER_BY_DATE}
-          </OutlinedFilterButton>
-          <ContainedExportButton variant="outlined" startIcon={<GetApp />}>
-            {RECONCILIATION_LABELS.EXPORT}
-          </ContainedExportButton>
+          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
+            Filter by date
+          </Button>
+          <Button variant="outlined" startIcon={<ExportIcon />}>
+            Export
+          </Button>
         </Actions>
       </Header>
 
-      <Table
-        columns={outgoingRequestColumns}
-        data={currentRequests}
-        totalCount={totalCount}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowsPerPageChange}
-        renderRow={renderRow}
-        hideCheckboxes={true}
-        getItemId={getItemId}
-      />
+      <Wrapper>
+        <Table
+          columns={outgoingRequestColumns}
+          data={currentRequests}
+          totalCount={totalCount}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowsPerPageChange}
+          renderRow={renderRow}
+          hideCheckboxes={true}
+          getItemId={getItemId}
+        />
+      </Wrapper>
     </Container>
   )
 }
