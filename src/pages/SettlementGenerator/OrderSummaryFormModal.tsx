@@ -32,6 +32,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
       [orderId]: {
         ...prev[orderId],
         [field]: numericValue,
+        order_id: orderId,
       },
     }))
   }

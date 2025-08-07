@@ -5,7 +5,7 @@ import { typography } from 'theme/typography'
 
 export const StyledButton = styled(Button)({
   textTransform: 'none',
-  borderRadius: 4,
+  borderRadius: 8,
   fontFamily: typography.body1_medium.fontFamily,
 
   '&.MuiButton-contained': {

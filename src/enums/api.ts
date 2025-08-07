@@ -7,4 +7,5 @@ export enum APIRoute {
   TRIGGER_ACTION = '/ui/trigger/{userId}/{action}',
   ORDERS = '/ui/orders/{userId}',
   SETTLE_PREPARE = '/ui/settle/{userId}/prepare',
+  SETTLEMENTS_LIST = '/ui/settle/{userId}',
 }

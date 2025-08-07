@@ -1,3 +1,4 @@
+import { IUserSettlementItem } from 'interfaces/settlement'
 import { ISettlementOrder, ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 
 export interface IProps {
@@ -34,7 +35,7 @@ export interface IPayloadPreviewProps {
 }
 
 export interface IOrderTableProps {
-  allOrders: ISettlementOrder[]
+  allOrders: IUserSettlementItem[]
   onSelectedOrdersChange: (selected: Set<string>) => void
 }
 

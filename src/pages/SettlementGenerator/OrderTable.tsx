@@ -2,16 +2,15 @@ import { FC, useEffect, useState } from 'react'
 import { CalendarToday, GetApp, Edit, Undo } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
 import Table from 'components/common/Table'
-import { ISettlementOrder } from 'interfaces/settlementGenerator'
 import { columns } from 'pages/SettlementGenerator/data'
 import { IOrderTableProps } from 'pages/SettlementGenerator/types'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
 import ReinitiateReconciliationModal from 'pages/SettlementGenerator/ReinitiateReconciliationModal'
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 import Button from 'components/common/Button'
+import { IUserSettlementItem } from 'interfaces/settlement'
 
 const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange }) => {
   const {
@@ -24,31 +23,31 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
     handleRowsPerPageChange,
     handleCheckboxChange,
     handleSelectAll,
-  } = usePaginatedSelectableData<ISettlementOrder>(allOrders)
+  } = usePaginatedSelectableData<IUserSettlementItem>(allOrders)
 
-  const [editedRows, setEditedRows] = useState<Record<string, Partial<ISettlementOrder>>>({})
-  const [editingOrder, setEditingOrder] = useState<ISettlementOrder | null>(null)
+  const [editedRows, setEditedRows] = useState<Record<string, Partial<IUserSettlementItem>>>({})
+  const [editingOrder, setEditingOrder] = useState<IUserSettlementItem | null>(null)
 
   useEffect(() => {
     onSelectedOrdersChange(selectedOrders)
   }, [selectedOrders, onSelectedOrdersChange])
 
-  const getItemId = (item: ISettlementOrder) => item.id
+  const getItemId = (item: IUserSettlementItem) => item.order_id
 
-  const handleSave = (updatedFields: Partial<ISettlementOrder>) => {
+  const handleSave = (updatedFields: Partial<IUserSettlementItem>) => {
     if (!editingOrder) return
     setEditedRows((prev) => ({
       ...prev,
-      [editingOrder.id]: {
-        ...prev[editingOrder.id],
+      [editingOrder.order_id]: {
+        ...prev[editingOrder.order_id],
         ...updatedFields,
       },
     }))
     setEditingOrder(null)
   }
 
-  const renderRow = (order: ISettlementOrder) => {
-    const edited = editedRows[order.id]
+  const renderRow = (order: IUserSettlementItem) => {
+    const edited = editedRows[order.order_id]
     const isEdited = !!edited
 
     const merged = { ...order, ...(edited || {}) }
@@ -57,28 +56,26 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
       <>
         <TableBodyCheckboxCell>
           <Checkbox
-            checked={selectedOrders.has(order.id)}
-            onChange={(e) => handleCheckboxChange(order.id, e.target.checked)}
+            checked={selectedOrders.has(order.order_id)}
+            onChange={(e) => handleCheckboxChange(order.order_id, e.target.checked)}
             size="small"
           />
         </TableBodyCheckboxCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.orderId}</StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.collectorId}</StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.receiverId}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.order_id}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.collector_id}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.receiver_id}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.totalOrderValue.toFixed(2)}
+          ₹{merged.total_order_value.toFixed(2)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
           ₹{merged.commission.toFixed(2)}
         </StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>₹{merged.tax.toFixed(2)}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.interNpTax.toFixed(2)}
+          ₹{merged.inter_np_settlement.toFixed(2)}
         </StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.interNpSettlement.toFixed(2)}
-        </StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.provider}</StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.dueDate}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.provider_id}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.due_date}</StyledTableBodyCell>
         <ActionsCell>
           <ActionIconButton size="small" onClick={() => setEditingOrder(order)}>
             <Edit fontSize="small" />
@@ -89,7 +86,7 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
             onClick={() => {
               setEditedRows((prev) => {
                 const newState = { ...prev }
-                delete newState[order.id]
+                delete newState[order.order_id]
                 return newState
               })
             }}
@@ -107,12 +104,12 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
         <Title>Select Orders for Settlement</Title>
         <Actions>
           {Object.keys(editedRows).length > 0 && <Button variant="contained">Save edited order</Button>}
-          <OutlinedFilterButton variant="outlined" startIcon={<CalendarToday />}>
+          <Button variant="outlined" startIcon={<CalendarToday />}>
             Filter by date
-          </OutlinedFilterButton>
-          <ContainedExportButton variant="contained" startIcon={<GetApp />}>
+          </Button>
+          <Button variant="contained" startIcon={<GetApp />}>
             Export
-          </ContainedExportButton>
+          </Button>
         </Actions>
       </Header>
 
@@ -135,7 +132,7 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
           open={!!editingOrder}
           onClose={() => setEditingOrder(null)}
           data={{
-            orderId: editingOrder?.orderId || '',
+            orderId: editingOrder?.order_id || '',
             settlementAmount: 0,
             commission: 0,
             tcs: 0,
