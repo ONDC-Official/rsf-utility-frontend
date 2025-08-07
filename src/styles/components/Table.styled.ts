@@ -138,3 +138,15 @@ export const ActionIconButton = styled(IconButton)<{
   borderColor: acceptButton ? `${colors.success.main}` : rejectButton ? `${colors.error.dark}` : colors.border.main,
   color: acceptButton || rejectButton ? '#FFFFFF' : colors.text.primary,
 }))
+
+export const ActionButton = styled('button')({
+  backgroundColor: colors.background.light,
+  border: '1px solid #ddd',
+  borderRadius: 8,
+  padding: '10px 12px',
+  fontSize: typography.body5_semibold.fontSize,
+  fontWeight: typography.body5_semibold.fontWeight,
+  textTransform: 'none',
+  minWidth: 'auto',
+  cursor: 'pointer',
+})

@@ -1,5 +1,4 @@
 import { ITableColumn } from 'interfaces/table'
-import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
 
 export const counterpartyOptions = [
   { value: 'BPP_001', label: 'BPP_001' },
@@ -7,7 +6,7 @@ export const counterpartyOptions = [
   { value: 'BPP_003', label: 'BPP_003' },
 ]
 
-export const columns: ITableColumn<ISettlementDashboardOrder>[] = [
+export const columns: ITableColumn[] = [
   { id: 'orderId', label: 'Order ID' },
   { id: 'collectorId', label: 'Collector ID' },
   { id: 'receiverId', label: 'Receiver ID' },
@@ -17,4 +16,8 @@ export const columns: ITableColumn<ISettlementDashboardOrder>[] = [
   { id: 'interNpSettlementStatus', label: 'Inter NP Settlement Status' },
   { id: 'selfStatus', label: 'Self Status' },
   { id: 'providerStatus', label: 'Provider Status' },
+  { id: 'settlementReference', label: 'Settlement Reference' },
+  { id: 'error', label: 'Error' },
+  { id: 'settlementInitiatedDate', label: 'Settlement Initiated Date' },
+  { id: 'actions', label: 'Actions' },
 ]
