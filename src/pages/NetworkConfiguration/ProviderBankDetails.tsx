@@ -15,6 +15,7 @@ import {
   ConfigHeader,
   FormContainer,
   ActionButton,
+  RemoveWrapper,
 } from 'styles/pages/NetworkConfiguration'
 import { TypographyVariant } from 'enums/typography'
 
@@ -36,53 +37,65 @@ const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => 
         <DomainConfigContainer key={field.id}>
           <ConfigHeader>
             <div>Provider {index + 1}</div>
-            {fields.length > 1 && <RemoveIcon onClick={() => remove(index)} />}
+            {fields.length > 1 && (
+              <RemoveWrapper>
+                <RemoveIcon onClick={() => remove(index)} />
+              </RemoveWrapper>
+            )}
           </ConfigHeader>
           <FormContainer>
-            <Typography variant={TypographyVariant.Body5Medium}>Provider ID</Typography>
-            <TextField
-              fullWidth
-              placeholder="Enter Provider ID"
-              {...control.register(`providers.${index}.providerId`, {
-                required: 'Provider ID is required',
-                pattern: { value: /^[A-Z0-9]+$/, message: 'Must be alphanumeric' },
-              })}
-              error={!!errors.providers?.[index]?.providerId}
-              helperText={errors.providers?.[index]?.providerId?.message}
-            />
-            <Typography variant={TypographyVariant.Body5Medium}>IFSC Code</Typography>
-            <TextField
-              fullWidth
-              placeholder="Enter IFSC Code"
-              {...control.register(`providers.${index}.ifscCode`, {
-                required: 'IFSC Code is required',
-                pattern: { value: /^[A-Z]{4}0[A-Z0-9]{6}$/, message: 'Invalid IFSC code' },
-              })}
-              error={!!errors.providers?.[index]?.ifscCode}
-              helperText={errors.providers?.[index]?.ifscCode?.message}
-            />
-            <Typography variant={TypographyVariant.Body5Medium}>Account Number</Typography>
-            <TextField
-              fullWidth
-              placeholder="Enter Account Number"
-              {...control.register(`providers.${index}.accountNumber`, {
-                required: 'Account number is required',
-                pattern: { value: /^\d{9,18}$/, message: 'Must be 9-18 digits' },
-              })}
-              error={!!errors.providers?.[index]?.accountNumber}
-              helperText={errors.providers?.[index]?.accountNumber?.message}
-            />
-            <Typography variant={TypographyVariant.Body5Medium}>Bank Name</Typography>
-            <TextField
-              fullWidth
-              placeholder="Enter Bank Name"
-              {...control.register(`providers.${index}.bankName`, {
-                required: 'Bank name is required',
-                minLength: { value: 3, message: 'Minimum 3 characters' },
-              })}
-              error={!!errors.providers?.[index]?.bankName}
-              helperText={errors.providers?.[index]?.bankName?.message}
-            />
+            <div>
+              <Typography variant={TypographyVariant.Body5Medium}>Provider ID</Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter Provider ID"
+                {...control.register(`providers.${index}.providerId`, {
+                  required: 'Provider ID is required',
+                  pattern: { value: /^[A-Z0-9]+$/, message: 'Must be alphanumeric' },
+                })}
+                error={!!errors.providers?.[index]?.providerId}
+                helperText={errors.providers?.[index]?.providerId?.message}
+              />
+            </div>
+            <div>
+              <Typography variant={TypographyVariant.Body5Medium}>IFSC Code</Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter IFSC Code"
+                {...control.register(`providers.${index}.ifscCode`, {
+                  required: 'IFSC Code is required',
+                  pattern: { value: /^[A-Z]{4}0[A-Z0-9]{6}$/, message: 'Invalid IFSC code' },
+                })}
+                error={!!errors.providers?.[index]?.ifscCode}
+                helperText={errors.providers?.[index]?.ifscCode?.message}
+              />
+            </div>
+            <div>
+              <Typography variant={TypographyVariant.Body5Medium}>Account Number</Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter Account Number"
+                {...control.register(`providers.${index}.accountNumber`, {
+                  required: 'Account number is required',
+                  pattern: { value: /^\d{9,18}$/, message: 'Must be 9-18 digits' },
+                })}
+                error={!!errors.providers?.[index]?.accountNumber}
+                helperText={errors.providers?.[index]?.accountNumber?.message}
+              />
+            </div>
+            <div>
+              <Typography variant={TypographyVariant.Body5Medium}>Bank Name</Typography>
+              <TextField
+                fullWidth
+                placeholder="Enter Bank Name"
+                {...control.register(`providers.${index}.bankName`, {
+                  required: 'Bank name is required',
+                  minLength: { value: 3, message: 'Minimum 3 characters' },
+                })}
+                error={!!errors.providers?.[index]?.bankName}
+                helperText={errors.providers?.[index]?.bankName?.message}
+              />
+            </div>
           </FormContainer>
         </DomainConfigContainer>
       ))}

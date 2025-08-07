@@ -7,19 +7,23 @@ import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { NetworkConfigPayload } from 'interfaces/networkConfigPayload'
+import { IUser } from '@interfaces/user'
 
-const mapToPayload = (data: IFormData) => {
-  const payload: NetworkConfigPayload = {
-    role: data?.role === 'Seller App' ? 'BPP' : 'BAP',
-    subscriber_url: data?.subscriberUrl,
-    domain: data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, ''),
+const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfigPayload => {
+  const payload: Partial<NetworkConfigPayload> = {
     tcs: parseFloat(`${data?.npToNpTax}`),
     tds: parseFloat(`${data?.npToProviderTax}`),
-    msn: data?.type === 'MSN',
   }
 
-  if (data?.providers?.length) {
-    payload.provider_details = data?.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
+  if (!selectedUser) {
+    payload.role = data?.role === 'Seller App' ? 'BPP' : 'BAP'
+    payload.msn = data?.type === 'MSN'
+    payload.subscriber_url = data?.subscriberUrl
+    payload.domain = data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, '')
+  }
+
+  if (data?.providers?.length && data?.role !== 'Buyer App') {
+    payload.provider_details = data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
       provider_id: providerId,
       account_number: accountNumber,
       ifsc_code: ifscCode,
@@ -27,7 +31,7 @@ const mapToPayload = (data: IFormData) => {
     }))
   }
 
-  return payload
+  return payload as NetworkConfigPayload
 }
 
 const useSubmitNetworkConfig = () => {
@@ -38,7 +42,8 @@ const useSubmitNetworkConfig = () => {
 
   const triggerAsync = useCallback(
     async (data: IFormData) => {
-      const payload = mapToPayload(data)
+      const payload = mapToPayload(data, selectedUser)
+
       const isUpdate = Boolean(selectedUser?._id)
       const url = isUpdate ? buildApiUrl(`${APIRoute.USERS}/:id`, { id: selectedUser!._id }) : APIRoute.USERS
 

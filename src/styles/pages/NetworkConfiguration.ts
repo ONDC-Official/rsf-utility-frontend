@@ -88,6 +88,7 @@ export const ActionButton = styled(Button)(() => ({
   padding: '8px 10px',
   display: 'flex',
   gap: '5px',
+  cursor: 'pointer',
   '&:hover': {
     background: '#f5f5f5',
   },
@@ -106,9 +107,9 @@ export const DomainConfigContainer = styled('div')(() => ({
   border: '1px solid #dfe0e5',
   display: 'flex',
   flexDirection: 'column',
-  gap: '24px',
   padding: '20px',
   borderRadius: '8px',
+  marginBottom: '32px', // Add space below for section separation
 }))
 
 export const ConfigTitleSection = styled('div')(() => ({
@@ -119,10 +120,20 @@ export const ConfigTitleSection = styled('div')(() => ({
 }))
 
 export const FormContainer = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '16px',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '20px',
   marginTop: '20px',
+  alignItems: 'start',
+  '& > div': {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
 }))
 
 export const ConfigHeader = styled('div')(() => ({
@@ -140,3 +151,7 @@ export const SaveButtonContainer = styled('div')(() => ({
   justifyContent: 'end',
   marginBottom: '20px',
 }))
+
+export const RemoveWrapper = styled('div')({
+  cursor: 'pointer',
+})
