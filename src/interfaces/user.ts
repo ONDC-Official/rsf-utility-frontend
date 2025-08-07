@@ -1,3 +1,4 @@
+import { RefetchOptions, RefetchQueryFilters } from 'react-query'
 export interface ProviderDetails {
   provider_id: string
   account_number: string
@@ -21,4 +22,5 @@ export interface IUserContext {
   selectedUser: IUser | null
   setSelectedUser: (user: IUser | null) => void
   isLoading: boolean
+  refetch: (options?: RefetchOptions & RefetchQueryFilters) => Promise<any>
 }

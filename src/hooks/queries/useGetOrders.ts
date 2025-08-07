@@ -49,6 +49,7 @@ const formatDate = (dateString: string): string => {
     if (isNaN(date.getTime())) {
       return new Date().toISOString().split('T')[0]
     }
+
     return date.toISOString().split('T')[0]
   } catch {
     return new Date().toISOString().split('T')[0]

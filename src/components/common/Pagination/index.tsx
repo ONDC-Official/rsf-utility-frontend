@@ -19,6 +19,7 @@ const Pagination: FC<IPaginationProps> = ({
   onPageChange,
   onRowsPerPageChange,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
     onPageChange?.(value)
   }

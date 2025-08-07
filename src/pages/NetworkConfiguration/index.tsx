@@ -1,129 +1,100 @@
-import TextField from '@mui/material/TextField'
-import { MenuItem, Select } from '@mui/material'
-import TaxesIcon from 'assets/images/svg/TaxesIcon'
-import RemoveIcon from 'assets/images/svg/RemoveIcon'
-import BankIcon from 'assets/images/svg/BankIcon'
-import AddIcon from 'assets/images/svg/AddIcon'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useUserContext } from 'context/userContext'
+import { useToast } from 'context/toastContext'
+import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
+import HeaderSection from './HeaderSection'
+import DomainConfiguration from './DomainConfiguration'
+import ProviderBankDetails from './ProviderBankDetails'
 import SaveIcon from 'assets/images/svg/SaveIcon'
-import UploadIcon from 'assets/images/svg/UploadIcon'
-import {
-  Container,
-  SectionTitle,
-  SectionDescription,
-  HeaderSection,
-  HeaderCard,
-  ActionButton,
-  ConfigurationBox,
-  SettlementHeader,
-  NetworkIdentityHeader,
-  NetworkIdentityTitle,
-  DomainConfigContainer,
-  ConfigHeader,
-  ConfigTitleSection,
-  FormContainer,
-  ButtonGroup,
-  BulkButton,
-  SaveButtonContainer,
-} from 'styles/pages/NetworkConfiguration'
-import { TypographyVariant } from 'enums/typography'
+import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
+import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
+import { IFormData } from 'pages/NetworkConfiguration/type'
+import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 
-const NetworkConfiguration = () => (
-  <Container>
-    <HeaderSection>
-      <HeaderCard>
-        <SectionTitle variant={TypographyVariant.H3Semibold}>Network Configuration</SectionTitle>
-        <SectionDescription>Configure your ONDC network parameters and settlement details</SectionDescription>
-      </HeaderCard>
-      <ActionButton variant="outlined">
-        <AddIcon />
-        Add Configuration
-      </ActionButton>
-    </HeaderSection>
+const NetworkConfiguration = () => {
+  const { selectedUser, isLoading, setSelectedUser, refetch } = useUserContext()
+  const toast = useToast()
+  const {
+    register,
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
+  const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
+  const role = watch('role')
 
-    <ConfigurationBox>
-      <SettlementHeader>
-        <NetworkIdentityHeader>
-          <TaxesIcon />
-          <NetworkIdentityTitle>Settlement Configuration</NetworkIdentityTitle>
-        </NetworkIdentityHeader>
-      </SettlementHeader>
-      <DomainConfigContainer>
-        <ConfigHeader>
-          <div>Domain Configuration 1</div>
-        </ConfigHeader>
-        <ConfigTitleSection>
-          <div>Title of a Configuration</div>
-          <TextField fullWidth variant="outlined" placeholder="Enter title of a configuration" />
-        </ConfigTitleSection>
-        <FormContainer>
-          <div>Role</div>
-          <Select value="Seller App">
-            <MenuItem value="Seller App">Seller App</MenuItem>
-          </Select>
-          <div>Domain Category</div>
-          <Select value="F&B (RET11)">
-            <MenuItem value="F&B (RET11)">F&B (RET11)</MenuItem>
-          </Select>
-          <div>NP-to-Provider Tax</div>
-          <TextField fullWidth variant="outlined" value="0.00" />
-        </FormContainer>
-        <FormContainer>
-          <div>Type</div>
-          <Select value="MSN">
-            <MenuItem value="MSN">MSN</MenuItem>
-          </Select>
-          <div>NP to NP Tax (%)</div>
-          <TextField fullWidth variant="outlined" value="0.00" />
-          <div>Subscriber URL</div>
-          <TextField fullWidth variant="outlined" />
-        </FormContainer>
-      </DomainConfigContainer>
-    </ConfigurationBox>
+  useEffect(() => {
+    if (selectedUser) {
+      setValue('role', selectedUser?.role === 'BPP' ? 'Seller App' : selectedUser?.role === 'BAP' ? 'Buyer App' : '')
+      setValue('subscriberUrl', selectedUser?.subscriber_url || '')
+      setValue('domainCategory', selectedUser?.domain?.toUpperCase() || '')
+      setValue('npToProviderTax', selectedUser?.tds || 0)
+      setValue('npToNpTax', selectedUser?.tcs || 0)
+      setValue('type', selectedUser?.msn ? 'MSN' : '')
+      setValue(
+        'providers',
+        selectedUser?.provider_details?.length
+          ? selectedUser?.provider_details?.map((p) => ({
+              providerId: p?.provider_id || '',
+              accountNumber: p.account_number || '',
+              ifscCode: p?.ifsc_code || '',
+              bankName: p?.bank_name || '',
+            }))
+          : [defaultFormData.providers?.[0] ?? defaultProvider],
+      )
+    } else {
+      setValue('providers', defaultFormData.providers)
+    }
+  }, [selectedUser, setValue])
 
-    <ConfigurationBox>
-      <SettlementHeader>
-        <NetworkIdentityHeader>
-          <BankIcon />
-          <NetworkIdentityTitle>Provider Bank Account Details</NetworkIdentityTitle>
-        </NetworkIdentityHeader>
-        <ButtonGroup>
-          <ActionButton variant="outlined">
-            <AddIcon />
-            Add Provider
-          </ActionButton>
-          <BulkButton variant="contained">
-            <UploadIcon />
-            Bulk upload
+  const onSubmit = async (data: IFormData) => {
+    // If user comes first (no selectedUser) and role is undefined or empty, exclude providers
+    const payload =
+      !selectedUser && (!data.role || data.role === '')
+        ? { ...data, providers: undefined }
+        : data.role === 'Buyer App'
+        ? { ...data, providers: undefined }
+        : data
+
+    try {
+      await submitConfig(payload)
+      refetch()
+      reset(defaultFormData)
+      setSelectedUser(null)
+      toast({
+        message: `User ${selectedUser?._id ? 'updated' : 'created'} successfully.`,
+        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+      })
+    } catch {
+      reset(defaultFormData)
+      setSelectedUser(null)
+      toast(NETWORK_CONFIGURATION.ERROR)
+    }
+  }
+
+  if (isLoading) return <div>Loading...</div>
+
+  return (
+    <Container>
+      <HeaderSection reset={reset} setSelectedUser={setSelectedUser} />
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <DomainConfiguration register={register} errors={errors} role={role} setValue={setValue} watch={watch} />
+        {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
+        {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
+          <ProviderBankDetails control={control} errors={errors} />
+        )}
+        <SaveButtonContainer>
+          <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
+            <SaveIcon /> {isSubmitLoading ? 'Submitting...' : selectedUser?._id ? 'Update' : 'Save & Proceed'}
           </BulkButton>
-        </ButtonGroup>
-      </SettlementHeader>
-      <DomainConfigContainer>
-        <ConfigHeader>
-          <div>Provider 1</div>
-          <RemoveIcon />
-        </ConfigHeader>
-        <FormContainer>
-          <div>Provider ID</div>
-          <TextField fullWidth variant="outlined" placeholder="Enter provider ID" />
-          <div>IFSC Code</div>
-          <TextField fullWidth variant="outlined" placeholder="Enter IFSC Code" />
-        </FormContainer>
-        <FormContainer>
-          <div>Account Number</div>
-          <TextField fullWidth variant="outlined" placeholder="Enter account number" />
-          <div>Bank Name</div>
-          <TextField fullWidth variant="outlined" placeholder="Enter bank name" />
-        </FormContainer>
-      </DomainConfigContainer>
-    </ConfigurationBox>
-
-    <SaveButtonContainer>
-      <BulkButton variant="contained">
-        <SaveIcon />
-        Save & Proceed
-      </BulkButton>
-    </SaveButtonContainer>
-  </Container>
-)
+        </SaveButtonContainer>
+      </StyledForm>
+    </Container>
+  )
+}
 
 export default NetworkConfiguration

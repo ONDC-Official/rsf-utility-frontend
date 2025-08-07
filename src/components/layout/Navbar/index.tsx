@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import {
@@ -23,13 +23,6 @@ const Navbar: FC = () => {
     const userObj = users?.find((u) => u._id === selectedId) || null
     setSelectedUser(userObj)
   }
-
-  // Auto-select first user by default
-  useEffect(() => {
-    if (!selectedUser && users?.length) {
-      setSelectedUser(users[0])
-    }
-  }, [users, selectedUser, setSelectedUser])
 
   return (
     <StyledAppBar position="static">

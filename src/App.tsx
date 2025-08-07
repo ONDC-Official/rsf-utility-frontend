@@ -2,10 +2,10 @@ import { FC } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import theme from 'theme/index'
 import AppRoutes from 'routes/AppRoutes'
 import { UserProvider } from 'context/userContext'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastProvider } from 'context/toastContext'
 
 const queryClient = new QueryClient()
