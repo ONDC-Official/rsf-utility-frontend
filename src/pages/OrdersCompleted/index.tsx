@@ -5,10 +5,8 @@ import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
-import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
-import { IOrderRow } from 'pages/OrdersInProgress/types'
 import { StatusChip } from 'styles/components/Chip.styled'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
@@ -25,7 +23,23 @@ import {
   TableTitle,
 } from 'styles/pages/OrdersInProgress.styled'
 
-const OrdersInProgress: React.FC = () => {
+const receiverOptions = [
+  { value: 'BPP_001', label: 'BPP_001' },
+  { value: 'BPP_002', label: 'BPP_002' },
+  { value: 'BPP_003', label: 'BPP_003' },
+]
+
+const columns = [
+  { id: 'orderId', label: 'Order ID' },
+  { id: 'collectorId', label: 'Collector ID' },
+  { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'totalOrderValue', label: 'Total Order Amount' },
+  { id: 'commission', label: 'Commission' },
+  { id: 'sellerType', label: 'Seller Type' },
+  { id: 'dueDate', label: 'Due Date' },
+]
+
+const OrdersCompleted: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState('BPP_001')
@@ -36,26 +50,30 @@ const OrdersInProgress: React.FC = () => {
     data: ordersData,
     isLoading: _isLoading,
     refetch: _refetch,
-  } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'In-progress', {
+  } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'Completed', {
     enabled: !!selectedUser?._id,
   })
 
   const orders = ordersData?.data || []
   const totalCount = orders.length
 
-  const renderRow = (order: IOrderRow) => (
-    <>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.orderId}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.collectorId}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.receiverId}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>
-        <StatusChip label={order.orderStatus} size="small" />
-      </TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}%</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
-    </>
-  )
+  const renderRow = (order: any) => {
+    const sellerType = order.msn ? 'MSN' : 'ISN'
+
+    return (
+      <>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.orderId}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.collectorId}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.receiverId}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}</TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>
+          <StatusChip label={sellerType} size="small" />
+        </TableCell>
+        <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
+      </>
+    )
+  }
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
@@ -70,8 +88,8 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <PageTitle variant={TypographyVariant.H3Semibold}>Orders In Progress</PageTitle>
-          <PageSubtitle>Monitor orders currently being processed</PageSubtitle>
+          <PageTitle variant={TypographyVariant.H3Semibold}>Orders Completed</PageTitle>
+          <PageSubtitle>View completed orders and their settlement details</PageSubtitle>
         </HeaderLeft>
         <HeaderRight>
           <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Receiver ID</ReceiverLabel>
@@ -111,4 +129,4 @@ const OrdersInProgress: React.FC = () => {
   )
 }
 
-export default OrdersInProgress
+export default OrdersCompleted
