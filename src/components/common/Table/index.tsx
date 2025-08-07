@@ -1,27 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Table as MUITable,
   TableRow,
   TableBody,
   Checkbox,
-  Menu,
-  MenuItem,
+  // Menu,
+  // MenuItem,
   TableCell,
   CircularProgress,
 } from '@mui/material'
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+// import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import Pagination from 'components/common/Pagination'
 import { ITableProps } from 'interfaces/table'
-import { SortOrder } from 'components/common/Table/type'
+// import { SortOrder } from 'components/common/Table/type'
 import {
   Container,
   StyledTableHead,
   StyledTableCell,
   StyledTableRow,
   Wrapper,
-  StyledIconButton,
+  // StyledIconButton,
   TableHeaderCheckboxCell,
-  HeaderLabelContainer,
+  // HeaderLabelContainer,
 } from 'styles/components/Table.styled'
 
 const Table = <T,>({

@@ -12,7 +12,8 @@ import {
   TableTitle,
   HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
-import { CalendarToday, GetApp, Upload } from '@mui/icons-material'
+import { GetApp, Upload } from '@mui/icons-material'
+import DateFilterButton from 'components/common/DateFilterButton'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
@@ -85,9 +86,10 @@ const MiscSettlements: React.FC = () => {
         <TableHeader>
           <TableTitle variant={TypographyVariant.Caption1Semibold}>Miscellaneous Settlement Details</TableTitle>
           <TableActions>
-            <Button variant="outlined" startIcon={<CalendarToday />}>
-              Filter by date
-            </Button>
+            <DateFilterButton 
+              variant="outlined"
+              onDateChange={(date) => console.log('Date selected:', date)}
+            />
             <Button variant="contained" startIcon={<GetApp />}>
               Export
             </Button>
