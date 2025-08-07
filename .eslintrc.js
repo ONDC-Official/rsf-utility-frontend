@@ -16,7 +16,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    '@typescript-eslint/indent': 'warn',
+    // '@typescript-eslint/indent': 'warn',
     '@typescript-eslint/no-use-before-define': 'warn',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-var-requires': 'warn',
@@ -24,7 +24,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'warn',
     '@typescript-eslint/no-extra-semi': 'warn',
-    'react/react-in-jsx-scope': 'warn',
+    'react/react-in-jsx-scope': 'off',
     'no-extra-semi': 'warn',
     'no-console': 'warn',
 

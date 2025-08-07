@@ -7,6 +7,7 @@ import theme from 'theme/index'
 import AppRoutes from 'routes/AppRoutes'
 import { UserProvider } from 'context/userContext'
 import { ToastProvider } from 'context/toastContext'
+import { LoaderProvider } from 'context/loaderContext'
 
 const queryClient = new QueryClient()
 
@@ -16,9 +17,11 @@ const App: FC = () => (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <UserProvider>
-            <AppRoutes />
-          </UserProvider>
+          <LoaderProvider>
+            <UserProvider>
+              <AppRoutes />
+            </UserProvider>
+          </LoaderProvider>
         </ToastProvider>
       </QueryClientProvider>
     </BrowserRouter>

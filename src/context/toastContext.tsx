@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState } from 'react'
+import { FC, createContext, useContext, useState } from 'react'
 import { Snackbar, Alert } from '@mui/material'
 import { IToast } from 'interfaces/toastMessages'
 
 const ToastContext = createContext<((toast: IToast) => void) | undefined>(undefined)
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ToastProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toast, setToast] = useState<IToast | null>(null)
 
   const showToast = (t: IToast) => setToast(t)
