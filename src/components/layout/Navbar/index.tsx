@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
+import { SelectChangeEvent } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import {
   StyledAppBar,
@@ -8,12 +8,9 @@ import {
   RightSection,
   NavbarTitle,
   ConfigurationLabel,
-  UserAvatar,
+  StyledSelect,
 } from 'styles/layout/Navbar.styled'
-import { NavbarSelect } from 'styles/components/Select.styled'
-import { IUser } from '@interfaces/user'
 import { useUserContext } from 'context/userContext'
-import { AccountCircle } from '@mui/icons-material'
 
 const Navbar: FC = () => {
   const { users, selectedUser, setSelectedUser } = useUserContext()
@@ -23,6 +20,12 @@ const Navbar: FC = () => {
     const userObj = users?.find((u) => u._id === selectedId) || null
     setSelectedUser(userObj)
   }
+
+  const userOptions =
+    users?.map((user) => ({
+      label: user.subscriber_url,
+      value: user._id,
+    })) ?? []
 
   return (
     <StyledAppBar position="static">
@@ -34,38 +37,17 @@ const Navbar: FC = () => {
         <RightSection>
           <ConfigurationLabel variant={TypographyVariant.Body5Medium}>Subscriber</ConfigurationLabel>
 
-          <NavbarSelect
+          <StyledSelect
             value={selectedUser?._id ?? ''}
-            size="small"
-            displayEmpty
             onChange={handleUserChange}
+            options={userOptions}
+            displayEmpty
             renderValue={(selected) => {
-              if (!selected) {
-                return (
-                  <Typography variant={TypographyVariant.Body5Light} color="#FFFFFF">
-                    Choose...
-                  </Typography>
-                )
-              }
-
-              const option = users?.find((u) => u._id === selected)
-              return <Typography variant={TypographyVariant.Body5Light}>{option?.subscriber_url}</Typography>
+              if (!selected) return 'Choose...'
+              const user = users?.find((u) => u._id === selected)
+              return user?.subscriber_url || 'Choose...'
             }}
-          >
-            {users?.length ? (
-              users.map((user: IUser) => (
-                <MenuItem key={user._id} value={user._id}>
-                  {user.subscriber_url}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem disabled>No users available</MenuItem>
-            )}
-          </NavbarSelect>
-
-          <UserAvatar>
-            <AccountCircle />
-          </UserAvatar>
+          />
         </RightSection>
       </StyledToolbar>
     </StyledAppBar>

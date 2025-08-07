@@ -19,12 +19,10 @@ export interface IFormData {
 }
 
 export interface IDomainConfigurationProps {
-  register: UseFormRegister<IFormData>
   errors: FieldErrors<IFormData>
   role: string
-  setValue: (name: keyof IFormData, value: any, options?: any) => void
-  watch: UseFormWatch<IFormData>
   selectedUser: any
+  control: Control<IFormData>
 }
 
 export interface IHeaderSectionProps {
