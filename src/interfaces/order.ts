@@ -6,6 +6,7 @@ export interface IOrder extends Record<string, unknown> {
   orderStatus: 'In Progress' | 'Completed' | 'Pending'
   totalOrderValue: number
   bffPercent: number
+  domain: string
   dueDate: string
   msn?: boolean
 }

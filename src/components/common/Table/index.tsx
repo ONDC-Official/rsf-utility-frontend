@@ -40,21 +40,21 @@ const Table = <T,>({
   expandable = false,
   loading = false,
 }: ITableProps<T> & { loading?: boolean }) => {
-  const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
-  const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
+  // const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
+  // const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
 
-  const handleOrderIdClick = (event: React.MouseEvent<HTMLElement>) => {
-    setOrderIdAnchorEl(event.currentTarget)
-  }
+  // const handleOrderIdClick = (event: React.MouseEvent<HTMLElement>) => {
+  //   setOrderIdAnchorEl(event.currentTarget)
+  // }
 
-  const handleOrderIdClose = () => {
-    setOrderIdAnchorEl(null)
-  }
+  // const handleOrderIdClose = () => {
+  //   setOrderIdAnchorEl(null)
+  // }
 
-  const handleOrderIdSort = (order: SortOrder) => {
-    setOrderIdSortOrder(order)
-    handleOrderIdClose()
-  }
+  // const handleOrderIdSort = (order: SortOrder) => {
+  //   setOrderIdSortOrder(order)
+  //   handleOrderIdClose()
+  // }
 
   const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (onSelectAll && getItemId) {
@@ -97,7 +97,8 @@ const Table = <T,>({
               )}
               {(columns || []).map((column, index) => (
                 <StyledTableCell key={column.id}>
-                  {index === (expandable ? 1 : 0) ? (
+                  {column.label}
+                  {/* {index === (expandable ? 1 : 0) ? (
                     <HeaderLabelContainer>
                       {column.label}
                       <StyledIconButton size="small" onClick={handleOrderIdClick}>
@@ -122,7 +123,7 @@ const Table = <T,>({
                     </HeaderLabelContainer>
                   ) : (
                     column.label
-                  )}
+                  )} */}
                 </StyledTableCell>
               ))}
             </TableRow>

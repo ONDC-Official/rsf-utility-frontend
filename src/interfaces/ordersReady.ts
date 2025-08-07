@@ -6,6 +6,7 @@ export interface IOrderReady extends Record<string, unknown> {
   totalOrderValue: number
   commission: number
   sellerType: string
+  domain: string
   dueDate: string
 }
 
