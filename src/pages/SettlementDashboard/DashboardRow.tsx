@@ -2,7 +2,12 @@ import React from 'react'
 import { Checkbox, Tooltip } from '@mui/material'
 import { Info } from '@mui/icons-material'
 import StatusChip from 'components/common/StatusChip'
-import { StyledTableBodyCell, TableBodyCheckboxCell, ActionButton } from 'styles/components/Table.styled'
+import {
+  StyledTableBodyCell,
+  TableBodyCheckboxCell,
+  ActionButton,
+  ErrorInfoContainer,
+} from 'styles/components/Table.styled'
 import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL, ACTION_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 
@@ -62,12 +67,12 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({
       <StyledTableBodyCell>{order.settlementReference || TABLE_CELL_DEFAULTS.SETTLEMENT_REFERENCE}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {order.error ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <ErrorInfoContainer>
             <Tooltip title={order.error}>
               <Info fontSize="small" color="error" />
             </Tooltip>
             <span>{order.error.length > 20 ? `${order.error.substring(0, 20)}...` : order.error}</span>
-          </div>
+          </ErrorInfoContainer>
         ) : (
           TABLE_CELL_DEFAULTS.ERROR
         )}

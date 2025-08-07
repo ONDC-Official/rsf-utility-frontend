@@ -82,12 +82,12 @@ const useOrdersReady = () => {
   }, [])
 
   const handlePrepareClick = async () => {
-    const count = selectedOrders.size
-    if (prepareButtonState === PrepareButtonState.PREPARE && selectedUser?._id) {
+    if (prepareButtonState === PrepareButtonState.PREPARE && selectedUser?._id && selectedOrders?.size) {
+      const count = selectedOrders.size
       const selectedOrderIds = Array.from(selectedOrders)
       const orderIds = selectedOrderIds
         .map((selectedId) => {
-          const order = currentOrders.find((o) => o.id === selectedId)
+          const order = currentOrders?.find((o) => o.id === selectedId)
           return order?.orderId
         })
         .filter(Boolean) as string[]

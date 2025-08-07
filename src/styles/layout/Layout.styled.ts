@@ -13,7 +13,7 @@ export const Wrapper = styled('div')({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-  overflowX: 'hidden'
+  overflowX: 'hidden',
 })
 
 export const Footer = styled('footer')({
