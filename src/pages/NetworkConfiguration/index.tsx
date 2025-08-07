@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import TextField from '@mui/material/TextField'
-import { MenuItem, Select, FormHelperText } from '@mui/material'
+import { MenuItem, Select, FormHelperText, TextField } from '@mui/material'
 import TaxesIcon from 'assets/images/svg/TaxesIcon'
 import RemoveIcon from 'assets/images/svg/RemoveIcon'
 import BankIcon from 'assets/images/svg/BankIcon'
@@ -30,6 +29,8 @@ import { useToast } from 'context/toastContext'
 import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
 import { IFormData } from './type'
 import { defaultFormData, defaultProvider } from './data'
+import { TypographyVariant } from 'enums/typography'
+import { Typography } from '@mui/material'
 
 const NetworkConfiguration = () => {
   const { selectedUser, isLoading, setSelectedUser } = useUserContext()
@@ -119,6 +120,7 @@ const NetworkConfiguration = () => {
           <DomainConfigContainer>
             <ConfigHeader>Domain Configuration</ConfigHeader>
             <FormContainer>
+              <Typography variant={TypographyVariant.Body5Medium}>Title</Typography>
               <TextField
                 fullWidth
                 placeholder="Enter Configuration Title"
@@ -126,6 +128,7 @@ const NetworkConfiguration = () => {
                 error={!!errors.title}
                 helperText={errors.title?.message}
               />
+              <Typography variant={TypographyVariant.Body5Medium}>Role</Typography>
               <Select
                 {...register('role', { required: 'Role is required' })}
                 value={role || ''}
@@ -133,6 +136,7 @@ const NetworkConfiguration = () => {
                 displayEmpty
                 renderValue={(selected) => (selected ? selected : 'Select Role')}
               >
+                <Typography variant={TypographyVariant.Body5Medium}>Domain Category</Typography>
                 <MenuItem value="" disabled>
                   Select Role
                 </MenuItem>
@@ -140,7 +144,7 @@ const NetworkConfiguration = () => {
                 <MenuItem value="Buyer App">Buyer App</MenuItem>
               </Select>
               {errors.role && <FormHelperText error>{errors.role.message}</FormHelperText>}
-
+              <Typography variant={TypographyVariant.Body5Medium}>NP to NP Tax (%)</Typography>
               <Select
                 {...register('domainCategory', { required: 'Domain category is required' })}
                 value={watch('domainCategory') || ''}
@@ -154,7 +158,7 @@ const NetworkConfiguration = () => {
                 <MenuItem value="F&B (RET11)">F&B (RET11)</MenuItem>
               </Select>
               {errors.domainCategory && <FormHelperText error>{errors.domainCategory.message}</FormHelperText>}
-
+              <Typography variant={TypographyVariant.Body5Medium}>NP to Provider Tax (%)</Typography>
               <TextField
                 fullWidth
                 type="number"
@@ -163,6 +167,7 @@ const NetworkConfiguration = () => {
                 error={!!errors.npToNpTax}
                 helperText={errors.npToNpTax?.message}
               />
+              <Typography variant={TypographyVariant.Body5Medium}>Type</Typography>
               <TextField
                 fullWidth
                 type="number"
@@ -173,6 +178,7 @@ const NetworkConfiguration = () => {
               />
               {role !== 'Buyer App' && (
                 <>
+                  <Typography variant={TypographyVariant.Body5Medium}>Type</Typography>
                   <Select
                     {...register('type', { required: 'Type is required' })}
                     value={watch('type') || ''}
@@ -186,6 +192,7 @@ const NetworkConfiguration = () => {
                     <MenuItem value="MSN">MSN</MenuItem>
                   </Select>
                   {errors.type && <FormHelperText error>{errors.type.message}</FormHelperText>}
+                  <Typography variant={TypographyVariant.Body5Medium}>Subscriber URL</Typography>
                   <TextField
                     fullWidth
                     placeholder="Enter Subscriber URL"
@@ -224,6 +231,7 @@ const NetworkConfiguration = () => {
                   {fields.length > 1 && <RemoveIcon onClick={() => remove(index)} />}
                 </ConfigHeader>
                 <FormContainer>
+                  <Typography variant={TypographyVariant.Body5Medium}>Provider ID</Typography>
                   <TextField
                     fullWidth
                     placeholder="Enter Provider ID"
@@ -234,6 +242,7 @@ const NetworkConfiguration = () => {
                     error={!!errors.providers?.[index]?.providerId}
                     helperText={errors.providers?.[index]?.providerId?.message}
                   />
+                  <Typography variant={TypographyVariant.Body5Medium}>IFSC Code</Typography>
                   <TextField
                     fullWidth
                     placeholder="Enter IFSC Code"
@@ -244,6 +253,7 @@ const NetworkConfiguration = () => {
                     error={!!errors.providers?.[index]?.ifscCode}
                     helperText={errors.providers?.[index]?.ifscCode?.message}
                   />
+                  <Typography variant={TypographyVariant.Body5Medium}>Account Number</Typography>
                   <TextField
                     fullWidth
                     placeholder="Enter Account Number"
@@ -254,6 +264,7 @@ const NetworkConfiguration = () => {
                     error={!!errors.providers?.[index]?.accountNumber}
                     helperText={errors.providers?.[index]?.accountNumber?.message}
                   />
+                  <Typography variant={TypographyVariant.Body5Medium}>Bank Name</Typography>
                   <TextField
                     fullWidth
                     placeholder="Enter Bank Name"
