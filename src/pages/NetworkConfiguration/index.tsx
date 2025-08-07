@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import TextField from '@mui/material/TextField'
 import { MenuItem, Select, FormHelperText } from '@mui/material'
 import TaxesIcon from 'assets/images/svg/TaxesIcon'
@@ -24,7 +25,6 @@ import {
 } from 'styles/pages/NetworkConfiguration'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
-import { useEffect } from 'react'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import { useToast } from 'context/toastContext'
 import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
@@ -42,7 +42,7 @@ const NetworkConfiguration = () => {
     setValue,
     reset,
     formState: { errors },
-  } = useForm<IFormData>({ mode: 'onChange', defaultValues: defaultFormData })
+  } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
   const { fields, append, remove } = useFieldArray({ control, name: 'providers' })
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
   const role = watch('role')
@@ -67,14 +67,15 @@ const NetworkConfiguration = () => {
           : [defaultProvider],
       )
     } else {
-      // Ensure at least one provider is present when no user is selected
       setValue('providers', fields.length ? fields : [defaultProvider])
     }
-  }, [selectedUser, setValue, fields.length])
+  }, [selectedUser, setValue])
 
   const onSubmit = async (data: IFormData) => {
+    const { providers, ...rest } = data
+    const payload = data.role === 'Buyer App' ? rest : data
     try {
-      await submitConfig(data)
+      await submitConfig(payload)
       reset(defaultFormData)
       setSelectedUser(null)
       toast({
@@ -99,9 +100,8 @@ const NetworkConfiguration = () => {
         <ActionButton
           variant="outlined"
           onClick={() => {
-            setSelectedUser(null)
             reset(defaultFormData)
-            append(defaultProvider) // Ensure provider form is visible after reset
+            setSelectedUser(null)
           }}
         >
           <AddIcon /> Add Configuration
@@ -205,68 +205,70 @@ const NetworkConfiguration = () => {
           </DomainConfigContainer>
         </ConfigurationBox>
 
-        <ConfigurationBox>
-          <SettlementHeader>
-            <NetworkIdentityHeader>
-              <BankIcon />
-              <NetworkIdentityTitle>Provider Bank Account Details</NetworkIdentityTitle>
-            </NetworkIdentityHeader>
-            <ActionButton variant="outlined" onClick={() => append(defaultProvider)}>
-              <AddIcon /> Add Provider
-            </ActionButton>
-          </SettlementHeader>
+        {role !== 'Buyer App' && (
+          <ConfigurationBox>
+            <SettlementHeader>
+              <NetworkIdentityHeader>
+                <BankIcon />
+                <NetworkIdentityTitle>Provider Bank Account Details</NetworkIdentityTitle>
+              </NetworkIdentityHeader>
+              <ActionButton variant="outlined" onClick={() => append(defaultProvider)}>
+                <AddIcon /> Add Provider
+              </ActionButton>
+            </SettlementHeader>
 
-          {fields.map((field, index) => (
-            <DomainConfigContainer key={field.id}>
-              <ConfigHeader>
-                <div>Provider {index + 1}</div>
-                {fields.length > 1 && <RemoveIcon onClick={() => remove(index)} />}
-              </ConfigHeader>
-              <FormContainer>
-                <TextField
-                  fullWidth
-                  placeholder="Enter Provider ID"
-                  {...register(`providers.${index}.providerId`, {
-                    required: 'Provider ID is required',
-                    pattern: { value: /^[A-Z0-9]+$/, message: 'Must be alphanumeric' },
-                  })}
-                  error={!!errors.providers?.[index]?.providerId}
-                  helperText={errors.providers?.[index]?.providerId?.message}
-                />
-                <TextField
-                  fullWidth
-                  placeholder="Enter IFSC Code"
-                  {...register(`providers.${index}.ifscCode`, {
-                    required: 'IFSC Code is required',
-                    pattern: { value: /^[A-Z]{4}0[A-Z0-9]{6}$/, message: 'Invalid IFSC code' },
-                  })}
-                  error={!!errors.providers?.[index]?.ifscCode}
-                  helperText={errors.providers?.[index]?.ifscCode?.message}
-                />
-                <TextField
-                  fullWidth
-                  placeholder="Enter Account Number"
-                  {...register(`providers.${index}.accountNumber`, {
-                    required: 'Account number is required',
-                    pattern: { value: /^\d{9,18}$/, message: 'Must be 9-18 digits' },
-                  })}
-                  error={!!errors.providers?.[index]?.accountNumber}
-                  helperText={errors.providers?.[index]?.accountNumber?.message}
-                />
-                <TextField
-                  fullWidth
-                  placeholder="Enter Bank Name"
-                  {...register(`providers.${index}.bankName`, {
-                    required: 'Bank name is required',
-                    minLength: { value: 3, message: 'Minimum 3 characters' },
-                  })}
-                  error={!!errors.providers?.[index]?.bankName}
-                  helperText={errors.providers?.[index]?.bankName?.message}
-                />
-              </FormContainer>
-            </DomainConfigContainer>
-          ))}
-        </ConfigurationBox>
+            {fields.map((field, index) => (
+              <DomainConfigContainer key={field.id}>
+                <ConfigHeader>
+                  <div>Provider {index + 1}</div>
+                  {fields.length > 1 && <RemoveIcon onClick={() => remove(index)} />}
+                </ConfigHeader>
+                <FormContainer>
+                  <TextField
+                    fullWidth
+                    placeholder="Enter Provider ID"
+                    {...register(`providers.${index}.providerId`, {
+                      required: 'Provider ID is required',
+                      pattern: { value: /^[A-Z0-9]+$/, message: 'Must be alphanumeric' },
+                    })}
+                    error={!!errors.providers?.[index]?.providerId}
+                    helperText={errors.providers?.[index]?.providerId?.message}
+                  />
+                  <TextField
+                    fullWidth
+                    placeholder="Enter IFSC Code"
+                    {...register(`providers.${index}.ifscCode`, {
+                      required: 'IFSC Code is required',
+                      pattern: { value: /^[A-Z]{4}0[A-Z0-9]{6}$/, message: 'Invalid IFSC code' },
+                    })}
+                    error={!!errors.providers?.[index]?.ifscCode}
+                    helperText={errors.providers?.[index]?.ifscCode?.message}
+                  />
+                  <TextField
+                    fullWidth
+                    placeholder="Enter Account Number"
+                    {...register(`providers.${index}.accountNumber`, {
+                      required: 'Account number is required',
+                      pattern: { value: /^\d{9,18}$/, message: 'Must be 9-18 digits' },
+                    })}
+                    error={!!errors.providers?.[index]?.accountNumber}
+                    helperText={errors.providers?.[index]?.accountNumber?.message}
+                  />
+                  <TextField
+                    fullWidth
+                    placeholder="Enter Bank Name"
+                    {...register(`providers.${index}.bankName`, {
+                      required: 'Bank name is required',
+                      minLength: { value: 3, message: 'Minimum 3 characters' },
+                    })}
+                    error={!!errors.providers?.[index]?.bankName}
+                    helperText={errors.providers?.[index]?.bankName?.message}
+                  />
+                </FormContainer>
+              </DomainConfigContainer>
+            ))}
+          </ConfigurationBox>
+        )}
 
         <SaveButtonContainer>
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>

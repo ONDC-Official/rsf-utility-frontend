@@ -13,5 +13,5 @@ export interface IFormData {
   type: string
   npToNpTax: number
   subscriberUrl: string
-  providers: IProvider[]
+  providers?: IProvider[]
 }

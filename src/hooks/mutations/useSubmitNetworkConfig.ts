@@ -7,21 +7,27 @@ import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 
-const mapToPayload = (data: IFormData) => ({
-  // title: data.title,
-  role: data.role === 'Seller App' ? 'BPP' : 'BAP',
-  subscriber_url: data.subscriberUrl,
-  domain: data.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, ''),
-  tcs: parseFloat(`${data.npToNpTax}`),
-  tds: parseFloat(`${data.npToProviderTax}`),
-  msn: data.type === 'MSN',
-  provider_details: data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
-    provider_id: providerId,
-    account_number: accountNumber,
-    ifsc_code: ifscCode,
-    bank_name: bankName,
-  })),
-})
+const mapToPayload = (data: IFormData) => {
+  const payload: any = {
+    role: data.role === 'Seller App' ? 'BPP' : 'BAP',
+    subscriber_url: data.subscriberUrl,
+    domain: data.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, ''),
+    tcs: parseFloat(`${data.npToNpTax}`),
+    tds: parseFloat(`${data.npToProviderTax}`),
+    msn: data.type === 'MSN',
+  }
+
+  if (data.providers?.length) {
+    payload.provider_details = data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
+      provider_id: providerId,
+      account_number: accountNumber,
+      ifsc_code: ifscCode,
+      bank_name: bankName,
+    }))
+  }
+
+  return payload
+}
 
 const useSubmitNetworkConfig = () => {
   const { selectedUser } = useUserContext()
@@ -33,9 +39,7 @@ const useSubmitNetworkConfig = () => {
     async (data: IFormData) => {
       const payload = mapToPayload(data)
       const isUpdate = Boolean(selectedUser?._id)
-      const url = isUpdate
-        ? buildApiUrl(APIRoute.UPDATE_USER, { id: selectedUser!._id })
-        : buildApiUrl(APIRoute.USER, {})
+      const url = isUpdate ? buildApiUrl(`${APIRoute.USERS}/:id`, { id: selectedUser!._id }) : APIRoute.USERS
 
       const result = isUpdate
         ? await patchMutation.mutateAsync({ url, payload })
