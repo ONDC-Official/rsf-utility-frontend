@@ -23,8 +23,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
 }) => {
   const getButtonText = () => {
     if (prepareButtonState === PrepareButtonState.DISABLED) return ORDER_HEADER_LABELS.prepareZero
-    if (prepareButtonState === PrepareButtonState.PREPARE) return ORDER_HEADER_LABELS.prepareWithCount(selectedCount)
-    return ORDER_HEADER_LABELS.generateWithCount(selectedCount)
+    return ORDER_HEADER_LABELS.prepareWithCount(selectedCount)
   }
 
   return (
