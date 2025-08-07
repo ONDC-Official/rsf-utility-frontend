@@ -14,7 +14,7 @@ import NetworkConfiguration from 'pages/NetworkConfiguration'
 
 const AppRoutes: FC = () => (
   <Routes>
-    <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.ORDERS_PROGRESS} replace />} />
+    <Route path={ROUTES.ROOT} element={<Navigate to={ROUTES.CONFIGURATION} replace />} />
 
     <Route
       path={ROUTES.ORDERS_PROGRESS}
