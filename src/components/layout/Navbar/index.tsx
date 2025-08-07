@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { MenuItem, SelectChangeEvent, Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import {
@@ -23,14 +23,6 @@ const Navbar: FC = () => {
     const userObj = users?.find((u) => u._id === selectedId) || null
     setSelectedUser(userObj)
   }
-
-  // Auto-select the user only if there is exactly one user available.
-  // Prevents overriding manual deselection (e.g., during 'Add Configuration').
-  useEffect(() => {
-    if (!selectedUser && Array.isArray(users) && users.length === 0 && users[0]) {
-      setSelectedUser(users[0])
-    }
-  }, [users, selectedUser, setSelectedUser])
 
   return (
     <StyledAppBar position="static">

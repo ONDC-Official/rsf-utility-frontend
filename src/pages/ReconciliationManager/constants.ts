@@ -1,5 +1,4 @@
 export const RECONCILIATION_LABELS = {
-  MODAL_TITLE: '',
   TITLE: 'Reconciliation Manager',
   SUBTITLE: 'Manage reconciliation requests for not settled orders',
   GENERATE_BUTTON: 'Generate Recon Request',
