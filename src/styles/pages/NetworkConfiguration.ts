@@ -182,7 +182,7 @@ export const RemoveWrapper = styled('div')({
 export const StyledSelect = styled(Select)({
   '& .MuiSelect-select': {
     fontSize: '14px',
-    color: 'black',
+    color: colors.text.main,
   },
 })
 
@@ -194,7 +194,7 @@ export const StyledInput = styled(InputField)({
     backgroundColor: colors.background.light,
     borderRadius: 10,
     '& fieldset': {
-      borderColor: '#DFE0E5',
+      borderColor: colors.neutral.main,
       borderRadius: 10,
       height: 62,
     },

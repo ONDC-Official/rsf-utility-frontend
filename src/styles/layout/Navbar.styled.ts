@@ -42,11 +42,11 @@ export const StyledSelect = styled(Select)({
   paddingRight: '10px',
   paddingBottom: '8px',
   paddingLeft: '10px',
-  border: '1px solid #BFBFBF',
-  backgroundColor: '#0B3352',
+  border: `1px solid ${colors.button.subHeading}`,
+  backgroundColor: colors.primary.main,
   fontSize: '12px',
   fontFamily: 'Inter',
-  color: '#FFFFFF',
+  color: colors.primary.contrastText,
 
   '& .MuiSelect-select': {
     display: 'flex',
@@ -56,7 +56,7 @@ export const StyledSelect = styled(Select)({
   },
 
   '& .MuiSelect-icon': {
-    color: '#FFFFFF',
+    color: colors.primary.contrastText,
   },
 })
 export const UserAvatar = styled(Avatar)({
