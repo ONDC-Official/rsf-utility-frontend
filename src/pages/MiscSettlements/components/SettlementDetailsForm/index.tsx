@@ -3,7 +3,6 @@ import { useForm, Controller } from 'react-hook-form'
 import { Typography } from '@mui/material'
 import {
   SettlementDetailsContainer,
-  SectionTitle,
   FieldRow,
   FieldLabelBox,
   FieldInputBox,
@@ -11,11 +10,13 @@ import {
   Divider,
   ActionButtons,
   RotatedSendIcon,
+  BottomAlignedTypography,
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
 import Button from 'components/common/Button'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
+import Blockchain from 'assets/images/svg/Blockchain'
 
 interface Props {
   onSubmit: (values: MiscSettlementFormValues) => void
@@ -46,12 +47,15 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
 
   return (
     <SettlementDetailsContainer>
-      <SectionTitle variant={TypographyVariant.H3Semibold}>Settlement Details</SectionTitle>
+      <BottomAlignedTypography variant={TypographyVariant.H5Bold}>
+        <Blockchain style={{ marginRight: 4 }} />
+        Settlement Details
+      </BottomAlignedTypography>
 
       <form onSubmit={internalSubmit} noValidate>
         <FieldRow>
           <FieldLabelBox>
-            <Typography variant={TypographyVariant.Body1Medium}>Amount to Transfer to Self</Typography>
+            <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Self</Typography>
           </FieldLabelBox>
           <FieldInputBox>
             <Controller
@@ -75,7 +79,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
 
         <FieldRow>
           <FieldLabelBox>
-            <Typography variant={TypographyVariant.Body1Medium}>Amount to Transfer to Provider</Typography>
+            <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider</Typography>
           </FieldLabelBox>
           <FieldInputBox>
             <Controller
@@ -97,7 +101,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
 
         <FieldRow>
           <FieldBox>
-            <Typography variant={TypographyVariant.Body5Light}>Provider ID</Typography>
+            <Typography variant={TypographyVariant.Caption1}>Provider ID</Typography>
             <Controller
               control={control}
               name="providerId"
@@ -115,7 +119,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
           </FieldBox>
 
           <FieldBox>
-            <Typography variant={TypographyVariant.Body5Light}>Provider Name</Typography>
+            <Typography variant={TypographyVariant.Caption1}>Provider Name</Typography>
             <Controller
               control={control}
               name="providerName"
@@ -135,7 +139,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
 
         <FieldRow>
           <FieldBox>
-            <Typography variant={TypographyVariant.Body5Light}>Bank Account Number</Typography>
+            <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
             <Controller
               control={control}
               name="bankAccountNumber"
@@ -153,7 +157,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
           </FieldBox>
 
           <FieldBox>
-            <Typography variant={TypographyVariant.Body5Light}>IFSC Code</Typography>
+            <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
             <Controller
               control={control}
               name="ifscCode"

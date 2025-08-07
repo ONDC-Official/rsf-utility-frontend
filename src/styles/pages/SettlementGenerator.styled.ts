@@ -251,7 +251,7 @@ export const CloseButton = styled(IconButton)({
   color: colors.text.secondary,
 })
 
-export const StyledForm = styled(Box)({
+export const StyledForm = styled('form')({
   padding: '24px',
 })
 

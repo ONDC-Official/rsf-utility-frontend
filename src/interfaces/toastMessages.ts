@@ -8,6 +8,7 @@ export interface IToastMessage {
 export interface IToastGroup {
   SUCCESS: IToastMessage
   ERROR: IToastMessage
+  [key: string]: IToastMessage
 }
 
 export interface IToast {

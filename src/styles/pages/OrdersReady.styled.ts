@@ -50,17 +50,18 @@ export const ReceiverLabel = styled(Typography)({
 
 export const Container = styled(Box)({
   background: colors.background.light,
-  boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
-  marginBottom: 24,
+  marginBottom: 16,
+  padding: '32px',
 })
 
 export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
+  background: colors.background.light,
   alignItems: 'center',
-  padding: '20px 24px',
+  marginBottom: 16,
 })
 
 export const Actions = styled(Box)({

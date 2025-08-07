@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
-import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
+// import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
@@ -13,12 +13,14 @@ import { GENERATE_NP_NP_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessag
 import { useToast } from 'context/toastContext'
 import useGetUserSettlements from 'hooks/queries/useGetUserSettlements'
 import { IUserSettlementItem } from 'interfaces/settlement'
+import { useLoader } from 'context/loaderContext'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
   const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
 
-  const [counterpartyId, setCounterpartyId] = useState('')
+  // const [counterpartyId, setCounterpartyId] = useState('')
   const [customDueDate, setCustomDueDate] = useState('')
   const [showPayloadPreview, setShowPayloadPreview] = useState(false)
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
@@ -28,7 +30,6 @@ const SettlementGenerator: FC = () => {
   const miscMutation = useGenerateNpSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  // === 1. Fetch orders from API ===
   const {
     data: fetchedOrders,
     isLoading,
@@ -39,11 +40,10 @@ const SettlementGenerator: FC = () => {
 
   const orders: IUserSettlementItem[] = fetchedOrders?.data || []
 
-  // === 2. Submit payload ===
   const handleSubmit = async () => {
-    const payload = { settle_data: Object.values(formInputs) || [] }
-
     try {
+      showLoader()
+      const payload = { settle_data: Object.values(formInputs) || [] }
       const res = await miscMutation.triggerAsync(payload)
       toast(GENERATE_NP_NP_SETTLEMENT.SUCCESS)
 
@@ -55,6 +55,8 @@ const SettlementGenerator: FC = () => {
       }
     } catch (e) {
       toast(GENERATE_NP_NP_SETTLEMENT.ERROR)
+    } finally {
+      hideLoader()
     }
   }
 
@@ -62,9 +64,9 @@ const SettlementGenerator: FC = () => {
     setSelectedOrders(newSelected)
   }
 
-  const handleToggleMode = () => {
-    // future logic here
-  }
+  // const handleToggleMode = () => {
+  //   // future logic here
+  // }
 
   const calculateSummary = (): ISettlementSummary => {
     const selectedList = Array.from(selectedOrders)
@@ -83,14 +85,13 @@ const SettlementGenerator: FC = () => {
   return (
     <Container>
       <HeaderSection />
-      <ModeSelection
+      {/* <ModeSelection
         isManualMode={true}
         onToggleMode={handleToggleMode}
         counterpartyId={counterpartyId}
         setCounterpartyId={setCounterpartyId}
-      />
+      /> */}
 
-      {/* === 3. Table and Loading/Error States === */}
       {isLoading ? (
         <div>Loading orders...</div>
       ) : isError ? (

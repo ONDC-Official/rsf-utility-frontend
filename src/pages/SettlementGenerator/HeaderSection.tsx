@@ -1,19 +1,14 @@
 import { FC } from 'react'
 import { Warning } from '@mui/icons-material'
-import {
-  PageHeader as Container,
-  Left,
-  Right,
-  PageTitle,
-  PageSubtitle,
-  AlertContainer,
-} from 'styles/pages/SettlementGenerator.styled'
+import { PageHeader as Container, Left, Right, AlertContainer } from 'styles/pages/SettlementGenerator.styled'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 
 const HeaderSection: FC = () => (
   <Container>
     <Left>
-      <PageTitle>Settlement Generator</PageTitle>
-      <PageSubtitle>Select orders to prepare for settlement</PageSubtitle>
+      <Typography variant={TypographyVariant.H4}>Settlement Generator</Typography>
+      <Typography variant={TypographyVariant.H6}>Select orders to prepare for settlement</Typography>
     </Left>
     <Right>
       <AlertContainer>

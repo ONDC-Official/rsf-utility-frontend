@@ -14,13 +14,18 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null)
   const { showLoader, hideLoader } = useLoader()
 
+  const [initialLoadHandled, setInitialLoadHandled] = useState(false)
+
   useEffect(() => {
-    if (isLoading) {
-      showLoader()
-    } else {
-      hideLoader()
+    if (!initialLoadHandled) {
+      if (isLoading) {
+        showLoader()
+      } else {
+        hideLoader()
+        setInitialLoadHandled(true)
+      }
     }
-  }, [isLoading, showLoader, hideLoader])
+  }, [isLoading, initialLoadHandled, showLoader, hideLoader])
 
   return (
     <UserContext.Provider
