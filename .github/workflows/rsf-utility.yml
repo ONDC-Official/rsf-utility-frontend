@@ -34,18 +34,18 @@ jobs:
               rm -rf rsf-utility-frontend
             fi
 
-            echo "📥 Cloning latest code from GitHub (develop branch)..."
+            echo "Cloning latest code from GitHub (develop branch)..."
             git clone -b develop https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
-
-            echo "📦 Writing environment variables..."
+            
+            echo "Writing environment variables..."
             echo "REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}" > .env
             echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" >> .env
 
-            echo "🚀 Starting Docker Compose..."
+            echo "Starting Docker Compose..."
             docker-compose up -d --build
 
-            echo "✅ Deployment completed successfully!"
+            echo "Deployment completed successfully!"
           EOF
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
