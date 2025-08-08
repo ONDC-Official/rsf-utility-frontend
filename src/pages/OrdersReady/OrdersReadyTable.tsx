@@ -1,7 +1,8 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Typography } from '@mui/material'
 import Table from 'components/common/Table'
-import DateFilterButton from 'components/common/DateFilterButton'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { IOrderReady } from 'interfaces/ordersReady'
 import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
@@ -30,14 +31,23 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   selectedItems,
   onSelectAll,
 }) => {
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const getItemId = (item: IOrderReady): string => item.id
+
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
 
   return (
     <Container>
       <Header>
         <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <DateFilterButton variant="outlined" />
+          <DateRangePickerButton
+            variant="outlined"
+            selectedDateRange={dateRange}
+            onDateRangeChange={handleDateRangeChange}
+          />
         </Actions>
       </Header>
       <Table

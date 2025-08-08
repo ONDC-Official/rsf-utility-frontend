@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { TypographyVariant } from 'enums/typography'
 import {
   Container,
@@ -10,7 +10,7 @@ import {
   HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
 import { GetApp, Upload } from '@mui/icons-material'
-import DateFilterButton from 'components/common/DateFilterButton'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
@@ -22,8 +22,10 @@ import Button from 'components/common/Button'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import { useLoader } from 'context/loaderContext'
 import { Typography } from '@mui/material'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 const MiscSettlements: FC = () => {
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const toast = useToast()
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -68,6 +70,10 @@ const MiscSettlements: FC = () => {
     }
   }
 
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
+
   return (
     <Container>
       <Header>
@@ -88,7 +94,11 @@ const MiscSettlements: FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
           <TableActions>
-            <DateFilterButton variant="outlined" onDateChange={() => {}} />
+            <DateRangePickerButton
+              variant="outlined"
+              selectedDateRange={dateRange}
+              onDateRangeChange={handleDateRangeChange}
+            />
             <Button variant="contained" startIcon={<GetApp />}>
               Export
             </Button>
