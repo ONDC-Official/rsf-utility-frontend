@@ -1,5 +1,19 @@
 import { FC, useState } from 'react'
+import { Typography } from '@mui/material'
+import { Upload } from '@mui/icons-material'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import Button from 'components/common/Button'
+import SettlementDetailsForm from './components/SettlementDetailsForm'
+import SettlementsTable from './components/SettlementsTable'
+import useTriggerAction from 'hooks/mutations/useTriggerAction'
+import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
+import { useToast } from 'context/toastContext'
+import { useLoader } from 'context/loaderContext'
+import { useUserContext } from 'context/userContext'
 import { TypographyVariant } from 'enums/typography'
+import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
+import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
 import {
   Container,
   Header,
@@ -9,20 +23,6 @@ import {
   TableActions,
   HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
-import { GetApp, Upload } from '@mui/icons-material'
-import DateRangePickerButton from 'components/common/DateRangePickerButton'
-import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
-import useTriggerAction from 'hooks/mutations/useTriggerAction'
-import { useToast } from 'context/toastContext'
-import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
-import { useUserContext } from 'context/userContext'
-import SettlementDetailsForm from './components/SettlementDetailsForm'
-import SettlementsTable from './components/SettlementsTable'
-import Button from 'components/common/Button'
-import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
-import { useLoader } from 'context/loaderContext'
-import { Typography } from '@mui/material'
-import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 const MiscSettlements: FC = () => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
@@ -99,9 +99,6 @@ const MiscSettlements: FC = () => {
               selectedDateRange={dateRange}
               onDateRangeChange={handleDateRangeChange}
             />
-            <Button variant="contained" startIcon={<GetApp />}>
-              Export
-            </Button>
           </TableActions>
         </TableHeader>
         <SettlementsTable />

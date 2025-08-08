@@ -18,8 +18,6 @@ import {
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
 import { TypographyVariant } from 'enums/typography'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import Button from 'components/common/Button'
 
 const ReconRequestTable: FC<IReconRequestTableProps> = ({ allOrders, onCheckboxSelect }) => {
   const [receiverId, setReceiverId] = useState('RECV001')
@@ -81,9 +79,6 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ allOrders, onCheckboxS
         <TableReceiverSection>
           <ReceiverLabel>{RECONCILIATION_LABELS.RECEIVER_LABEL}</ReceiverLabel>
           <Select value={receiverId} onChange={handleReceiverChange} options={receiverOptions} size="small" />
-          <Button variant="outlined" startIcon={<ExportIcon />}>
-            Export
-          </Button>
         </TableReceiverSection>
       </Header>
 
