@@ -1,22 +1,21 @@
 import { FC, useEffect, useState } from 'react'
 import { Edit, Undo } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
+import Button from 'components/common/Button'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
 import { columns } from 'pages/SettlementGenerator/data'
+import ReinitiateReconciliationModal from 'pages/SettlementGenerator/ReinitiateReconciliationModal'
 import { IOrderTableProps } from 'pages/SettlementGenerator/types'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
-import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
-import ReinitiateReconciliationModal from 'pages/SettlementGenerator/ReinitiateReconciliationModal'
-import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
-import Button from 'components/common/Button'
 import { IUserSettlementItem } from 'interfaces/settlement'
-
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
+import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
+import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
+import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 
 const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange }) => {
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const {
     currentItems: orders,
     selectedItems: selectedOrders,
@@ -48,6 +47,10 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
       },
     }))
     setEditingOrder(null)
+  }
+
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
   }
 
   const renderRow = (order: IUserSettlementItem): JSX.Element => {
@@ -108,12 +111,11 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
         <Title>Select Orders for Settlement</Title>
         <Actions>
           {Object.keys(editedRows).length > 0 && <Button variant="contained">Save edited order</Button>}
-          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
-            Filter by date
-          </Button>
-          <Button variant="outlined" startIcon={<ExportIcon />}>
-            Export
-          </Button>
+          <DateRangePickerButton
+            variant="outlined"
+            selectedDateRange={dateRange}
+            onDateRangeChange={handleDateRangeChange}
+          />
         </Actions>
       </Header>
 

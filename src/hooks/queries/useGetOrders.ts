@@ -79,7 +79,7 @@ const useGetOrders = (
   configs?: UseQueryOptions<IApiResponse<IOrderApiResponse[]>>,
 ): UseQueryResult<IApiResponse<IOrder[]>> => {
   const baseUrl = buildApiUrl(APIRoute.ORDERS, { userId })
-  const url = `${baseUrl}?page=${page}&limit=${limit}&status=${status}`
+  const url = `${baseUrl}?page=${page}&limit=${limit}&state=${status}`
 
   const query = useGet<IOrderApiResponse[]>(`orders-${userId}-${status}-${page}-${limit}`, url, {
     enabled: !!userId && !!status,

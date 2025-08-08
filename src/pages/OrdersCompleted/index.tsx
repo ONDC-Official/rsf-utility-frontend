@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { TableCell } from '@mui/material'
 import { GetApp } from '@mui/icons-material'
-import DateFilterButton from 'components/common/DateFilterButton'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
@@ -9,7 +10,7 @@ import { useUserContext } from 'context/userContext'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { StatusChip } from 'styles/components/Chip.styled'
-import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
+import { ContainedExportButton } from 'styles/components/Button.styled'
 import {
   Container,
   Header,
@@ -44,6 +45,7 @@ const OrdersCompleted: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState('BPP_001')
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
   const { selectedUser } = useUserContext()
 
@@ -85,6 +87,10 @@ const OrdersCompleted: React.FC = () => {
     setPage(1)
   }
 
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
+
   return (
     <Container>
       <Header>
@@ -106,9 +112,10 @@ const OrdersCompleted: React.FC = () => {
         <TableHeader>
           <TableTitle variant={TypographyVariant.Caption1Semibold}>BPP_001</TableTitle>
           <TableActions>
-            <DateFilterButton 
+            <DateRangePickerButton
               variant="outlined"
-              onDateChange={(date) => console.log('Date selected:', date)}
+              selectedDateRange={dateRange}
+              onDateRangeChange={handleDateRangeChange}
             />
             <ContainedExportButton variant="contained" startIcon={<GetApp />}>
               Export

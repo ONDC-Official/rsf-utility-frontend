@@ -6,16 +6,9 @@ import { IReviewReconRequestsProps } from 'pages/ReconciliationManager/types'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
 import { generateIncomingRequests } from 'data/reconciliationManagerData'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
-import {
-  TableContainer as Container,
-  TableHeader as Header,
-  TableActions as Actions,
-  Wrapper,
-} from 'styles/pages/ReconciliationManager.styled'
+import { TableContainer as Container, TableHeader as Header, Wrapper } from 'styles/pages/ReconciliationManager.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
-import Button from 'components/common/Button'
-import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
   const [acceptModalOpen, setAcceptModalOpen] = useState(false)
@@ -57,11 +50,6 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
       <Container>
         <Header>
           <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.INCOMING_TITLE}</Typography>
-          <Actions>
-            <Button variant="outlined" startIcon={<ExportIcon />}>
-              Export
-            </Button>
-          </Actions>
         </Header>
 
         <Wrapper>
