@@ -20,6 +20,7 @@ jobs:
           chmod 700 ~/.ssh/key
           chmod 600 ~/.ssh/key/id_rsa
           ssh-keyscan -H ${{ vars.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2 via SSH
         run: |
@@ -35,7 +36,7 @@ jobs:
             fi
 
             echo "📥 Cloning latest code from GitHub..."
-            git clone -b develop https://github.com/ONDC-Official/rsf-utility-frontend.git
+            git clone -b develop git@github.com:ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
 
             echo "📦 Writing environment variables..."
