@@ -10,7 +10,6 @@ const DateFilterButton: FC<IDateFilterButtonProps> = ({
   selectedDate = null,
   label = 'Filter by date',
   variant = 'outlined',
-
   disabled = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)

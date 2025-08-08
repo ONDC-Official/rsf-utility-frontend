@@ -88,7 +88,7 @@ const NetworkConfiguration: FC = () => {
 
   return (
     <Container>
-      <HeaderSection reset={reset} setSelectedUser={setSelectedUser} />
+      <HeaderSection reset={reset} setSelectedUser={setSelectedUser} selectedUser={selectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <DomainConfiguration errors={errors} role={role} selectedUser={selectedUser} control={control} />
         {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
