@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { Popover, Button as MuiButton } from '@mui/material'
 import { CalendarToday } from '@mui/icons-material'
-import DateInputField from 'components/common/DateInputField'
+import DatePickerInput from 'components/common/DatePickerInput'
 import { IDateRangePickerButtonProps } from 'components/common/DateRangePickerButton/types'
 import { OutlinedFilterButton } from 'styles/components/Button.styled'
 import {
@@ -18,29 +18,13 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
   disabled = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const [startDateInput, setStartDateInput] = useState('')
-  const [endDateInput, setEndDateInput] = useState('')
+  const [tempStartDate, setTempStartDate] = useState<Date | null>(selectedDateRange.startDate)
+  const [tempEndDate, setTempEndDate] = useState<Date | null>(selectedDateRange.endDate)
 
   useEffect(() => {
-    if (selectedDateRange.startDate) {
-      setStartDateInput(formatDateForInput(selectedDateRange.startDate))
-    } else {
-      setStartDateInput('')
-    }
-
-    if (selectedDateRange.endDate) {
-      setEndDateInput(formatDateForInput(selectedDateRange.endDate))
-    } else {
-      setEndDateInput('')
-    }
+    setTempStartDate(selectedDateRange.startDate)
+    setTempEndDate(selectedDateRange.endDate)
   }, [selectedDateRange])
-
-  const formatDateForInput = (date: Date): string => {
-    const year = date.getFullYear()
-    const month = (date.getMonth() + 1).toString().padStart(2, '0')
-    const day = date.getDate().toString().padStart(2, '0')
-    return `${year}-${month}-${day}`
-  }
 
   const formatDateForDisplay = (date: Date): string =>
     date.toLocaleDateString('en-US', {
@@ -48,12 +32,6 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
       day: 'numeric',
       year: 'numeric',
     })
-
-  const parseInputDate = (dateString: string): Date | null => {
-    if (!dateString) return null
-    const date = new Date(dateString)
-    return isNaN(date.getTime()) ? null : date
-  }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget)
@@ -63,27 +41,27 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
     setAnchorEl(null)
   }
 
-  const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setStartDateInput(event.target.value)
+  const handleStartDateChange = (date: Date | null): void => {
+    setTempStartDate(date)
+    if (date && tempEndDate && date > tempEndDate) {
+      setTempEndDate(null)
+    }
   }
 
-  const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setEndDateInput(event.target.value)
+  const handleEndDateChange = (date: Date | null): void => {
+    setTempEndDate(date)
   }
 
   const handleApply = (): void => {
-    const startDate = parseInputDate(startDateInput)
-    const endDate = parseInputDate(endDateInput)
-
-    if (startDate && endDate && startDate <= endDate && onDateRangeChange) {
-      onDateRangeChange({ startDate, endDate })
+    if (tempStartDate && tempEndDate && tempStartDate <= tempEndDate && onDateRangeChange) {
+      onDateRangeChange({ startDate: tempStartDate, endDate: tempEndDate })
       handleClose()
     }
   }
 
   const handleClear = (): void => {
-    setStartDateInput('')
-    setEndDateInput('')
+    setTempStartDate(null)
+    setTempEndDate(null)
     if (onDateRangeChange) {
       onDateRangeChange({ startDate: null, endDate: null })
     }
@@ -100,9 +78,7 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
   }
 
   const canApply = (): boolean => {
-    const startDate = parseInputDate(startDateInput)
-    const endDate = parseInputDate(endDateInput)
-    return !!(startDate && endDate && startDate <= endDate)
+    return !!(tempStartDate && tempEndDate && tempStartDate <= tempEndDate)
   }
 
   const open = Boolean(anchorEl)
@@ -134,19 +110,20 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
           </PopoverTitle>
 
           <DateFieldsContainer>
-            <DateInputField
+            <DatePickerInput
               label="Start Date"
-              type="date"
-              value={startDateInput}
+              value={tempStartDate}
               onChange={handleStartDateChange}
               size="small"
+              placeholder="Select start date"
             />
-            <DateInputField
+            <DatePickerInput
               label="End Date"
-              type="date"
-              value={endDateInput}
+              value={tempEndDate}
               onChange={handleEndDateChange}
               size="small"
+              placeholder="Select end date"
+              minDate={tempStartDate}
             />
           </DateFieldsContainer>
 
