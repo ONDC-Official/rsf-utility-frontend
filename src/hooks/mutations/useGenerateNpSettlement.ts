@@ -4,10 +4,20 @@ import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 import { IGenerateNpSettlementPayload } from 'interfaces/settlementGenerator'
 
-const useGenerateNpSettlement = (userId: string) => {
-  const mutation = usePost<IApiResponse<any>>()
+interface INpSettlementResponse {
+  settlement_id: string
+  message: string
+  status: string
+}
 
-  const triggerAsync = (payload: IGenerateNpSettlementPayload) => {
+const useGenerateNpSettlement = (
+  userId: string,
+): {
+  triggerAsync: (payload: IGenerateNpSettlementPayload) => Promise<IApiResponse<INpSettlementResponse>>
+} => {
+  const mutation = usePost<IApiResponse<INpSettlementResponse>>()
+
+  const triggerAsync = (payload: IGenerateNpSettlementPayload): Promise<IApiResponse<INpSettlementResponse>> => {
     return mutation.mutateAsync({
       url: buildApiUrl(APIRoute.GENERATE_NP_NP, { userId }),
       payload,

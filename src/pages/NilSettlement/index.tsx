@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { TypographyVariant } from 'enums/typography'
 import {
   Container,
@@ -19,7 +20,7 @@ import { useToast } from 'context/toastContext'
 import { GENERATE_NIL_SETTLEMENT, GENERIC, TRIGGER_ACTION } from 'constants/toastMessages'
 import { useLoader } from 'context/loaderContext'
 
-const NilSettlement = () => {
+const NilSettlement: FC = () => {
   const { selectedUser } = useUserContext()
   const toast = useToast()
   const { showLoader, hideLoader } = useLoader()
@@ -30,7 +31,7 @@ const NilSettlement = () => {
 
   const { triggerAsync: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser?._id || '')
 
-  const handleTriggerNil = async () => {
+  const handleTriggerNil = async (): Promise<void> => {
     if (!isUserSelected) {
       toast(GENERIC.USER_NOT_SELECTED)
       return

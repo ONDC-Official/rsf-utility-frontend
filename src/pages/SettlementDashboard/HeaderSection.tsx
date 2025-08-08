@@ -14,7 +14,7 @@ import {
 import { TypographyVariant } from 'enums/typography'
 
 const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterpartyChange }) => {
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
+  const handleChange = (event: SelectChangeEvent<unknown>): void => {
     onCounterpartyChange(event.target.value as string)
   }
 

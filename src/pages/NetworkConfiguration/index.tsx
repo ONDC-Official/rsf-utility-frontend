@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
 import { useToast } from 'context/toastContext'
@@ -13,7 +13,7 @@ import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 import { useLoader } from 'context/loaderContext'
 
-const NetworkConfiguration = () => {
+const NetworkConfiguration: FC = () => {
   const { selectedUser, isLoading, setSelectedUser, refetch } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
@@ -28,7 +28,7 @@ const NetworkConfiguration = () => {
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
   const role = watch('role')
 
-  const onSubmit = async (data: IFormData) => {
+  const onSubmit = async (data: IFormData): Promise<void> => {
     showLoader()
     const payload =
       !selectedUser && (!data.role || data.role === '')

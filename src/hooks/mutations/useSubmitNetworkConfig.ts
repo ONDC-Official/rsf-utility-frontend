@@ -34,14 +34,19 @@ const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfi
   return payload as NetworkConfigPayload
 }
 
-const useSubmitNetworkConfig = () => {
+const useSubmitNetworkConfig = (): {
+  triggerAsync: (data: IFormData) => Promise<IApiResponse<IUser>>
+  isLoading: boolean
+  error: unknown
+  status: 'loading' | 'success' | 'idle'
+} => {
   const { selectedUser } = useUserContext()
 
-  const postMutation = usePost<IApiResponse<any>>()
-  const patchMutation = usePatch<IApiResponse<any>>()
+  const postMutation = usePost<IApiResponse<IUser>>()
+  const patchMutation = usePatch<IApiResponse<IUser>>()
 
   const triggerAsync = useCallback(
-    async (data: IFormData) => {
+    async (data: IFormData): Promise<IApiResponse<IUser>> => {
       const payload = mapToPayload(data, selectedUser)
 
       const isUpdate = Boolean(selectedUser?._id)

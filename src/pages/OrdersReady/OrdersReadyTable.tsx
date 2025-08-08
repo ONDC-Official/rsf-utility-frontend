@@ -12,6 +12,12 @@ interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
   onSelectAll: (checked: boolean, currentPageItems: IOrderReady[]) => void
 }
 
+const renderEmptyState = (): JSX.Element => (
+  <Typography variant={TypographyVariant.H6} color="text.secondary">
+    No orders in ready
+  </Typography>
+)
+
 const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   columns,
   data,
@@ -24,14 +30,14 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   selectedItems,
   onSelectAll,
 }) => {
-  const getItemId = (item: IOrderReady) => item.id
+  const getItemId = (item: IOrderReady): string => item.id
 
   return (
     <Container>
       <Header>
         <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
         <Actions>
-          <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
+          <DateFilterButton variant="outlined" />
         </Actions>
       </Header>
       <Table
@@ -46,6 +52,7 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
         selectedItems={selectedItems}
         onSelectAll={onSelectAll}
         getItemId={getItemId}
+        renderEmptyState={renderEmptyState}
       />
     </Container>
   )

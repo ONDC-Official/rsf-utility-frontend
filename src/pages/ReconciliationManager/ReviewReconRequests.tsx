@@ -24,29 +24,29 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
 
   const incomingRequests = generateIncomingRequests(256)
 
-  const handleAccept = (order: IIncomingRequest) => {
+  const handleAccept = (order: IIncomingRequest): void => {
     setSelectedOrder(order)
     setAcceptModalOpen(true)
   }
 
-  const handleReject = (order: IIncomingRequest) => {
+  const handleReject = (order: IIncomingRequest): void => {
     setSelectedOrder(order)
     setRejectModalOpen(true)
   }
 
-  const handleAcceptConfirm = () => {
+  const handleAcceptConfirm = (): void => {
     setAcceptModalOpen(false)
     setSelectedOrder(null)
     onToastShow(RECONCILIATION_LABELS.ACCEPT_TOAST_MESSAGE)
   }
 
-  const handleRejectConfirm = () => {
+  const handleRejectConfirm = (): void => {
     setRejectModalOpen(false)
     setSelectedOrder(null)
     onToastShow(RECONCILIATION_LABELS.REJECT_TOAST_MESSAGE)
   }
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     setAcceptModalOpen(false)
     setRejectModalOpen(false)
     setSelectedOrder(null)

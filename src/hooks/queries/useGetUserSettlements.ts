@@ -1,6 +1,6 @@
 import { IApiResponse } from '@interfaces/api'
 import useGet from 'hooks/useGet'
-import { UseQueryOptions } from 'react-query'
+import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
 import { IUserSettlementItem } from '@interfaces/settlement'
 import { APIRoute } from 'enums/api'
@@ -11,7 +11,7 @@ const useGetUserSettlements = (
   limit: number,
   status: 'PREPARED' | 'COMPLETED' | 'FAILED' | string,
   configs?: UseQueryOptions<IApiResponse<IUserSettlementItem[]>>,
-) => {
+): UseQueryResult<IApiResponse<IUserSettlementItem[]>> => {
   const baseUrl = buildApiUrl(APIRoute.SETTLEMENTS_LIST, { userId })
   const url = `${baseUrl}?status=${status}`
 

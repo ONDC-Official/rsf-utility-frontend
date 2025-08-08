@@ -9,8 +9,8 @@ export const ORDER_HEADER_LABELS = {
   subtitle: 'Select orders to prepare for settlement',
   receiverLabel: 'Counterparty ID',
   prepareZero: 'Prepare (0 selected)',
-  prepareWithCount: (count: number) => `Prepare (${count} selected)`,
-  generateWithCount: (count: number) => `Generate (${count} selected)`,
+  prepareWithCount: (count: number): string => `Prepare (${count} selected)`,
+  generateWithCount: (count: number): string => `Generate (${count} selected)`,
 }
 
 export const TABLE_CELL_DEFAULTS = {

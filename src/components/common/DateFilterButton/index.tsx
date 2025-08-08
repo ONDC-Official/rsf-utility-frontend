@@ -14,20 +14,18 @@ const DateFilterButton: FC<IDateFilterButtonProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null)
   }
 
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange = (date: Date | null): void => {
     if (onDateChange) {
       onDateChange(date)
     }
-
-    handleClose()
   }
 
   const open = Boolean(anchorEl)

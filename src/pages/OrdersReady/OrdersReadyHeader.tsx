@@ -15,7 +15,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   handleReceiverChange,
   handlePrepareClick,
 }) => {
-  const getButtonText = () => {
+  const getButtonText = (): string => {
     if (prepareButtonState === PrepareButtonState.DISABLED) return ORDER_HEADER_LABELS.prepareZero
     return ORDER_HEADER_LABELS.prepareWithCount(selectedCount)
   }

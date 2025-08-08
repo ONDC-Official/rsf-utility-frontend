@@ -13,11 +13,11 @@ const ReconciliationManager: FC = () => {
 
   const allOrders = generateReconciliationData(256)
 
-  const handleToastShow = (message: string) => {
+  const handleToastShow = (message: string): void => {
     setToast({ isVisible: true, message })
   }
 
-  const handleToastClose = () => {
+  const handleToastClose = (): void => {
     setToast((prev) => ({ ...prev, isVisible: false }))
   }
 

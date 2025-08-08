@@ -36,24 +36,24 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ allOrders, onCheckboxS
     handleSelectAll,
   } = usePaginatedSelectableData<IReconciliationOrder>(allOrders)
 
-  const handleReceiverChange = (event: SelectChangeEvent<unknown>) => {
+  const handleReceiverChange = (event: SelectChangeEvent<unknown>): void => {
     setReceiverId(event.target.value as string)
   }
 
-  const handleCheckboxChangeWithToast = (id: string, checked: boolean) => {
+  const handleCheckboxChangeWithToast = (id: string, checked: boolean): void => {
     handleCheckboxChange(id, checked)
     if (checked) {
       onCheckboxSelect()
     }
   }
 
-  const getItemId = (item: IReconciliationOrder) => item.id
+  const getItemId = (item: IReconciliationOrder): string => item.id
 
-  const formatCurrency = (amount: number | undefined) => {
+  const formatCurrency = (amount: number | undefined): string => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_VALUE}`
   }
 
-  const renderRow = (order: IReconciliationOrder) => (
+  const renderRow = (order: IReconciliationOrder): JSX.Element => (
     <>
       <TableBodyCheckboxCell>
         <Checkbox

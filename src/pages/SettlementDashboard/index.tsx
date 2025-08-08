@@ -8,7 +8,7 @@ const SettlementDashboard: FC = () => {
   const [counterpartyId, setCounterpartyId] = useState('')
   const allOrders = generateSettlementDashboardData(256)
 
-  const handleCounterpartyChange = (value: string) => {
+  const handleCounterpartyChange = (value: string): void => {
     setCounterpartyId(value)
   }
 

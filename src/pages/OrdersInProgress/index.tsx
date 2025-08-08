@@ -48,7 +48,7 @@ const OrdersInProgress: React.FC = () => {
   const orders = ordersData?.data || []
   const totalCount = orders.length
 
-  const renderRow = (order: IOrderRow) => (
+  const renderRow = (order: IOrderRow): JSX.Element => (
     <>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.orderId}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.collectorId}</TableCell>
@@ -58,18 +58,25 @@ const OrdersInProgress: React.FC = () => {
       </TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}%</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{order.domain}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
     </>
   )
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number): void => {
     setPage(newPage)
   }
 
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
+  const handleRowsPerPageChange = (newRowsPerPage: number): void => {
     setRowsPerPage(newRowsPerPage)
     setPage(1)
   }
+
+  const renderEmptyState = (): JSX.Element => (
+    <Typography variant={TypographyVariant.H6} color="text.secondary">
+      No orders in progress
+    </Typography>
+  )
 
   return (
     <Container>
@@ -92,7 +99,7 @@ const OrdersInProgress: React.FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
           <TableActions>
-            <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
+            <DateFilterButton variant="outlined" />
           </TableActions>
         </TableHeader>
         <Table
@@ -105,6 +112,7 @@ const OrdersInProgress: React.FC = () => {
           onRowsPerPageChange={handleRowsPerPageChange}
           renderRow={renderRow}
           hideCheckboxes={true}
+          renderEmptyState={renderEmptyState}
         />
       </Wrapper>
     </Container>

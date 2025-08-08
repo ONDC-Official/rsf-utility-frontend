@@ -1,5 +1,6 @@
 import { SVGProps } from 'react'
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
+
+const SvgComponent = (props: SVGProps<SVGSVGElement>): JSX.Element => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M10.6666 1.3335V4.00016M5.33325 1.3335V4.00016"

@@ -31,15 +31,13 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<FormValues>({
     defaultValues: formInputs,
     mode: 'onChange',
   })
 
-  console.log('errors: ', errors)
-
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: FormValues): void => {
     const sanitizedData: Record<string, ISettleNpDataItem> = {}
 
     for (const orderId of Object.keys(data)) {

@@ -30,12 +30,11 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order }) =>
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleSubmit = () => {
-    // Handle form submission
+  const handleSubmit = (): void => {
     onClose()
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     onClose()
   }
 

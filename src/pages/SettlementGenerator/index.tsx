@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
-// import ModeSelection from 'pages/SettlementGenerator/ModeSelection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
@@ -20,7 +19,6 @@ const SettlementGenerator: FC = () => {
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
 
-  // const [counterpartyId, setCounterpartyId] = useState('')
   const [customDueDate, setCustomDueDate] = useState('')
   const [showPayloadPreview, setShowPayloadPreview] = useState(false)
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
@@ -40,7 +38,7 @@ const SettlementGenerator: FC = () => {
 
   const orders: IUserSettlementItem[] = fetchedOrders?.data || []
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<void> => {
     try {
       showLoader()
       const payload = { settle_data: Object.values(formInputs) || [] }
@@ -60,13 +58,9 @@ const SettlementGenerator: FC = () => {
     }
   }
 
-  const handleSelectedOrdersChange = (newSelected: Set<string>) => {
+  const handleSelectedOrdersChange = (newSelected: Set<string>): void => {
     setSelectedOrders(newSelected)
   }
-
-  // const handleToggleMode = () => {
-  //   // future logic here
-  // }
 
   const calculateSummary = (): ISettlementSummary => {
     const selectedList = Array.from(selectedOrders)

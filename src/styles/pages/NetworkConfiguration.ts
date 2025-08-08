@@ -184,6 +184,9 @@ export const StyledSelect = styled(Select)({
     fontSize: '14px',
     color: colors.text.main,
   },
+  '& .Mui-disabled': {
+    backgroundColor: '#ececec',
+  },
 })
 
 export const StyledInput = styled(InputField)({
@@ -208,6 +211,9 @@ export const StyledInput = styled(InputField)({
       height: '100%',
       padding: '20px 14px',
       boxSizing: 'border-box',
+    },
+    '&.Mui-disabled': {
+      backgroundColor: '#ececec',
     },
   },
   '& .MuiInputLabel-root': {

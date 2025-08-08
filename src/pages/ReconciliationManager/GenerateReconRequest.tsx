@@ -13,16 +13,16 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ allOrders, onToa
 
   const outgoingRequests = generateOutgoingRequests(256)
 
-  const handleCheckboxSelect = () => {
+  const handleCheckboxSelect = (): void => {
     onToastShow(RECONCILIATION_LABELS.TOAST_MESSAGE)
   }
 
-  const handleReinitiate = (order: IOutgoingRequest) => {
+  const handleReinitiate = (order: IOutgoingRequest): void => {
     setSelectedOrder(order)
     setModalOpen(true)
   }
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     setModalOpen(false)
     setSelectedOrder(null)
   }

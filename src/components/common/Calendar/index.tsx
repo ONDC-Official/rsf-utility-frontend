@@ -6,23 +6,23 @@ import { ICalendarProps } from 'components/common/Calendar/types'
 const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => {
   const [currentDate, setCurrentDate] = useState(value || new Date())
 
-  const getDaysInMonth = (date: Date) => {
+  const getDaysInMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
   }
 
-  const getFirstDayOfMonth = (date: Date) => {
+  const getFirstDayOfMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   }
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
   }
 
-  const handleNextMonth = () => {
+  const handleNextMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
   }
 
-  const handleDateClick = (day: number) => {
+  const handleDateClick = (day: number): void => {
     const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
     if (onChange) {
       onChange(selectedDate)

@@ -1,27 +1,14 @@
 import React from 'react'
-import {
-  Table as MUITable,
-  TableRow,
-  TableBody,
-  Checkbox,
-  // Menu,
-  // MenuItem,
-  TableCell,
-  CircularProgress,
-} from '@mui/material'
-// import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { Table as MUITable, TableRow, TableBody, Checkbox, TableCell, CircularProgress } from '@mui/material'
 import Pagination from 'components/common/Pagination'
 import { ITableProps } from 'interfaces/table'
-// import { SortOrder } from 'components/common/Table/type'
 import {
   Container,
   StyledTableHead,
   StyledTableCell,
   StyledTableRow,
   Wrapper,
-  // StyledIconButton,
   TableHeaderCheckboxCell,
-  // HeaderLabelContainer,
 } from 'styles/components/Table.styled'
 
 const Table = <T,>({
@@ -39,30 +26,15 @@ const Table = <T,>({
   getItemId,
   expandable = false,
   loading = false,
-}: ITableProps<T> & { loading?: boolean }) => {
-  // const [orderIdAnchorEl, setOrderIdAnchorEl] = useState<null | HTMLElement>(null)
-  // const [orderIdSortOrder, setOrderIdSortOrder] = useState<SortOrder | null>(null)
-
-  // const handleOrderIdClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setOrderIdAnchorEl(event.currentTarget)
-  // }
-
-  // const handleOrderIdClose = () => {
-  //   setOrderIdAnchorEl(null)
-  // }
-
-  // const handleOrderIdSort = (order: SortOrder) => {
-  //   setOrderIdSortOrder(order)
-  //   handleOrderIdClose()
-  // }
-
-  const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  renderEmptyState,
+}: ITableProps<T> & { loading?: boolean }): JSX.Element => {
+  const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (onSelectAll && getItemId) {
       onSelectAll(event.target.checked, data)
     }
   }
 
-  const getSelectAllCheckboxState = () => {
+  const getSelectAllCheckboxState = (): { checked: boolean; indeterminate: boolean } => {
     if (!getItemId || data.length === 0) {
       return { checked: false, indeterminate: false }
     }
@@ -95,7 +67,7 @@ const Table = <T,>({
                   />
                 </TableHeaderCheckboxCell>
               )}
-              {(columns || []).map((column, _) => (
+              {(columns || []).map((column) => (
                 <StyledTableCell key={column.id}>
                   {column.label}
                   {/* {index === (expandable ? 1 : 0) ? (
@@ -133,6 +105,12 @@ const Table = <T,>({
               <TableRow>
                 <TableCell colSpan={columns.length + (!hideCheckboxes ? 1 : 0) + (expandable ? 1 : 0)} align="center">
                   <CircularProgress size={24} />
+                </TableCell>
+              </TableRow>
+            ) : (data || []).length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={columns.length + (!hideCheckboxes ? 1 : 0) + (expandable ? 1 : 0)} align="center">
+                  {renderEmptyState ? renderEmptyState() : null}
                 </TableCell>
               </TableRow>
             ) : (
