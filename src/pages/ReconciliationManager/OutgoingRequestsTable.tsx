@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { MoveToInbox, RestartAlt } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import StatusChip from 'components/common/StatusChip'
@@ -18,11 +18,11 @@ import {
 } from 'styles/pages/ReconciliationManager.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onReinitiate }) => {
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const {
     currentItems: currentRequests,
     totalCount,
@@ -33,6 +33,10 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
   } = usePaginatedSelectableData<IOutgoingRequest>(requests)
 
   const getItemId = (item: IOutgoingRequest): string => item.id
+
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
 
   const renderRow = (request: IOutgoingRequest): JSX.Element => (
     <>
@@ -63,12 +67,11 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
       <Header>
         <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.OUTGOING_TITLE}</Typography>
         <Actions>
-          <Button variant="outlined" startIcon={<CalenderIcon />} endIcon={<ChveronIcon />}>
-            Filter by date
-          </Button>
-          <Button variant="outlined" startIcon={<ExportIcon />}>
-            Export
-          </Button>
+          <DateRangePickerButton
+            variant="outlined"
+            selectedDateRange={dateRange}
+            onDateRangeChange={handleDateRangeChange}
+          />
         </Actions>
       </Header>
 

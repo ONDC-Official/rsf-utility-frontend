@@ -1,5 +1,19 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { Typography } from '@mui/material'
+import { Upload } from '@mui/icons-material'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import Button from 'components/common/Button'
+import SettlementDetailsForm from './components/SettlementDetailsForm'
+import SettlementsTable from './components/SettlementsTable'
+import useTriggerAction from 'hooks/mutations/useTriggerAction'
+import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
+import { useToast } from 'context/toastContext'
+import { useLoader } from 'context/loaderContext'
+import { useUserContext } from 'context/userContext'
 import { TypographyVariant } from 'enums/typography'
+import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
+import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
 import {
   Container,
   Header,
@@ -9,21 +23,9 @@ import {
   TableActions,
   HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
-import { GetApp, Upload } from '@mui/icons-material'
-import DateFilterButton from 'components/common/DateFilterButton'
-import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
-import useTriggerAction from 'hooks/mutations/useTriggerAction'
-import { useToast } from 'context/toastContext'
-import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
-import { useUserContext } from 'context/userContext'
-import SettlementDetailsForm from './components/SettlementDetailsForm'
-import SettlementsTable from './components/SettlementsTable'
-import Button from 'components/common/Button'
-import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
-import { useLoader } from 'context/loaderContext'
-import { Typography } from '@mui/material'
 
 const MiscSettlements: FC = () => {
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const toast = useToast()
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -68,6 +70,10 @@ const MiscSettlements: FC = () => {
     }
   }
 
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
+
   return (
     <Container>
       <Header>
@@ -88,10 +94,11 @@ const MiscSettlements: FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
           <TableActions>
-            <DateFilterButton variant="outlined" onDateChange={() => {}} />
-            <Button variant="contained" startIcon={<GetApp />}>
-              Export
-            </Button>
+            <DateRangePickerButton
+              variant="outlined"
+              selectedDateRange={dateRange}
+              onDateRangeChange={handleDateRangeChange}
+            />
           </TableActions>
         </TableHeader>
         <SettlementsTable />

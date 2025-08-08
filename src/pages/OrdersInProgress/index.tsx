@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
-import DateFilterButton from 'components/common/DateFilterButton'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
@@ -10,6 +10,7 @@ import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { StatusChip } from 'styles/components/Chip.styled'
 import {
   Container,
@@ -25,6 +26,7 @@ const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState('BPP_001')
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -72,6 +74,10 @@ const OrdersInProgress: React.FC = () => {
     setPage(1)
   }
 
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
+
   const renderEmptyState = (): JSX.Element => (
     <Typography variant={TypographyVariant.H6} color="text.secondary">
       No orders in progress
@@ -86,7 +92,7 @@ const OrdersInProgress: React.FC = () => {
           <Typography variant={TypographyVariant.H6}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>
-          <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Receiver ID</ReceiverLabel>
+          <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Counterparty ID</ReceiverLabel>
           <Select
             value={receiverId}
             onChange={(e) => setReceiverId(e.target.value as string)}
@@ -99,7 +105,11 @@ const OrdersInProgress: React.FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
           <TableActions>
-            <DateFilterButton variant="outlined" />
+            <DateRangePickerButton
+              variant="outlined"
+              selectedDateRange={dateRange}
+              onDateRangeChange={handleDateRangeChange}
+            />
           </TableActions>
         </TableHeader>
         <Table
