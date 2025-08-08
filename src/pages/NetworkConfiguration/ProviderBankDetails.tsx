@@ -1,6 +1,5 @@
 import { Typography } from '@mui/material'
-import { TextField } from '@mui/material'
-import { useFieldArray } from 'react-hook-form'
+import { useFieldArray, Controller } from 'react-hook-form'
 import BankIcon from 'assets/images/svg/BankIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
 import RemoveIcon from 'assets/images/svg/RemoveIcon'
@@ -16,11 +15,16 @@ import {
   FormContainer,
   ActionButton,
   RemoveWrapper,
+  StyledInput,
 } from 'styles/pages/NetworkConfiguration'
 import { TypographyVariant } from 'enums/typography'
+import colors from 'theme/colors'
 
 const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => {
-  const { fields, append, remove } = useFieldArray({ control, name: 'providers' })
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'providers',
+  })
 
   return (
     <ConfigurationBox>
@@ -33,7 +37,8 @@ const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => 
           <AddIcon /> Add Provider
         </ActionButton>
       </SettlementHeader>
-      {fields?.map((field, index) => (
+
+      {fields.map((field, index) => (
         <DomainConfigContainer key={field.id}>
           <ConfigHeader>
             <div>Provider {index + 1}</div>
@@ -43,57 +48,119 @@ const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => 
               </RemoveWrapper>
             )}
           </ConfigHeader>
+
           <FormContainer>
+            {/* Provider ID */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium}>Provider ID</Typography>
-              <TextField
-                fullWidth
-                placeholder="Enter Provider ID"
-                {...control.register(`providers.${index}.providerId`, {
-                  required: 'Provider ID is required',
-                  pattern: { value: /^[A-Z0-9]+$/, message: 'Must be alphanumeric' },
-                })}
-                error={!!errors.providers?.[index]?.providerId}
-                helperText={errors.providers?.[index]?.providerId?.message}
+              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                Provider ID
+              </Typography>
+              <Controller
+                control={control}
+                name={`providers.${index}.providerId`}
+                rules={{ required: 'Provider ID is required' }}
+                render={({ field }) => (
+                  <StyledInput
+                    placeholder="Enter Provider ID"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.providers?.[index]?.providerId}
+                    helperText={errors.providers?.[index]?.providerId?.message}
+                  />
+                )}
               />
             </div>
+
+            {/* IFSC Code */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium}>IFSC Code</Typography>
-              <TextField
-                fullWidth
-                placeholder="Enter IFSC Code"
-                {...control.register(`providers.${index}.ifscCode`, {
+              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                IFSC Code
+              </Typography>
+              <Controller
+                control={control}
+                name={`providers.${index}.ifscCode`}
+                rules={{
                   required: 'IFSC Code is required',
-                  pattern: { value: /^[A-Z]{4}0[A-Z0-9]{6}$/, message: 'Invalid IFSC code' },
-                })}
-                error={!!errors.providers?.[index]?.ifscCode}
-                helperText={errors.providers?.[index]?.ifscCode?.message}
+                  pattern: {
+                    value: /^[A-Z]{4}0[A-Z0-9]{6}$/,
+                    message: 'Invalid IFSC code',
+                  },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    placeholder="Enter IFSC Code"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.providers?.[index]?.ifscCode}
+                    helperText={errors.providers?.[index]?.ifscCode?.message}
+                  />
+                )}
               />
             </div>
+
+            {/* Account Number */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium}>Account Number</Typography>
-              <TextField
-                fullWidth
-                placeholder="Enter Account Number"
-                {...control.register(`providers.${index}.accountNumber`, {
+              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                Account Number
+              </Typography>
+              <Controller
+                control={control}
+                name={`providers.${index}.accountNumber`}
+                rules={{
                   required: 'Account number is required',
-                  pattern: { value: /^\d{9,18}$/, message: 'Must be 9-18 digits' },
-                })}
-                error={!!errors.providers?.[index]?.accountNumber}
-                helperText={errors.providers?.[index]?.accountNumber?.message}
+                  pattern: {
+                    value: /^\d{9,18}$/,
+                    message: 'Must be 9-18 digits',
+                  },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    placeholder="Enter Account Number"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.providers?.[index]?.accountNumber}
+                    helperText={errors.providers?.[index]?.accountNumber?.message}
+                  />
+                )}
               />
             </div>
+
+            {/* Bank Name */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium}>Bank Name</Typography>
-              <TextField
-                fullWidth
-                placeholder="Enter Bank Name"
-                {...control.register(`providers.${index}.bankName`, {
+              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                Bank Name
+              </Typography>
+              <Controller
+                control={control}
+                name={`providers.${index}.bankName`}
+                rules={{
                   required: 'Bank name is required',
-                  minLength: { value: 3, message: 'Minimum 3 characters' },
-                })}
-                error={!!errors.providers?.[index]?.bankName}
-                helperText={errors.providers?.[index]?.bankName?.message}
+                  minLength: {
+                    value: 3,
+                    message: 'Minimum 3 characters',
+                  },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    placeholder="Enter Bank Name"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.providers?.[index]?.bankName}
+                    helperText={errors.providers?.[index]?.bankName?.message}
+                  />
+                )}
               />
             </div>
           </FormContainer>

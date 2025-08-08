@@ -1,7 +1,10 @@
 import { styled } from '@mui/material/styles'
-import { Button, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import colors from 'theme/colors'
 import typography from 'theme/typography'
+import Button from 'components/common/Button'
+import Select from 'components/common/Select'
+import InputField from 'components/common/InputField'
 
 export const Container = styled('div')(() => ({
   width: '100%',
@@ -26,7 +29,7 @@ export const HeaderCard = styled('div')(() => ({
 
 export const SectionTitle = styled(Typography)(() => ({
   fontWeight: typography.h3_semibold.fontWeight,
-  color: colors.text.primary,
+  color: colors.text.caption,
   fontSize: typography.h3_semibold.fontSize,
   lineHeight: typography.h3_semibold.lineHeight,
 }))
@@ -74,7 +77,7 @@ export const NetworkIdentityTitle = styled('div')(() => ({
   fontWeight: 700,
   fontSize: '24px',
   lineHeight: '32px',
-  color: colors.text.primary,
+  color: colors.text.caption,
 }))
 
 export const ActionButton = styled(Button)(() => ({
@@ -93,6 +96,16 @@ export const ActionButton = styled(Button)(() => ({
     background: '#f5f5f5',
   },
 }))
+
+export const LabelWrapper = styled('div')({
+  display: 'flex',
+  alignItems: 'flex-end',
+  gap: '6px',
+})
+
+export const IconWrapper = styled('div')({
+  cursor: 'pointer',
+})
 
 export const BulkButton = styled(Button)(() => ({
   borderRadius: '8px',
@@ -119,6 +132,12 @@ export const ConfigTitleSection = styled('div')(() => ({
   gap: '5px',
 }))
 
+export const ErrorMessage = styled(Typography)({
+  marginLeft: '14px',
+  marginTop: '3px',
+  display: 'block',
+})
+
 export const FormContainer = styled('div')(() => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
@@ -139,6 +158,10 @@ export const FormContainer = styled('div')(() => ({
 export const ConfigHeader = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'space-between',
+  gridColumn: '1 / -1',
+  color: colors.text.caption,
+  fontWeight: typography.body2_semibold?.fontWeight || '600',
+  fontSize: typography.body2_semibold?.fontSize || '12px',
 }))
 
 export const ButtonGroup = styled('div')(() => ({
@@ -154,4 +177,40 @@ export const SaveButtonContainer = styled('div')(() => ({
 
 export const RemoveWrapper = styled('div')({
   cursor: 'pointer',
+})
+
+export const StyledSelect = styled(Select)({
+  '& .MuiSelect-select': {
+    fontSize: '14px',
+    color: colors.text.main,
+  },
+})
+
+export const StyledInput = styled(InputField)({
+  width: '100%',
+  '& .MuiOutlinedInput-root': {
+    fontFamily: typography.body2_regular.fontFamily,
+    fontSize: typography.body2_regular.fontSize,
+    backgroundColor: colors.background.light,
+    borderRadius: 10,
+    '& fieldset': {
+      borderColor: colors.neutral.main,
+      borderRadius: 10,
+      height: 62,
+    },
+    '&:hover fieldset': {
+      borderColor: colors.primary.main,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: colors.primary.main,
+    },
+    '& .MuiInputBase-input': {
+      height: '100%',
+      padding: '20px 14px',
+      boxSizing: 'border-box',
+    },
+  },
+  '& .MuiInputLabel-root': {
+    display: 'none',
+  },
 })

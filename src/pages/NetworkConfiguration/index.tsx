@@ -11,12 +11,13 @@ import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
+import { useLoader } from 'context/loaderContext'
 
 const NetworkConfiguration = () => {
   const { selectedUser, isLoading, setSelectedUser, refetch } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
   const {
-    register,
     control,
     handleSubmit,
     watch,
@@ -26,6 +27,34 @@ const NetworkConfiguration = () => {
   } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
   const role = watch('role')
+
+  const onSubmit = async (data: IFormData) => {
+    showLoader()
+    const payload =
+      !selectedUser && (!data.role || data.role === '')
+        ? { ...data, providers: undefined }
+        : data.role === 'Buyer App'
+        ? { ...data, providers: undefined }
+        : data
+
+    try {
+      await submitConfig(payload)
+      refetch()
+      reset(defaultFormData)
+      setSelectedUser(null)
+      toast({
+        message: `User ${selectedUser?._id ? 'updated' : 'created'} successfully.`,
+        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+      })
+    } catch {
+      hideLoader()
+      reset(defaultFormData)
+      setSelectedUser(null)
+      toast(NETWORK_CONFIGURATION.ERROR)
+    } finally {
+      hideLoader()
+    }
+  }
 
   useEffect(() => {
     if (selectedUser) {
@@ -51,29 +80,9 @@ const NetworkConfiguration = () => {
     }
   }, [selectedUser, setValue])
 
-  const onSubmit = async (data: IFormData) => {
-    const payload =
-      !selectedUser && (!data.role || data.role === '')
-        ? { ...data, providers: undefined }
-        : data.role === 'Buyer App'
-        ? { ...data, providers: undefined }
-        : data
-
-    try {
-      await submitConfig(payload)
-      refetch()
-      reset(defaultFormData)
-      setSelectedUser(null)
-      toast({
-        message: `User ${selectedUser?._id ? 'updated' : 'created'} successfully.`,
-        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
-      })
-    } catch {
-      reset(defaultFormData)
-      setSelectedUser(null)
-      toast(NETWORK_CONFIGURATION.ERROR)
-    }
-  }
+  useEffect(() => {
+    setValue('providers', [defaultProvider])
+  }, [role, setValue])
 
   if (isLoading) return <div>Loading...</div>
 
@@ -81,14 +90,7 @@ const NetworkConfiguration = () => {
     <Container>
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration
-          register={register}
-          errors={errors}
-          role={role}
-          setValue={setValue}
-          watch={watch}
-          selectedUser={selectedUser}
-        />
+        <DomainConfiguration errors={errors} role={role} selectedUser={selectedUser} control={control} />
         {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
         {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
           <ProviderBankDetails control={control} errors={errors} />
