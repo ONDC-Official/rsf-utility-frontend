@@ -21,10 +21,6 @@ import SettlementsTable from './components/SettlementsTable'
 import Button from 'components/common/Button'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import { useLoader } from 'context/loaderContext'
-
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
 import { Typography } from '@mui/material'
 
 const MiscSettlements: React.FC = () => {

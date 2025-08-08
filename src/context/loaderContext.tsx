@@ -10,7 +10,8 @@ interface LoaderContextType {
 const LoaderContext = createContext<LoaderContextType | undefined>(undefined)
 
 export const LoaderProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  console.log('isLoading', isLoading)
 
   const showLoader = () => setIsLoading(true)
   const hideLoader = () => setIsLoading(false)

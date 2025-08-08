@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
-import { GetApp } from '@mui/icons-material'
 import DateFilterButton from 'components/common/DateFilterButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
@@ -22,11 +21,6 @@ import {
   TableHeader,
   TableActions,
 } from 'styles/pages/OrdersInProgress.styled'
-import Button from 'components/common/Button'
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
-
 const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)

@@ -95,7 +95,7 @@ const Table = <T,>({
                   />
                 </TableHeaderCheckboxCell>
               )}
-              {(columns || []).map((column, index) => (
+              {(columns || []).map((column, _) => (
                 <StyledTableCell key={column.id}>
                   {column.label}
                   {/* {index === (expandable ? 1 : 0) ? (
