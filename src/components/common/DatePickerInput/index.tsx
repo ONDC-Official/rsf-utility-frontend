@@ -2,18 +2,8 @@ import { FC, useState, useRef } from 'react'
 import { Popover, InputAdornment, IconButton } from '@mui/material'
 import { CalendarToday } from '@mui/icons-material'
 import Calendar from 'components/common/Calendar'
+import { IDatePickerInputProps } from 'components/common/DatePickerInput/types'
 import { Container, StyledLabel, StyledTextField } from 'styles/components/InputField.styled'
-
-interface IDatePickerInputProps {
-  label?: string
-  value?: Date | null
-  onChange?: (date: Date | null) => void
-  size?: 'small' | 'medium'
-  disabled?: boolean
-  placeholder?: string
-  minDate?: Date | null
-  maxDate?: Date | null
-}
 
 const DatePickerInput: FC<IDatePickerInputProps> = ({
   label,
