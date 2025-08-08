@@ -35,7 +35,7 @@ jobs:
             fi
 
             echo "📥 Cloning latest code from GitHub..."
-            git clone https://github.com/ONDC-Official/rsf-utility-frontend.git
+            git clone -b develop https://github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
 
             echo "📦 Writing environment variables..."
