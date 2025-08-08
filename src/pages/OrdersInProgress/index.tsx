@@ -22,7 +22,6 @@ import {
   TableHeader,
   TableActions,
 } from 'styles/pages/OrdersInProgress.styled'
-
 const OrdersInProgress: React.FC = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
