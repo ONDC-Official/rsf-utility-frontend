@@ -35,7 +35,7 @@ jobs:
             fi
 
             echo "📥 Cloning latest code from GitHub (develop branch)..."
-            git clone -b develop https://${ACCESS_TOKEN}@github.com/ONDC-Official/rsf-utility-frontend.git
+            git clone -b develop https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
 
             echo "📦 Writing environment variables..."
