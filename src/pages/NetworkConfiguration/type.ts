@@ -28,6 +28,7 @@ export interface IDomainConfigurationProps {
 export interface IHeaderSectionProps {
   reset: UseFormReset<IFormData>
   setSelectedUser: (user: any) => void
+   selectedUser: any
 }
 
 export interface IProviderBankDetailsProps {
