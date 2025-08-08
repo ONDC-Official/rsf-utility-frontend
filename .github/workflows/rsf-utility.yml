@@ -1,0 +1,52 @@
+name: Deploy RSF Utility Frontend
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh/key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key/id_rsa
+          chmod 700 ~/.ssh/key
+          chmod 600 ~/.ssh/key/id_rsa
+          ssh-keyscan -H ${{ vars.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2 via SSH
+        run: |
+          ssh -i ~/.ssh/key/id_rsa ${{ vars.SSH_USERNAME }}@${{ vars.SSH_HOST }} << 'EOF'
+            echo "🔁 Checking existing deployment..."
+
+            if [[ -d rsf-utility-frontend ]]; then
+              echo "🧹 Removing existing project directory..."
+              cd rsf-utility-frontend
+              docker-compose down
+              cd ..
+              rm -rf rsf-utility-frontend
+            fi
+
+            echo "📥 Cloning latest code from GitHub..."
+            git clone -b develop https://github.com/ONDC-Official/rsf-utility-frontend.git
+            cd rsf-utility-frontend
+
+            echo "📦 Writing environment variables..."
+            echo "REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}" > .env
+            echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" >> .env
+
+            echo "🚀 Starting Docker Compose..."
+            docker-compose up -d --build
+
+            echo "✅ Deployment completed successfully!"
+          EOF
+        env:
+          REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
+          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
