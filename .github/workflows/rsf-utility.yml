@@ -34,28 +34,21 @@ jobs:
               rm -rf rsf-utility-frontend
             fi
 
-            echo "📁 Listing current directory after cleanup:"
-            ls -la
-
-            echo "📥 Cloning latest code from GitHub (develop branch)..."
-            git clone -b develop https://oauth2:${ACCESS_TOKEN}@github.com/ONDC-Official/rsf-utility-frontend.git
-
-            echo "📁 Listing directory after cloning:"
-            ls -la
-
+            echo "Cloning latest code from GitHub (develop branch)..."
+            git clone -b develop https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
-            
-            echo "📝 Writing environment variables to .env..."
-            echo "REACT_APP_CLIENT_ID=${REACT_APP_CLIENT_ID}" > .env
-            echo "REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}" >> .env
+
+            echo "✏️ Writing environment variables to .env file..."
+            echo "REACT_APP_CLIENT_ID='${{ secrets.REACT_APP_CLIENT_ID }}'" > .env
+            echo "REACT_APP_BACKEND_URL='${{ secrets.REACT_APP_BACKEND_URL }}'" >> .env
 
             echo "📄 Contents of .env:"
             cat .env
 
-            echo "🚀 Starting Docker Compose..."
+            echo "Starting Docker Compose..."
             docker-compose up -d --build
 
-            echo "✅ Deployment completed successfully!"
+            echo "Deployment completed successfully!"
           EOF
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
