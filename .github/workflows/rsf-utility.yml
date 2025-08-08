@@ -37,14 +37,14 @@ jobs:
             echo "Cloning latest code from GitHub (develop branch)..."
             git clone -b develop https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
-
-            echo "✏️ Writing environment variables to .env file..."
+            
+            echo " Writing environment variables to .env file..."
             echo "REACT_APP_CLIENT_ID='${{ secrets.REACT_APP_CLIENT_ID }}'" > .env
             echo "REACT_APP_BACKEND_URL='${{ secrets.REACT_APP_BACKEND_URL }}'" >> .env
-
+            
             echo "📄 Contents of .env:"
             cat .env
-
+            
             echo "Starting Docker Compose..."
             docker-compose up -d --build
 
