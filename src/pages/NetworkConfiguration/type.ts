@@ -1,4 +1,5 @@
-import { UseFormRegister, FieldErrors, UseFormWatch, UseFormReset, Control } from 'react-hook-form'
+import { IUser } from '@interfaces/user'
+import { FieldErrors, UseFormReset, Control } from 'react-hook-form'
 
 export interface IProvider {
   providerId: string
@@ -27,8 +28,8 @@ export interface IDomainConfigurationProps {
 
 export interface IHeaderSectionProps {
   reset: UseFormReset<IFormData>
-  setSelectedUser: (user: any) => void
-   selectedUser: any
+  setSelectedUser: (user: IUser | null) => void
+  selectedUser: IUser | null
 }
 
 export interface IProviderBankDetailsProps {
