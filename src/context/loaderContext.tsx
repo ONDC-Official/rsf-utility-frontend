@@ -1,4 +1,4 @@
-import { FC, createContext, useContext, useState } from 'react'
+import { FC, createContext, useContext, useMemo, useState, useCallback } from 'react'
 import Loader from 'components/common/Loader'
 
 interface LoaderContextType {
@@ -10,10 +10,20 @@ interface LoaderContextType {
 const LoaderContext = createContext<LoaderContextType | undefined>(undefined)
 
 export const LoaderProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true)
+  // Reference-counted loader to avoid race conditions between multiple show/hide calls
+  const [activeRequests, setActiveRequests] = useState(0)
 
-  const showLoader = () => setIsLoading(true)
-  const hideLoader = () => setIsLoading(false)
+  const showLoader = useCallback((): void => {
+    setActiveRequests((previous) => previous + 1)
+  }, [])
+  const hideLoader = useCallback((): void => {
+    setActiveRequests((previous) => {
+      if (previous <= 0) return 0
+      return previous - 1
+    })
+  }, [])
+
+  const isLoading = useMemo(() => activeRequests > 0, [activeRequests])
 
   return (
     <LoaderContext.Provider value={{ showLoader, hideLoader, isLoading }}>
@@ -23,7 +33,7 @@ export const LoaderProvider: FC<{ children: React.ReactNode }> = ({ children }) 
   )
 }
 
-export const useLoader = () => {
+export const useLoader = (): LoaderContextType => {
   const ctx = useContext(LoaderContext)
   if (!ctx) {
     throw new Error('useLoader must be used within a LoaderProvider')

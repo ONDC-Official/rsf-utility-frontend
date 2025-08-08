@@ -1,43 +1,28 @@
 import { FC, useState } from 'react'
-import { 
-  Box, 
-  Typography, 
-  IconButton, 
-  Grid,
-  Paper 
-} from '@mui/material'
-import { 
-  ChevronLeft, 
-  ChevronRight 
-} from '@mui/icons-material'
+import { Box, Typography, IconButton, Paper } from '@mui/material'
+import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import { ICalendarProps } from 'components/common/Calendar/types'
 
-const Calendar: FC<ICalendarProps> = ({ 
-  value, 
-  onChange, 
-  minDate, 
-  maxDate, 
-  disabled = false 
-}) => {
+const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => {
   const [currentDate, setCurrentDate] = useState(value || new Date())
 
-  const getDaysInMonth = (date: Date) => {
+  const getDaysInMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
   }
 
-  const getFirstDayOfMonth = (date: Date) => {
+  const getFirstDayOfMonth = (date: Date): number => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
   }
 
-  const handlePrevMonth = () => {
+  const handlePrevMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
   }
 
-  const handleNextMonth = () => {
+  const handleNextMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
   }
 
-  const handleDateClick = (day: number) => {
+  const handleDateClick = (day: number): void => {
     const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
     if (onChange) {
       onChange(selectedDate)
@@ -45,8 +30,18 @@ const Calendar: FC<ICalendarProps> = ({
   }
 
   const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ]
 
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -87,18 +82,18 @@ const Calendar: FC<ICalendarProps> = ({
         {Array.from({ length: firstDay }).map((_, index) => (
           <Box key={`empty-${index}`} height={36} />
         ))}
-        
+
         {/* Actual days */}
         {Array.from({ length: daysInMonth }).map((_, index) => {
           const day = index + 1
-          const isToday = 
-            today.getDate() === day && 
-            today.getMonth() === currentDate.getMonth() && 
+          const isToday =
+            today.getDate() === day &&
+            today.getMonth() === currentDate.getMonth() &&
             today.getFullYear() === currentDate.getFullYear()
-          const isSelected = 
-            value && 
-            value.getDate() === day && 
-            value.getMonth() === currentDate.getMonth() && 
+          const isSelected =
+            value &&
+            value.getDate() === day &&
+            value.getMonth() === currentDate.getMonth() &&
             value.getFullYear() === currentDate.getFullYear()
 
           return (
@@ -116,10 +111,12 @@ const Calendar: FC<ICalendarProps> = ({
                 color: isSelected ? 'primary.contrastText' : isToday ? 'primary.main' : 'text.primary',
                 border: isToday && !isSelected ? '1px solid' : 'none',
                 borderColor: 'primary.main',
-                '&:hover': !disabled ? {
-                  backgroundColor: isSelected ? 'primary.dark' : 'action.hover'
-                } : {},
-                transition: 'all 0.2s ease'
+                '&:hover': !disabled
+                  ? {
+                      backgroundColor: isSelected ? 'primary.dark' : 'action.hover',
+                    }
+                  : {},
+                transition: 'all 0.2s ease',
               }}
               onClick={() => !disabled && handleDateClick(day)}
             >

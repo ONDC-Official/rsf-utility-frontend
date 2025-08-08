@@ -12,7 +12,27 @@ import usePost from 'hooks/usePost'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 
-const useOrdersReady = () => {
+type UseOrdersReadyReturn = {
+  receiverId: string
+  receiverOptions: typeof receiverOptions
+  toast: IToastState
+  selectedOrders: Set<string>
+  prepareButtonState: PrepareButtonState
+  currentOrders: IOrderReady[]
+  columns: typeof columns
+  totalCount: number
+  page: number
+  rowsPerPage: number
+  handleCheckboxChange: (orderId: string, checked: boolean) => void
+  handleSelectAll: (checked: boolean, currentPageItems: IOrderReady[]) => void
+  handlePrepareClick: () => Promise<void>
+  handleToastClose: () => void
+  handleReceiverChange: (event: SelectChangeEvent<unknown>) => void
+  handlePageChange: (newPage: number) => void
+  handleRowsPerPageChange: (newRowsPerPage: number) => void
+}
+
+const useOrdersReady = (): UseOrdersReadyReturn => {
   const navigate = useNavigate()
 
   const [page, setPage] = useState(1)
@@ -65,7 +85,7 @@ const useOrdersReady = () => {
     }
   }, [selectedOrders])
 
-  const handleCheckboxChange = useCallback((orderId: string, checked: boolean) => {
+  const handleCheckboxChange = useCallback((orderId: string, checked: boolean): void => {
     setSelectedOrders((prev) => {
       const updated = new Set(prev)
       checked ? updated.add(orderId) : updated.delete(orderId)
@@ -73,7 +93,7 @@ const useOrdersReady = () => {
     })
   }, [])
 
-  const handleSelectAll = useCallback((checked: boolean, currentPageItems: IOrderReady[]) => {
+  const handleSelectAll = useCallback((checked: boolean, currentPageItems: IOrderReady[]): void => {
     setSelectedOrders((prev) => {
       const updated = new Set(prev)
       if (checked) {
@@ -92,7 +112,7 @@ const useOrdersReady = () => {
     })
   }, [])
 
-  const handlePrepareClick = async () => {
+  const handlePrepareClick = async (): Promise<void> => {
     if (prepareButtonState === PrepareButtonState.PREPARE && selectedUser?._id && selectedOrders?.size) {
       const count = selectedOrders.size
       const selectedOrderIds = Array.from(selectedOrders)
@@ -136,7 +156,7 @@ const useOrdersReady = () => {
     }
   }
 
-  const handleToastClose = () => {
+  const handleToastClose = (): void => {
     setToast((prev) => ({ ...prev, isVisible: false }))
   }
 
@@ -149,14 +169,14 @@ const useOrdersReady = () => {
     }
   }, [toast.isVisible])
 
-  const handlePageChange = (newPage: number) => setPage(newPage)
+  const handlePageChange = (newPage: number): void => setPage(newPage)
 
-  const handleRowsPerPageChange = (newRowsPerPage: number) => {
+  const handleRowsPerPageChange = (newRowsPerPage: number): void => {
     setRowsPerPage(newRowsPerPage)
     setPage(1)
   }
 
-  const handleReceiverChange = (event: SelectChangeEvent<unknown>) => {
+  const handleReceiverChange = (event: SelectChangeEvent<unknown>): void => {
     setReceiverId(event.target.value as string)
     setSelectedOrders(new Set())
     setPage(1)

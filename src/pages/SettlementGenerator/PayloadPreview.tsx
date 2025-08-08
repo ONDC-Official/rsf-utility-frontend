@@ -10,7 +10,7 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 import { ContainedExportButton, OutlinedFilterButton } from 'styles/components/Button.styled'
 
-const PayloadPreview: FC<IPayloadPreviewProps> = ({ data }) => (
+const PayloadPreview: FC<IPayloadPreviewProps> = ({ data }): JSX.Element => (
   <Container>
     <PayloadHeader>
       <SectionTitle>Settlement Payload Preview</SectionTitle>

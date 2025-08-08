@@ -21,7 +21,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept
     handleRowsPerPageChange,
   } = usePaginatedSelectableData<IIncomingRequest>(data)
 
-  const handleRowToggle = (orderId: string) => {
+  const handleRowToggle = (orderId: string): void => {
     setExpandedRows((prev) => {
       const newExpanded = new Set(prev)
       if (newExpanded.has(orderId)) {
@@ -34,16 +34,16 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept
     })
   }
 
-  const formatCurrency = (amount: number | undefined) => {
+  const formatCurrency = (amount: number | undefined): string => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_VALUE}`
   }
 
-  const truncateText = (text: string, maxLength = 20) => {
+  const truncateText = (text: string, maxLength = 20): string => {
     if (text.length <= maxLength) return text
     return `${text.substring(0, maxLength)}...`
   }
 
-  const getItemId = (item: IIncomingRequest) => item.id
+  const getItemId = (item: IIncomingRequest): string => item.id
 
   const expandedData = orders.reduce<any[]>((acc, order) => {
     acc.push({ ...order, isMainRow: true })
@@ -62,7 +62,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept
     return acc
   }, [])
 
-  const renderRow = (item: any) => {
+  const renderRow = (item: any): JSX.Element => {
     const isExpanded = expandedRows.has(item.id)
 
     return (

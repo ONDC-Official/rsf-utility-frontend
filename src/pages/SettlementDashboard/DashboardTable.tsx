@@ -38,9 +38,9 @@ const DashboardTable: FC<IDashboardTableProps> = ({ orders }) => {
     setPage(1)
   }, [orders, setSelectedItems, setPage])
 
-  const getItemId = (item: ISettlementDashboardOrder) => item.id
+  const getItemId = (item: ISettlementDashboardOrder): string => item.id
 
-  const renderRow = (order: ISettlementDashboardOrder) => (
+  const renderRow = (order: ISettlementDashboardOrder): JSX.Element => (
     <DashboardRow
       key={order.id}
       order={order}

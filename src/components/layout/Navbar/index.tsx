@@ -15,8 +15,10 @@ import { useUserContext } from 'context/userContext'
 const Navbar: FC = () => {
   const { users, selectedUser, setSelectedUser } = useUserContext()
 
-  const handleUserChange = (event: SelectChangeEvent<unknown>) => {
+  const handleUserChange = (event: SelectChangeEvent<unknown>): void => {
     const selectedId = event.target.value as string
+    // Prevent unnecessary state updates which can cause re-render loops
+    if (selectedUser?._id === selectedId) return
     const userObj = users?.find((u) => u._id === selectedId) || null
     setSelectedUser(userObj)
   }
@@ -35,7 +37,7 @@ const Navbar: FC = () => {
         </TitleContainer>
 
         <RightSection>
-          <ConfigurationLabel variant={TypographyVariant.Body5Medium}>Subscriber</ConfigurationLabel>
+          <ConfigurationLabel variant={TypographyVariant.Body5Medium}>Settlement Configuration</ConfigurationLabel>
 
           <StyledSelect
             value={selectedUser?._id ?? ''}

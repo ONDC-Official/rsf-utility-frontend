@@ -16,13 +16,13 @@ const App: FC = () => (
     <CssBaseline />
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ToastProvider>
-          <LoaderProvider>
-            <UserProvider>
+        <LoaderProvider>
+          <UserProvider>
+            <ToastProvider>
               <AppRoutes />
-            </UserProvider>
-          </LoaderProvider>
-        </ToastProvider>
+            </ToastProvider>
+          </UserProvider>
+        </LoaderProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </ThemeProvider>

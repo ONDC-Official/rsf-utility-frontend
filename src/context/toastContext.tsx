@@ -7,8 +7,8 @@ const ToastContext = createContext<((toast: IToast) => void) | undefined>(undefi
 export const ToastProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toast, setToast] = useState<IToast | null>(null)
 
-  const showToast = (t: IToast) => setToast(t)
-  const handleClose = () => setToast(null)
+  const showToast = (t: IToast): void => setToast(t)
+  const handleClose = (): void => setToast(null)
 
   return (
     <ToastContext.Provider value={showToast}>
@@ -28,7 +28,7 @@ export const ToastProvider: FC<{ children: React.ReactNode }> = ({ children }) =
   )
 }
 
-export const useToast = () => {
+export const useToast = (): ((toast: IToast) => void) => {
   const ctx = useContext(ToastContext)
   if (!ctx) {
     throw new Error('useToast must be used within a ToastProvider')

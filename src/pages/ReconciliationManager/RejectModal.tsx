@@ -37,7 +37,7 @@ const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order })
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleConfirm = () => {
+  const handleConfirm = (): void => {
     onConfirm()
     setFormData({
       differenceInAmount: '',
@@ -48,7 +48,7 @@ const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order })
     })
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     onClose()
     setFormData({
       differenceInAmount: '',

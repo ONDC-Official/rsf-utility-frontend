@@ -27,7 +27,7 @@ const OrdersReady: FC = () => {
     handleRowsPerPageChange,
   } = useOrdersReady()
 
-  const renderRow = (order: IOrderReady, index: number) => (
+  const renderRow = (order: IOrderReady, index: number): JSX.Element => (
     <OrdersReadyRow
       key={index}
       order={order}

@@ -4,7 +4,7 @@ import axiosInstance from 'services/axiosInstance'
 
 export interface IParams {
   url: string
-  payload?: any
+  payload?: unknown
 }
 
 const post = async <TResponse,>({ url, payload }: IParams): Promise<TResponse> => {
@@ -13,7 +13,7 @@ const post = async <TResponse,>({ url, payload }: IParams): Promise<TResponse> =
 }
 
 // expose generic hook
-function usePost<TResponse = any>(): UseMutationResult<TResponse, unknown, IParams, unknown> {
+function usePost<TResponse = unknown>(): UseMutationResult<TResponse, unknown, IParams, unknown> {
   return useMutation<TResponse, unknown, IParams, unknown>(post)
 }
 

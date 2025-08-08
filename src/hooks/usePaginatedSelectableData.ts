@@ -1,6 +1,25 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, type Dispatch, type SetStateAction } from 'react'
 
-export function usePaginatedSelectableData<T extends { id: string }>(data: T[], defaultRowsPerPage = 10) {
+type UsePaginatedSelectableDataReturn<T extends { id: string }> = {
+  currentItems: T[]
+  selectedItems: Set<string>
+  totalCount: number
+  page: number
+  rowsPerPage: number
+  handlePageChange: (newPage: number) => void
+  handleRowsPerPageChange: (newRows: number) => void
+  handleCheckboxChange: (id: string, checked: boolean) => void
+  handleSelectAll: (checked: boolean, items: T[]) => void
+  resetSelection: () => void
+  setSelectedItems: Dispatch<SetStateAction<Set<string>>>
+  setPage: Dispatch<SetStateAction<number>>
+  setRowsPerPage: Dispatch<SetStateAction<number>>
+}
+
+export function usePaginatedSelectableData<T extends { id: string }>(
+  data: T[],
+  defaultRowsPerPage = 10,
+): UsePaginatedSelectableDataReturn<T> {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage)
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
@@ -27,14 +46,14 @@ export function usePaginatedSelectableData<T extends { id: string }>(data: T[], 
     })
   }, [])
 
-  const handlePageChange = (newPage: number) => setPage(newPage)
+  const handlePageChange = (newPage: number): void => setPage(newPage)
 
-  const handleRowsPerPageChange = (newRows: number) => {
+  const handleRowsPerPageChange = (newRows: number): void => {
     setRowsPerPage(newRows)
     setPage(1)
   }
 
-  const resetSelection = () => setSelectedItems(new Set())
+  const resetSelection = (): void => setSelectedItems(new Set())
 
   return {
     currentItems,

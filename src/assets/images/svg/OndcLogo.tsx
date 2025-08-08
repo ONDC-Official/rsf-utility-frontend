@@ -1,5 +1,6 @@
 import { SVGProps } from 'react'
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
+
+const SvgComponent = (props: SVGProps<SVGSVGElement>): JSX.Element => (
   <svg xmlns="http://www.w3.org/2000/svg" width={114} height={46} fill="none" {...props}>
     <mask
       id="a"

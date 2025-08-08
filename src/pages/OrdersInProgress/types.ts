@@ -8,4 +8,5 @@ export interface IOrderRow {
   totalOrderValue: number
   bffPercent: ReactNode
   dueDate: ReactNode
+  domain: ReactNode
 }

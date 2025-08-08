@@ -8,7 +8,7 @@ const Sidebar: FC = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const handleNavigation = (path: string) => {
+  const handleNavigation = (path: string): void => {
     navigate(path)
   }
 

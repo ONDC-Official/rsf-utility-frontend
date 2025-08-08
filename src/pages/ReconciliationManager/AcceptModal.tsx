@@ -19,12 +19,12 @@ import {
 const AcceptModal: FC<IAcceptModalProps> = ({ open, onClose, onConfirm, order }) => {
   const [dueDate, setDueDate] = useState('')
 
-  const handleConfirm = () => {
+  const handleConfirm = (): void => {
     onConfirm()
     setDueDate('')
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     onClose()
     setDueDate('')
   }

@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { Typography } from '@mui/material'
 import { useFieldArray, Controller } from 'react-hook-form'
 import BankIcon from 'assets/images/svg/BankIcon'
@@ -20,7 +21,7 @@ import {
 import { TypographyVariant } from 'enums/typography'
 import colors from 'theme/colors'
 
-const ProviderBankDetails = ({ control, errors }: IProviderBankDetailsProps) => {
+const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'providers',

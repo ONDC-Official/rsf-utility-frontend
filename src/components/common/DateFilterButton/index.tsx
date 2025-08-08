@@ -10,36 +10,30 @@ const DateFilterButton: FC<IDateFilterButtonProps> = ({
   selectedDate = null,
   label = 'Filter by date',
   variant = 'outlined',
-  size = 'medium',
-  disabled = false
+
+  disabled = false,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null)
   }
 
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange = (date: Date | null): void => {
     if (onDateChange) {
       onDateChange(date)
     }
-    handleClose()
   }
 
   const open = Boolean(anchorEl)
 
   return (
     <>
-      <OutlinedFilterButton
-        variant={variant}
-        startIcon={<CalendarToday />}
-        onClick={handleClick}
-        disabled={disabled}
-      >
+      <OutlinedFilterButton variant={variant} startIcon={<CalendarToday />} onClick={handleClick} disabled={disabled}>
         {label}
       </OutlinedFilterButton>
       <Popover
@@ -56,10 +50,7 @@ const DateFilterButton: FC<IDateFilterButtonProps> = ({
         }}
       >
         <Box p={1}>
-          <Calendar
-            value={selectedDate}
-            onChange={handleDateChange}
-          />
+          <Calendar value={selectedDate} onChange={handleDateChange} />
         </Box>
       </Popover>
     </>

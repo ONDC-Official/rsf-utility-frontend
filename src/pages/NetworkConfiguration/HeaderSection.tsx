@@ -1,6 +1,7 @@
-import AddIcon from 'assets/images/svg/AddIcon'
+import { FC } from 'react'
 import { IHeaderSectionProps } from 'pages/NetworkConfiguration/type'
 import { defaultFormData } from 'pages/NetworkConfiguration/data'
+import AddIcon from 'assets/images/svg/AddIcon'
 import {
   HeaderSection as HeaderSectionStyled,
   HeaderCard,
@@ -8,7 +9,7 @@ import {
   ActionButton,
 } from 'styles/pages/NetworkConfiguration'
 
-const HeaderSection = ({ reset, setSelectedUser }: IHeaderSectionProps) => (
+const HeaderSection: FC<IHeaderSectionProps> = ({ reset, setSelectedUser }) => (
   <HeaderSectionStyled>
     <HeaderCard>
       <SectionTitle>Network Configuration</SectionTitle>

@@ -30,18 +30,13 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({
   selected = false,
   onCheckboxChange,
 }) => {
-  const formatCurrency = (amount: number | undefined) => {
+  const formatCurrency = (amount: number | undefined): string => {
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_ORDER_VALUE}`
   }
 
-  const formatDate = (dateString: string | undefined) => {
+  const formatDate = (dateString: string | undefined): string => {
     if (!dateString) return TABLE_CELL_DEFAULTS.SETTLEMENT_INITIATED_DATE
     return dateString
-  }
-
-  const handleReconcileClick = () => {
-    // Handle reconcile action
-    console.log('Reconcile clicked for order:', order.id)
   }
 
   return (
@@ -79,7 +74,7 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({
       </StyledTableBodyCell>
       <StyledTableBodyCell>{formatDate(order.settlementInitiatedDate)}</StyledTableBodyCell>
       <StyledTableBodyCell>
-        <ActionButton onClick={handleReconcileClick}>{ACTION_LABELS.RECONCILE}</ActionButton>
+        <ActionButton>{ACTION_LABELS.RECONCILE}</ActionButton>
       </StyledTableBodyCell>
     </>
   )

@@ -20,7 +20,7 @@ const SettlementsTable: React.FC = () => {
   const rows = settlements?.data ?? []
   const totalCount = 0
 
-  const renderRow = (item: ISettlementItem) => {
+  const renderRow = (item: ISettlementItem): JSX.Element => {
     const settlement = item.request.message.settlement
     const order = settlement.orders[0] ?? {}
 

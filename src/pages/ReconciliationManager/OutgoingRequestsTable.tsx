@@ -32,9 +32,9 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
     handleRowsPerPageChange,
   } = usePaginatedSelectableData<IOutgoingRequest>(requests)
 
-  const getItemId = (item: IOutgoingRequest) => item.id
+  const getItemId = (item: IOutgoingRequest): string => item.id
 
-  const renderRow = (request: IOutgoingRequest) => (
+  const renderRow = (request: IOutgoingRequest): JSX.Element => (
     <>
       <StyledTableBodyCell>{request.orderId}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.receiverId}</StyledTableBodyCell>

@@ -3,7 +3,13 @@ import { Box } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-const getStatusStyles = (status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejected') => {
+const getStatusStyles = (
+  status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejected',
+): {
+  background: string
+  border: string
+  color: string
+} => {
   switch (status) {
     case 'Settled':
     case 'Accepted':

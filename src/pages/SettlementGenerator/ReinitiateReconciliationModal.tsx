@@ -30,7 +30,7 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconciliationModalProps> = (
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const parsedData = {

@@ -36,9 +36,9 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
     onSelectedOrdersChange(selectedOrders)
   }, [selectedOrders, onSelectedOrdersChange])
 
-  const getItemId = (item: IUserSettlementItem) => item.order_id
+  const getItemId = (item: IUserSettlementItem): string => item.order_id
 
-  const handleSave = (updatedFields: Partial<IUserSettlementItem>) => {
+  const handleSave = (updatedFields: Partial<IUserSettlementItem>): void => {
     if (!editingOrder) return
     setEditedRows((prev) => ({
       ...prev,
@@ -50,7 +50,7 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
     setEditingOrder(null)
   }
 
-  const renderRow = (order: IUserSettlementItem) => {
+  const renderRow = (order: IUserSettlementItem): JSX.Element => {
     const edited = editedRows[order.order_id]
     const isEdited = !!edited
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { TypographyVariant } from 'enums/typography'
 import {
   Container,
@@ -21,13 +21,9 @@ import SettlementsTable from './components/SettlementsTable'
 import Button from 'components/common/Button'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import { useLoader } from 'context/loaderContext'
-
-import CalenderIcon from 'assets/images/svg/CalendarIcon'
-import ExportIcon from 'assets/images/svg/ExportIcon'
-import ChveronIcon from 'assets/images/svg/ChveronIcon'
 import { Typography } from '@mui/material'
 
-const MiscSettlements: React.FC = () => {
+const MiscSettlements: FC = () => {
   const toast = useToast()
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -35,7 +31,7 @@ const MiscSettlements: React.FC = () => {
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const handleSubmit = async (values: MiscSettlementFormValues) => {
+  const handleSubmit = async (values: MiscSettlementFormValues): Promise<void> => {
     try {
       showLoader()
       const payload = {
@@ -92,7 +88,7 @@ const MiscSettlements: React.FC = () => {
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
           <TableActions>
-            <DateFilterButton variant="outlined" onDateChange={(date) => console.log('Date selected:', date)} />
+            <DateFilterButton variant="outlined" onDateChange={() => {}} />
             <Button variant="contained" startIcon={<GetApp />}>
               Export
             </Button>
