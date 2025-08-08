@@ -35,7 +35,7 @@ jobs:
             fi
 
             echo "Cloning latest code from GitHub (develop branch)..."
-            git clone -b develop https://oauth2:${{ secrets.ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
+            git clone -b develop https://oauth2:${{ secrets.GH_ACCESS_TOKEN }}@github.com/ONDC-Official/rsf-utility-frontend.git
             cd rsf-utility-frontend
             
             echo " Writing environment variables to .env file..."
@@ -48,6 +48,6 @@ jobs:
             echo "Deployment completed successfully!"
           EOF
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
           REACT_APP_CLIENT_ID: ${{ secrets.REACT_APP_CLIENT_ID }}
           REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
