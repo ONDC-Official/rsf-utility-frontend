@@ -10,8 +10,10 @@ export interface IUser {
   role: string
   subscriber_url: string
   domain: string
-  tcs: number
-  tds: number
+  np_tcs: number
+  np_tds: number
+  pr_tcs: number
+  pr_tds: number
   msn: boolean
   provider_details: ProviderDetails[]
   _id: string

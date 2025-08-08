@@ -8,12 +8,13 @@ export const defaultProvider: IProvider = {
 }
 
 export const defaultFormData: IFormData = {
-  title: '',
   role: '',
   domainCategory: '',
-  npToProviderTax: 0,
+  buyerNpToNpTcs: 0,
+  buyerNpToNpTds: 0,
+  sellerNpToTcs: 0,
+  sellerNpToTds: 0,
   type: '',
-  npToNpTax: 0,
   subscriberUrl: '',
   providers: [defaultProvider],
 }

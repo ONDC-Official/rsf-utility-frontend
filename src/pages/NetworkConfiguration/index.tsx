@@ -26,7 +26,7 @@ const NetworkConfiguration: FC = () => {
     formState: { errors },
   } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
-  const role = watch('role')
+  const { role, type } = watch()
 
   const onSubmit = async (data: IFormData): Promise<void> => {
     showLoader()
@@ -61,8 +61,10 @@ const NetworkConfiguration: FC = () => {
       setValue('role', selectedUser?.role === 'BPP' ? 'Seller App' : selectedUser?.role === 'BAP' ? 'Buyer App' : '')
       setValue('subscriberUrl', selectedUser?.subscriber_url || '')
       setValue('domainCategory', selectedUser?.domain?.toUpperCase() || '')
-      setValue('npToProviderTax', selectedUser?.tds || 0)
-      setValue('npToNpTax', selectedUser?.tcs || 0)
+      setValue('buyerNpToNpTcs', selectedUser?.np_tcs || 0)
+      setValue('buyerNpToNpTds', selectedUser?.np_tds || 0)
+      setValue('sellerNpToTcs', selectedUser?.pr_tcs || 0)
+      setValue('sellerNpToTds', selectedUser?.pr_tds || 0)
       setValue('type', selectedUser?.msn ? 'MSN' : '')
       setValue(
         'providers',
@@ -81,7 +83,16 @@ const NetworkConfiguration: FC = () => {
   }, [selectedUser, setValue])
 
   useEffect(() => {
-    setValue('providers', [defaultProvider])
+    if (role && !selectedUser) {
+      setValue('role', role)
+      setValue('buyerNpToNpTcs', 0)
+      setValue('buyerNpToNpTds', 0)
+      setValue('sellerNpToTcs', 0)
+      setValue('sellerNpToTds', 0)
+      setValue('type', '')
+      setValue('subscriberUrl', '')
+      setValue('providers', [defaultProvider])
+    }
   }, [role, setValue])
 
   if (isLoading) return <div>Loading...</div>
@@ -90,7 +101,7 @@ const NetworkConfiguration: FC = () => {
     <Container>
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} selectedUser={selectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration errors={errors} role={role} selectedUser={selectedUser} control={control} />
+        <DomainConfiguration errors={errors} role={role} type={type} selectedUser={selectedUser} control={control} />
         {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
         {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
           <ProviderBankDetails control={control} errors={errors} />
