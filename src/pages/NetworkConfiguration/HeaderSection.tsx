@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react'
+import { FC, memo, useCallback } from 'react'
 import AddIcon from 'assets/images/svg/AddIcon'
 import { IHeaderSectionProps } from 'pages/NetworkConfiguration/type'
 import { defaultFormData } from 'pages/NetworkConfiguration/data'
@@ -9,7 +9,7 @@ import {
   ActionButton,
 } from 'styles/pages/NetworkConfiguration'
 
-const HeaderSection: React.FC<IHeaderSectionProps> = ({ reset, setSelectedUser, selectedUser }) => {
+const HeaderSection: FC<IHeaderSectionProps> = ({ reset, setSelectedUser, selectedUser }) => {
   const handleAddConfiguration = useCallback(() => {
     reset(defaultFormData)
     setSelectedUser(null)

@@ -10,19 +10,43 @@ import { NetworkConfigPayload } from 'interfaces/networkConfigPayload'
 import { IUser } from '@interfaces/user'
 
 const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfigPayload => {
-  const payload: Partial<NetworkConfigPayload> = {
-    tcs: parseFloat(`${data?.npToNpTax}`),
-    tds: parseFloat(`${data?.npToProviderTax}`),
+  const payload: Partial<NetworkConfigPayload> = {}
+
+  // Determine role conditions
+  const isBuyer = data?.role === 'Buyer App'
+  const isSeller = data?.role === 'Seller App'
+  const isMsn = data?.type === 'MSN'
+
+  // Buyer Role → only NP to NP TCS / NP to NP TDS
+  if (isBuyer) {
+    payload.np_tcs = parseFloat(`${data?.buyerNpToNpTcs}`)
+    payload.np_tds = parseFloat(`${data?.buyerNpToNpTds}`)
   }
 
+  // Seller Role with MSN false → only NP to NP TCS / NP to NP TDS
+  if (isSeller && !isMsn) {
+    payload.np_tcs = parseFloat(`${data?.sellerNpToTcs}`)
+    payload.np_tds = parseFloat(`${data?.sellerNpToTds}`)
+  }
+
+  // Seller Role with MSN true → NP to NP TCS / NP to NP TDS / NP to Provider TCS / NP to Provider TDS
+  if (isSeller && isMsn) {
+    payload.np_tcs = parseFloat(`${data?.sellerNpToTcs}`)
+    payload.np_tds = parseFloat(`${data?.sellerNpToTds}`)
+    payload.pr_tcs = parseFloat(`${data?.sellerNpToTcs}`)
+    payload.pr_tds = parseFloat(`${data?.sellerNpToTds}`)
+  }
+
+  // Common fields for new user creation
   if (!selectedUser) {
-    payload.role = data?.role === 'Seller App' ? 'BPP' : 'BAP'
-    payload.msn = data?.type === 'MSN'
+    payload.role = isSeller ? 'BPP' : 'BAP'
+    payload.msn = isMsn
     payload.subscriber_url = data?.subscriberUrl
     payload.domain = data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, '')
   }
 
-  if (data?.providers?.length && data?.role !== 'Buyer App') {
+  // Providers only if not Buyer
+  if (data?.providers?.length && !isBuyer) {
     payload.provider_details = data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
       provider_id: providerId,
       account_number: accountNumber,

@@ -22,7 +22,7 @@ import colors from 'theme/colors'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
-const DomainConfiguration = ({ control, errors, role, selectedUser }: IDomainConfigurationProps): JSX.Element => (
+const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDomainConfigurationProps): JSX.Element => (
   <ConfigurationBox>
     <SettlementHeader>
       <NetworkIdentityHeader>
@@ -95,108 +95,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser }: IDomainCon
           )}
         </div>
 
-        {/* NP to NP Tax (%) */}
-        <div>
-          <LabelWrapper>
-            <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-              NP to NP Tax (%)
-            </Typography>
-            <Tooltip title="Tax applicable for an Inter NP Settlement" arrow placement="right-start">
-              <IconWrapper>
-                <ToolTipIcon />
-              </IconWrapper>
-            </Tooltip>
-          </LabelWrapper>
-          <Controller
-            control={control}
-            name="npToNpTax"
-            rules={{
-              required: 'Tax is required',
-              min: { value: 0, message: 'Tax cannot be negative' },
-              max: { value: 100, message: 'Tax cannot exceed 100%' },
-            }}
-            render={({ field }) => (
-              <StyledInput
-                type="number"
-                inputProps={{ step: 'any' }}
-                placeholder="Enter NP to NP Tax (%)"
-                value={field.value ?? ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.npToNpTax}
-                helperText={errors.npToNpTax?.message}
-              />
-            )}
-          />
-        </div>
-
-        {/* Subscriber URL */}
-        <div>
-          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Subscriber URL
-          </Typography>
-          <Controller
-            control={control}
-            name="subscriberUrl"
-            rules={{
-              required: 'URL is required',
-              pattern: { value: regexUrl, message: 'Invalid URL' },
-            }}
-            render={({ field }) => (
-              <StyledInput
-                placeholder="Enter Subscriber URL"
-                value={field.value || ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.subscriberUrl}
-                helperText={errors.subscriberUrl?.message}
-                disabled={!!selectedUser}
-              />
-            )}
-          />
-        </div>
-
-        {/* NP to Provider Tax (%) */}
-        <div>
-          <LabelWrapper>
-            <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-              NP to Provider Tax (%)
-            </Typography>
-            <Tooltip title="Tax applicable for an MSN settling to their provider" arrow placement="right-start">
-              <IconWrapper>
-                <ToolTipIcon />
-              </IconWrapper>
-            </Tooltip>
-          </LabelWrapper>
-          <Controller
-            control={control}
-            name="npToProviderTax"
-            rules={{
-              required: 'Tax is required',
-              min: { value: 0, message: 'Tax cannot be negative' },
-              max: { value: 100, message: 'Tax cannot exceed 100%' },
-            }}
-            render={({ field }) => (
-              <StyledInput
-                type="number"
-                inputProps={{ step: 'any' }}
-                placeholder="Enter NP to Provider Tax (%)"
-                value={field.value ?? ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.npToProviderTax}
-                helperText={errors.npToProviderTax?.message}
-              />
-            )}
-          />
-        </div>
-
         {/* Type - Only if role ≠ 'Buyer App' */}
         {role !== 'Buyer App' && (
           <div>
@@ -227,6 +125,345 @@ const DomainConfiguration = ({ control, errors, role, selectedUser }: IDomainCon
             )}
           </div>
         )}
+
+        {/* Buyer Role */}
+        {role === 'Buyer App' && (
+          <>
+            {/* NP to NP TCS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TCS (%)
+                </Typography>
+                <Tooltip title="TCS applicable for Buyer NP to NP" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="buyerNpToNpTcs"
+                rules={{
+                  required: 'NP to NP TCS is required',
+                  min: { value: 0, message: 'TCS cannot be negative' },
+                  max: { value: 100, message: 'TCS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TCS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.buyerNpToNpTcs}
+                    helperText={errors.buyerNpToNpTcs?.message}
+                  />
+                )}
+              />
+            </div>
+
+            {/* NP to NP TDS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TDS (%)
+                </Typography>
+                <Tooltip title="TDS applicable for Buyer NP to NP" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="buyerNpToNpTds"
+                rules={{
+                  required: 'NP to NP TDS is required',
+                  min: { value: 0, message: 'TDS cannot be negative' },
+                  max: { value: 100, message: 'TDS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TDS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.buyerNpToNpTds}
+                    helperText={errors.buyerNpToNpTds?.message}
+                  />
+                )}
+              />
+            </div>
+          </>
+        )}
+
+        {/* Seller Role with MSN false */}
+        {role === 'Seller App' && type !== 'MSN' && (
+          <>
+            {/* NP to NP TCS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TCS (%)
+                </Typography>
+                <Tooltip title="TCS applicable for Seller NP to NP (MSN false)" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTcs"
+                rules={{
+                  required: 'NP to NP TCS is required',
+                  min: { value: 0, message: 'TCS cannot be negative' },
+                  max: { value: 100, message: 'TCS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TCS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTcs}
+                    helperText={errors.sellerNpToTcs?.message}
+                  />
+                )}
+              />
+            </div>
+
+            {/* NP to NP TDS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TDS (%)
+                </Typography>
+                <Tooltip title="TDS applicable for Seller NP to NP" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTds"
+                rules={{
+                  required: 'NP to NP TDS is required',
+                  min: { value: 0, message: 'TDS cannot be negative' },
+                  max: { value: 100, message: 'TDS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TDS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTds}
+                    helperText={errors.sellerNpToTds?.message}
+                  />
+                )}
+              />
+            </div>
+          </>
+        )}
+
+        {/* Seller Role with MSN true */}
+        {role === 'Seller App' && type === 'MSN' && (
+          <>
+            {/* NP to NP TCS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TCS (%)
+                </Typography>
+                <Tooltip title="TCS applicable for Seller NP to NP" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTcs"
+                rules={{
+                  required: 'NP to NP TCS is required',
+                  min: { value: 0, message: 'TCS cannot be negative' },
+                  max: { value: 100, message: 'TCS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TCS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTcs}
+                    helperText={errors.sellerNpToTcs?.message}
+                  />
+                )}
+              />
+            </div>
+
+            {/* NP to NP TDS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to NP TDS (%)
+                </Typography>
+                <Tooltip title="TDS applicable for Seller NP to NP " arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTds"
+                rules={{
+                  required: 'NP to NP TDS is required',
+                  min: { value: 0, message: 'TDS cannot be negative' },
+                  max: { value: 100, message: 'TDS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to NP TDS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTds}
+                    helperText={errors.sellerNpToTds?.message}
+                  />
+                )}
+              />
+            </div>
+
+            {/* NP to Provider TCS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to Provider TCS (%)
+                </Typography>
+                <Tooltip title="TCS applicable for Seller NP to Provider" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTcs"
+                rules={{
+                  required: 'NP to Provider TCS is required',
+                  min: { value: 0, message: 'TCS cannot be negative' },
+                  max: { value: 100, message: 'TCS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to Provider TCS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTcs}
+                    helperText={errors.sellerNpToTcs?.message}
+                  />
+                )}
+              />
+            </div>
+
+            {/* NP to Provider TDS */}
+            <div>
+              <LabelWrapper>
+                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                  NP to Provider TDS (%)
+                </Typography>
+                <Tooltip title="TDS applicable for Seller NP to Provider" arrow placement="right-start">
+                  <IconWrapper>
+                    <ToolTipIcon />
+                  </IconWrapper>
+                </Tooltip>
+              </LabelWrapper>
+              <Controller
+                control={control}
+                name="sellerNpToTds"
+                rules={{
+                  required: 'NP to Provider TDS is required',
+                  min: { value: 0, message: 'TDS cannot be negative' },
+                  max: { value: 100, message: 'TDS cannot exceed 100%' },
+                }}
+                render={({ field }) => (
+                  <StyledInput
+                    type="number"
+                    inputProps={{ step: 'any' }}
+                    placeholder="Enter NP to Provider TDS (%)"
+                    value={field.value ?? ''}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.sellerNpToTds}
+                    helperText={errors.sellerNpToTds?.message}
+                  />
+                )}
+              />
+            </div>
+          </>
+        )}
+
+        {/* Subscriber URL */}
+        <div>
+          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+            Subscriber URL
+          </Typography>
+          <Controller
+            control={control}
+            name="subscriberUrl"
+            rules={{
+              required: 'URL is required',
+              pattern: { value: regexUrl, message: 'Invalid URL' },
+            }}
+            render={({ field }) => (
+              <StyledInput
+                placeholder="Enter Subscriber URL"
+                value={field.value || ''}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                inputRef={field.ref}
+                error={!!errors.subscriberUrl}
+                helperText={errors.subscriberUrl?.message}
+                disabled={!!selectedUser}
+              />
+            )}
+          />
+        </div>
       </FormContainer>
     </DomainConfigContainer>
   </ConfigurationBox>

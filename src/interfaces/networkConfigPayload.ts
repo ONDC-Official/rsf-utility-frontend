@@ -9,8 +9,10 @@ export interface NetworkConfigPayload {
   role: 'BPP' | 'BAP'
   subscriber_url: string
   domain: string
-  tcs: number
-  tds: number
+  np_tcs: number
+  np_tds: number
+  pr_tcs: number
+  pr_tds: number
   msn: boolean
   provider_details?: ProviderDetail[]
 }

@@ -8,21 +8,30 @@ export interface IProvider {
   bankName: string
 }
 
+export interface ISelectedUser extends IUser {
+  counterparty_ids: string[]
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+
 export interface IFormData {
-  title: string
   role: string
   domainCategory: string
-  npToProviderTax: number
   type: string
-  npToNpTax: number
   subscriberUrl: string
   providers?: IProvider[]
+  buyerNpToNpTcs?: number
+  buyerNpToNpTds?: number
+  sellerNpToTcs?: number
+  sellerNpToTds?: number
 }
 
 export interface IDomainConfigurationProps {
   errors: FieldErrors<IFormData>
   role: string
-  selectedUser: any
+  type: string
+  selectedUser: ISelectedUser | IUser | null
   control: Control<IFormData>
 }
 
