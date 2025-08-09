@@ -14,14 +14,23 @@ export const formatCurrency = (value: number | null | undefined, decimals = 2): 
   return `₹${value.toFixed(decimals)}`
 }
 
-export const humanize = (str: string) =>
-  str
+export const humanize = (str: string | undefined | null): string => {
+  if (!str || typeof str !== 'string') {
+    return ''
+  }
+
+  return str
     .toLowerCase()
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
+}
 
-export const formatSettlementStatus = (status: SettlementStatus | string): string => {
+export const formatSettlementStatus = (status: SettlementStatus | string | undefined | null): string => {
+  if (!status) {
+    return 'Unknown'
+  }
+
   switch (status) {
     case SettlementStatus.PENDING:
       return 'Pending'
@@ -47,6 +56,6 @@ export const formatSettlementStatus = (status: SettlementStatus | string): strin
     case 'ERROR':
       return 'Error'
     default:
-      return humanize(status) || status
+      return humanize(status) || String(status) || 'Unknown'
   }
 }

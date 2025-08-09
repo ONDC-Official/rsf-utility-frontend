@@ -43,7 +43,8 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
     }
   }, [isLoading, showLoader, hideLoader])
 
-  const reconRequests = reconData?.data?.recons || []
+  // Flatten the nested recons structure
+  const reconRequests = (reconData?.data?.recons || []).flatMap((item) => item.recons || [])
 
   // Convert IReconDataItem to IIncomingRequest format for compatibility
   const data: IIncomingRequest[] = Array.isArray(reconRequests)

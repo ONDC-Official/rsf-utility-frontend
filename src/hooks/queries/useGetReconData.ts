@@ -33,7 +33,11 @@ export interface IReconQueryParams {
 }
 
 export interface IReconApiResponse {
-  recons: IReconDataItem[]
+  recons: Array<{
+    transaction_id: string
+    recons: IReconDataItem[]
+    count: number
+  }>
   pagination: {
     total: number
     page: number
@@ -51,8 +55,8 @@ const useGetReconData = (
 
   const searchParams = new URLSearchParams()
 
-  // if (params?.page) searchParams.append('page', String(params.page))
-  // if (params?.limit) searchParams.append('limit', String(params.limit))
+  if (params?.page) searchParams.append('page', String(params.page))
+  if (params?.limit) searchParams.append('limit', String(params.limit))
   if (params?.counterparty_id) searchParams.append('counterparty_id', params.counterparty_id)
 
   if (params?.recon_status) {

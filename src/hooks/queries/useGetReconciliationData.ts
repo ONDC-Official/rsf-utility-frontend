@@ -4,6 +4,7 @@ import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 
+// Based on the API response structure with nested settlements and pagination
 export interface IReconciliationApiResponse {
   settlements: IReconciliationDataItem[]
   pagination: {
@@ -48,7 +49,7 @@ const useGetReconciliationData = (
   configs?: UseQueryOptions<IApiResponse<IReconciliationApiResponse>>,
 ): UseQueryResult<IApiResponse<IReconciliationApiResponse>> => {
   const baseUrl = buildApiUrl(APIRoute.SETTLEMENT, { userId })
-  let url = `${baseUrl}?status=NOT_SETTLED`
+  let url = `${baseUrl}?status=NOT_SETTLED&page=${page}&limit=${limit}`
 
   if (counterpartyId) {
     url += `&counterparty_id=${counterpartyId}`
