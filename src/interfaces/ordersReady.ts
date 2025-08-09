@@ -23,7 +23,10 @@ export enum PrepareButtonState {
 }
 
 export interface ISettlePrepareRequest {
-  order_ids: string[]
+  prepare_data: Array<{
+    id: string
+    strategy: string
+  }>
 }
 
 export interface ISettlePrepareResponse {

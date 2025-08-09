@@ -48,7 +48,9 @@ export const StyledTableBodyCell = styled(TableCell)({
   },
 })
 
-export const StyledTableRow = styled(TableRow)<{ isLast?: boolean }>(({ isLast }) => ({
+export const StyledTableRow = styled(TableRow, {
+  shouldForwardProp: (prop) => prop !== 'isLast',
+})<{ isLast?: boolean }>(({ isLast }) => ({
   '&:hover': {
     backgroundColor: 'rgba(0, 0, 0, 0.04)',
   },

@@ -16,6 +16,7 @@ export interface ISelectedUser extends IUser {
 }
 
 export interface IFormData {
+  title: string
   role: string
   domainCategory: string
   type: string
@@ -25,6 +26,8 @@ export interface IFormData {
   buyerNpToNpTds?: number
   sellerNpToTcs?: number
   sellerNpToTds?: number
+  sellerNpToProviderTcs?: number
+  sellerNpToProviderTds?: number
 }
 
 export interface IDomainConfigurationProps {

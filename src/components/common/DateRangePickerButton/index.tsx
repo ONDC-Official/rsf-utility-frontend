@@ -1,15 +1,16 @@
 import { FC, useState, useEffect } from 'react'
 import { Popover, Button as MuiButton } from '@mui/material'
-import { CalendarToday } from '@mui/icons-material'
 import DatePickerInput from 'components/common/DatePickerInput'
 import { IDateRangePickerButtonProps } from 'components/common/DateRangePickerButton/types'
-import { OutlinedFilterButton } from 'styles/components/Button.styled'
 import {
   PopoverContainer,
   PopoverTitle,
   DateFieldsContainer,
   ActionsContainer,
 } from 'styles/components/DateRangePickerButton.styled'
+import Button from '../Button'
+import CalendarIcon from 'assets/images/svg/CalendarIcon'
+import ChevronIcon from 'assets/images/svg/ChevronIcon'
 
 const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
   onDateRangeChange,
@@ -85,9 +86,15 @@ const DateRangePickerButton: FC<IDateRangePickerButtonProps> = ({
 
   return (
     <>
-      <OutlinedFilterButton variant={variant} startIcon={<CalendarToday />} onClick={handleClick} disabled={disabled}>
+      <Button
+        variant={variant}
+        startIcon={<CalendarIcon />}
+        endIcon={<ChevronIcon />}
+        onClick={handleClick}
+        disabled={disabled}
+      >
         {getButtonText()}
-      </OutlinedFilterButton>
+      </Button>
 
       <Popover
         open={open}

@@ -23,6 +23,7 @@ export const Left = styled(Box)({
 export const Right = styled(Box)({
   display: 'flex',
   alignItems: 'center',
+  gap: 8,
 })
 
 export const PageTitle = styled(Typography)({

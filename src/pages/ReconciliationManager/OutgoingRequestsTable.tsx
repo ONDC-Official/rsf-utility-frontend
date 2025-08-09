@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { MoveToInbox, RestartAlt } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import StatusChip from 'components/common/StatusChip'
@@ -8,6 +8,13 @@ import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IOutgoingRequestsTableProps } from 'pages/ReconciliationManager/types'
+import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
+import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
+import { OUTGOING_RECON_STATUSES } from 'enums/recon'
+import useMoveToReady from 'hooks/mutations/useMoveToReady'
+// import useGenerateRecon from 'hooks/mutations/useGenerateRecon'
+// import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import {
   TableContainer as Container,
   TableHeader as Header,
@@ -20,9 +27,55 @@ import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
+// import ExportIcon from 'assets/images/svg/ExportIcon'
 
-const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onReinitiate }) => {
+const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }) => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
+
+  const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
+
+  const {
+    data: reconData,
+    isLoading,
+    refetch: internalRefetch,
+  } = useGetReconData(
+    selectedUser?._id || '',
+    {
+      page: 1,
+      limit: 100,
+      recon_status: OUTGOING_RECON_STATUSES,
+    },
+    {
+      enabled: !!selectedUser?._id,
+    },
+  )
+
+  const moveToReady = useMoveToReady(selectedUser?._id || '')
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
+    }
+  }, [isLoading, showLoader, hideLoader])
+
+  const reconRequests = reconData?.data?.recons || []
+
+  // Convert IReconDataItem to IOutgoingRequest format for compatibility
+  const requests: IOutgoingRequest[] = Array.isArray(reconRequests)
+    ? reconRequests.map((item: IReconDataItem) => ({
+        id: item._id,
+        orderId: item.order_id,
+        receiverId: item.settlement_id || '-',
+        status: item.recon_status,
+        dueDate: item.createdAt || '-',
+        response: '-',
+        error: '-',
+      }))
+    : []
+
   const {
     currentItems: currentRequests,
     totalCount,
@@ -38,6 +91,29 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
     setDateRange(newDateRange)
   }
 
+  const handleMoveToReady = async (request: IOutgoingRequest): Promise<void> => {
+    try {
+      showLoader()
+      const payload = {
+        orders: {
+          orders: [
+            {
+              order_id: request.orderId,
+            },
+          ],
+        },
+      }
+
+      await moveToReady.moveToReadyAsync(payload)
+      // Refresh the table data
+      await internalRefetch()
+      hideLoader()
+    } catch (error) {
+      console.error('Error moving to ready:', error)
+      hideLoader()
+    }
+  }
+
   const renderRow = (request: IOutgoingRequest): JSX.Element => (
     <>
       <StyledTableBodyCell>{request.orderId}</StyledTableBodyCell>
@@ -48,15 +124,21 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ requests, onRe
       <StyledTableBodyCell>{request.dueDate}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.response}</StyledTableBodyCell>
       <StyledTableBodyCell>
-        {request.status === 'Accepted' ? (
-          <Button variant="contained" size="small" startIcon={<MoveToInbox />} sx={{ height: 'auto' }}>
+        {request.status === 'SENT_PENDING' ? null : request.status === 'SENT_ACCEPTED' ? (
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<MoveToInbox />}
+            sx={{ height: 'auto' }}
+            onClick={() => handleMoveToReady(request)}
+          >
             Move to Ready
           </Button>
-        ) : (
+        ) : request.status === 'SENT_REJECTED' ? (
           <Button variant="outlined" size="small" startIcon={<RestartAlt />} onClick={() => onReinitiate(request)}>
             Reinitiate
           </Button>
-        )}
+        ) : null}
       </StyledTableBodyCell>
       <ErrorCell>{request.error || '-'}</ErrorCell>
     </>

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { Tooltip, IconButton } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp, Check, Close } from '@mui/icons-material'
 import Table from 'components/common/Table'
@@ -8,9 +8,58 @@ import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { IIncomingRequestsTableProps } from 'pages/ReconciliationManager/types'
 import { CURRENCY_SYMBOL, TABLE_CELL_DEFAULTS } from 'pages/ReconciliationManager/constants'
 import { StyledTableBodyCell, ExpandableCell, ActionIconButton } from 'styles/components/Table.styled'
+import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
+import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
+import { INCOMING_RECON_STATUSES } from 'enums/recon'
 
-const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ data, onAccept, onReject }) => {
+const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onReject }) => {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
+
+  const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
+
+  const {
+    data: reconData,
+    isLoading,
+    // refetch: refetchIncomingData,
+  } = useGetReconData(
+    selectedUser?._id || '',
+    {
+      page: 1,
+      limit: 100,
+      recon_status: INCOMING_RECON_STATUSES,
+    },
+    {
+      enabled: !!selectedUser?._id,
+    },
+  )
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoader()
+    } else {
+      hideLoader()
+    }
+  }, [isLoading, showLoader, hideLoader])
+
+  const reconRequests = reconData?.data?.recons || []
+
+  // Convert IReconDataItem to IIncomingRequest format for compatibility
+  const data: IIncomingRequest[] = Array.isArray(reconRequests)
+    ? reconRequests.map((item: IReconDataItem) => ({
+        id: item._id,
+        reconTransactionId: item._id, // Using _id as transaction ID
+        orderId: item.order_id,
+        receiverId: item.settlement_id || '-',
+        requestedAmount: item.recon_breakdown.amount,
+        currentAmount: item.recon_breakdown.amount,
+        requestedCommission: item.recon_breakdown.commission,
+        currentCommission: item.recon_breakdown.commission,
+        reason: 'Reconciliation request',
+        receivedDate: item.createdAt,
+      }))
+    : []
 
   const {
     currentItems: orders,

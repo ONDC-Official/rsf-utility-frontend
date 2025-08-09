@@ -1,3 +1,5 @@
+import { SettlementStatus } from 'enums/settlement'
+
 export interface IStatusChipProps {
-  status: 'Settled' | 'Not Settled' | 'Accepted' | 'Rejected'
+  status: SettlementStatus | string
 }

@@ -4,18 +4,21 @@ import AcceptModal from 'pages/ReconciliationManager/AcceptModal'
 import RejectModal from 'pages/ReconciliationManager/RejectModal'
 import { IReviewReconRequestsProps } from 'pages/ReconciliationManager/types'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
-import { generateIncomingRequests } from 'data/reconciliationManagerData'
+// import { generateIncomingRequests } from 'data/reconciliationManagerData'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { TableContainer as Container, TableHeader as Header, Wrapper } from 'styles/pages/ReconciliationManager.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
+import { Actions } from 'styles/pages/OrdersReady.styled'
+// import Button from 'components/common/Button'
+// import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
   const [acceptModalOpen, setAcceptModalOpen] = useState(false)
   const [rejectModalOpen, setRejectModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<IIncomingRequest | null>(null)
 
-  const incomingRequests = generateIncomingRequests(256)
+  // Note: incomingRequests now fetched directly in IncomingRequestsTable via API
 
   const handleAccept = (order: IIncomingRequest): void => {
     setSelectedOrder(order)
@@ -30,13 +33,19 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
   const handleAcceptConfirm = (): void => {
     setAcceptModalOpen(false)
     setSelectedOrder(null)
-    onToastShow(RECONCILIATION_LABELS.ACCEPT_TOAST_MESSAGE)
   }
 
   const handleRejectConfirm = (): void => {
     setRejectModalOpen(false)
     setSelectedOrder(null)
-    onToastShow(RECONCILIATION_LABELS.REJECT_TOAST_MESSAGE)
+  }
+
+  const handleAcceptSuccess = (message: string): void => {
+    onToastShow(message)
+  }
+
+  const handleRejectSuccess = (message: string): void => {
+    onToastShow(message)
   }
 
   const handleModalClose = (): void => {
@@ -50,10 +59,15 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
       <Container>
         <Header>
           <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.INCOMING_TITLE}</Typography>
+          <Actions>
+            {/* <Button variant="outlined" startIcon={<ExportIcon />}>
+              Export
+            </Button> */}
+          </Actions>
         </Header>
 
         <Wrapper>
-          <IncomingRequestsTable data={incomingRequests} onAccept={handleAccept} onReject={handleReject} />
+          <IncomingRequestsTable onAccept={handleAccept} onReject={handleReject} />
         </Wrapper>
       </Container>
 
@@ -62,6 +76,7 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
         onClose={handleModalClose}
         onConfirm={handleAcceptConfirm}
         order={selectedOrder}
+        onAcceptSuccess={handleAcceptSuccess}
       />
 
       <RejectModal
@@ -69,6 +84,7 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
         onClose={handleModalClose}
         onConfirm={handleRejectConfirm}
         order={selectedOrder}
+        onRejectSuccess={handleRejectSuccess}
       />
     </>
   )

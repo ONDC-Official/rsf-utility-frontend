@@ -19,6 +19,7 @@ import { TypographyVariant } from 'enums/typography'
 import { Controller } from 'react-hook-form'
 import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
 import colors from 'theme/colors'
+import { DOMAIN_CATEGORIES } from 'constants/domains'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
@@ -34,7 +35,36 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
     <DomainConfigContainer>
       <ConfigHeader>Domain Configuration</ConfigHeader>
       <FormContainer>
-        {/* Role */}
+        <div>
+          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+            Title
+          </Typography>
+          <Controller
+            control={control}
+            name="title"
+            rules={{
+              required: 'Title is required',
+            }}
+            render={({ field }) => (
+              <StyledInput
+                placeholder="Enter configuration title"
+                value={field.value ?? ''}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                inputRef={field.ref}
+                error={!!errors.title}
+                helperText={errors.title?.message}
+              />
+            )}
+          />
+          {errors.title && (
+            <ErrorMessage color="error" variant="caption">
+              {errors.title.message}
+            </ErrorMessage>
+          )}
+        </div>
+
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
             Role
@@ -66,7 +96,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           )}
         </div>
 
-        {/* Domain Category */}
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
             Domain Category
@@ -82,8 +111,12 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 error={!!errors.domainCategory}
                 disabled={!!selectedUser}
                 displayEmpty
-                renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Domain Category')}
-                options={[{ value: 'F&B (RET11)', label: 'F&B (RET11)' }]}
+                renderValue={(selected: unknown) => {
+                  if (!selected) return 'Select Domain Category'
+                  const selectedOption = DOMAIN_CATEGORIES.find((opt) => opt.value === selected)
+                  return selectedOption ? selectedOption.label : String(selected)
+                }}
+                options={DOMAIN_CATEGORIES}
                 formControlProps={{ error: !!errors.domainCategory, fullWidth: true }}
               />
             )}
@@ -95,7 +128,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           )}
         </div>
 
-        {/* Type - Only if role ≠ 'Buyer App' */}
         {role !== 'Buyer App' && (
           <div>
             <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -126,10 +158,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           </div>
         )}
 
-        {/* Buyer Role */}
         {role === 'Buyer App' && (
           <>
-            {/* NP to NP TCS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -166,7 +196,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               />
             </div>
 
-            {/* NP to NP TDS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -205,10 +234,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           </>
         )}
 
-        {/* Seller Role with MSN false */}
         {role === 'Seller App' && type !== 'MSN' && (
           <>
-            {/* NP to NP TCS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -245,7 +272,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               />
             </div>
 
-            {/* NP to NP TDS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -284,10 +310,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           </>
         )}
 
-        {/* Seller Role with MSN true */}
         {role === 'Seller App' && type === 'MSN' && (
           <>
-            {/* NP to NP TCS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -324,7 +348,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               />
             </div>
 
-            {/* NP to NP TDS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -361,7 +384,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               />
             </div>
 
-            {/* NP to Provider TCS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -375,7 +397,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               </LabelWrapper>
               <Controller
                 control={control}
-                name="sellerNpToTcs"
+                name="sellerNpToProviderTcs"
                 rules={{
                   required: 'NP to Provider TCS is required',
                   min: { value: 0, message: 'TCS cannot be negative' },
@@ -391,14 +413,13 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onBlur={field.onBlur}
                     name={field.name}
                     inputRef={field.ref}
-                    error={!!errors.sellerNpToTcs}
-                    helperText={errors.sellerNpToTcs?.message}
+                    error={!!errors.sellerNpToProviderTcs}
+                    helperText={errors.sellerNpToProviderTcs?.message}
                   />
                 )}
               />
             </div>
 
-            {/* NP to Provider TDS */}
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
@@ -412,7 +433,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               </LabelWrapper>
               <Controller
                 control={control}
-                name="sellerNpToTds"
+                name="sellerNpToProviderTds"
                 rules={{
                   required: 'NP to Provider TDS is required',
                   min: { value: 0, message: 'TDS cannot be negative' },
@@ -428,8 +449,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onBlur={field.onBlur}
                     name={field.name}
                     inputRef={field.ref}
-                    error={!!errors.sellerNpToTds}
-                    helperText={errors.sellerNpToTds?.message}
+                    error={!!errors.sellerNpToProviderTds}
+                    helperText={errors.sellerNpToProviderTds?.message}
                   />
                 )}
               />
@@ -437,7 +458,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           </>
         )}
 
-        {/* Subscriber URL */}
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
             Subscriber URL

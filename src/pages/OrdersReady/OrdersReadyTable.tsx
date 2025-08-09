@@ -1,16 +1,18 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Typography } from '@mui/material'
 import Table from 'components/common/Table'
-import DateRangePickerButton from 'components/common/DateRangePickerButton'
-import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { IOrdersReadyTableProps } from 'pages/OrdersReady/types'
 import { IOrderReady } from 'interfaces/ordersReady'
 import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
 import { TypographyVariant } from 'enums/typography'
+import Button from 'components/common/Button'
 
 interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
+  receiverId: string
   selectedItems: Set<string>
   onSelectAll: (checked: boolean, currentPageItems: IOrderReady[]) => void
+  onSaveDueDatesClick?: () => void
+  showSaveButton?: boolean
 }
 
 const renderEmptyState = (): JSX.Element => (
@@ -20,6 +22,7 @@ const renderEmptyState = (): JSX.Element => (
 )
 
 const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
+  receiverId,
   columns,
   data,
   totalCount,
@@ -30,24 +33,21 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   onRowsPerPageChange,
   selectedItems,
   onSelectAll,
+  showSaveButton,
+  onSaveDueDatesClick,
 }) => {
-  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const getItemId = (item: IOrderReady): string => item.id
-
-  const handleDateRangeChange = (newDateRange: IDateRange): void => {
-    setDateRange(newDateRange)
-  }
 
   return (
     <Container>
       <Header>
-        <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
+        <Typography variant={TypographyVariant.H6Bold}>{receiverId}</Typography>
         <Actions>
-          <DateRangePickerButton
-            variant="outlined"
-            selectedDateRange={dateRange}
-            onDateRangeChange={handleDateRangeChange}
-          />
+          {showSaveButton && (
+            <Button variant="contained" onClick={onSaveDueDatesClick}>
+              Save Orders
+            </Button>
+          )}
         </Actions>
       </Header>
       <Table

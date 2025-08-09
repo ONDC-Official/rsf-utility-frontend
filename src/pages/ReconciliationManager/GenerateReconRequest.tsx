@@ -1,37 +1,128 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import ReconRequestTable from 'pages/ReconciliationManager/ReconRequestTable'
 import OutgoingRequestsTable from 'pages/ReconciliationManager/OutgoingRequestsTable'
 import ReinitiateModal from 'pages/ReconciliationManager/ReinitiateModal'
 import { IOutgoingRequest } from 'interfaces/reconciliationManager'
-import { generateOutgoingRequests } from 'data/reconciliationManagerData'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IGenerateReconRequestProps } from 'pages/ReconciliationManager/types'
+import { IReconciliationDataItem } from 'hooks/queries/useGetReconciliationData'
+import useGenerateRecon, { IReconDataItem } from 'hooks/mutations/useGenerateRecon'
+import useTriggerAction from 'hooks/mutations/useTriggerAction'
+import { useUserContext } from 'context/userContext'
 
-const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ allOrders, onToastShow }) => {
+const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onSelectionChange }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<IOutgoingRequest | null>(null)
+  // const [selectedCount, setSelectedCount] = useState(0)
+  // const [selectedSettlements, setSelectedSettlements] = useState<IReconciliationDataItem[]>([])
 
-  const outgoingRequests = generateOutgoingRequests(256)
+  const { selectedUser } = useUserContext()
+  const generateRecon = useGenerateRecon(selectedUser?._id || '')
+  const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const handleCheckboxSelect = (): void => {
-    onToastShow(RECONCILIATION_LABELS.TOAST_MESSAGE)
-  }
+  // Note: outgoingRequests now fetched directly in OutgoingRequestsTable via API
+
+  const handleGenerateReconRequestWithData = useCallback(
+    async (settlements: IReconciliationDataItem[]): Promise<void> => {
+      try {
+        // Prepare payload for first API
+        const reconData: IReconDataItem[] = settlements.map((settlement) => ({
+          order_id: settlement.order_id,
+          // recon_data: {
+          //   settlement_amount: settlement.collector_settlement,
+          //   commission_amount: settlement.commission,
+          //   withholding_amount: settlement.withholding_amount,
+          //   tds: settlement.tds,
+          //   tcs: settlement.tcs
+          // }
+        }))
+
+        // Call first API
+        const firstApiResponse = await generateRecon.generateAsync({ recon_data: reconData })
+
+        if (firstApiResponse.success && firstApiResponse.data) {
+          // Call second API with the response data (pass the entire data object, not data.data)
+          await triggerAction.triggerAsync('recon', firstApiResponse.data)
+          onToastShow('Reconciliation request generated successfully!')
+        }
+      } catch (error) {
+        console.error('Error generating reconciliation request:', error)
+        onToastShow('Failed to generate reconciliation request')
+      }
+    },
+    [generateRecon, triggerAction, onToastShow],
+  )
+
+  const handleCheckboxSelect = useCallback(
+    (count: number, settlements: IReconciliationDataItem[]): void => {
+      // setSelectedCount(count)
+      // setSelectedSettlements(settlements)
+
+      // Pass the settlements data to parent for generating the request
+      if (onSelectionChange) {
+        onSelectionChange(count, count > 0, () => handleGenerateReconRequestWithData(settlements))
+      }
+
+      if (count > 0) {
+        onToastShow(RECONCILIATION_LABELS.TOAST_MESSAGE)
+      }
+    },
+    [onSelectionChange, onToastShow, handleGenerateReconRequestWithData],
+  )
 
   const handleReinitiate = (order: IOutgoingRequest): void => {
     setSelectedOrder(order)
     setModalOpen(true)
   }
 
+  const handleReinitiateWithData = async (order: IOutgoingRequest, formData: any): Promise<void> => {
+    try {
+      // First API call - Generate recon with form data
+      const reconPayload = {
+        recon_data: [
+          {
+            order_id: formData.orderId,
+            // You can add the form data fields here if needed by the API
+            // settlement_amount: parseFloat(formData.settlementAmount) || 0,
+            // commission_amount: parseFloat(formData.commission) || 0,
+            // withholding_amount: parseFloat(formData.withholdingAmount) || 0,
+            // tds: parseFloat(formData.tds) || 0,
+            // tcs: parseFloat(formData.tcs) || 0
+          },
+        ],
+      }
+
+      const firstApiResponse = await generateRecon.generateAsync(reconPayload)
+
+      if (firstApiResponse.success && firstApiResponse.data) {
+        // Second API call - Trigger action
+        await triggerAction.triggerAsync('recon', firstApiResponse.data)
+      }
+
+      onToastShow('Reconciliation request reinitiated successfully!')
+    } catch (error) {
+      onToastShow('Failed to reinitiate reconciliation request')
+      throw error // Re-throw to be handled by modal
+    }
+  }
+
   const handleModalClose = (): void => {
     setModalOpen(false)
     setSelectedOrder(null)
+    // The table will automatically refresh when the modal closes
+    // due to React Query's automatic refetching behavior
   }
 
   return (
     <>
-      <ReconRequestTable allOrders={allOrders} onCheckboxSelect={handleCheckboxSelect} />
-      <OutgoingRequestsTable requests={outgoingRequests} onReinitiate={handleReinitiate} />
-      <ReinitiateModal open={modalOpen} onClose={handleModalClose} order={selectedOrder} />
+      <ReconRequestTable onCheckboxSelect={handleCheckboxSelect} />
+      <OutgoingRequestsTable onReinitiate={handleReinitiate} />
+      <ReinitiateModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        order={selectedOrder}
+        onReinitiate={handleReinitiateWithData}
+      />
     </>
   )
 }

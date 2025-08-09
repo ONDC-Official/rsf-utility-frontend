@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SelectChangeEvent } from '@mui/material'
-import { columns, receiverOptions } from 'pages/OrdersReady/data'
+import { columns } from 'pages/OrdersReady/data'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -11,10 +11,10 @@ import { ROUTES } from 'constants/routes.constants'
 import usePost from 'hooks/usePost'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 type UseOrdersReadyReturn = {
   receiverId: string
-  receiverOptions: typeof receiverOptions
   toast: IToastState
   selectedOrders: Set<string>
   prepareButtonState: PrepareButtonState
@@ -23,6 +23,7 @@ type UseOrdersReadyReturn = {
   totalCount: number
   page: number
   rowsPerPage: number
+  dateRange: IDateRange
   handleCheckboxChange: (orderId: string, checked: boolean) => void
   handleSelectAll: (checked: boolean, currentPageItems: IOrderReady[]) => void
   handlePrepareClick: () => Promise<void>
@@ -30,6 +31,7 @@ type UseOrdersReadyReturn = {
   handleReceiverChange: (event: SelectChangeEvent<unknown>) => void
   handlePageChange: (newPage: number) => void
   handleRowsPerPageChange: (newRowsPerPage: number) => void
+  handleDateRangeChange: (newDateRange: IDateRange) => void
 }
 
 const useOrdersReady = (): UseOrdersReadyReturn => {
@@ -37,10 +39,11 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
 
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [receiverId, setReceiverId] = useState('BPP_001')
+  const [receiverId, setReceiverId] = useState('')
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
   const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>(PrepareButtonState.DISABLED)
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
+  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -50,9 +53,19 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     data: ordersData,
     isLoading,
     refetch: _refetch,
-  } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'Completed', {
-    enabled: !!selectedUser?._id,
-  })
+  } = useGetOrders(
+    selectedUser?._id || '',
+    {
+      page,
+      limit: rowsPerPage,
+      status: 'Completed',
+      settle_status: ['RECON', 'READY'],
+      counterpartyId: receiverId,
+    },
+    {
+      enabled: !!selectedUser?._id,
+    },
+  )
 
   useEffect(() => {
     if (isLoading) {
@@ -73,6 +86,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     sellerType: order.msn ? 'MSN' : 'ISN',
     domain: order.domain || '',
     dueDate: order.dueDate,
+    settle_status: order.settle_status,
   }))
   const totalCount = currentOrders.length
 
@@ -116,15 +130,18 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     if (prepareButtonState === PrepareButtonState.PREPARE && selectedUser?._id && selectedOrders?.size) {
       const count = selectedOrders.size
       const selectedOrderIds = Array.from(selectedOrders)
-      const orderIds = selectedOrderIds
+      const formattedPayload = selectedOrderIds
         .map((selectedId) => {
           const order = currentOrders?.find((o) => o.id === selectedId)
-          return order?.orderId
+          return {
+            id: order?.orderId,
+            strategy: order?.settle_status === 'RECON' ? 'RECON' : 'USER',
+          }
         })
-        .filter(Boolean) as string[]
+        .filter(Boolean) as { id: string; strategy: string }[]
 
       const url = buildApiUrl(APIRoute.SETTLE_PREPARE, { userId: selectedUser._id })
-      const payload: ISettlePrepareRequest = { order_ids: orderIds }
+      const payload: ISettlePrepareRequest = { prepare_data: formattedPayload }
 
       try {
         showLoader()
@@ -182,9 +199,12 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     setPage(1)
   }
 
+  const handleDateRangeChange = (newDateRange: IDateRange): void => {
+    setDateRange(newDateRange)
+  }
+
   return {
     receiverId,
-    receiverOptions,
     toast,
     selectedOrders,
     prepareButtonState,
@@ -193,6 +213,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     totalCount,
     page,
     rowsPerPage,
+    dateRange,
     handleCheckboxChange,
     handleSelectAll,
     handlePrepareClick,
@@ -200,6 +221,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     handleReceiverChange,
     handlePageChange,
     handleRowsPerPageChange,
+    handleDateRangeChange,
   }
 }
 

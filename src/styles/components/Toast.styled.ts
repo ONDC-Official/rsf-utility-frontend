@@ -3,7 +3,9 @@ import { Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const Container = styled(Box)<{ isVisible: boolean }>(({ isVisible }) => ({
+export const Container = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isVisible',
+})<{ isVisible: boolean }>(({ isVisible }) => ({
   position: 'absolute',
   top: 50,
   right: 0,

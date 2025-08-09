@@ -1,11 +1,16 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Toast from 'components/common/Toast'
-import OrdersReadyHeader from 'pages/OrdersReady/OrdersReadyHeader'
-import OrdersReadyRow from 'pages/OrdersReady/OrdersReadyRow'
-import OrdersReadyTable from 'pages/OrdersReady/OrdersReadyTable'
+import OrdersReadyHeader from './OrdersReadyHeader'
+import OrdersReadyRow from './OrdersReadyRow'
+import OrdersReadyTable from './OrdersReadyTable'
 import { IOrderReady } from 'interfaces/ordersReady'
 import useOrdersReady from 'hooks/useOrdersReady'
 import { PageContainer as Container } from 'styles/pages/OrdersReady.styled'
+import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'
+import { useUserContext } from 'context/userContext'
+import dayjs from 'dayjs'
+import { useToast } from 'context/toastContext'
+import { ORDER_PATCH_MESSAGES } from 'constants/toastMessages'
 
 const OrdersReady: FC = () => {
   const {
@@ -13,6 +18,8 @@ const OrdersReady: FC = () => {
     selectedOrders,
     prepareButtonState,
     receiverId,
+    // receiverOptions,
+    // dateRange,
     handleReceiverChange,
     handlePrepareClick,
     handleToastClose,
@@ -27,12 +34,58 @@ const OrdersReady: FC = () => {
     handleRowsPerPageChange,
   } = useOrdersReady()
 
+  const { selectedUser } = useUserContext()
+  const muiToast = useToast()
+
+  const [editedDueDates, setEditedDueDates] = useState<Map<string, string>>(new Map())
+
+  const patchMutation = usePatchOrderDueDate(selectedUser?._id || '', {
+    enabled: !!selectedUser?._id,
+  })
+
+  const handleDueDateChange = (orderId: string, newDueDate: string): void => {
+    setEditedDueDates((prev) => {
+      const updated = new Map(prev)
+      updated.set(orderId, dayjs(newDueDate).format('YYYY-MM-DD'))
+      return updated
+    })
+  }
+
+  const resetEditedDueDates = (): void => {
+    setEditedDueDates(new Map())
+  }
+
+  const handleSaveDueDates = async (): Promise<void> => {
+    const payload = Array.from(editedDueDates.entries()).map(([order_id, due_date]) => ({
+      order_id,
+      due_date,
+    }))
+
+    try {
+      if (!patchMutation.triggerAsync) return
+      const res = await patchMutation.triggerAsync(payload)
+      if (res.success) {
+        muiToast(ORDER_PATCH_MESSAGES.SUCCESS)
+        resetEditedDueDates()
+      } else {
+        muiToast(ORDER_PATCH_MESSAGES.ERROR)
+      }
+    } catch (e) {
+      muiToast(ORDER_PATCH_MESSAGES.ERROR)
+    }
+  }
+
   const renderRow = (order: IOrderReady, index: number): JSX.Element => (
     <OrdersReadyRow
+      editedDueDates={editedDueDates}
       key={index}
-      order={order}
+      order={{
+        ...order,
+        dueDate: editedDueDates.get(order.id) ?? order.dueDate,
+      }}
       selected={selectedOrders.has(order.id)}
       onCheckboxChange={handleCheckboxChange}
+      onDueDateChange={handleDueDateChange}
     />
   )
 
@@ -42,6 +95,7 @@ const OrdersReady: FC = () => {
 
       <OrdersReadyHeader
         receiverId={receiverId}
+        // receiverOptions={receiverOptions}
         handleReceiverChange={handleReceiverChange}
         handlePrepareClick={handlePrepareClick}
         selectedCount={selectedOrders.size}
@@ -49,6 +103,7 @@ const OrdersReady: FC = () => {
       />
 
       <OrdersReadyTable
+        receiverId={receiverId}
         columns={columns}
         data={currentOrders}
         totalCount={totalCount}
@@ -59,6 +114,8 @@ const OrdersReady: FC = () => {
         onRowsPerPageChange={handleRowsPerPageChange}
         selectedItems={selectedOrders}
         onSelectAll={handleSelectAll}
+        showSaveButton={editedDueDates.size > 0}
+        onSaveDueDatesClick={handleSaveDueDates}
       />
     </Container>
   )

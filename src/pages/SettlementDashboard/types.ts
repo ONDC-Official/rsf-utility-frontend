@@ -1,17 +1,14 @@
-import { ISettlementDashboardOrder } from 'interfaces/settlementDashboard'
+import { IUserSettlementItem } from '@interfaces/settlement'
 
 export interface IDashboardRowProps {
-  order: ISettlementDashboardOrder & {
-    settlementReference?: string
-    error?: string
-    settlementInitiatedDate?: string
-  }
+  order: IUserSettlementItem
   selected: boolean
   onCheckboxChange: (orderId: string, checked: boolean) => void
 }
 
 export interface IDashboardTableProps {
-  orders: ISettlementDashboardOrder[]
+  orders: IUserSettlementItem[]
+  counterpartyId: string
 }
 
 export interface IHeaderSectionProps {

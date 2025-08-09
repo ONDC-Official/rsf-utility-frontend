@@ -7,6 +7,7 @@ export interface ProviderDetails {
 }
 
 export interface IUser {
+  title: string
   role: string
   subscriber_url: string
   domain: string
@@ -14,8 +15,11 @@ export interface IUser {
   np_tds: number
   pr_tcs: number
   pr_tds: number
+  pr_provider_tcs?: number
+  pr_provider_tds?: number
   msn: boolean
   provider_details: ProviderDetails[]
+  counterparty_ids: string[]
   _id: string
 }
 
@@ -25,4 +29,5 @@ export interface IUserContext {
   setSelectedUser: (user: IUser | null) => void
   isLoading: boolean
   refetch: (options?: RefetchOptions & RefetchQueryFilters) => Promise<any>
+  counterpartyIds: string[]
 }

@@ -69,3 +69,47 @@ export const NETWORK_CONFIGURATION: IToastGroup = {
     severity: 'error',
   },
 }
+
+export const TOKEN_MESSAGES: IToastGroup = {
+  ERROR: {
+    message: 'Failed to sign token.',
+    severity: 'error',
+  },
+  SUCCESS: {
+    message: 'Token signed successfully.',
+    severity: 'success',
+  },
+}
+
+export const FILE_DOWNLOAD_MESSAGES: IToastGroup = {
+  ERROR: {
+    message: 'Failed to download file.',
+    severity: 'error',
+  },
+  SUCCESS: {
+    message: 'File downloaded successfully.',
+    severity: 'success',
+  },
+}
+
+export const ORDER_PATCH_MESSAGES: IToastGroup = {
+  ERROR: {
+    message: 'Failed to update order.',
+    severity: 'error',
+  },
+  SUCCESS: {
+    message: 'Order updated successfully.',
+    severity: 'success',
+  },
+}
+
+export const SETTLEMENT_PATCH_MESSAGES: IToastGroup = {
+  ERROR: {
+    message: 'Failed to update settlement.',
+    severity: 'error',
+  },
+  SUCCESS: {
+    message: 'Settlement updated successfully.',
+    severity: 'success',
+  },
+}

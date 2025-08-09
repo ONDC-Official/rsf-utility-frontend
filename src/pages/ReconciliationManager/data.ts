@@ -1,5 +1,6 @@
 import { ITableColumn } from 'interfaces/table'
-import { IReconciliationOrder, IOutgoingRequest, IIncomingRequest } from 'interfaces/reconciliationManager'
+import { IOutgoingRequest, IIncomingRequest } from 'interfaces/reconciliationManager'
+import { IReconciliationDataItem } from 'hooks/queries/useGetReconciliationData'
 
 export const receiverOptions = [
   { value: 'RECV001', label: 'RECV001' },
@@ -7,13 +8,13 @@ export const receiverOptions = [
   { value: 'RECV003', label: 'RECV003' },
 ]
 
-export const reconRequestColumns: ITableColumn<IReconciliationOrder>[] = [
-  { id: 'orderId', label: 'Order ID' },
-  { id: 'collectorId', label: 'Collector ID' },
-  { id: 'totalValue', label: 'Total Value' },
-  { id: 'settlementAmount', label: 'Settlement Amount' },
+export const reconRequestColumns: ITableColumn<IReconciliationDataItem>[] = [
+  { id: 'order_id', label: 'Order ID' },
+  { id: 'collector_id', label: 'Collector ID' },
+  { id: 'total_order_value', label: 'Total Value' },
+  { id: 'collector_settlement', label: 'Settlement Amount' },
   { id: 'commission', label: 'Commission' },
-  { id: 'orderStatus', label: 'Order Status' },
+  { id: 'status', label: 'Order Status' },
   { id: 'error', label: 'Error' },
 ]
 

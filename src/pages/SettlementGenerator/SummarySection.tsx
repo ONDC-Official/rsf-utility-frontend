@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react'
-import { Event, Visibility, Edit } from '@mui/icons-material'
+import { Visibility, Edit } from '@mui/icons-material'
+// import { Event } from '@mui/icons-material'
 import SummaryCard from 'components/common/SummaryCard'
-import InputField from 'components/common/InputField'
+// import InputField from 'components/common/InputField'
 import OrderSummaryFormModal from './OrderSummaryFormModal'
 import { IProps } from './types'
 import {
@@ -9,15 +10,15 @@ import {
   SummaryHeader,
   SummaryCards,
   Divider,
-  CustomDateSection,
+  // CustomDateSection,
   ButtonSection,
 } from 'styles/pages/SettlementGenerator.styled'
 import Button from 'components/common/Button'
 
 const SummarySection: FC<IProps> = ({
   summary,
-  customDueDate,
-  setCustomDueDate,
+  // customDueDate,
+  // setCustomDueDate,
   onGeneratePreview,
   selectedOrderIds,
   formInputs,
@@ -46,7 +47,7 @@ const SummarySection: FC<IProps> = ({
 
       <Divider />
 
-      <CustomDateSection>
+      {/* <CustomDateSection>
         <InputField
           label="Custom Due Date (optional)"
           placeholder="dd/mm/yyyy"
@@ -55,7 +56,7 @@ const SummarySection: FC<IProps> = ({
           endAdornment={<Event />}
           size="small"
         />
-      </CustomDateSection>
+      </CustomDateSection> */}
 
       <ButtonSection>
         <Button variant="contained" startIcon={<Visibility />} onClick={onGeneratePreview} disabled={!isFormValid}>

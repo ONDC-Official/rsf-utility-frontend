@@ -6,7 +6,11 @@ import { ContainedExportButton } from 'styles/components/Button.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 
-const HeaderSection: FC<IHeaderSectionProps> = ({ showGenerateButton = true }) => (
+const HeaderSection: FC<IHeaderSectionProps> = ({
+  showGenerateButton = true,
+  isGenerateButtonDisabled = false,
+  onGenerateClick,
+}) => (
   <Container>
     <Left>
       <Typography variant={TypographyVariant.H4}>{RECONCILIATION_LABELS.TITLE}</Typography>
@@ -14,7 +18,9 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ showGenerateButton = true }) =
     </Left>
     <Right>
       {showGenerateButton && (
-        <ContainedExportButton variant="contained">{RECONCILIATION_LABELS.GENERATE_BUTTON}</ContainedExportButton>
+        <ContainedExportButton variant="contained" disabled={isGenerateButtonDisabled} onClick={onGenerateClick}>
+          {RECONCILIATION_LABELS.GENERATE_BUTTON}
+        </ContainedExportButton>
       )}
     </Right>
   </Container>

@@ -17,6 +17,8 @@ const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfi
   const isSeller = data?.role === 'Seller App'
   const isMsn = data?.type === 'MSN'
 
+  payload.title = data.title
+
   // Buyer Role → only NP to NP TCS / NP to NP TDS
   if (isBuyer) {
     payload.np_tcs = parseFloat(`${data?.buyerNpToNpTcs}`)

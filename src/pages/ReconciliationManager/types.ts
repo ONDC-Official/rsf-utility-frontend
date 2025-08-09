@@ -1,12 +1,13 @@
 import { IReconciliationOrder, IOutgoingRequest, IIncomingRequest } from 'interfaces/reconciliationManager'
+import { IReconciliationDataItem } from 'hooks/queries/useGetReconciliationData'
 
 export interface IReconRequestTableProps {
-  allOrders: IReconciliationOrder[]
-  onCheckboxSelect: () => void
+  allOrders?: IReconciliationOrder[]
+  onCheckboxSelect: (selectedCount: number, selectedSettlements: IReconciliationDataItem[]) => void
 }
 
 export interface IOutgoingRequestsTableProps {
-  requests: IOutgoingRequest[]
+  requests?: IOutgoingRequest[]
   onReinitiate: (order: IOutgoingRequest) => void
 }
 
@@ -14,36 +15,18 @@ export interface IReinitiateModalProps {
   open: boolean
   onClose: () => void
   order: IOutgoingRequest | null
+  onReinitiate?: (order: IOutgoingRequest, formData: any) => Promise<void>
 }
 
 export interface IGenerateReconRequestProps {
   allOrders: IReconciliationOrder[]
   onToastShow: (message: string) => void
+  onSelectionChange?: (count: number, canGenerate: boolean, generateHandler: () => Promise<void>) => void
 }
 
 export interface IReconciliationTabsProps {
   activeTab: number
   onTabChange: (value: number) => void
-}
-
-export interface IGenerateReconRequestProps {
-  allOrders: IReconciliationOrder[]
-  onToastShow: (message: string) => void
-}
-
-export interface IOutgoingRequestsTableProps {
-  requests: IOutgoingRequest[]
-  onReinitiate: (order: IOutgoingRequest) => void
-}
-
-export interface IReconciliationTabsProps {
-  activeTab: number
-  onTabChange: (value: number) => void
-}
-
-export interface IReconRequestTableProps {
-  allOrders: IReconciliationOrder[]
-  onCheckboxSelect: () => void
 }
 
 export interface IAcceptModalProps {
@@ -51,10 +34,11 @@ export interface IAcceptModalProps {
   onClose: () => void
   onConfirm: () => void
   order: IIncomingRequest | null
+  onAcceptSuccess?: (message: string) => void
 }
 
 export interface IIncomingRequestsTableProps {
-  data: IIncomingRequest[]
+  data?: IIncomingRequest[]
   onAccept: (order: IIncomingRequest) => void
   onReject: (order: IIncomingRequest) => void
 }
@@ -65,4 +49,6 @@ export interface IReviewReconRequestsProps {
 
 export interface IHeaderSectionProps {
   showGenerateButton?: boolean
+  isGenerateButtonDisabled?: boolean
+  onGenerateClick?: () => void
 }

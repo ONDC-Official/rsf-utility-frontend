@@ -6,6 +6,7 @@ export interface ProviderDetail {
 }
 
 export interface NetworkConfigPayload {
+  title: string
   role: 'BPP' | 'BAP'
   subscriber_url: string
   domain: string

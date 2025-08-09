@@ -4,6 +4,9 @@ import { Close, Send } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
+import useOnRecon from 'hooks/mutations/useOnRecon'
+import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
   ModalContainer as Container,
@@ -22,9 +25,10 @@ interface IRejectModalProps {
   onClose: () => void
   onConfirm: () => void
   order: IIncomingRequest | null
+  onRejectSuccess?: (message: string) => void
 }
 
-const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order }) => {
+const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order, onRejectSuccess }) => {
   const [formData, setFormData] = useState({
     differenceInAmount: '',
     differenceInCommission: '',
@@ -33,19 +37,61 @@ const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order })
     differenceInWithholding: '',
   })
 
+  const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
+  const onRecon = useOnRecon(selectedUser?._id || '')
+
   const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleConfirm = (): void => {
-    onConfirm()
-    setFormData({
-      differenceInAmount: '',
-      differenceInCommission: '',
-      differenceInTcs: '',
-      differenceInTds: '',
-      differenceInWithholding: '',
-    })
+  const handleConfirm = async (): Promise<void> => {
+    if (!order) {
+      return
+    }
+
+    try {
+      showLoader()
+
+      const payload = {
+        on_recon_data: [
+          {
+            order_id: order.orderId,
+            recon_accord: false,
+            on_recon_data: {
+              settlement_amount: parseFloat(formData.differenceInAmount) || 0,
+              commission_amount: parseFloat(formData.differenceInCommission) || 0,
+              withholding_amount: parseFloat(formData.differenceInWithholding) || 0,
+              tds: parseFloat(formData.differenceInTds) || 0,
+              tcs: parseFloat(formData.differenceInTcs) || 0,
+            },
+          },
+        ],
+      }
+
+      await onRecon.onReconAsync(payload)
+
+      hideLoader()
+      setFormData({
+        differenceInAmount: '',
+        differenceInCommission: '',
+        differenceInTcs: '',
+        differenceInTds: '',
+        differenceInWithholding: '',
+      })
+      onConfirm()
+
+      if (onRejectSuccess) {
+        onRejectSuccess('Reconciliation request rejected and differences sent successfully!')
+      }
+    } catch (error) {
+      console.error('Error rejecting reconciliation request:', error)
+      hideLoader()
+
+      if (onRejectSuccess) {
+        onRejectSuccess('Failed to reject reconciliation request')
+      }
+    }
   }
 
   const handleCancel = (): void => {

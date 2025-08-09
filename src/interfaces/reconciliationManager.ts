@@ -13,7 +13,7 @@ export interface IOutgoingRequest extends Record<string, unknown> {
   id: string
   orderId: string
   receiverId: string
-  status: 'Accepted' | 'Rejected'
+  status: 'SENT_PENDING' | 'SENT_ACCEPTED' | 'SENT_REJECTED' | 'ERROR' | string
   dueDate: string
   response: string
   error?: string

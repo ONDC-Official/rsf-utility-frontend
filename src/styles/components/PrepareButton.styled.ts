@@ -3,7 +3,9 @@ import { Button } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 
-export const PrepareButton = styled(Button)<{
+export const PrepareButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== 'isDisabled' && prop !== 'isActive',
+})<{
   isDisabled?: boolean
   isActive?: boolean
 }>(({ isDisabled, isActive }) => ({

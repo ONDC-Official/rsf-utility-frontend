@@ -1,5 +1,5 @@
-import { IUserSettlementItem } from 'interfaces/settlement'
-import { ISettlementOrder, ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
+import { IUserSettlementItem, SettlementPayload } from 'interfaces/settlement'
+import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 
 export interface IProps {
   summary: ISettlementSummary
@@ -17,10 +17,10 @@ export interface IOrderFormInput {
 }
 
 export interface IReinitiateReconciliationModalProps {
-  data: Partial<ISettlementOrder> | null
+  data: Partial<SettlementPayload> | null
   open: boolean
   onClose: () => void
-  onSave: (updated: Partial<ISettlementOrder>) => void
+  onSave: (updated: Partial<SettlementPayload>) => void
 }
 
 export interface IModeSelectionProps {
@@ -32,11 +32,15 @@ export interface IModeSelectionProps {
 
 export interface IPayloadPreviewProps {
   data: Record<string, unknown>
+  onTrigger: () => Promise<void>
 }
 
 export interface IOrderTableProps {
   allOrders: IUserSettlementItem[]
+  editedRows: Record<string, Partial<IUserSettlementItem>>
+  setEditedRows: (data: any) => void
   onSelectedOrdersChange: (selected: Set<string>) => void
+  handlePatchSettlements: () => Promise<void>
 }
 
 export interface IOrderSummaryModalProps {

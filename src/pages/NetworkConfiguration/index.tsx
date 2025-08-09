@@ -58,6 +58,7 @@ const NetworkConfiguration: FC = () => {
 
   useEffect(() => {
     if (selectedUser) {
+      setValue('title', selectedUser?.title || '')
       setValue('role', selectedUser?.role === 'BPP' ? 'Seller App' : selectedUser?.role === 'BAP' ? 'Buyer App' : '')
       setValue('subscriberUrl', selectedUser?.subscriber_url || '')
       setValue('domainCategory', selectedUser?.domain?.toUpperCase() || '')
@@ -65,6 +66,8 @@ const NetworkConfiguration: FC = () => {
       setValue('buyerNpToNpTds', selectedUser?.np_tds || 0)
       setValue('sellerNpToTcs', selectedUser?.pr_tcs || 0)
       setValue('sellerNpToTds', selectedUser?.pr_tds || 0)
+      setValue('sellerNpToProviderTcs', selectedUser?.pr_provider_tcs || 0)
+      setValue('sellerNpToProviderTds', selectedUser?.pr_provider_tds || 0)
       setValue('type', selectedUser?.msn ? 'MSN' : '')
       setValue(
         'providers',
@@ -89,6 +92,8 @@ const NetworkConfiguration: FC = () => {
       setValue('buyerNpToNpTds', 0)
       setValue('sellerNpToTcs', 0)
       setValue('sellerNpToTds', 0)
+      setValue('sellerNpToProviderTcs', 0)
+      setValue('sellerNpToProviderTds', 0)
       setValue('type', '')
       setValue('subscriberUrl', '')
       setValue('providers', [defaultProvider])
@@ -102,7 +107,6 @@ const NetworkConfiguration: FC = () => {
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} selectedUser={selectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <DomainConfiguration errors={errors} role={role} type={type} selectedUser={selectedUser} control={control} />
-        {/* Show ProviderBankDetails only if role is defined and not empty when no selectedUser, or if role is not 'Buyer App' */}
         {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
           <ProviderBankDetails control={control} errors={errors} />
         )}

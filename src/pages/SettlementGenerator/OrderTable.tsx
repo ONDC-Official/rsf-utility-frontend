@@ -13,8 +13,16 @@ import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'st
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
+// import ExportIcon from 'assets/images/svg/ExportIcon'
+import { formatCurrency } from 'utils/helpers'
 
-const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange }) => {
+const OrderTable: FC<IOrderTableProps> = ({
+  allOrders,
+  editedRows,
+  setEditedRows,
+  onSelectedOrdersChange,
+  handlePatchSettlements,
+}) => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const {
     currentItems: orders,
@@ -28,7 +36,6 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
     handleSelectAll,
   } = usePaginatedSelectableData<IUserSettlementItem>(allOrders)
 
-  const [editedRows, setEditedRows] = useState<Record<string, Partial<IUserSettlementItem>>>({})
   const [editingOrder, setEditingOrder] = useState<IUserSettlementItem | null>(null)
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
 
   const handleSave = (updatedFields: Partial<IUserSettlementItem>): void => {
     if (!editingOrder) return
-    setEditedRows((prev) => ({
+    setEditedRows((prev: Record<string, Partial<IUserSettlementItem>>) => ({
       ...prev,
       [editingOrder.order_id]: {
         ...prev[editingOrder.order_id],
@@ -72,14 +79,14 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.collector_id}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.receiver_id}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.total_order_value.toFixed(2)}
+          {formatCurrency(merged.total_order_value)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.commission.toFixed(2)}
+          {formatCurrency(merged.commission)}
         </StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>₹{merged.tax.toFixed(2)}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{formatCurrency(merged.tax)}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          ₹{merged.inter_np_settlement.toFixed(2)}
+          {formatCurrency(merged.inter_np_settlement)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.provider_id}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.due_date}</StyledTableBodyCell>
@@ -91,7 +98,7 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
             size="small"
             disabled={!isEdited}
             onClick={() => {
-              setEditedRows((prev) => {
+              setEditedRows((prev: Record<string, Partial<IUserSettlementItem>>) => {
                 const newState = { ...prev }
                 delete newState[order.order_id]
                 return newState
@@ -110,12 +117,19 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
       <Header>
         <Title>Select Orders for Settlement</Title>
         <Actions>
-          {Object.keys(editedRows).length > 0 && <Button variant="contained">Save edited order</Button>}
+          {Object.keys(editedRows).length > 0 && (
+            <Button variant="contained" onClick={handlePatchSettlements}>
+              Save edited order
+            </Button>
+          )}
           <DateRangePickerButton
             variant="outlined"
             selectedDateRange={dateRange}
             onDateRangeChange={handleDateRangeChange}
           />
+          {/* <Button variant="outlined" startIcon={<ExportIcon />}>
+            Export
+          </Button> */}
         </Actions>
       </Header>
 
@@ -138,12 +152,14 @@ const OrderTable: FC<IOrderTableProps> = ({ allOrders, onSelectedOrdersChange })
           open={!!editingOrder}
           onClose={() => setEditingOrder(null)}
           data={{
-            orderId: editingOrder?.order_id || '',
-            settlementAmount: 0,
-            commission: 0,
-            tcs: 0,
+            order_id: editingOrder.order_id,
+            total_order_value: editingOrder.total_order_value ?? 0,
+            commission: editingOrder.commission ?? 0,
+            collector_settlement: editingOrder.collector_settlement ?? 0,
             tds: 0,
-            withholdingAmount: 0,
+            tcs: 0,
+            withholding_amount: editingOrder.withholding_amount ?? 0,
+            inter_np_settlement: editingOrder.inter_np_settlement ?? 0,
           }}
           onSave={handleSave}
         />

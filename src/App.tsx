@@ -8,6 +8,7 @@ import AppRoutes from 'routes/AppRoutes'
 import { UserProvider } from 'context/userContext'
 import { ToastProvider } from 'context/toastContext'
 import { LoaderProvider } from 'context/loaderContext'
+import { AuthProvider } from 'context/authContext'
 
 const queryClient = new QueryClient()
 
@@ -16,13 +17,15 @@ const App: FC = () => (
     <CssBaseline />
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <LoaderProvider>
-          <UserProvider>
-            <ToastProvider>
-              <AppRoutes />
-            </ToastProvider>
-          </UserProvider>
-        </LoaderProvider>
+        <ToastProvider>
+          <LoaderProvider>
+            <AuthProvider>
+              <UserProvider>
+                <AppRoutes />
+              </UserProvider>
+            </AuthProvider>
+          </LoaderProvider>
+        </ToastProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </ThemeProvider>

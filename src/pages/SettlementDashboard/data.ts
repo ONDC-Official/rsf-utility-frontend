@@ -1,11 +1,5 @@
 import { ITableColumn } from 'interfaces/table'
 
-export const counterpartyOptions = [
-  { value: 'BPP_001', label: 'BPP_001' },
-  { value: 'BPP_002', label: 'BPP_002' },
-  { value: 'BPP_003', label: 'BPP_003' },
-]
-
 export const columns: ITableColumn[] = [
   { id: 'orderId', label: 'Order ID' },
   { id: 'collectorId', label: 'Collector ID' },

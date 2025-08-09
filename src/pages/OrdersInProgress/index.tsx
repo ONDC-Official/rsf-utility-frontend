@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
-import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
-import { receiverOptions, columns } from 'pages/OrdersInProgress/data'
+import { columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
-import { IDateRange } from 'components/common/DateRangePickerButton/types'
-import { StatusChip } from 'styles/components/Chip.styled'
 import {
   Container,
   Header,
@@ -20,24 +17,40 @@ import {
   ReceiverLabel,
   Wrapper,
   TableHeader,
-  TableActions,
 } from 'styles/pages/OrdersInProgress.styled'
-const OrdersInProgress: React.FC = () => {
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [receiverId, setReceiverId] = useState('BPP_001')
-  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
+import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
+import StatusChip from 'components/common/StatusChip'
 
+const OrdersInProgress: React.FC = () => {
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
+
+  const [page, setPage] = useState(1)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [counterpartyId, setCounterpartyId] = useState('')
+
+  const counterpartyOptions =
+    selectedUser?.counterparty_ids.map((id) => ({
+      value: id,
+      label: id,
+    })) || []
 
   const {
     data: ordersData,
     isLoading,
     refetch: _refetch,
-  } = useGetOrders(selectedUser?._id || '', page, rowsPerPage, 'In-progress', {
-    enabled: !!selectedUser?._id,
-  })
+  } = useGetOrders(
+    selectedUser?._id || '',
+    {
+      page,
+      limit: rowsPerPage,
+      status: 'In-progress',
+      counterpartyId,
+    },
+    {
+      enabled: !!selectedUser?._id,
+    },
+  )
 
   useEffect(() => {
     if (isLoading) {
@@ -56,11 +69,11 @@ const OrdersInProgress: React.FC = () => {
       <TableCell sx={TableCellStyles.DEFAULT}>{order.collectorId}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.receiverId}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>
-        <StatusChip label={order.orderStatus} size="small" />
+        <StatusChip status={order.orderStatus} />
       </TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}%</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.domain}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{DOMAIN_CATEGORY_LABELS[order.domain] || order.domain}</TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
     </>
   )
@@ -72,10 +85,6 @@ const OrdersInProgress: React.FC = () => {
   const handleRowsPerPageChange = (newRowsPerPage: number): void => {
     setRowsPerPage(newRowsPerPage)
     setPage(1)
-  }
-
-  const handleDateRangeChange = (newDateRange: IDateRange): void => {
-    setDateRange(newDateRange)
   }
 
   const renderEmptyState = (): JSX.Element => (
@@ -94,23 +103,18 @@ const OrdersInProgress: React.FC = () => {
         <HeaderRight>
           <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Counterparty ID</ReceiverLabel>
           <Select
-            value={receiverId}
-            onChange={(e) => setReceiverId(e.target.value as string)}
-            options={receiverOptions}
+            value={counterpartyId}
+            onChange={(e) => setCounterpartyId(e.target.value as string)}
+            options={counterpartyOptions}
             size="small"
+            displayEmpty
+            renderValue={(value) => (value as string) || 'Choose'}
           />
         </HeaderRight>
       </Header>
       <Wrapper>
         <TableHeader>
-          <Typography variant={TypographyVariant.H6Bold}>BPP_001</Typography>
-          <TableActions>
-            <DateRangePickerButton
-              variant="outlined"
-              selectedDateRange={dateRange}
-              onDateRangeChange={handleDateRangeChange}
-            />
-          </TableActions>
+          <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>
         </TableHeader>
         <Table
           columns={columns}

@@ -1,5 +1,5 @@
 import { IApiResponse } from '@interfaces/api'
-import { IOrder } from 'interfaces/order'
+import { IOrder, OrderQueryParams } from 'interfaces/order'
 import useGet from 'hooks/useGet'
 import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
@@ -26,7 +26,7 @@ interface IOrderApiResponse {
   settlement_basis: string
   settlement_window: string
   withholding_amount: number
-  settle_status: boolean
+  settle_status: 'RECON' | string
   due_date: string
   quote: {
     total_order_value: number
@@ -68,21 +68,32 @@ const transformOrderData = (apiOrders: IOrderApiResponse[]): IOrder[] => {
     domain: order.domain || '',
     dueDate: formatDate(order.due_date),
     msn: order.msn,
+    settle_status: order.settle_status,
   }))
 }
 
 const useGetOrders = (
   userId: string,
-  page: number,
-  limit: number,
-  status: 'In-progress' | 'Completed',
+  params?: OrderQueryParams,
   configs?: UseQueryOptions<IApiResponse<IOrderApiResponse[]>>,
 ): UseQueryResult<IApiResponse<IOrder[]>> => {
   const baseUrl = buildApiUrl(APIRoute.ORDERS, { userId })
-  const url = `${baseUrl}?page=${page}&limit=${limit}&state=${status}`
 
-  const query = useGet<IOrderApiResponse[]>(`orders-${userId}-${status}-${page}-${limit}`, url, {
-    enabled: !!userId && !!status,
+  const searchParams = new URLSearchParams()
+
+  if (params?.page) searchParams.append('page', String(params.page))
+  if (params?.limit) searchParams.append('limit', String(params.limit))
+  if (params?.status) searchParams.append('state', params.status)
+  if (params?.counterpartyId) searchParams.append('counterparty_id', params.counterpartyId)
+  if (params?.settle_status) {
+    const statusArray = Array.isArray(params.settle_status) ? params.settle_status : [params.settle_status]
+    statusArray.forEach((s) => searchParams.append('settle_status', s))
+  }
+
+  const url = searchParams.toString() ? `${baseUrl}?${searchParams}` : baseUrl
+
+  const query = useGet<IOrderApiResponse[]>(['orders', userId, params], url, {
+    enabled: !!userId && !!params?.status,
     ...configs,
   })
 

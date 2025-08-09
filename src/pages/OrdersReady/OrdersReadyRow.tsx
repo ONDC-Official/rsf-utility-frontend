@@ -1,41 +1,79 @@
-import React from 'react'
-import { Checkbox } from '@mui/material'
-import { IOrdersReadyRowProps } from 'pages/OrdersReady/types'
-import { StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
-import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL } from 'pages/OrdersReady/constants'
+import React, { useState, useRef } from 'react'
+import { Popover, Checkbox, Box } from '@mui/material'
+import Calendar from 'components/common/Calendar'
+import { IOrdersReadyRowProps } from './types'
+import { StyledTableBodyCell } from 'styles/components/Table.styled'
+import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
+import Button from 'components/common/Button'
+import CalendarIcon from 'assets/images/svg/CalendarIcon'
+import { formatCurrency } from 'utils/helpers'
 
 const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
-  order = {
-    id: '',
-    orderId: '',
-    collectorId: '',
-    receiverId: '',
-    totalOrderValue: 0,
-    commission: 0,
-    sellerType: '',
-    domain: '',
-    dueDate: '',
-  },
-  selected = false,
+  order,
+  selected,
   onCheckboxChange,
+  onDueDateChange,
+  editedDueDates,
 }) => {
-  const formatCurrency = (amount: number | undefined): string => {
-    return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_ORDER_VALUE}`
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+  const ref = useRef<HTMLButtonElement | null>(null)
+
+  const handleOpenCalendar = () => {
+    setAnchorEl(ref.current)
+  }
+
+  const handleCloseCalendar = () => {
+    setAnchorEl(null)
+  }
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      onDueDateChange(order.orderId, date.toISOString())
+    }
+
+    handleCloseCalendar()
   }
 
   return (
     <>
-      <TableBodyCheckboxCell>
-        <Checkbox checked={selected} onChange={(e) => onCheckboxChange(order.id, e.target.checked)} size="small" />
-      </TableBodyCheckboxCell>
-      <StyledTableBodyCell>{order.orderId || TABLE_CELL_DEFAULTS.ORDER_ID}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.collectorId || TABLE_CELL_DEFAULTS.COLLECTOR_ID}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.receiverId || TABLE_CELL_DEFAULTS.RECEIVER_ID}</StyledTableBodyCell>
+      <StyledTableBodyCell padding="checkbox">
+        <Checkbox
+          checked={selected}
+          onChange={(e) => onCheckboxChange(order.id, e.target.checked)}
+          inputProps={{ 'aria-label': 'select order' }}
+        />
+      </StyledTableBodyCell>
+
+      <StyledTableBodyCell>{order.orderId}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.collectorId}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.receiverId}</StyledTableBodyCell>
       <StyledTableBodyCell>{formatCurrency(order.totalOrderValue)}</StyledTableBodyCell>
       <StyledTableBodyCell>{formatCurrency(order.commission)}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.sellerType || TABLE_CELL_DEFAULTS.SELLER_TYPE}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.domain || TABLE_CELL_DEFAULTS.DOMAIN}</StyledTableBodyCell>
-      <StyledTableBodyCell>{order.dueDate || TABLE_CELL_DEFAULTS.DUE_DATE}</StyledTableBodyCell>
+      <StyledTableBodyCell>{order.sellerType}</StyledTableBodyCell>
+      <StyledTableBodyCell>{DOMAIN_CATEGORY_LABELS[order.domain]}</StyledTableBodyCell>
+
+      <StyledTableBodyCell>
+        <Box ref={ref}>
+          {order.dueDate ? (
+            new Date(order.dueDate).toLocaleDateString()
+          ) : (
+            <>
+              <Button variant="outlined" startIcon={<CalendarIcon />} size="small" onClick={handleOpenCalendar}>
+                {editedDueDates.get(order.orderId) || 'Select'}
+              </Button>
+
+              <Popover
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleCloseCalendar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              >
+                <Calendar value={order.dueDate ? new Date(order.dueDate) : null} onChange={handleDateChange} />
+              </Popover>
+            </>
+          )}
+        </Box>
+      </StyledTableBodyCell>
     </>
   )
 }

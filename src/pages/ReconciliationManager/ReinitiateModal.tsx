@@ -1,9 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { Modal } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IReinitiateModalProps } from 'pages/ReconciliationManager/types'
+import { useLoader } from 'context/loaderContext'
 import { OutlinedFilterButton, ContainedExportButton } from 'styles/components/Button.styled'
 import {
   ModalContainer as Container,
@@ -16,9 +17,10 @@ import {
   ButtonContainer,
 } from 'styles/pages/ReconciliationManager.styled'
 
-const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order }) => {
+const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order, onReinitiate }) => {
+  const { showLoader, hideLoader } = useLoader()
   const [formData, setFormData] = useState({
-    orderId: order?.orderId || '',
+    orderId: '',
     settlementAmount: '',
     commission: '',
     tcs: '',
@@ -26,12 +28,39 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order }) =>
     withholdingAmount: '',
   })
 
+  // Update form data when order changes
+  useEffect(() => {
+    if (order) {
+      setFormData({
+        orderId: order.orderId,
+        settlementAmount: '',
+        commission: '',
+        tcs: '',
+        tds: '',
+        withholdingAmount: '',
+      })
+    }
+  }, [order])
+
   const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  const handleSubmit = (): void => {
-    onClose()
+  const handleSubmit = async (): Promise<void> => {
+    if (!order || !onReinitiate) {
+      onClose()
+      return
+    }
+
+    try {
+      showLoader()
+      await onReinitiate(order, formData)
+      hideLoader()
+      onClose()
+    } catch (error) {
+      console.error('Error in reinitiate modal:', error)
+      hideLoader()
+    }
   }
 
   const handleCancel = (): void => {

@@ -35,6 +35,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
         setSelectedUser,
         isLoading,
         refetch,
+        counterpartyIds: selectedUser?.counterparty_ids || [],
       }}
     >
       {children}

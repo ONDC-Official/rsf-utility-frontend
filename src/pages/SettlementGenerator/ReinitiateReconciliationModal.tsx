@@ -1,6 +1,7 @@
-import { FC, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Modal } from '@mui/material'
 import { Close } from '@mui/icons-material'
+import { useForm, Controller } from 'react-hook-form'
 import InputField from 'components/common/InputField'
 import { RECONCILIATION_LABELS } from 'pages/SettlementGenerator/constants'
 import { IReinitiateReconciliationModalProps } from 'pages/SettlementGenerator/types'
@@ -16,33 +17,55 @@ import {
   ButtonContainer,
 } from 'styles/pages/SettlementGenerator.styled'
 
-const ReinitiateReconciliationModal: FC<IReinitiateReconciliationModalProps> = ({ open, onClose, data, onSave }) => {
-  const [formData, setFormData] = useState({
-    orderId: data?.orderId || '',
-    settlementAmount: '',
-    commission: '',
-    tcs: '',
-    tds: '',
-    withholdingAmount: '',
+export interface SettlementPayload {
+  order_id: string
+  total_order_value: number
+  commission: number
+  collector_settlement: number
+  tds: number
+  tcs: number
+  withholding_amount: number
+  inter_np_settlement: number
+}
+
+const ReinitiateReconciliationModal: FC<
+  IReinitiateReconciliationModalProps & { onSave: (data: SettlementPayload) => void }
+> = ({ open, onClose, data, onSave }) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SettlementPayload>({
+    defaultValues: {
+      order_id: data?.order_id || '',
+      total_order_value: 0,
+      commission: 0,
+      collector_settlement: 0,
+      tds: 0,
+      tcs: 0,
+      withholding_amount: 0,
+      inter_np_settlement: 0,
+    },
   })
 
-  const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [field]: e.target.value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-
-    const parsedData = {
-      orderId: formData.orderId,
-      settlementAmount: parseFloat(formData.settlementAmount),
-      commission: parseFloat(formData.commission),
-      tcs: parseFloat(formData.tcs),
-      tds: parseFloat(formData.tds),
-      withholdingAmount: parseFloat(formData.withholdingAmount),
+  useEffect(() => {
+    if (data) {
+      reset({
+        order_id: data.order_id || '',
+        total_order_value: data.total_order_value ?? 0,
+        commission: data.commission ?? 0,
+        collector_settlement: data.collector_settlement ?? 0,
+        tds: data.tds ?? 0,
+        tcs: data.tcs ?? 0,
+        withholding_amount: data.withholding_amount ?? 0,
+        inter_np_settlement: data.inter_np_settlement ?? 0,
+      })
     }
+  }, [data, reset])
 
-    onSave(parsedData)
+  const onSubmit = (formData: SettlementPayload) => {
+    onSave(formData)
     onClose()
   }
 
@@ -57,52 +80,151 @@ const ReinitiateReconciliationModal: FC<IReinitiateReconciliationModalProps> = (
             </CloseButton>
           </Header>
 
-          <StyledForm onSubmit={handleSubmit}>
+          <StyledForm onSubmit={handleSubmit(onSubmit)}>
             <FormRow>
-              <InputField
-                label={`${RECONCILIATION_LABELS.FORM_ORDER_ID} *`}
-                value={formData.orderId}
-                onChange={handleInputChange('orderId')}
-                placeholder="Enter Order ID"
-                required
+              <Controller
+                name="order_id"
+                control={control}
+                rules={{ required: 'Order ID is required' }}
+                render={({ field }) => (
+                  <InputField
+                    label={`${RECONCILIATION_LABELS.FORM_ORDER_ID} *`}
+                    {...field}
+                    error={!!errors.order_id}
+                    helperText={errors.order_id?.message}
+                    placeholder="Enter Order ID"
+                    required
+                  />
+                )}
               />
-              <InputField
-                label={`${RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT} *`}
-                value={formData.settlementAmount}
-                onChange={handleInputChange('settlementAmount')}
-                placeholder="Enter Settlement Amount"
-                required
+              <Controller
+                name="total_order_value"
+                control={control}
+                rules={{
+                  required: 'Settlement Amount is required',
+                  min: { value: 0, message: 'Must be >= 0' },
+                }}
+                render={({ field }) => (
+                  <InputField
+                    label={`${RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT} *`}
+                    {...field}
+                    error={!!errors.total_order_value}
+                    helperText={errors.total_order_value?.message}
+                    placeholder="Enter Settlement Amount"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                    required
+                  />
+                )}
               />
             </FormRow>
 
             <FormRow>
-              <InputField
-                label={`${RECONCILIATION_LABELS.FORM_COMMISSION} *`}
-                value={formData.commission}
-                onChange={handleInputChange('commission')}
-                placeholder="Enter Commission"
-                required
+              <Controller
+                name="commission"
+                control={control}
+                rules={{
+                  required: 'Commission is required',
+                  min: { value: 0, message: 'Must be >= 0' },
+                }}
+                render={({ field }) => (
+                  <InputField
+                    label={`${RECONCILIATION_LABELS.FORM_COMMISSION} *`}
+                    {...field}
+                    error={!!errors.commission}
+                    helperText={errors.commission?.message}
+                    placeholder="Enter Commission"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                    required
+                  />
+                )}
               />
-              <InputField
-                label={RECONCILIATION_LABELS.FORM_TCS}
-                value={formData.tcs}
-                onChange={handleInputChange('tcs')}
-                placeholder="Enter TCS"
+              <Controller
+                name="tcs"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label={RECONCILIATION_LABELS.FORM_TCS}
+                    {...field}
+                    error={!!errors.tcs}
+                    helperText={errors.tcs?.message}
+                    placeholder="Enter TCS"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
               />
             </FormRow>
 
             <FormRow>
-              <InputField
-                label={RECONCILIATION_LABELS.FORM_TDS}
-                value={formData.tds}
-                onChange={handleInputChange('tds')}
-                placeholder="Enter TDS"
+              <Controller
+                name="tds"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label={RECONCILIATION_LABELS.FORM_TDS}
+                    {...field}
+                    error={!!errors.tds}
+                    helperText={errors.tds?.message}
+                    placeholder="Enter TDS"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
               />
-              <InputField
-                label={RECONCILIATION_LABELS.FORM_WITHHOLDING_AMOUNT}
-                value={formData.withholdingAmount}
-                onChange={handleInputChange('withholdingAmount')}
-                placeholder="Enter Withholding Amount"
+              <Controller
+                name="withholding_amount"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label={RECONCILIATION_LABELS.FORM_WITHHOLDING_AMOUNT}
+                    {...field}
+                    error={!!errors.withholding_amount}
+                    helperText={errors.withholding_amount?.message}
+                    placeholder="Enter Withholding Amount"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
+              />
+            </FormRow>
+
+            <FormRow>
+              <Controller
+                name="collector_settlement"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label="Collector Settlement"
+                    {...field}
+                    error={!!errors.collector_settlement}
+                    helperText={errors.collector_settlement?.message}
+                    placeholder="Enter Collector Settlement"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
+              />
+              <Controller
+                name="inter_np_settlement"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label="Inter NP Settlement"
+                    {...field}
+                    error={!!errors.inter_np_settlement}
+                    helperText={errors.inter_np_settlement?.message}
+                    placeholder="Enter Inter NP Settlement"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
               />
             </FormRow>
 

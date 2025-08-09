@@ -9,4 +9,13 @@ export interface IOrder extends Record<string, unknown> {
   domain: string
   dueDate: string
   msn?: boolean
+  settle_status: 'RECON' | string
+}
+
+export interface OrderQueryParams {
+  page?: number
+  limit?: number
+  status?: 'In-progress' | 'Completed'
+  counterpartyId?: string
+  settle_status?: Array<'RECON' | 'READY' | 'SETTLE'> | 'RECON' | 'READY' | 'SETTLE'
 }

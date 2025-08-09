@@ -7,6 +7,7 @@ export const StyledButton = styled(Button)({
   textTransform: 'none',
   borderRadius: 8,
   fontFamily: typography.body1_medium.fontFamily,
+  whiteSpace: 'nowrap',
 
   '&.MuiButton-contained': {
     color: colors.text.light,

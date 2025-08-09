@@ -1,3 +1,5 @@
+import { SettlementStatus } from 'enums/settlement'
+
 export interface ISettlement extends Record<string, unknown> {
   id: string
   settlementId: string
@@ -140,7 +142,7 @@ export interface IUserSettlementItem {
   due_date: string
   settlement_reference: string
   error: string
-  status: 'PENDING' | 'COMPLETED' | 'FAILED' | string
+  status: SettlementStatus
   self_status: string
   provider_status: string
   collector_settlement: number
@@ -169,5 +171,36 @@ export interface IUserSettlementItem {
     withholding_amount: number
     tcs: number
     tds: number
+  }
+}
+
+export interface SettlementQueryParams {
+  page?: number
+  orderId?: string
+  limit?: number
+  statuses?: SettlementStatus[] | SettlementStatus
+  counterpartyId?: string
+  dueDateFrom?: string
+  dueDateTo?: string
+}
+
+export interface SettlementPayload {
+  order_id: string
+  total_order_value: number
+  commission: number
+  collector_settlement: number
+  tds: number
+  tcs: number
+  withholding_amount: number
+  inter_np_settlement: number
+}
+
+export interface IUserSettlementsResponse {
+  settlements: IUserSettlementItem[]
+  pagination: {
+    total: number
+    page: number
+    limit: number
+    totalPages: number
   }
 }

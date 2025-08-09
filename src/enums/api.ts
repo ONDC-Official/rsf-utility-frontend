@@ -7,5 +7,10 @@ export enum APIRoute {
   TRIGGER_ACTION = '/ui/trigger/{userId}/{action}',
   ORDERS = '/ui/orders/{userId}',
   SETTLE_PREPARE = '/ui/settle/{userId}/prepare',
-  SETTLEMENTS_LIST = '/ui/settle/{userId}',
+  SETTLEMENT = '/ui/settle/{userId}',
+  GENERATE_RECON = '/ui/generate/{userId}/recon',
+  RECON = '/ui/recon/{userId}',
+  MOVE_TO_READY = '/ui/recon/{userId}/move-to-ready',
+  ON_RECON = '/ui/generate/{userId}/on_recon',
+  SIGN_TOKEN = 'ui/auth/sign-token',
 }

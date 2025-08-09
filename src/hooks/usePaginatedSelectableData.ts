@@ -1,6 +1,6 @@
 import { useCallback, useState, type Dispatch, type SetStateAction } from 'react'
 
-type UsePaginatedSelectableDataReturn<T extends { id: string }> = {
+type UsePaginatedSelectableDataReturn<T> = {
   currentItems: T[]
   selectedItems: Set<string>
   totalCount: number
@@ -16,17 +16,22 @@ type UsePaginatedSelectableDataReturn<T extends { id: string }> = {
   setRowsPerPage: Dispatch<SetStateAction<number>>
 }
 
-export function usePaginatedSelectableData<T extends { id: string }>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function usePaginatedSelectableData<T extends Record<string, any>>(
   data: T[],
+  getItemId?: (item: T) => string,
   defaultRowsPerPage = 10,
 ): UsePaginatedSelectableDataReturn<T> {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage)
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set())
 
-  const totalCount = data.length
+  const resolveId = getItemId ?? ((item: T): string => String(item.id))
+
+  const safeData = Array.isArray(data) ? data : []
+  const totalCount = safeData.length
   const startIndex = (page - 1) * rowsPerPage
-  const currentItems = data.slice(startIndex, startIndex + rowsPerPage)
+  const currentItems = safeData.slice(startIndex, startIndex + rowsPerPage)
 
   const handleCheckboxChange = useCallback((id: string, checked: boolean) => {
     setSelectedItems((prev) => {
@@ -36,15 +41,19 @@ export function usePaginatedSelectableData<T extends { id: string }>(
     })
   }, [])
 
-  const handleSelectAll = useCallback((checked: boolean, items: T[]) => {
-    setSelectedItems((prev) => {
-      const updated = new Set(prev)
-      items.forEach((item) => {
-        checked ? updated.add(item.id) : updated.delete(item.id)
+  const handleSelectAll = useCallback(
+    (checked: boolean, items: T[]) => {
+      setSelectedItems((prev) => {
+        const updated = new Set(prev)
+        items.forEach((item) => {
+          const itemId = resolveId(item)
+          checked ? updated.add(itemId) : updated.delete(itemId)
+        })
+        return updated
       })
-      return updated
-    })
-  }, [])
+    },
+    [resolveId],
+  )
 
   const handlePageChange = (newPage: number): void => setPage(newPage)
 
