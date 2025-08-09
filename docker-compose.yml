@@ -7,4 +7,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "6500:3000"
+    networks: 
+      - rsf-utility
     restart: always
+networks:
+  rsf-utility:
+    # Specify driver options
+    driver: bridge
