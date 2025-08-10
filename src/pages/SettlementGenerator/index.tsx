@@ -8,13 +8,19 @@ import { Container } from 'styles/pages/SettlementGenerator.styled'
 import useGenerateNpSettlement from 'hooks/mutations/useGenerateNpSettlement'
 import { useUserContext } from 'context/userContext'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
-import { GENERATE_NP_NP_SETTLEMENT, SETTLEMENT_PATCH_MESSAGES, TRIGGER_ACTION } from 'constants/toastMessages'
+import {
+  GENERATE_NP_NP_SETTLEMENT,
+  SETTLEMENT_PATCH_MESSAGES,
+  TRIGGER_ACTION,
+  CSV_EXPORT_MESSAGES,
+} from 'constants/toastMessages'
 import { useToast } from 'context/toastContext'
 import useGetUserSettlements from 'hooks/queries/useGetUserSettlements'
 import { IUserSettlementItem, SettlementPayload } from 'interfaces/settlement'
 import { useLoader } from 'context/loaderContext'
 import { SettlementStatus } from 'enums/settlement'
 import usePatchSettlements from 'hooks/mutations/usePatchSettlements'
+import { downloadOrdersAsCSV } from 'utils/helpers'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
@@ -174,6 +180,20 @@ const SettlementGenerator: FC = () => {
           setEditedRows={setEditedRows}
           onSelectedOrdersChange={handleSelectedOrdersChange}
           handlePatchSettlements={handlePatchSettlements}
+          onExport={() => {
+            const orders = fetchedOrders?.data?.settlements || []
+            if (orders.length > 0) {
+              const timestamp = new Date().toISOString().split('T')[0]
+              const success = downloadOrdersAsCSV(orders, `settlement-orders-${timestamp}.csv`)
+              if (success) {
+                toast(CSV_EXPORT_MESSAGES.SUCCESS)
+              } else {
+                toast(CSV_EXPORT_MESSAGES.ERROR)
+              }
+            } else {
+              toast(CSV_EXPORT_MESSAGES.NO_DATA)
+            }
+          }}
         />
       )}
     </Container>

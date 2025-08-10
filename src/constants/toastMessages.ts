@@ -92,6 +92,21 @@ export const FILE_DOWNLOAD_MESSAGES: IToastGroup = {
   },
 }
 
+export const CSV_EXPORT_MESSAGES: IToastGroup = {
+  SUCCESS: {
+    message: 'CSV file downloaded successfully!',
+    severity: 'success',
+  },
+  ERROR: {
+    message: 'Failed to export CSV file.',
+    severity: 'error',
+  },
+  NO_DATA: {
+    message: 'No orders available for export.',
+    severity: 'warning',
+  },
+}
+
 export const ORDER_PATCH_MESSAGES: IToastGroup = {
   ERROR: {
     message: 'Failed to update order.',

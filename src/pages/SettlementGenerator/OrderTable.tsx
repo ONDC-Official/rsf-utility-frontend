@@ -13,7 +13,7 @@ import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'st
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
-// import ExportIcon from 'assets/images/svg/ExportIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 import { formatCurrency } from 'utils/helpers'
 
 const OrderTable: FC<IOrderTableProps> = ({
@@ -21,6 +21,7 @@ const OrderTable: FC<IOrderTableProps> = ({
   editedRows,
   setEditedRows,
   onSelectedOrdersChange,
+  onExport,
   handlePatchSettlements,
 }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id
@@ -127,9 +128,9 @@ const OrderTable: FC<IOrderTableProps> = ({
             selectedDateRange={dateRange}
             onDateRangeChange={handleDateRangeChange}
           />
-          {/* <Button variant="outlined" startIcon={<ExportIcon />}>
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
             Export
-          </Button> */}
+          </Button>
         </Actions>
       </Header>
 

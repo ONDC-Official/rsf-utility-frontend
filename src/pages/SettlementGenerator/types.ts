@@ -44,6 +44,7 @@ export interface IOrderTableProps {
   setEditedRows: (data: any) => void
   onSelectedOrdersChange: (selected: Set<string>) => void
   handlePatchSettlements: () => Promise<void>
+  onExport: () => void
 }
 
 export interface IOrderSummaryModalProps {
