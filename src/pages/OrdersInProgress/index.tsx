@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -9,15 +10,7 @@ import { columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
-import {
-  Container,
-  Header,
-  HeaderLeft,
-  HeaderRight,
-  ReceiverLabel,
-  Wrapper,
-  TableHeader,
-} from 'styles/pages/OrdersInProgress.styled'
+import { Container, Header, HeaderLeft, HeaderRight, Wrapper, TableHeader } from 'styles/pages/OrdersInProgress.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import StatusChip from 'components/common/StatusChip'
 
@@ -34,6 +27,23 @@ const OrdersInProgress: React.FC = () => {
       value: id,
       label: id,
     })) || []
+
+  // Auto-select first option when counterparty options change
+  useEffect(() => {
+    if (counterpartyOptions.length > 0 && !counterpartyId) {
+      setCounterpartyId(counterpartyOptions[0].value)
+    }
+  }, [counterpartyOptions, counterpartyId])
+
+  // Reset selection when selected user changes to ensure sync
+  useEffect(() => {
+    if (counterpartyOptions.length > 0) {
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
+      if (!currentIsValid) {
+        setCounterpartyId(counterpartyOptions[0].value)
+      }
+    }
+  }, [selectedUser, counterpartyOptions, counterpartyId])
 
   const {
     data: ordersData,
@@ -101,14 +111,12 @@ const OrdersInProgress: React.FC = () => {
           <Typography variant={TypographyVariant.H6}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>
-          <ReceiverLabel variant={TypographyVariant.Body2Semibold}>Counterparty ID</ReceiverLabel>
+          <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
           <Select
             value={counterpartyId}
             onChange={(e) => setCounterpartyId(e.target.value as string)}
             options={counterpartyOptions}
             size="small"
-            displayEmpty
-            renderValue={(value) => (value as string) || 'Choose'}
           />
         </HeaderRight>
       </Header>

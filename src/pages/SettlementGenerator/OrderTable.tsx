@@ -29,6 +29,7 @@ const OrderTable: FC<IOrderTableProps> = ({
   onExport,
   handlePatchSettlements,
   refetchOrders,
+  onDateRangeChange,
 }) => {
   const toast = useToast()
   const { selectedUser } = useUserContext()
@@ -71,6 +72,10 @@ const OrderTable: FC<IOrderTableProps> = ({
 
   const handleDateRangeChange = (newDateRange: IDateRange): void => {
     setDateRange(newDateRange)
+    // Notify parent component about date range change
+    if (onDateRangeChange) {
+      onDateRangeChange(newDateRange)
+    }
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {

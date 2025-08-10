@@ -46,6 +46,7 @@ export interface IOrderTableProps {
   handlePatchSettlements: () => Promise<void>
   onExport: () => void
   refetchOrders: () => void
+  onDateRangeChange?: (dateRange: { startDate: Date | null; endDate: Date | null }) => void
 }
 
 export interface IOrderSummaryModalProps {

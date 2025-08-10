@@ -1,6 +1,7 @@
-import { FC } from 'react'
-import { Box, Typography } from '@mui/material'
+import { FC, useEffect } from 'react'
+import { Box, Typography, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { IOrdersReadyHeaderProps } from 'pages/OrdersReady/types'
 import { ORDER_HEADER_LABELS, PrepareButtonState } from 'pages/OrdersReady/constants'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
@@ -24,6 +25,25 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
       label: id,
     })) || []
 
+  // Auto-select first option when counterparty options change and no receiver is selected
+  useEffect(() => {
+    if (counterpartyOptions.length > 0 && !receiverId) {
+      const event = { target: { value: counterpartyOptions[0].value } } as SelectChangeEvent<unknown>
+      handleReceiverChange(event)
+    }
+  }, [counterpartyOptions, receiverId, handleReceiverChange])
+
+  // Reset selection when selected user changes to ensure sync
+  useEffect(() => {
+    if (counterpartyOptions.length > 0) {
+      const currentIsValid = counterpartyOptions.some((option) => option.value === receiverId)
+      if (!currentIsValid) {
+        const event = { target: { value: counterpartyOptions[0].value } } as SelectChangeEvent<unknown>
+        handleReceiverChange(event)
+      }
+    }
+  }, [selectedUser, counterpartyOptions, receiverId, handleReceiverChange])
+
   const getButtonText = (): string => {
     if (prepareButtonState === PrepareButtonState.DISABLED) return ORDER_HEADER_LABELS.prepareZero
     return ORDER_HEADER_LABELS.prepareWithCount(selectedCount)
@@ -36,15 +56,8 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
         <Typography variant={TypographyVariant.H6}>{ORDER_HEADER_LABELS.subtitle}</Typography>
       </HeaderLeft>
       <HeaderRight>
-        <Typography variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
-        <Select
-          value={receiverId}
-          onChange={handleReceiverChange}
-          options={counterpartyOptions}
-          size="small"
-          displayEmpty
-          renderValue={(value) => (value as string) || 'Choose'}
-        />
+        <RequiredFieldLabel variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</RequiredFieldLabel>
+        <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
         <Box>
           <PrepareButton
             variant="outlined"
