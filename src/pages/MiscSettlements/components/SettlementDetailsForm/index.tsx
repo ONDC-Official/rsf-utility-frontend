@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { Typography } from '@mui/material'
+import { Typography, MenuItem, Select } from '@mui/material'
 import {
   SettlementDetailsContainer,
   FieldRow,
@@ -8,56 +8,50 @@ import {
   FieldInputBox,
   FieldBox,
   Divider,
-  // ActionButtons,
-  // RotatedSendIcon,
   BottomAlignedTypography,
   DeleteButton,
   SettleHeader,
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
-// import Button from 'components/common/Button'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import Blockchain from 'assets/images/svg/Blockchain'
 import { useUserContext } from 'context/userContext'
 
 interface Props {
-  onSubmit: (values: MiscSettlementFormValues) => void
-  isSubmitting?: boolean
+  defaultValues: MiscSettlementFormValues
+  onChange: (values: MiscSettlementFormValues) => void
   onDelete?: () => void
   showDelete?: boolean
 }
 
-const SettlementDetailsForm: React.FC<Props> = ({
-  onSubmit,
-  // isSubmitting,
-  onDelete,
-  showDelete,
-}) => {
+const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDelete, showDelete }) => {
   const {
     control,
-    handleSubmit,
-    reset,
     formState: { errors },
+    setValue,
   } = useForm<MiscSettlementFormValues>({
-    defaultValues: {
-      selfAmount: '',
-      providerId: '',
-      providerAmount: '',
-      providerName: '',
-      bankAccountNumber: '',
-      ifscCode: '',
-    },
-  })
-
-  const internalSubmit = handleSubmit((values) => {
-    onSubmit(values)
-    reset()
+    defaultValues,
   })
 
   const { selectedUser } = useUserContext()
-
   const provider_details = selectedUser?.provider_details || []
+
+  const handleFieldChange = (fieldName: keyof MiscSettlementFormValues, value: string) => {
+    onChange({ ...defaultValues, [fieldName]: value })
+  }
+
+  const handleProviderSelect = (providerId: string) => {
+    const selectedProvider = provider_details.find((p) => p.provider_id === providerId)
+    if (selectedProvider) {
+      setValue('providerName', selectedProvider.bank_name)
+      setValue('bankAccountNumber', selectedProvider.account_number)
+      setValue('ifscCode', selectedProvider.ifsc_code)
+      handleFieldChange('providerName', selectedProvider.bank_name)
+      handleFieldChange('bankAccountNumber', selectedProvider.account_number)
+      handleFieldChange('ifscCode', selectedProvider.ifsc_code)
+    }
+  }
 
   return (
     <SettlementDetailsContainer>
@@ -70,139 +64,137 @@ const SettlementDetailsForm: React.FC<Props> = ({
         {showDelete && <DeleteButton onClick={onDelete} />}
       </SettleHeader>
 
-      <form onSubmit={internalSubmit} noValidate>
-        <FieldRow>
-          <FieldLabelBox>
-            <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Self</Typography>
-          </FieldLabelBox>
-          <FieldInputBox>
-            <Controller
-              control={control}
-              name="selfAmount"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="00.0"
-                  fullWidth
-                  error={!!errors.selfAmount}
-                  helperText={errors.selfAmount?.message}
-                />
-              )}
-            />
-          </FieldInputBox>
-        </FieldRow>
+      <FieldRow>
+        <FieldLabelBox>
+          <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Self</Typography>
+        </FieldLabelBox>
+        <FieldInputBox>
+          <Controller
+            control={control}
+            name="selfAmount"
+            rules={{ required: 'Required' }}
+            render={({ field }) => (
+              <InputField
+                {...field}
+                placeholder="00.0"
+                fullWidth
+                error={!!errors.selfAmount}
+                helperText={errors.selfAmount?.message}
+                onChange={(e) => {
+                  field.onChange(e)
+                  handleFieldChange('selfAmount', e.target.value)
+                }}
+              />
+            )}
+          />
+        </FieldInputBox>
+      </FieldRow>
 
-        {provider_details?.length > 0 && <Divider>OR</Divider>}
+      {provider_details.length > 0 && <Divider>OR</Divider>}
 
-        {provider_details?.length > 0 && (
-          <>
-            <FieldRow>
-              <FieldLabelBox>
-                <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider</Typography>
-              </FieldLabelBox>
-              <FieldInputBox>
-                <Controller
-                  control={control}
-                  name="providerAmount"
-                  rules={{ required: 'Required' }}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      placeholder="00.0"
-                      fullWidth
-                      error={!!errors.providerAmount}
-                      helperText={errors.providerAmount?.message}
-                    />
-                  )}
-                />
-              </FieldInputBox>
-            </FieldRow>
+      {provider_details.length > 0 && (
+        <>
+          <FieldRow>
+            <FieldLabelBox>
+              <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider</Typography>
+            </FieldLabelBox>
+            <FieldInputBox>
+              <Controller
+                control={control}
+                name="providerAmount"
+                rules={{ required: 'Required' }}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    placeholder="00.0"
+                    fullWidth
+                    error={!!errors.providerAmount}
+                    helperText={errors.providerAmount?.message}
+                    onChange={(e) => {
+                      field.onChange(e)
+                      handleFieldChange('providerAmount', e.target.value)
+                    }}
+                  />
+                )}
+              />
+            </FieldInputBox>
+          </FieldRow>
 
-            <FieldRow>
-              <FieldBox>
-                <Typography variant={TypographyVariant.Caption1}>Provider ID</Typography>
-                <Controller
-                  control={control}
-                  name="providerId"
-                  rules={{ required: 'Required' }}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      placeholder="Enter provider ID"
-                      fullWidth
-                      error={!!errors.providerId}
-                      helperText={errors.providerId?.message}
-                    />
-                  )}
-                />
-              </FieldBox>
+          <FieldRow>
+            <FieldBox>
+              <Typography variant={TypographyVariant.Caption1}>Select Provider</Typography>
+              <Controller
+                control={control}
+                name="providerId"
+                rules={{ required: 'Required' }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    fullWidth
+                    onChange={(e) => {
+                      field.onChange(e.target.value)
+                      handleProviderSelect(e.target.value)
+                    }}
+                  >
+                    {provider_details.map((provider) => (
+                      <MenuItem key={provider.provider_id} value={provider.provider_id}>
+                        {provider.provider_name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FieldBox>
+          </FieldRow>
 
-              <FieldBox>
-                <Typography variant={TypographyVariant.Caption1}>Provider Name</Typography>
-                <Controller
-                  control={control}
-                  name="providerName"
-                  rules={{ required: 'Required' }}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      placeholder="Enter provider name"
-                      fullWidth
-                      error={!!errors.providerName}
-                      helperText={errors.providerName?.message}
-                    />
-                  )}
-                />
-              </FieldBox>
-            </FieldRow>
+          {/* Bank Details */}
+          <FieldRow>
+            <FieldBox>
+              <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
+              <Controller
+                control={control}
+                name="bankAccountNumber"
+                rules={{ required: 'Required' }}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    placeholder="Enter account number"
+                    fullWidth
+                    error={!!errors.bankAccountNumber}
+                    helperText={errors.bankAccountNumber?.message}
+                    onChange={(e) => {
+                      field.onChange(e)
+                      handleFieldChange('bankAccountNumber', e.target.value)
+                    }}
+                  />
+                )}
+              />
+            </FieldBox>
 
-            <FieldRow>
-              <FieldBox>
-                <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
-                <Controller
-                  control={control}
-                  name="bankAccountNumber"
-                  rules={{ required: 'Required' }}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      placeholder="Enter account number"
-                      fullWidth
-                      error={!!errors.bankAccountNumber}
-                      helperText={errors.bankAccountNumber?.message}
-                    />
-                  )}
-                />
-              </FieldBox>
-
-              <FieldBox>
-                <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
-                <Controller
-                  control={control}
-                  name="ifscCode"
-                  rules={{ required: 'Required' }}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      placeholder="Enter IFSC code"
-                      fullWidth
-                      error={!!errors.ifscCode}
-                      helperText={errors.ifscCode?.message}
-                    />
-                  )}
-                />
-              </FieldBox>
-            </FieldRow>
-          </>
-        )}
-
-        {/* <ActionButtons>
-          <Button type="submit" variant="contained" startIcon={<RotatedSendIcon />} disabled={isSubmitting}>
-            Create a Trigger Settlement
-          </Button>
-        </ActionButtons> */}
-      </form>
+            <FieldBox>
+              <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
+              <Controller
+                control={control}
+                name="ifscCode"
+                rules={{ required: 'Required' }}
+                render={({ field }) => (
+                  <InputField
+                    {...field}
+                    placeholder="Enter IFSC code"
+                    fullWidth
+                    error={!!errors.ifscCode}
+                    helperText={errors.ifscCode?.message}
+                    onChange={(e) => {
+                      field.onChange(e)
+                      handleFieldChange('ifscCode', e.target.value)
+                    }}
+                  />
+                )}
+              />
+            </FieldBox>
+          </FieldRow>
+        </>
+      )}
     </SettlementDetailsContainer>
   )
 }

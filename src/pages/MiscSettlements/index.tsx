@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import { Typography } from '@mui/material'
-// import { Upload } from '@mui/icons-material'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Button from 'components/common/Button'
 import SettlementDetailsForm from './components/SettlementDetailsForm'
@@ -25,12 +24,25 @@ import {
   FormsContainer,
   FormWrapper,
   RotatedSendIcon,
-  // DeleteButton,
 } from 'styles/pages/MiscSettlements.styled'
+import PayloadPreview from 'pages/MiscSettlements/PayloadPreview'
+
+const emptyFormValues: MiscSettlementFormValues = {
+  selfAmount: '',
+  providerAmount: '',
+  providerId: '',
+  providerName: '',
+  bankAccountNumber: '',
+  ifscCode: '',
+}
 
 const MiscSettlements: FC = () => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
-  const [forms, setForms] = useState<Array<{ id: string; data?: MiscSettlementFormValues }>>([{ id: '1' }])
+  const [showPayloadPreview, setShowPayloadPreview] = useState(false)
+  const [miscResponseData, setMiscResponseData] = useState<any>(null)
+  const [forms, setForms] = useState<Array<{ id: string; data: MiscSettlementFormValues }>>([
+    { id: '1', data: { ...emptyFormValues } },
+  ])
   const toast = useToast()
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -38,35 +50,61 @@ const MiscSettlements: FC = () => {
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const handleSubmit = async (values: MiscSettlementFormValues, _formId: string): Promise<void> => {
+  const handleFormChange = (id: string, newData: MiscSettlementFormValues) => {
+    setForms((prev) => prev.map((f) => (f.id === id ? { ...f, data: newData } : f)))
+  }
+
+  const handleAddForm = () => {
+    setForms((prev) => [...prev, { id: (prev.length + 1).toString(), data: { ...emptyFormValues } }])
+  }
+
+  const handleDeleteForm = (formId: string) => {
+    if (forms.length > 1) {
+      setForms((prev) => prev.filter((f) => f.id !== formId))
+    }
+  }
+
+  const handleDateRangeChange = (newDateRange: IDateRange) => {
+    setDateRange(newDateRange)
+  }
+
+  const handleAllSubmit = async () => {
     try {
       showLoader()
-      const payload = {
-        provider: {
-          id: values.providerId,
-          name: values.providerName,
-          bank_details: {
-            account_no: values.bankAccountNumber,
-            ifsc_code: values.ifscCode,
+
+      console.log(forms)
+
+      const payloads = forms.map((form) => {
+        const values = form.data
+        return {
+          provider: {
+            id: values.providerId,
+            name: values.providerName,
+            bank_details: {
+              account_no: values.bankAccountNumber,
+              ifsc_code: values.ifscCode,
+            },
+            amount: {
+              currency: 'INR',
+              value: values.providerAmount,
+            },
           },
-          amount: {
-            currency: 'INR',
-            value: values.providerAmount,
+          self: {
+            amount: {
+              currency: 'INR',
+              value: values.selfAmount,
+            },
           },
-        },
-        self: {
-          amount: {
-            currency: 'INR',
-            value: values.selfAmount,
-          },
-        },
-      }
-      const res = await miscMutation.triggerAsync(payload)
-      toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
+        }
+      })
+
+      return
+      const res = await miscMutation.triggerAsync(payloads)
 
       if (res?.success) {
-        await triggerAction.triggerAsync('settle', res.data)
-        toast(TRIGGER_ACTION.SUCCESS)
+        setMiscResponseData(res.data)
+        toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
+        setShowPayloadPreview(true)
       }
     } catch (e) {
       toast(GENERATE_MISC_SETTLEMENT.ERROR)
@@ -75,20 +113,23 @@ const MiscSettlements: FC = () => {
     }
   }
 
-  const handleAddForm = (): void => {
-    const newId = (forms.length + 1).toString()
-    setForms([...forms, { id: newId }])
-  }
+  const handleTriggerSettlement = async (): Promise<void> => {
+    if (!miscResponseData) return
 
-  const handleDeleteForm = (formId: string): void => {
-    if (forms.length > 1) {
-      setForms(forms.filter((form) => form.id !== formId))
+    try {
+      await triggerAction.triggerAsync('settle', miscResponseData)
+      toast(TRIGGER_ACTION.SUCCESS)
+      setShowPayloadPreview(false)
+    } catch (e) {
+      toast(TRIGGER_ACTION.ERROR)
+    } finally {
+      hideLoader()
     }
   }
 
-  const handleDateRangeChange = (newDateRange: IDateRange): void => {
-    setDateRange(newDateRange)
-  }
+  // const selectableProviders = useMemo(() => {
+
+  // }, [])
 
   return (
     <Container>
@@ -102,10 +143,10 @@ const MiscSettlements: FC = () => {
             Add
           </Button>
           <Button
-            type="submit"
             variant="contained"
             startIcon={<RotatedSendIcon />}
             disabled={miscMutation.isLoading || triggerAction.isLoading}
+            onClick={handleAllSubmit}
           >
             Create a Trigger Settlement
           </Button>
@@ -113,17 +154,24 @@ const MiscSettlements: FC = () => {
       </Header>
 
       <FormsContainer>
-        {forms.map((form, _index) => (
+        {forms.map((form) => (
           <FormWrapper key={form.id}>
             <SettlementDetailsForm
-              onSubmit={(values) => handleSubmit(values, form.id)}
-              isSubmitting={miscMutation.isLoading || triggerAction.isLoading}
+              defaultValues={form.data}
+              onChange={(data) => handleFormChange(form.id, data)}
               onDelete={() => handleDeleteForm(form.id)}
               showDelete={forms.length > 1}
             />
           </FormWrapper>
         ))}
       </FormsContainer>
+
+      <PayloadPreview
+        data={miscResponseData}
+        onTrigger={handleTriggerSettlement}
+        open={showPayloadPreview}
+        onClose={() => setShowPayloadPreview(false)}
+      />
 
       <Wrapper>
         <TableHeader>

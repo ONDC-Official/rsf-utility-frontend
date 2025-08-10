@@ -11,14 +11,20 @@ interface IMiscSettlementResponse {
   status: string
 }
 
+type MiscSettlementPayload = IGenerateMiscSettlementPayload | IGenerateMiscSettlementPayload[]
+
 const useGenerateMiscSettlement = (
   userId: string,
-): UseMutationResult<IApiResponse<IMiscSettlementResponse>, unknown, IParams, unknown> & {
-  triggerAsync: (payload: IGenerateMiscSettlementPayload) => Promise<IApiResponse<IMiscSettlementResponse>>
+): UseMutationResult<IApiResponse<IMiscSettlementResponse | IMiscSettlementResponse[]>, unknown, IParams, unknown> & {
+  triggerAsync: (
+    payload: MiscSettlementPayload,
+  ) => Promise<IApiResponse<IMiscSettlementResponse | IMiscSettlementResponse[]>>
 } => {
-  const mutation = usePost<IApiResponse<IMiscSettlementResponse>>()
+  const mutation = usePost<IApiResponse<IMiscSettlementResponse | IMiscSettlementResponse[]>>()
 
-  const triggerAsync = (payload: IGenerateMiscSettlementPayload): Promise<IApiResponse<IMiscSettlementResponse>> => {
+  const triggerAsync = (
+    payload: MiscSettlementPayload,
+  ): Promise<IApiResponse<IMiscSettlementResponse | IMiscSettlementResponse[]>> => {
     return mutation.mutateAsync({
       url: buildApiUrl(APIRoute.GENERATE_MISC, { userId }),
       payload,

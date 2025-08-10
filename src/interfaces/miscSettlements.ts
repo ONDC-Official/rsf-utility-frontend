@@ -21,9 +21,9 @@ export interface IGenerateMiscSettlementPayload {
 
 export type MiscSettlementFormValues = {
   selfAmount: string
-  providerId: string
   providerAmount: string
   providerName: string
   bankAccountNumber: string
   ifscCode: string
+  providerId: string
 }
