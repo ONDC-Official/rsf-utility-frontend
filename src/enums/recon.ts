@@ -14,10 +14,10 @@ export const OUTGOING_RECON_STATUSES: ReconStatus[] = [
   ReconStatus.SENT_PENDING,
   ReconStatus.SENT_ACCEPTED,
   ReconStatus.SENT_REJECTED,
+  ReconStatus.RECEIVED_REJECTED,
+  ReconStatus.RECEIVED_ACCEPTED,
 ]
 
 export const INCOMING_RECON_STATUSES: ReconStatus[] = [
   ReconStatus.RECEIVED_PENDING,
-  ReconStatus.RECEIVED_ACCEPTED,
-  ReconStatus.RECEIVED_REJECTED,
 ]

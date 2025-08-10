@@ -37,7 +37,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
       <FormContainer>
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Title
+            Title *
           </Typography>
           <Controller
             control={control}
@@ -62,7 +62,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Role
+            Role *
           </Typography>
           <Controller
             control={control}
@@ -93,7 +93,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Domain Category
+            Domain Category *
           </Typography>
           <Controller
             control={control}
@@ -126,7 +126,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
         {role !== 'Buyer App' && (
           <div>
             <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-              Type
+              Type *
             </Typography>
             <Controller
               control={control}
@@ -158,7 +158,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%)
+                  NP to NP TCS (%) *
                 </Typography>
                 <Tooltip title="TCS applicable for Buyer NP to NP" arrow placement="right-start">
                   <IconWrapper>
@@ -194,7 +194,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%)
+                  NP to NP TDS (%) *
                 </Typography>
                 <Tooltip title="TDS applicable for Buyer NP to NP" arrow placement="right-start">
                   <IconWrapper>
@@ -234,7 +234,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%)
+                  NP to NP TCS (%) *
                 </Typography>
                 <Tooltip title="TCS applicable for Seller NP to NP (MSN false)" arrow placement="right-start">
                   <IconWrapper>
@@ -270,7 +270,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%)
+                  NP to NP TDS (%) *
                 </Typography>
                 <Tooltip title="TDS applicable for Seller NP to NP" arrow placement="right-start">
                   <IconWrapper>
@@ -310,7 +310,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%)
+                  NP to NP TCS (%) *
                 </Typography>
                 <Tooltip title="TCS applicable for Seller NP to NP" arrow placement="right-start">
                   <IconWrapper>
@@ -346,7 +346,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%)
+                  NP to NP TDS (%) *
                 </Typography>
                 <Tooltip title="TDS applicable for Seller NP to NP " arrow placement="right-start">
                   <IconWrapper>
@@ -382,7 +382,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to Provider TCS (%)
+                  NP to Provider TCS (%) *
                 </Typography>
                 <Tooltip title="TCS applicable for Seller NP to Provider" arrow placement="right-start">
                   <IconWrapper>
@@ -418,7 +418,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             <div>
               <LabelWrapper>
                 <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to Provider TDS (%)
+                  NP to Provider TDS (%) *
                 </Typography>
                 <Tooltip title="TDS applicable for Seller NP to Provider" arrow placement="right-start">
                   <IconWrapper>
@@ -455,7 +455,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
         <div>
           <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Subscriber URL
+            Subscriber URL *
           </Typography>
           <Controller
             control={control}

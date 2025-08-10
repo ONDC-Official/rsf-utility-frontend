@@ -10,4 +10,5 @@ export const columns: ITableColumn<IOrderReady>[] = [
   { id: 'sellerType', label: 'Seller Type' },
   { id: 'domain', label: 'Domain' },
   { id: 'dueDate', label: 'Due Date' },
+  { id: 'action', label: 'Action' },
 ]

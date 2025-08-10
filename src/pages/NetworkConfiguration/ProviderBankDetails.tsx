@@ -55,7 +55,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Provider Name
+                Provider Name *
               </Typography>
               <Controller
                 control={control}
@@ -78,7 +78,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Provider ID
+                Provider ID *
               </Typography>
               <Controller
                 control={control}
@@ -102,7 +102,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             {/* IFSC Code */}
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                IFSC Code
+                IFSC Code *
               </Typography>
               <Controller
                 control={control}
@@ -132,7 +132,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             {/* Account Number */}
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Account Number
+                Account Number *
               </Typography>
               <Controller
                 control={control}
@@ -162,7 +162,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             {/* Bank Name */}
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Bank Name
+                Bank Name *
               </Typography>
               <Controller
                 control={control}

@@ -3,6 +3,7 @@ import Toast from 'components/common/Toast'
 import OrdersReadyHeader from './OrdersReadyHeader'
 import OrdersReadyRow from './OrdersReadyRow'
 import OrdersReadyTable from './OrdersReadyTable'
+import EditDueDateModal from './EditDueDateModal'
 import { IOrderReady } from 'interfaces/ordersReady'
 import useOrdersReady from 'hooks/useOrdersReady'
 import { PageContainer as Container } from 'styles/pages/OrdersReady.styled'
@@ -38,10 +39,9 @@ const OrdersReady: FC = () => {
   const muiToast = useToast()
 
   const [editedDueDates, setEditedDueDates] = useState<Map<string, string>>(new Map())
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [selectedOrderId, setSelectedOrderId] = useState('')
 
-  const patchMutation = usePatchOrderDueDate(selectedUser?._id || '', {
-    enabled: !!selectedUser?._id,
-  })
 
   const handleDueDateChange = (orderId: string, newDueDate: string): void => {
     setEditedDueDates((prev) => {
@@ -75,6 +75,28 @@ const OrdersReady: FC = () => {
     }
   }
 
+  const handleEditClick = (orderId: string): void => {
+    setSelectedOrderId(orderId)
+    setEditModalOpen(true)
+  }
+
+
+  const handleEditModalClose = (): void => {
+    setEditModalOpen(false)
+    setSelectedOrderId('')
+  }
+
+  const handleEditModalConfirm = (): void => {
+    setEditModalOpen(false)
+    setSelectedOrderId('')
+    // Refresh the page to show updated data
+    window.location.reload()
+  }
+
+  const handleEditSuccess = (message: string): void => {
+    // This will be called from the modal for additional handling if needed
+  }
+
   const renderRow = (order: IOrderReady, index: number): JSX.Element => (
     <OrdersReadyRow
       editedDueDates={editedDueDates}
@@ -86,6 +108,7 @@ const OrdersReady: FC = () => {
       selected={selectedOrders.has(order.id)}
       onCheckboxChange={handleCheckboxChange}
       onDueDateChange={handleDueDateChange}
+      onEditClick={handleEditClick}
     />
   )
 
@@ -116,6 +139,14 @@ const OrdersReady: FC = () => {
         onSelectAll={handleSelectAll}
         showSaveButton={editedDueDates.size > 0}
         onSaveDueDatesClick={handleSaveDueDates}
+      />
+
+      <EditDueDateModal
+        open={editModalOpen}
+        onClose={handleEditModalClose}
+        onConfirm={handleEditModalConfirm}
+        orderId={selectedOrderId}
+        onEditSuccess={handleEditSuccess}
       />
     </Container>
   )
