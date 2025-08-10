@@ -1,8 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
+import Select from 'components/common/Select'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
 import { Typography } from '@mui/material'
@@ -38,6 +40,29 @@ const SettlementGenerator: FC = () => {
   const [npSettlementResponseData, setNpSettlementResponseData] = useState<any>(null)
   const [editedRows, setEditedRows] = useState<Record<string, SettlementPayload>>({})
   const [counterpartyId, setCounterpartyId] = useState('')
+  const [dateRange, setDateRange] = useState<{ startDate: Date | null; endDate: Date | null }>({
+    startDate: null,
+    endDate: null,
+  })
+
+  const counterpartyOptions = selectedUser?.counterparty_ids.map((id) => ({ value: id, label: id })) || []
+
+  // Auto-select first option when counterparty options change
+  useEffect(() => {
+    if (counterpartyOptions.length > 0 && !counterpartyId) {
+      setCounterpartyId(counterpartyOptions[0].value)
+    }
+  }, [counterpartyOptions, counterpartyId])
+
+  // Reset selection when selected user changes to ensure sync
+  useEffect(() => {
+    if (counterpartyOptions.length > 0) {
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
+      if (!currentIsValid) {
+        setCounterpartyId(counterpartyOptions[0].value)
+      }
+    }
+  }, [selectedUser, counterpartyOptions, counterpartyId])
 
   const {
     data: fetchedOrders,
@@ -49,6 +74,8 @@ const SettlementGenerator: FC = () => {
     {
       statuses: SettlementStatus.PREPARED,
       counterpartyId,
+      dueDateFrom: dateRange.startDate ? dateRange.startDate.toISOString().split('T')[0] : undefined,
+      dueDateTo: dateRange.endDate ? dateRange.endDate.toISOString().split('T')[0] : undefined,
     },
     {
       enabled: !!selectedUser?._id,
@@ -99,6 +126,10 @@ const SettlementGenerator: FC = () => {
 
   const handleSelectedOrdersChange = (newSelected: Set<string>): void => {
     setSelectedOrders(newSelected)
+  }
+
+  const handleDateRangeChange = (newDateRange: { startDate: Date | null; endDate: Date | null }): void => {
+    setDateRange(newDateRange)
   }
 
   const calculateSummary = (): ISettlementSummary => {
@@ -154,11 +185,33 @@ const SettlementGenerator: FC = () => {
     <Container>
       <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={setCounterpartyId} />
 
-      {counterpartyId && (
-        <div style={{ padding: '16px 24px', borderBottom: '1px solid #e0e0e0' }}>
-          <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>
+      <div
+        style={{
+          padding: '16px 24px',
+          borderBottom: '1px solid #e0e0e0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          {counterpartyId && (
+            <Typography variant={TypographyVariant.H6Bold}>
+              {counterpartyId}
+            </Typography>
+          )}
         </div>
-      )}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
+          <Select
+            value={counterpartyId}
+            onChange={(e) => setCounterpartyId(e.target.value as string)}
+            options={counterpartyOptions}
+            size="small"
+            style={{ minWidth: '200px' }}
+          />
+        </div>
+      </div>
 
       {!isLoading && !isError && selectedOrders.size > 0 && (
         <SummarySection
@@ -192,8 +245,7 @@ const SettlementGenerator: FC = () => {
           onSelectedOrdersChange={handleSelectedOrdersChange}
           handlePatchSettlements={handlePatchSettlements}
           refetchOrders={refetchOrders}
-          counterpartyId={counterpartyId}
-          onCounterpartyChange={setCounterpartyId}
+          onDateRangeChange={handleDateRangeChange}
           onExport={() => {
             const orders = fetchedOrders?.data?.settlements || []
             if (orders.length > 0) {

@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react'
 import { Popover, Checkbox, Box } from '@mui/material'
+import { Edit } from '@mui/icons-material'
 import Calendar from 'components/common/Calendar'
 import { IOrdersReadyRowProps } from './types'
-import { StyledTableBodyCell } from 'styles/components/Table.styled'
+import { StyledTableBodyCell, ActionIconButton } from 'styles/components/Table.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import Button from 'components/common/Button'
 import CalendarIcon from 'assets/images/svg/CalendarIcon'
@@ -81,9 +82,11 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
       </StyledTableBodyCell>
 
       <StyledTableBodyCell>
-        <Button variant="outlined" size="small" onClick={() => onEditClick(order.orderId)}>
-          Edit
-        </Button>
+        {!order.dueDate && (
+          <ActionIconButton size="small" onClick={() => onEditClick(order.orderId)}>
+            <Edit fontSize="small" />
+          </ActionIconButton>
+        )}
       </StyledTableBodyCell>
     </>
   )

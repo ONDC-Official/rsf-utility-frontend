@@ -1,10 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { Edit, Undo } from '@mui/icons-material'
-import { Checkbox } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 import Button from 'components/common/Button'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
-import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import Table from 'components/common/Table'
 import { columns } from 'pages/SettlementGenerator/data'
 import ReinitiateReconciliationModal from 'pages/SettlementGenerator/ReinitiateReconciliationModal'
@@ -31,8 +29,7 @@ const OrderTable: FC<IOrderTableProps> = ({
   onExport,
   handlePatchSettlements,
   refetchOrders,
-  counterpartyId,
-  onCounterpartyChange,
+  onDateRangeChange,
 }) => {
   const toast = useToast()
   const { selectedUser } = useUserContext()
@@ -40,28 +37,6 @@ const OrderTable: FC<IOrderTableProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null)
   const bulkImportMutation = usePatchImportSettlements(selectedUser?._id ?? '')
 
-  const counterpartyOptions =
-    selectedUser?.counterparty_ids.map((id) => ({
-      value: id,
-      label: id,
-    })) || []
-
-  // Auto-select first option when counterparty options change
-  useEffect(() => {
-    if (counterpartyOptions.length > 0 && !counterpartyId) {
-      onCounterpartyChange(counterpartyOptions[0].value)
-    }
-  }, [counterpartyOptions, counterpartyId, onCounterpartyChange])
-
-  // Reset selection when selected user changes to ensure sync
-  useEffect(() => {
-    if (counterpartyOptions.length > 0) {
-      const currentIsValid = counterpartyOptions.some(option => option.value === counterpartyId)
-      if (!currentIsValid) {
-        onCounterpartyChange(counterpartyOptions[0].value)
-      }
-    }
-  }, [selectedUser, counterpartyOptions, counterpartyId, onCounterpartyChange])
 
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
@@ -98,6 +73,10 @@ const OrderTable: FC<IOrderTableProps> = ({
 
   const handleDateRangeChange = (newDateRange: IDateRange): void => {
     setDateRange(newDateRange)
+    // Notify parent component about date range change
+    if (onDateRangeChange) {
+      onDateRangeChange(newDateRange)
+    }
   }
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -184,16 +163,6 @@ const OrderTable: FC<IOrderTableProps> = ({
       <Header>
         <Title>Select Orders for Settlement</Title>
         <Actions>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginRight: '16px' }}>
-            <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
-            <Select
-              value={counterpartyId}
-              onChange={(e) => onCounterpartyChange(e.target.value as string)}
-              options={counterpartyOptions}
-              size="small"
-              style={{ minWidth: '150px' }}
-            />
-          </div>
           {Object.keys(editedRows).length > 0 && (
             <Button variant="contained" onClick={handlePatchSettlements}>
               Save edited order
