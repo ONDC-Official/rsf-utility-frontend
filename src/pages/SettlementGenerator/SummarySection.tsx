@@ -73,7 +73,7 @@ const SummarySection: FC<IProps> = ({
           onClick={() => setIsModalOpen(true)}
           disabled={selectedOrderIds.length === 0}
         >
-          Edit Order Amounts
+          Add Self / Provider Amount
         </Button>
       </ButtonSection>
 

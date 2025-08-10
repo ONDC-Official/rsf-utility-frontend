@@ -142,20 +142,6 @@ const SettlementGenerator: FC = () => {
     <Container>
       <HeaderSection />
 
-      {isLoading ? (
-        <div>Loading orders...</div>
-      ) : isError ? (
-        <div>Failed to load orders.</div>
-      ) : (
-        <OrderTable
-          allOrders={orders}
-          editedRows={editedRows}
-          setEditedRows={setEditedRows}
-          onSelectedOrdersChange={handleSelectedOrdersChange}
-          handlePatchSettlements={handlePatchSettlements}
-        />
-      )}
-
       {!isLoading && !isError && selectedOrders.size > 0 && (
         <SummarySection
           summary={summary}
@@ -169,6 +155,20 @@ const SettlementGenerator: FC = () => {
       )}
 
       {showPayloadPreview && <PayloadPreview data={npSettlementResponseData} onTrigger={handleTriggerSettlement} />}
+
+      {isLoading ? (
+        <div>Loading orders...</div>
+      ) : isError ? (
+        <div>Failed to load orders.</div>
+      ) : (
+        <OrderTable
+          allOrders={orders}
+          editedRows={editedRows}
+          setEditedRows={setEditedRows}
+          onSelectedOrdersChange={handleSelectedOrdersChange}
+          handlePatchSettlements={handlePatchSettlements}
+        />
+      )}
     </Container>
   )
 }

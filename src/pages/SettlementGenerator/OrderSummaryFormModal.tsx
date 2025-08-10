@@ -68,7 +68,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
             <OrderSummaryFormBox>
               {selectedOrderIds.map((orderId) => (
                 <OrderSummaryFormRow key={orderId}>
-                  <div style={{ fontWeight: 500, marginBottom: '0.5rem' }}>Settlement ID: {orderId}</div>
+                  <div style={{ fontWeight: 500, marginBottom: '0.5rem' }}>Order ID: {orderId}</div>
 
                   <Controller
                     name={`${orderId}.self_value`}
