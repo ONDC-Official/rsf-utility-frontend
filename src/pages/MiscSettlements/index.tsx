@@ -56,7 +56,7 @@ const MiscSettlements: FC = () => {
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const { control, handleSubmit, setValue, formState, watch } = useForm<FormValues>({
+  const { control, handleSubmit, setValue, formState } = useForm<FormValues>({
     defaultValues: { settlements: [{ ...emptyFormValues }] },
     mode: 'onChange', // to make formState.isValid update on change
   })
@@ -66,15 +66,15 @@ const MiscSettlements: FC = () => {
     name: 'settlements',
   })
 
-  const handleAddForm = () => {
-    if (fields.length < provider_details.length) {
-      append({ ...emptyFormValues })
-    }
+  const handleAddForm = (): void => {
+    // if (fields.length < provider_details.length) {
+    append({ ...emptyFormValues })
+    // }
   }
 
-  const selectedProviderIds = watch('settlements')
-    .map((s) => s.providerId)
-    .filter(Boolean)
+  // const selectedProviderIds = watch('settlements')
+  //   .map((s) => s.providerId)
+  //   .filter(Boolean)
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -169,18 +169,18 @@ const MiscSettlements: FC = () => {
 
       <FormsContainer>
         {fields.map((field, index) => {
-          const filteredProviders = provider_details.filter(
-            (p) =>
-              !selectedProviderIds.includes(p.provider_id) ||
-              p.provider_id === watch(`settlements.${index}.providerId`),
-          )
+          // const filteredProviders = provider_details.filter(
+          //   (p) =>
+          //     !selectedProviderIds.includes(p.provider_id) ||
+          //     p.provider_id === watch(`settlements.${index}.providerId`),
+          // )
 
           return (
             <FormWrapper key={field.id}>
               <SettlementDetailsForm
                 control={control}
                 index={index}
-                providers={filteredProviders}
+                providers={provider_details}
                 setValue={setValue}
                 onRemove={() => remove(index)}
                 showDelete={fields.length > 1}
