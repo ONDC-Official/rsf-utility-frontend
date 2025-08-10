@@ -16,6 +16,7 @@ import InputField from 'components/common/InputField'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import Select from 'components/common/Select'
+import { useUserContext } from 'context/userContext'
 
 type ParentFormValues = {
   settlements: MiscSettlementFormValues[]
@@ -39,9 +40,10 @@ interface Props {
 }
 
 const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, setValue, onRemove, showDelete }) => {
+  const { selectedUser } = useUserContext()
   const provider_details = providers || []
 
-  const handleProviderSelect = (providerId: string) => {
+  const handleProviderSelect = (providerId: string): void => {
     const sel = provider_details.find((p) => p.provider_id === providerId)
     if (!sel) return
 
@@ -53,10 +55,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
   return (
     <SettlementDetailsContainer>
       <SettleHeader>
-        <BottomAlignedTypography variant={TypographyVariant.H5Bold}>
-          {/* keep your icon */}
-          Settlement Details
-        </BottomAlignedTypography>
+        <BottomAlignedTypography variant={TypographyVariant.H5Bold}>Settlement Details</BottomAlignedTypography>
 
         {showDelete && <DeleteButton onClick={onRemove} />}
       </SettleHeader>
@@ -86,9 +85,9 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
         </FieldInputBox>
       </FieldRow>
 
-      {provider_details.length > 0 && <Divider>OR</Divider>}
+      {provider_details?.length > 0 && selectedUser?.msn && <Divider>OR</Divider>}
 
-      {provider_details.length > 0 && (
+      {provider_details?.length > 0 && selectedUser?.msn && (
         <>
           <FieldRow>
             <FieldLabelBox>

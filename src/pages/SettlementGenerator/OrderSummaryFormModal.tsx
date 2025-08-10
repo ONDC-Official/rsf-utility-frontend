@@ -17,6 +17,7 @@ import {
 import InputField from 'components/common/InputField'
 import Button from 'components/common/Button'
 import { ISettleNpDataItem } from '@interfaces/settlementGenerator'
+import { useUserContext } from 'context/userContext'
 
 type FormValues = Record<string, ISettleNpDataItem>
 
@@ -36,6 +37,8 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
     defaultValues: formInputs,
     mode: 'onChange',
   })
+
+  const { selectedUser } = useUserContext()
 
   const onSubmit = (data: FormValues): void => {
     const sanitizedData: Record<string, ISettleNpDataItem> = {}
@@ -87,22 +90,24 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
                     )}
                   />
 
-                  <Controller
-                    name={`${orderId}.provider_value`}
-                    control={control}
-                    rules={{ required: true, min: 0 }}
-                    render={({ field }) => (
-                      <InputField
-                        label="Provider Amount *"
-                        placeholder="Enter provider amount"
-                        {...field}
-                        value={field.value ?? ''}
-                        size="small"
-                        style={{ flex: 1 }}
-                        inputProps={{ min: '0' }}
-                      />
-                    )}
-                  />
+                  {selectedUser?.msn && (
+                    <Controller
+                      name={`${orderId}.provider_value`}
+                      control={control}
+                      rules={{ required: true, min: 0 }}
+                      render={({ field }) => (
+                        <InputField
+                          label="Provider Amount"
+                          placeholder="Enter provider amount"
+                          {...field}
+                          value={field.value ?? ''}
+                          size="small"
+                          style={{ flex: 1 }}
+                          inputProps={{ min: '0' }}
+                        />
+                      )}
+                    />
+                  )}
                 </OrderSummaryFormRow>
               ))}
             </OrderSummaryFormBox>

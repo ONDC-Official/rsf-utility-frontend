@@ -108,9 +108,10 @@ const NetworkConfiguration: FC = () => {
       <HeaderSection reset={reset} setSelectedUser={setSelectedUser} selectedUser={selectedUser} />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <DomainConfiguration errors={errors} role={role} type={type} selectedUser={selectedUser} control={control} />
-        {(!selectedUser && (!role || role === '') ? false : role !== 'Buyer App') && (
+        {role === 'Seller App' && type === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
+        {/* {(!selectedUser && (!role || role === '') && !type ? false : role !== 'Buyer App') && (
           <ProviderBankDetails control={control} errors={errors} />
-        )}
+        )} */}
         <SaveButtonContainer>
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
             <SaveIcon /> {isSubmitLoading ? 'Submitting...' : selectedUser?._id ? 'Update' : 'Save & Proceed'}
