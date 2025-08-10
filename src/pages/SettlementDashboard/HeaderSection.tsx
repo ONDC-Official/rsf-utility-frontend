@@ -30,7 +30,7 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterparty
   // Reset selection when selected user changes to ensure sync
   useEffect(() => {
     if (counterpartyOptions.length > 0) {
-      const currentIsValid = counterpartyOptions.some(option => option.value === counterpartyId)
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
       if (!currentIsValid) {
         onCounterpartyChange(counterpartyOptions[0].value)
       }
@@ -44,13 +44,10 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterparty
         <Typography variant={TypographyVariant.H6}>{DASHBOARD_LABELS.SUBTITLE}</Typography>
       </Left>
       <Right>
-        <RequiredFieldLabel variant={TypographyVariant.Body1Medium}>{DASHBOARD_LABELS.COUNTERPARTY_LABEL}</RequiredFieldLabel>
-        <Select
-          value={counterpartyId}
-          onChange={handleChange}
-          options={counterpartyOptions}
-          size="small"
-        />
+        <RequiredFieldLabel variant={TypographyVariant.Body1Medium}>
+          {DASHBOARD_LABELS.COUNTERPARTY_LABEL}
+        </RequiredFieldLabel>
+        <Select value={counterpartyId} onChange={handleChange} options={counterpartyOptions} size="small" />
       </Right>
     </Container>
   )

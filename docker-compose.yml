@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   react-app:
@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "6500:3000"
-    networks: 
+      - '6500:3000'
+    networks:
       - rsf-utility
     restart: always
 networks:

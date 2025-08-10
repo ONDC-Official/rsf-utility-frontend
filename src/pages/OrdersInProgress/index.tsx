@@ -10,15 +10,7 @@ import { columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
-import {
-  Container,
-  Header,
-  HeaderLeft,
-  HeaderRight,
-  ReceiverLabel,
-  Wrapper,
-  TableHeader,
-} from 'styles/pages/OrdersInProgress.styled'
+import { Container, Header, HeaderLeft, HeaderRight, Wrapper, TableHeader } from 'styles/pages/OrdersInProgress.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import StatusChip from 'components/common/StatusChip'
 
@@ -46,7 +38,7 @@ const OrdersInProgress: React.FC = () => {
   // Reset selection when selected user changes to ensure sync
   useEffect(() => {
     if (counterpartyOptions.length > 0) {
-      const currentIsValid = counterpartyOptions.some(option => option.value === counterpartyId)
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
       if (!currentIsValid) {
         setCounterpartyId(counterpartyOptions[0].value)
       }

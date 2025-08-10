@@ -35,7 +35,7 @@ const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, co
   // Reset selection when selected user changes to ensure sync
   useEffect(() => {
     if (counterpartyOptions.length > 0) {
-      const currentIsValid = counterpartyOptions.some(option => option.value === counterpartyId)
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
       if (!currentIsValid) {
         setCounterpartyId(counterpartyOptions[0].value)
       }

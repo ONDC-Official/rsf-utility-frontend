@@ -195,11 +195,7 @@ const SettlementGenerator: FC = () => {
         }}
       >
         <div style={{ flex: 1 }}>
-          {counterpartyId && (
-            <Typography variant={TypographyVariant.H6Bold}>
-              {counterpartyId}
-            </Typography>
-          )}
+          {counterpartyId && <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>

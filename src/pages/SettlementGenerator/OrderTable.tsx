@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { Edit, Undo } from '@mui/icons-material'
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 import Button from 'components/common/Button'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
@@ -36,7 +36,6 @@ const OrderTable: FC<IOrderTableProps> = ({
   const { showLoader, hideLoader } = useLoader()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const bulkImportMutation = usePatchImportSettlements(selectedUser?._id ?? '')
-
 
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
