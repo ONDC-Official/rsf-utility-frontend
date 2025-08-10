@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { Typography } from '@mui/material'
 import { useFieldArray, Controller } from 'react-hook-form'
 import BankIcon from 'assets/images/svg/BankIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
@@ -18,8 +17,7 @@ import {
   RemoveWrapper,
   StyledInput,
 } from 'styles/pages/NetworkConfiguration'
-import { TypographyVariant } from 'enums/typography'
-import colors from 'theme/colors'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 
 const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({
@@ -54,9 +52,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             {/* Provider ID */}
 
             <div>
-              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Provider Name *
-              </Typography>
+              <RequiredFieldLabel>Provider Name</RequiredFieldLabel>
               <Controller
                 control={control}
                 name={`providers.${index}.providerName`}
@@ -77,9 +73,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             </div>
 
             <div>
-              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Provider ID *
-              </Typography>
+              <RequiredFieldLabel>Provider ID</RequiredFieldLabel>
               <Controller
                 control={control}
                 name={`providers.${index}.providerId`}
@@ -101,9 +95,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* IFSC Code */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                IFSC Code *
-              </Typography>
+              <RequiredFieldLabel>IFSC Code</RequiredFieldLabel>
               <Controller
                 control={control}
                 name={`providers.${index}.ifscCode`}
@@ -131,9 +123,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* Account Number */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Account Number *
-              </Typography>
+              <RequiredFieldLabel>Account Number</RequiredFieldLabel>
               <Controller
                 control={control}
                 name={`providers.${index}.accountNumber`}
@@ -161,9 +151,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* Bank Name */}
             <div>
-              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                Bank Name *
-              </Typography>
+              <RequiredFieldLabel>Bank Name</RequiredFieldLabel>
               <Controller
                 control={control}
                 name={`providers.${index}.bankName`}

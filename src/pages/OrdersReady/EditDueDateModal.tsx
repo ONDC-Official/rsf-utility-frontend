@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Modal, Typography } from '@mui/material'
+import { Modal } from '@mui/material'
 import { Close, Event } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'

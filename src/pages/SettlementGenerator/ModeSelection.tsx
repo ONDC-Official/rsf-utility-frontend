@@ -12,8 +12,6 @@ import {
   ModeRow,
   ModeDescription,
   ModeRight,
-  CounterpartyLabel,
-  PlaceholderText,
 } from 'styles/pages/SettlementGenerator.styled'
 
 const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, counterpartyId, setCounterpartyId }) => {

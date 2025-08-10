@@ -187,8 +187,8 @@ const SettlementGenerator: FC = () => {
 
       <div
         style={{
-          padding: '16px 24px',
-          borderBottom: '1px solid #e0e0e0',
+          padding: '8px 0px',
+
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',

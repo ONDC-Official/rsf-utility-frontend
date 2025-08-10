@@ -1,4 +1,4 @@
-import { Tooltip, Typography } from '@mui/material'
+import { Tooltip } from '@mui/material'
 import TaxesIcon from 'assets/images/svg/TaxesIcon'
 import ToolTipIcon from 'assets/images/svg/ToolTipIcon'
 import {
@@ -15,11 +15,10 @@ import {
   StyledInput,
   StyledSelect,
 } from 'styles/pages/NetworkConfiguration'
-import { TypographyVariant } from 'enums/typography'
 import { Controller } from 'react-hook-form'
 import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
-import colors from 'theme/colors'
 import { DOMAIN_CATEGORIES } from 'constants/domains'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
@@ -36,9 +35,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
       <ConfigHeader>Domain Configuration</ConfigHeader>
       <FormContainer>
         <div>
-          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Title *
-          </Typography>
+          <RequiredFieldLabel>Title</RequiredFieldLabel>
           <Controller
             control={control}
             name="title"
@@ -61,9 +58,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
         </div>
 
         <div>
-          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Role *
-          </Typography>
+          <RequiredFieldLabel>Role</RequiredFieldLabel>
           <Controller
             control={control}
             name="role"
@@ -92,9 +87,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
         </div>
 
         <div>
-          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Domain Category *
-          </Typography>
+          <RequiredFieldLabel>Domain Category</RequiredFieldLabel>
           <Controller
             control={control}
             name="domainCategory"
@@ -125,9 +118,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
         {role !== 'Buyer App' && (
           <div>
-            <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-              Type *
-            </Typography>
+            <RequiredFieldLabel>Type</RequiredFieldLabel>
             <Controller
               control={control}
               name="type"
@@ -157,9 +148,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           <>
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
                 <Tooltip title="TCS applicable for Buyer NP to NP" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -193,9 +182,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Buyer NP to NP" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -233,9 +220,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           <>
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
                 <Tooltip title="TCS applicable for Seller NP to NP (MSN false)" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -269,9 +254,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Seller NP to NP" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -309,9 +292,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           <>
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TCS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
                 <Tooltip title="TCS applicable for Seller NP to NP" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -345,9 +326,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to NP TDS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Seller NP to NP " arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -381,9 +360,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to Provider TCS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to Provider TCS (%)</RequiredFieldLabel>
                 <Tooltip title="TCS applicable for Seller NP to Provider" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -417,9 +394,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
 
             <div>
               <LabelWrapper>
-                <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-                  NP to Provider TDS (%) *
-                </Typography>
+                <RequiredFieldLabel>NP to Provider TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Seller NP to Provider" arrow placement="right-start">
                   <IconWrapper>
                     <ToolTipIcon />
@@ -454,9 +429,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
         )}
 
         <div>
-          <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
-            Subscriber URL *
-          </Typography>
+          <RequiredFieldLabel>Subscriber URL</RequiredFieldLabel>
           <Controller
             control={control}
             name="subscriberUrl"

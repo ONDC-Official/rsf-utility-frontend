@@ -86,6 +86,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
                         size="small"
                         style={{ marginRight: '1rem', flex: 1 }}
                         inputProps={{ min: '0' }}
+                        required
                       />
                     )}
                   />
