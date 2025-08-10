@@ -3,6 +3,7 @@ import { Box } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
 import { SettlementStatus } from 'enums/settlement'
+import { ReconStatus } from 'enums/recon'
 
 const getStatusStyles = (
   status: SettlementStatus | string,
@@ -14,16 +15,16 @@ const getStatusStyles = (
   switch (status) {
     case SettlementStatus.PENDING:
     case SettlementStatus.PREPARED:
-    case 'RECEIVED_PENDING':
-    case 'SENT_PENDING':
+    case ReconStatus.RECEIVED_PENDING:
+    case ReconStatus.SENT_PENDING:
       return {
         background: `${colors.warning.light}`,
         border: `1px solid ${colors.warning.main}`,
         color: `${colors.warning.main}`,
       }
     case SettlementStatus.SETTLED:
-    case 'SENT_ACCEPTED':
-    case 'RECEIVED_ACCEPTED':
+    case ReconStatus.SENT_ACCEPTED:
+    case ReconStatus.RECEIVED_ACCEPTED:
       return {
         background: `${colors.success.light}`,
         border: `1px solid ${colors.success.dark}`,

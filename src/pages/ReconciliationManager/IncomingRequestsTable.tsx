@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import { Tooltip, IconButton } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp, Check, Close } from '@mui/icons-material'
 import Table from 'components/common/Table'
+import StatusChip from 'components/common/StatusChip'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
 import { incomingRequestColumns } from 'pages/ReconciliationManager/data'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
@@ -11,7 +12,7 @@ import { StyledTableBodyCell, ExpandableCell, ActionIconButton } from 'styles/co
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
 import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
-import { INCOMING_RECON_STATUSES } from 'enums/recon'
+import { INCOMING_RECON_STATUSES, ReconStatus } from 'enums/recon'
 
 const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onReject }) => {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
@@ -19,11 +20,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
 
-  const {
-    data: reconData,
-    isLoading,
-    // refetch: refetchIncomingData,
-  } = useGetReconData(
+  const { data: reconData, isLoading } = useGetReconData(
     selectedUser?._id || '',
     {
       page: 1,
@@ -50,7 +47,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
   const data: IIncomingRequest[] = Array.isArray(reconRequests)
     ? reconRequests.map((item: IReconDataItem) => ({
         id: item._id,
-        reconTransactionId: item._id, // Using _id as transaction ID
+        reconTransactionId: item._id,
         orderId: item.order_id,
         receiverId: item.settlement_id || '-',
         requestedAmount: item.recon_breakdown.amount,
@@ -59,6 +56,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         currentCommission: item.recon_breakdown.commission,
         reason: 'Reconciliation request',
         receivedDate: item.createdAt,
+        recon_status: item.recon_status,
       }))
     : []
 
@@ -114,6 +112,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
 
   const renderRow = (item: any): JSX.Element => {
     const isExpanded = expandedRows.has(item.id)
+    const isRejected = item.recon_status == ReconStatus.RECEIVED_REJECTED
 
     return (
       <>
@@ -127,6 +126,9 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>{item.reconTransactionId}</StyledTableBodyCell>
         <StyledTableBodyCell>{item.orderId}</StyledTableBodyCell>
         <StyledTableBodyCell>{item.receiverId}</StyledTableBodyCell>
+        <StyledTableBodyCell>
+          <StatusChip status={item.recon_status} />
+        </StyledTableBodyCell>
         <StyledTableBodyCell>{formatCurrency(item.requestedAmount)}</StyledTableBodyCell>
         <StyledTableBodyCell>{formatCurrency(item.currentAmount)}</StyledTableBodyCell>
         <StyledTableBodyCell>{formatCurrency(item.requestedCommission)}</StyledTableBodyCell>
@@ -137,12 +139,13 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
           </Tooltip>
         </StyledTableBodyCell>
         <StyledTableBodyCell>{item.receivedDate}</StyledTableBodyCell>
+
         <StyledTableBodyCell>
           <div style={{ display: 'flex', gap: '4px' }}>
-            <ActionIconButton onClick={() => onAccept(item)} acceptButton={true}>
+            <ActionIconButton onClick={() => onAccept(item)} acceptButton={true} disabled={isRejected}>
               <Check fontSize="small" />
             </ActionIconButton>
-            <ActionIconButton onClick={() => onReject(item)} rejectButton={true}>
+            <ActionIconButton onClick={() => onReject(item)} rejectButton={true} disabled={isRejected}>
               <Close fontSize="small" />
             </ActionIconButton>
           </div>
@@ -153,7 +156,11 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
 
   return (
     <Table
-      columns={incomingRequestColumns}
+      columns={[
+        ...incomingRequestColumns,
+        // { id: 'status', label: 'Status' }, // add Status column
+        // { id: 'actions', label: 'Actions' }, // keep Actions column
+      ]}
       data={expandedData}
       totalCount={totalCount}
       page={page}

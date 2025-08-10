@@ -13,6 +13,7 @@ const ReconciliationTabs: FC<IReconciliationTabsProps> = ({ activeTab, onTabChan
     <Container>
       <Tabs value={activeTab} onChange={handleChange} indicatorColor="primary" textColor="primary" variant="standard">
         <Tab label={RECONCILIATION_LABELS.TAB_GENERATE} />
+        <Tab label={RECONCILIATION_LABELS.TAB_OUTGOING} />
         <Tab label={RECONCILIATION_LABELS.TAB_REVIEW} />
       </Tabs>
     </Container>

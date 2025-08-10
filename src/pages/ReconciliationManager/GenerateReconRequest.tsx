@@ -1,6 +1,6 @@
 import { FC, useState, useCallback } from 'react'
 import ReconRequestTable from 'pages/ReconciliationManager/ReconRequestTable'
-import OutgoingRequestsTable from 'pages/ReconciliationManager/OutgoingRequestsTable'
+// import OutgoingRequestsTable from 'pages/ReconciliationManager/OutgoingRequestsTable'
 import ReinitiateModal from 'pages/ReconciliationManager/ReinitiateModal'
 import { IOutgoingRequest } from 'interfaces/reconciliationManager'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
@@ -70,10 +70,10 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
     [onSelectionChange, onToastShow, handleGenerateReconRequestWithData],
   )
 
-  const handleReinitiate = (order: IOutgoingRequest): void => {
-    setSelectedOrder(order)
-    setModalOpen(true)
-  }
+  // const handleReinitiate = (order: IOutgoingRequest): void => {
+  //   setSelectedOrder(order)
+  //   setModalOpen(true)
+  // }
 
   const handleReinitiateWithData = async (order: IOutgoingRequest, formData: any): Promise<void> => {
     try {
@@ -116,7 +116,7 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
   return (
     <>
       <ReconRequestTable onCheckboxSelect={handleCheckboxSelect} />
-      <OutgoingRequestsTable onReinitiate={handleReinitiate} />
+      {/* <OutgoingRequestsTable onReinitiate={handleReinitiate} /> */}
       <ReinitiateModal
         open={modalOpen}
         onClose={handleModalClose}

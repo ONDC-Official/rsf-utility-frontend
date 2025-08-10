@@ -32,6 +32,7 @@ export const incomingRequestColumns: ITableColumn<IIncomingRequest>[] = [
   { id: 'reconTransactionId', label: 'Recon Transaction ID' },
   { id: 'orderId', label: 'Order ID' },
   { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'status', label: 'Status' },
   { id: 'requestedAmount', label: 'Requested Amount' },
   { id: 'currentAmount', label: 'Current Amount' },
   { id: 'requestedCommission', label: 'Requested Commission' },

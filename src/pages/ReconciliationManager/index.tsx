@@ -6,6 +6,7 @@ import GenerateReconRequest from 'pages/ReconciliationManager/GenerateReconReque
 import ReviewReconRequests from 'pages/ReconciliationManager/ReviewReconRequests'
 import { generateReconciliationData } from 'data/reconciliationManagerData'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
+import OutgoingRequestsSection from './OutgoingRequestSection'
 
 const ReconciliationManager: FC = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -71,7 +72,9 @@ const ReconciliationManager: FC = () => {
         />
       )}
 
-      {activeTab === 1 && <ReviewReconRequests onToastShow={handleToastShow} />}
+      {activeTab === 1 && <OutgoingRequestsSection onToastShow={handleToastShow} />}
+
+      {activeTab === 2 && <ReviewReconRequests onToastShow={handleToastShow} />}
     </Container>
   )
 }
