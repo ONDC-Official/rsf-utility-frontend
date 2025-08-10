@@ -42,6 +42,8 @@ const OrdersReady: FC = () => {
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [selectedOrderId, setSelectedOrderId] = useState('')
 
+  const patchMutation = usePatchOrderDueDate(selectedUser?._id || '')
+
 
   const handleDueDateChange = (orderId: string, newDueDate: string): void => {
     setEditedDueDates((prev) => {
@@ -62,8 +64,7 @@ const OrdersReady: FC = () => {
     }))
 
     try {
-      if (!patchMutation.triggerAsync) return
-      const res = await patchMutation.triggerAsync(payload)
+      const res = await patchMutation.patchOrderAsync(payload)
       if (res.success) {
         muiToast(ORDER_PATCH_MESSAGES.SUCCESS)
         resetEditedDueDates()

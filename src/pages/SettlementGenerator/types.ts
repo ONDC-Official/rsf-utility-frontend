@@ -46,6 +46,8 @@ export interface IOrderTableProps {
   handlePatchSettlements: () => Promise<void>
   onExport: () => void
   refetchOrders: () => void
+  counterpartyId: string
+  onCounterpartyChange: (counterpartyId: string) => void
 }
 
 export interface IOrderSummaryModalProps {

@@ -1,9 +1,10 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Warning } from '@mui/icons-material'
 import { PageHeader as Container, Left, Right, AlertContainer } from 'styles/pages/SettlementGenerator.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import Select from 'components/common/Select'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { useUserContext } from 'context/userContext'
 
 interface HeaderSectionProps {
@@ -20,6 +21,23 @@ const HeaderSection: FC<HeaderSectionProps> = ({ counterpartyId, onCounterpartyC
       label: id,
     })) || []
 
+  // Auto-select first option when counterparty options change
+  useEffect(() => {
+    if (counterpartyOptions.length > 0 && !counterpartyId) {
+      onCounterpartyChange(counterpartyOptions[0].value)
+    }
+  }, [counterpartyOptions, counterpartyId, onCounterpartyChange])
+
+  // Reset selection when selected user changes to ensure sync
+  useEffect(() => {
+    if (counterpartyOptions.length > 0) {
+      const currentIsValid = counterpartyOptions.some(option => option.value === counterpartyId)
+      if (!currentIsValid) {
+        onCounterpartyChange(counterpartyOptions[0].value)
+      }
+    }
+  }, [selectedUser, counterpartyOptions, counterpartyId, onCounterpartyChange])
+
   return (
   <Container>
     <Left>
@@ -27,24 +45,10 @@ const HeaderSection: FC<HeaderSectionProps> = ({ counterpartyId, onCounterpartyC
       <Typography variant={TypographyVariant.H6}>Select orders to prepare for settlement</Typography>
     </Left>
     <Right>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <Typography variant={TypographyVariant.Body2Semibold}>Counterparty ID *</Typography>
-          <Select
-            value={counterpartyId}
-            onChange={(e) => onCounterpartyChange(e.target.value as string)}
-            options={counterpartyOptions}
-            size="small"
-            displayEmpty
-            renderValue={(value) => (value as string) || 'Choose'}
-            style={{ minWidth: '150px' }}
-          />
-        </div>
-        <AlertContainer>
-          <Warning fontSize="small" />
-          Settlement Window closes at 11:00 PM
-        </AlertContainer>
-      </div>
+      <AlertContainer>
+        <Warning fontSize="small" />
+        Settlement Window closes at 11:00 PM
+      </AlertContainer>
     </Right>
   </Container>
   )

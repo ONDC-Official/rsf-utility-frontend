@@ -195,6 +195,8 @@ const SettlementGenerator: FC = () => {
           onSelectedOrdersChange={handleSelectedOrdersChange}
           handlePatchSettlements={handlePatchSettlements}
           refetchOrders={refetchOrders}
+          counterpartyId={counterpartyId}
+          onCounterpartyChange={setCounterpartyId}
           onExport={() => {
             const orders = fetchedOrders?.data?.settlements || []
             if (orders.length > 0) {
