@@ -23,6 +23,8 @@ const OrderTable: FC<IOrderTableProps> = ({
   onSelectedOrdersChange,
   handlePatchSettlements,
 }) => {
+  const getItemId = (item: IUserSettlementItem): string => item.order_id
+
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
   const {
     currentItems: orders,
@@ -34,15 +36,13 @@ const OrderTable: FC<IOrderTableProps> = ({
     handleRowsPerPageChange,
     handleCheckboxChange,
     handleSelectAll,
-  } = usePaginatedSelectableData<IUserSettlementItem>(allOrders)
+  } = usePaginatedSelectableData<IUserSettlementItem>(allOrders, getItemId)
 
   const [editingOrder, setEditingOrder] = useState<IUserSettlementItem | null>(null)
 
   useEffect(() => {
     onSelectedOrdersChange(selectedOrders)
   }, [selectedOrders, onSelectedOrdersChange])
-
-  const getItemId = (item: IUserSettlementItem): string => item.order_id
 
   const handleSave = (updatedFields: Partial<IUserSettlementItem>): void => {
     if (!editingOrder) return
