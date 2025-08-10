@@ -58,11 +58,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
               />
             )}
           />
-          {errors.title && (
-            <ErrorMessage color="error" variant="caption">
-              {errors.title.message}
-            </ErrorMessage>
-          )}
         </div>
 
         <div>

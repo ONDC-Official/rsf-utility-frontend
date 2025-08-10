@@ -47,7 +47,7 @@ const Navbar: FC = () => {
             renderValue={(selected) => {
               if (!selected) return 'Choose...'
               const user = users?.find((u) => u._id === selected)
-              return user?.subscriber_url || 'Choose...'
+              return user?.title || 'n/a'
             }}
           />
         </RightSection>

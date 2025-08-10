@@ -36,16 +36,16 @@ type UseOrdersReadyReturn = {
 
 const useOrdersReady = (): UseOrdersReadyReturn => {
   const navigate = useNavigate()
+  const { selectedUser } = useUserContext()
 
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [receiverId, setReceiverId] = useState('')
+  const [receiverId, setReceiverId] = useState(selectedUser?.counterparty_ids[0] || '')
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
   const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>(PrepareButtonState.DISABLED)
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
-  const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const settlePreparePost = usePost<ISettlePrepareResponse>()
 
