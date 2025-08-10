@@ -24,6 +24,7 @@ export const StyledTextField = styled(TextField)({
     fontSize: typography.body2_regular.fontSize,
     backgroundColor: colors.background.light,
     borderRadius: 4,
+
     '& fieldset': {
       borderColor: colors.border.main,
     },
@@ -32,6 +33,19 @@ export const StyledTextField = styled(TextField)({
     },
     '&.Mui-focused fieldset': {
       borderColor: colors.primary.main,
+    },
+
+    '&.Mui-disabled': {
+      backgroundColor: colors.background.disabled,
+      opacity: 1,
+      '& fieldset': {
+        borderColor: colors.border.disabled,
+      },
+      '& input.Mui-disabled, & textarea.Mui-disabled': {
+        color: colors.text.disabled,
+        WebkitTextFillColor: colors.text.disabled,
+        opacity: 0.6,
+      },
     },
   },
   '& .MuiInputLabel-root': {

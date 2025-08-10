@@ -157,6 +157,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
                     fullWidth
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
+                    disabled
                     onChange={(e) => {
                       field.onChange(e)
                     }}
@@ -178,6 +179,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
                     fullWidth
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
+                    disabled
                     onChange={(e) => {
                       field.onChange(e)
                     }}
