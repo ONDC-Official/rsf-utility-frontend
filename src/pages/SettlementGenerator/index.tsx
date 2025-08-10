@@ -152,10 +152,7 @@ const SettlementGenerator: FC = () => {
 
   return (
     <Container>
-      <HeaderSection 
-        counterpartyId={counterpartyId}
-        onCounterpartyChange={setCounterpartyId}
-      />
+      <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={setCounterpartyId} />
 
       {counterpartyId && (
         <div style={{ padding: '16px 24px', borderBottom: '1px solid #e0e0e0' }}>

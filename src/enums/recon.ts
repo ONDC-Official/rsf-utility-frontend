@@ -18,6 +18,4 @@ export const OUTGOING_RECON_STATUSES: ReconStatus[] = [
   ReconStatus.RECEIVED_ACCEPTED,
 ]
 
-export const INCOMING_RECON_STATUSES: ReconStatus[] = [
-  ReconStatus.RECEIVED_PENDING,
-]
+export const INCOMING_RECON_STATUSES: ReconStatus[] = [ReconStatus.RECEIVED_PENDING]
