@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
 import { IApiResponse } from '@interfaces/api'
-import usePatch from 'hooks/usePatch'
 import { APIRoute } from 'enums/api'
+import usePatch, { IParams } from 'hooks/usePatch'
+import { UseMutationResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
 
 interface PatchOrderDueDatePayload {
@@ -9,46 +9,26 @@ interface PatchOrderDueDatePayload {
   due_date: string
 }
 
-interface UsePatchOrderDueDateOptions {
-  enabled?: boolean
+interface IPatchOrderResponse {
+  success: boolean
+  message: string
+  data?: Record<string, unknown>
 }
 
 const usePatchOrderDueDate = (
   userId: string,
-  options: UsePatchOrderDueDateOptions = {},
-): {
-  triggerAsync?: (payload: PatchOrderDueDatePayload[]) => Promise<IApiResponse<unknown>>
-  isLoading: boolean
-  error: unknown
-  status: 'loading' | 'success' | 'idle'
+): UseMutationResult<IApiResponse<IPatchOrderResponse>, unknown, IParams, unknown> & {
+  patchOrderAsync: (payload: PatchOrderDueDatePayload[]) => Promise<IApiResponse<IPatchOrderResponse>>
 } => {
-  const isEnabled = options.enabled ?? true
+  const mutation = usePatch<IApiResponse<IPatchOrderResponse>>()
 
-  const patchMutation = usePatch<IApiResponse<unknown>>()
+  const patchOrderAsync = (payload: PatchOrderDueDatePayload[]): Promise<IApiResponse<IPatchOrderResponse>> =>
+    mutation.mutateAsync({
+      url: buildApiUrl(APIRoute.ORDERS, { userId }),
+      payload,
+    })
 
-  const triggerAsync = useCallback(
-    async (payload: PatchOrderDueDatePayload[]): Promise<IApiResponse<unknown>> => {
-      const url = buildApiUrl(APIRoute.ORDERS, { userId })
-      return await patchMutation.mutateAsync({ url, payload })
-    },
-    [userId, patchMutation],
-  )
-
-  if (!isEnabled) {
-    return {
-      triggerAsync: undefined,
-      isLoading: false,
-      error: undefined,
-      status: 'idle',
-    }
-  }
-
-  return {
-    triggerAsync,
-    isLoading: patchMutation.isLoading,
-    error: patchMutation.error,
-    status: patchMutation.status === 'loading' ? 'loading' : patchMutation.status === 'success' ? 'success' : 'idle',
-  }
+  return { ...mutation, patchOrderAsync }
 }
 
 export default usePatchOrderDueDate

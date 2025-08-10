@@ -8,12 +8,17 @@ import Button from 'components/common/Button'
 import CalendarIcon from 'assets/images/svg/CalendarIcon'
 import { formatCurrency } from 'utils/helpers'
 
-const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
+interface ExtendedOrdersReadyRowProps extends IOrdersReadyRowProps {
+  onEditClick: (orderId: string) => void
+}
+
+const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
   order,
   selected,
   onCheckboxChange,
   onDueDateChange,
   editedDueDates,
+  onEditClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const ref = useRef<HTMLButtonElement | null>(null)
@@ -73,6 +78,12 @@ const OrdersReadyRow: React.FC<IOrdersReadyRowProps> = ({
             </>
           )}
         </Box>
+      </StyledTableBodyCell>
+
+      <StyledTableBodyCell>
+        <Button variant="outlined" size="small" onClick={() => onEditClick(order.orderId)}>
+          Edit
+        </Button>
       </StyledTableBodyCell>
     </>
   )

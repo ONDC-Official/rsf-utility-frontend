@@ -5,6 +5,8 @@ import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
 import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 import useGenerateNpSettlement from 'hooks/mutations/useGenerateNpSettlement'
 import { useUserContext } from 'context/userContext'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
@@ -35,6 +37,7 @@ const SettlementGenerator: FC = () => {
   const [formInputs, setFormInputs] = useState<Record<string, ISettleNpDataItem>>({})
   const [npSettlementResponseData, setNpSettlementResponseData] = useState<any>(null)
   const [editedRows, setEditedRows] = useState<Record<string, SettlementPayload>>({})
+  const [counterpartyId, setCounterpartyId] = useState('')
 
   const {
     data: fetchedOrders,
@@ -45,6 +48,7 @@ const SettlementGenerator: FC = () => {
     selectedUser?._id || '',
     {
       statuses: SettlementStatus.PREPARED,
+      counterpartyId,
     },
     {
       enabled: !!selectedUser?._id,
@@ -148,7 +152,13 @@ const SettlementGenerator: FC = () => {
 
   return (
     <Container>
-      <HeaderSection />
+      <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={setCounterpartyId} />
+
+      {counterpartyId && (
+        <div style={{ padding: '16px 24px', borderBottom: '1px solid #e0e0e0' }}>
+          <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>
+        </div>
+      )}
 
       {!isLoading && !isError && selectedOrders.size > 0 && (
         <SummarySection

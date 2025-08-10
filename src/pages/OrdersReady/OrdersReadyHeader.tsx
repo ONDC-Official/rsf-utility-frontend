@@ -37,7 +37,14 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
       </HeaderLeft>
       <HeaderRight>
         <Typography variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
-        <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
+        <Select
+          value={receiverId}
+          onChange={handleReceiverChange}
+          options={counterpartyOptions}
+          size="small"
+          displayEmpty
+          renderValue={(value) => (value as string) || 'Choose'}
+        />
         <Box>
           <PrepareButton
             variant="outlined"
