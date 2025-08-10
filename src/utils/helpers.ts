@@ -70,24 +70,22 @@ export const downloadOrdersAsCSV = (orders: any[], filename: string = 'orders.cs
     // Define CSV headers based on the order structure
 
     const headers = [
-      'Order ID',
-      'Total Order Value',
-      'Withholding Amount',
-      'TDS',
-      'TCS',
-      'Commission',
-      'Collector Settlement',
-
-      'Collector ID',
-      'Receiver ID',
-      'Inter NP Settlement',
-      'Provider ID',
-      'Due Date',
-      'Settlement Reference',
-      'Status',
-      'Self Status',
-      'Provider Status',
-      'Type',
+      'order_id',
+      'total_order_value',
+      'withholding_amount',
+      'tds',
+      'tcs',
+      'commission',
+      'collector_settlement',
+      'collector_id',
+      'receiver_id',
+      'inter_np_settlement',
+      'provider_id',
+      'due_date',
+      'status',
+      'self_status',
+      'provider_status',
+      'type',
     ]
 
     // order_id,total_order_value,withholding_amount, tds, tcs, commission, collector_settlement
@@ -110,7 +108,6 @@ export const downloadOrdersAsCSV = (orders: any[], filename: string = 'orders.cs
           order.inter_np_settlement || 0,
           `"${order.provider_id || ''}"`,
           `"${order.due_date || ''}"`,
-          `"${order.settlement_reference || ''}"`,
           `"${order.status || ''}"`,
           `"${order.self_status || ''}"`,
           `"${order.provider_status || ''}"`,

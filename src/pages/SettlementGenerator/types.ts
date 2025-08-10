@@ -45,6 +45,7 @@ export interface IOrderTableProps {
   onSelectedOrdersChange: (selected: Set<string>) => void
   handlePatchSettlements: () => Promise<void>
   onExport: () => void
+  onImport: () => void
 }
 
 export interface IOrderSummaryModalProps {

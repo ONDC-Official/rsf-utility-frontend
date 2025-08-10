@@ -194,6 +194,7 @@ const SettlementGenerator: FC = () => {
               toast(CSV_EXPORT_MESSAGES.NO_DATA)
             }
           }}
+          onImport={() => {}}
         />
       )}
     </Container>

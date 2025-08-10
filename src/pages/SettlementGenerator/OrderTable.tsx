@@ -22,6 +22,7 @@ const OrderTable: FC<IOrderTableProps> = ({
   setEditedRows,
   onSelectedOrdersChange,
   onExport,
+  onImport,
   handlePatchSettlements,
 }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id
@@ -130,6 +131,9 @@ const OrderTable: FC<IOrderTableProps> = ({
           />
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
             Export
+          </Button>
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onImport}>
+            Import
           </Button>
         </Actions>
       </Header>
