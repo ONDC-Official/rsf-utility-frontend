@@ -32,6 +32,7 @@ type UseOrdersReadyReturn = {
   handlePageChange: (newPage: number) => void
   handleRowsPerPageChange: (newRowsPerPage: number) => void
   handleDateRangeChange: (newDateRange: IDateRange) => void
+  refetch: () => void
 }
 
 const useOrdersReady = (): UseOrdersReadyReturn => {
@@ -52,7 +53,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
   const {
     data: ordersData,
     isLoading,
-    refetch: _refetch,
+    refetch,
   } = useGetOrders(
     selectedUser?._id || '',
     {
@@ -222,6 +223,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     handlePageChange,
     handleRowsPerPageChange,
     handleDateRangeChange,
+    refetch,
   }
 }
 

@@ -33,6 +33,7 @@ const OrdersReady: FC = () => {
     handleSelectAll,
     handlePageChange,
     handleRowsPerPageChange,
+    refetch,
   } = useOrdersReady()
 
   const { selectedUser } = useUserContext()
@@ -88,8 +89,8 @@ const OrdersReady: FC = () => {
   const handleEditModalConfirm = (): void => {
     setEditModalOpen(false)
     setSelectedOrderId('')
-    // Refresh the page to show updated data
-    window.location.reload()
+    // Refetch the orders data to show updated information
+    refetch()
   }
 
   const handleEditSuccess = (message: string): void => {
