@@ -33,6 +33,8 @@ export interface IModeSelectionProps {
 export interface IPayloadPreviewProps {
   data: Record<string, unknown>
   onTrigger: () => Promise<void>
+  open: boolean
+  onClose: () => void
 }
 
 export interface IOrderTableProps {

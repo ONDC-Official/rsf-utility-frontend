@@ -77,6 +77,7 @@ const NetworkConfiguration: FC = () => {
               accountNumber: p.account_number || '',
               ifscCode: p?.ifsc_code || '',
               bankName: p?.bank_name || '',
+              providerName: p?.provider_name || '',
             }))
           : [defaultFormData.providers?.[0] ?? defaultProvider],
       )

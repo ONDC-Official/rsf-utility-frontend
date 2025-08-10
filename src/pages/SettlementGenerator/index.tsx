@@ -78,6 +78,7 @@ const SettlementGenerator: FC = () => {
     try {
       await triggerAction.triggerAsync('settle', npSettlementResponseData)
       toast(TRIGGER_ACTION.SUCCESS)
+      setShowPayloadPreview(false)
     } catch (e) {
       toast(TRIGGER_ACTION.ERROR)
     } finally {
@@ -154,7 +155,12 @@ const SettlementGenerator: FC = () => {
         />
       )}
 
-      {showPayloadPreview && <PayloadPreview data={npSettlementResponseData} onTrigger={handleTriggerSettlement} />}
+      <PayloadPreview
+        data={npSettlementResponseData}
+        onTrigger={handleTriggerSettlement}
+        open={showPayloadPreview}
+        onClose={() => setShowPayloadPreview(false)}
+      />
 
       {isLoading ? (
         <div>Loading orders...</div>

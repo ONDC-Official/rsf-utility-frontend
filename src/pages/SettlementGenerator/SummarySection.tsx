@@ -59,14 +59,6 @@ const SummarySection: FC<IProps> = ({
       </CustomDateSection> */}
 
       <ButtonSection>
-        <Button variant="contained" startIcon={<Visibility />} onClick={onGeneratePreview} disabled={!isFormValid}>
-          Generate & Preview Payload
-        </Button>
-
-        {/* <Button variant="outlined" startIcon={<Event />} disabled={!isFormValid}>
-            Schedule Settlement
-          </Button> */}
-
         <Button
           variant="outlined"
           startIcon={<Edit />}
@@ -75,6 +67,14 @@ const SummarySection: FC<IProps> = ({
         >
           Add Self / Provider Amount
         </Button>
+
+        <Button variant="contained" startIcon={<Visibility />} onClick={onGeneratePreview} disabled={!isFormValid}>
+          Generate & Preview Payload
+        </Button>
+
+        {/* <Button variant="outlined" startIcon={<Event />} disabled={!isFormValid}>
+            Schedule Settlement
+          </Button> */}
       </ButtonSection>
 
       <OrderSummaryFormModal

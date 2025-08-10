@@ -52,6 +52,30 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
           <FormContainer>
             {/* Provider ID */}
+
+            <div>
+              <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
+                Provider Name
+              </Typography>
+              <Controller
+                control={control}
+                name={`providers.${index}.providerName`}
+                rules={{ required: 'Provider Name is required' }}
+                render={({ field }) => (
+                  <StyledInput
+                    placeholder="Enter Provider Name"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    inputRef={field.ref}
+                    error={!!errors.providers?.[index]?.providerName}
+                    helperText={errors.providers?.[index]?.providerName?.message}
+                  />
+                )}
+              />
+            </div>
+
             <div>
               <Typography variant={TypographyVariant.Body5Medium} color={colors.text.caption}>
                 Provider ID

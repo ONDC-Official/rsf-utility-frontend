@@ -50,12 +50,15 @@ const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfi
 
   // Providers only if not Buyer
   if (data?.providers?.length && !isBuyer) {
-    payload.provider_details = data.providers.map(({ providerId, accountNumber, ifscCode, bankName }) => ({
-      provider_id: providerId,
-      account_number: accountNumber,
-      ifsc_code: ifscCode,
-      bank_name: bankName,
-    }))
+    payload.provider_details = data.providers.map(
+      ({ providerId, accountNumber, ifscCode, bankName, providerName }) => ({
+        provider_id: providerId,
+        account_number: accountNumber,
+        ifsc_code: ifscCode,
+        bank_name: bankName,
+        provider_name: providerName,
+      }),
+    )
   }
 
   return payload as NetworkConfigPayload

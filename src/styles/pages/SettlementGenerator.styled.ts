@@ -193,9 +193,9 @@ export const PayloadPreviewContainer = styled(Box)({
 
 export const PayloadHeader = styled(Box)({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
-  marginBottom: 20,
+  marginTop: 20,
 })
 
 export const PayloadActions = styled(Box)({

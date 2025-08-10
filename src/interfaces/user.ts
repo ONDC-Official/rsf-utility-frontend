@@ -4,6 +4,7 @@ export interface ProviderDetails {
   account_number: string
   ifsc_code: string
   bank_name: string
+  provider_name: string
 }
 
 export interface IUser {

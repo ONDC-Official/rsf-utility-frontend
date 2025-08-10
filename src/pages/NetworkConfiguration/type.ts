@@ -6,6 +6,7 @@ export interface IProvider {
   ifscCode: string
   accountNumber: string
   bankName: string
+  providerName: string
 }
 
 export interface ISelectedUser extends IUser {

@@ -5,6 +5,7 @@ export const defaultProvider: IProvider = {
   ifscCode: '',
   accountNumber: '',
   bankName: '',
+  providerName: '',
 }
 
 export const defaultFormData: IFormData = {
