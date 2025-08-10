@@ -8,13 +8,14 @@ import DomainConfiguration from './DomainConfiguration'
 import ProviderBankDetails from './ProviderBankDetails'
 import SaveIcon from 'assets/images/svg/SaveIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
+import useDeleteNetworkConfig from 'hooks/mutations/useDeleteNetworkConfig'
 import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 import { useLoader } from 'context/loaderContext'
 
 const NetworkConfiguration: FC = () => {
-  const { selectedUser, isLoading, setSelectedUser, refetch } = useUserContext()
+  const { selectedUser, isLoading, setSelectedUser, refetch, users } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
   const {
@@ -26,6 +27,7 @@ const NetworkConfiguration: FC = () => {
     formState: { errors },
   } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
+  const { triggerAsync: deleteConfig, isLoading: isDeleteLoading } = useDeleteNetworkConfig()
   const { role, type } = watch()
 
   const onSubmit = async (data: IFormData): Promise<void> => {
@@ -41,7 +43,7 @@ const NetworkConfiguration: FC = () => {
       await submitConfig(payload)
       refetch()
       reset(defaultFormData)
-      setSelectedUser(null)
+      setSelectedUser(!!users && users?.length > 0 ? users[0] : null)
       toast({
         message: `User ${selectedUser?._id ? 'updated' : 'created'} successfully.`,
         severity: NETWORK_CONFIGURATION.SUCCESS.severity,
@@ -50,6 +52,27 @@ const NetworkConfiguration: FC = () => {
       hideLoader()
       reset(defaultFormData)
       setSelectedUser(null)
+      toast(NETWORK_CONFIGURATION.ERROR)
+    } finally {
+      hideLoader()
+    }
+  }
+
+  const handleDelete = async (): Promise<void> => {
+    if (!selectedUser?._id) return
+
+    showLoader()
+    try {
+      await deleteConfig(selectedUser._id)
+      refetch()
+      reset(defaultFormData)
+      setSelectedUser(null)
+      toast({
+        message: 'User deleted successfully.',
+        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+      })
+    } catch {
+      hideLoader()
       toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
       hideLoader()
@@ -116,6 +139,17 @@ const NetworkConfiguration: FC = () => {
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
             <SaveIcon /> {isSubmitLoading ? 'Submitting...' : selectedUser?._id ? 'Update' : 'Save & Proceed'}
           </BulkButton>
+          {selectedUser?._id && (
+            <BulkButton
+              variant="outlined"
+              color="error"
+              onClick={handleDelete}
+              disabled={isDeleteLoading}
+              style={{ marginLeft: '12px' }}
+            >
+              Delete
+            </BulkButton>
+          )}
         </SaveButtonContainer>
       </StyledForm>
     </Container>
