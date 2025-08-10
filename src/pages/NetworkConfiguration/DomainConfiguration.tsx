@@ -101,7 +101,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             rules={{ required: 'Domain category is required' }}
             render={({ field }) => (
               <StyledSelect
-                value={field.value || ''}
+                value={DOMAIN_CATEGORIES?.find((d) => d?.value === field.value)?.label || ''}
                 onChange={(e) => field.onChange(e.target.value)}
                 error={!!errors.domainCategory}
                 disabled={!!selectedUser}
@@ -109,7 +109,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 renderValue={(selected: unknown) => {
                   if (!selected) return 'Select Domain Category'
                   const selectedOption = DOMAIN_CATEGORIES.find((opt) => opt.value === selected)
-                  return selectedOption ? selectedOption.label : String(selected)
+                  return selectedOption ? selectedOption.value : String(selected)
                 }}
                 options={DOMAIN_CATEGORIES}
                 formControlProps={{ error: !!errors.domainCategory, fullWidth: true }}

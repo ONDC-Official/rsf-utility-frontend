@@ -44,7 +44,8 @@ const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfi
     payload.role = isSeller ? 'BPP' : 'BAP'
     payload.msn = isMsn
     payload.subscriber_url = data?.subscriberUrl
-    payload.domain = data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, '')
+    // payload.domain = data?.domainCategory.toLowerCase().replace(/[^a-z0-9]/g, '')
+    payload.domain = data?.domainCategory
   }
 
   // Providers only if not Buyer

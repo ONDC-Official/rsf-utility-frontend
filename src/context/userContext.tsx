@@ -34,7 +34,7 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
       setSelectedUser(usersData?.data[0])
       navigate(ROUTES.ORDERS_IN_PROGRESS)
     }
-  }, [usersData, selectedUser])
+  }, [usersData])
 
   return (
     <UserContext.Provider
