@@ -125,8 +125,8 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
       <StyledTableBodyCell>{request.dueDate}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.response}</StyledTableBodyCell>
       <StyledTableBodyCell>
-        {request.status === 'SENT_PENDING' ? null : 
-         request.status === 'SENT_ACCEPTED' || request.status === 'RECEIVED_ACCEPTED' ? (
+        {request.status === 'SENT_PENDING' ? null : request.status === 'SENT_ACCEPTED' ||
+          request.status === 'RECEIVED_ACCEPTED' ? (
           <Button
             variant="contained"
             size="small"

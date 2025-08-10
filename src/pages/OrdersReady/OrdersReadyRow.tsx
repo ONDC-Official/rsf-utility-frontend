@@ -81,11 +81,7 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
       </StyledTableBodyCell>
 
       <StyledTableBodyCell>
-        <Button 
-          variant="outlined" 
-          size="small" 
-          onClick={() => onEditClick(order.orderId)}
-        >
+        <Button variant="outlined" size="small" onClick={() => onEditClick(order.orderId)}>
           Edit
         </Button>
       </StyledTableBodyCell>

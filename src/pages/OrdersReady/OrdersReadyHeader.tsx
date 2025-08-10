@@ -36,7 +36,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   // Reset selection when selected user changes to ensure sync
   useEffect(() => {
     if (counterpartyOptions.length > 0) {
-      const currentIsValid = counterpartyOptions.some(option => option.value === receiverId)
+      const currentIsValid = counterpartyOptions.some((option) => option.value === receiverId)
       if (!currentIsValid) {
         const event = { target: { value: counterpartyOptions[0].value } } as SelectChangeEvent<unknown>
         handleReceiverChange(event)
@@ -57,12 +57,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
       </HeaderLeft>
       <HeaderRight>
         <RequiredFieldLabel variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</RequiredFieldLabel>
-        <Select 
-          value={receiverId} 
-          onChange={handleReceiverChange} 
-          options={counterpartyOptions} 
-          size="small"
-        />
+        <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
         <Box>
           <PrepareButton
             variant="outlined"
