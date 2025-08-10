@@ -10,11 +10,21 @@ import NilSettlement from 'assets/images/svg/NilSettlement'
 
 export const menuItems = [
   { text: 'Configuration', icon: <Configuration />, path: ROUTES.CONFIGURATION },
-  { text: 'Orders In Progress', icon: <OrderInProgress />, path: ROUTES.ORDERS_IN_PROGRESS },
-  { text: 'Orders Ready', icon: <OrderReady />, path: ROUTES.ORDERS_READY },
-  { text: 'Settlement Generator', icon: <SettlementGenerator />, path: ROUTES.SETTLEMENT_GENERATOR },
-  { text: 'Settlement Dashboard', icon: <SettlementDashboard />, path: ROUTES.SETTLEMENT_DASHBOARD },
-  { text: 'Reconciliation', icon: <Reconciliation />, path: ROUTES.RECONCILIATION },
-  { text: 'Misc Settlements', icon: <MiscSettlements />, path: ROUTES.MISC_SETTLEMENTS },
-  { text: 'Nil Settlement', icon: <NilSettlement />, path: ROUTES.NIL_SETTLEMENT },
+  { text: 'Orders In Progress', icon: <OrderInProgress />, path: ROUTES.ORDERS_IN_PROGRESS, isUserRequired: true },
+  { text: 'Orders Ready', icon: <OrderReady />, path: ROUTES.ORDERS_READY, isUserRequired: true },
+  {
+    text: 'Settlement Generator',
+    icon: <SettlementGenerator />,
+    path: ROUTES.SETTLEMENT_GENERATOR,
+    isUserRequired: true,
+  },
+  {
+    text: 'Settlement Dashboard',
+    icon: <SettlementDashboard />,
+    path: ROUTES.SETTLEMENT_DASHBOARD,
+    isUserRequired: true,
+  },
+  { text: 'Reconciliation', icon: <Reconciliation />, path: ROUTES.RECONCILIATION, isUserRequired: true },
+  { text: 'Misc Settlements', icon: <MiscSettlements />, path: ROUTES.MISC_SETTLEMENTS, isUserRequired: true },
+  { text: 'Nil Settlement', icon: <NilSettlement />, path: ROUTES.NIL_SETTLEMENT, isUserRequired: true },
 ]

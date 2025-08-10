@@ -25,7 +25,7 @@ const Navbar: FC = () => {
 
   const userOptions =
     users?.map((user) => ({
-      label: user.subscriber_url,
+      label: user.title || 'n/a',
       value: user._id,
     })) ?? []
 
