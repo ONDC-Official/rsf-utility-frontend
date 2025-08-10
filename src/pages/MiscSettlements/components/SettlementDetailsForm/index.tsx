@@ -1,6 +1,6 @@
 import React from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { Typography, MenuItem, Select } from '@mui/material'
+import { Controller, Control, UseFormSetValue } from 'react-hook-form'
+import { Typography } from '@mui/material'
 import {
   SettlementDetailsContainer,
   FieldRow,
@@ -15,53 +15,50 @@ import {
 import InputField from 'components/common/InputField'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
-import Blockchain from 'assets/images/svg/Blockchain'
-import { useUserContext } from 'context/userContext'
+import Select from 'components/common/Select'
+
+type ParentFormValues = {
+  settlements: MiscSettlementFormValues[]
+}
+
+interface Provider {
+  provider_id: string
+  provider_name: string
+  bank_name?: string
+  account_number?: string
+  ifsc_code?: string
+}
 
 interface Props {
-  defaultValues: MiscSettlementFormValues
-  onChange: (values: MiscSettlementFormValues) => void
-  onDelete?: () => void
+  control: Control<ParentFormValues>
+  index: number
+  providers: Provider[]
+  setValue: UseFormSetValue<ParentFormValues>
+  onRemove: () => void
   showDelete?: boolean
 }
 
-const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDelete, showDelete }) => {
-  const {
-    control,
-    formState: { errors },
-    setValue,
-  } = useForm<MiscSettlementFormValues>({
-    defaultValues,
-  })
-
-  const { selectedUser } = useUserContext()
-  const provider_details = selectedUser?.provider_details || []
-
-  const handleFieldChange = (fieldName: keyof MiscSettlementFormValues, value: string) => {
-    onChange({ ...defaultValues, [fieldName]: value })
-  }
+const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, setValue, onRemove, showDelete }) => {
+  const provider_details = providers || []
 
   const handleProviderSelect = (providerId: string) => {
-    const selectedProvider = provider_details.find((p) => p.provider_id === providerId)
-    if (selectedProvider) {
-      setValue('providerName', selectedProvider.bank_name)
-      setValue('bankAccountNumber', selectedProvider.account_number)
-      setValue('ifscCode', selectedProvider.ifsc_code)
-      handleFieldChange('providerName', selectedProvider.bank_name)
-      handleFieldChange('bankAccountNumber', selectedProvider.account_number)
-      handleFieldChange('ifscCode', selectedProvider.ifsc_code)
-    }
+    const sel = provider_details.find((p) => p.provider_id === providerId)
+    if (!sel) return
+
+    setValue(`settlements.${index}.providerName`, sel.bank_name || '')
+    setValue(`settlements.${index}.bankAccountNumber`, sel.account_number || '')
+    setValue(`settlements.${index}.ifscCode`, sel.ifsc_code || '')
   }
 
   return (
     <SettlementDetailsContainer>
       <SettleHeader>
         <BottomAlignedTypography variant={TypographyVariant.H5Bold}>
-          <Blockchain style={{ marginRight: 4 }} />
+          {/* keep your icon */}
           Settlement Details
         </BottomAlignedTypography>
 
-        {showDelete && <DeleteButton onClick={onDelete} />}
+        {showDelete && <DeleteButton onClick={onRemove} />}
       </SettleHeader>
 
       <FieldRow>
@@ -71,18 +68,17 @@ const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDel
         <FieldInputBox>
           <Controller
             control={control}
-            name="selfAmount"
+            name={`settlements.${index}.selfAmount` as const}
             rules={{ required: 'Required' }}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <InputField
                 {...field}
                 placeholder="00.0"
                 fullWidth
-                error={!!errors.selfAmount}
-                helperText={errors.selfAmount?.message}
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
                 onChange={(e) => {
                   field.onChange(e)
-                  handleFieldChange('selfAmount', e.target.value)
                 }}
               />
             )}
@@ -101,18 +97,17 @@ const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDel
             <FieldInputBox>
               <Controller
                 control={control}
-                name="providerAmount"
+                name={`settlements.${index}.providerAmount` as const}
                 rules={{ required: 'Required' }}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <InputField
                     {...field}
                     placeholder="00.0"
                     fullWidth
-                    error={!!errors.providerAmount}
-                    helperText={errors.providerAmount?.message}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
                     onChange={(e) => {
                       field.onChange(e)
-                      handleFieldChange('providerAmount', e.target.value)
                     }}
                   />
                 )}
@@ -123,48 +118,47 @@ const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDel
           <FieldRow>
             <FieldBox>
               <Typography variant={TypographyVariant.Caption1}>Select Provider</Typography>
+
               <Controller
                 control={control}
-                name="providerId"
+                name={`settlements.${index}.providerId` as const}
                 rules={{ required: 'Required' }}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <Select
                     {...field}
+                    options={provider_details.map((provider) => ({
+                      value: provider.provider_id,
+                      label: provider.provider_name,
+                    }))}
                     fullWidth
+                    error={!!fieldState.error}
+                    displayEmpty
                     onChange={(e) => {
-                      field.onChange(e.target.value)
-                      handleProviderSelect(e.target.value)
+                      field.onChange(e)
+                      handleProviderSelect(String(e.target.value))
                     }}
-                  >
-                    {provider_details.map((provider) => (
-                      <MenuItem key={provider.provider_id} value={provider.provider_id}>
-                        {provider.provider_name}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  />
                 )}
               />
             </FieldBox>
           </FieldRow>
 
-          {/* Bank Details */}
           <FieldRow>
             <FieldBox>
               <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
               <Controller
                 control={control}
-                name="bankAccountNumber"
+                name={`settlements.${index}.bankAccountNumber` as const}
                 rules={{ required: 'Required' }}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <InputField
                     {...field}
                     placeholder="Enter account number"
                     fullWidth
-                    error={!!errors.bankAccountNumber}
-                    helperText={errors.bankAccountNumber?.message}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
                     onChange={(e) => {
                       field.onChange(e)
-                      handleFieldChange('bankAccountNumber', e.target.value)
                     }}
                   />
                 )}
@@ -175,18 +169,17 @@ const SettlementDetailsForm: React.FC<Props> = ({ defaultValues, onChange, onDel
               <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
               <Controller
                 control={control}
-                name="ifscCode"
+                name={`settlements.${index}.ifscCode` as const}
                 rules={{ required: 'Required' }}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <InputField
                     {...field}
                     placeholder="Enter IFSC code"
                     fullWidth
-                    error={!!errors.ifscCode}
-                    helperText={errors.ifscCode?.message}
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
                     onChange={(e) => {
                       field.onChange(e)
-                      handleFieldChange('ifscCode', e.target.value)
                     }}
                   />
                 )}

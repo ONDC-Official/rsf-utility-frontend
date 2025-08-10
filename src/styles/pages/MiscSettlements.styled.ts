@@ -101,6 +101,9 @@ export const FieldInputBox = styled(Box)({
 
 export const FieldBox = styled(Box)({
   flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 2,
 })
 
 export const ActionButtons = styled(Box)({

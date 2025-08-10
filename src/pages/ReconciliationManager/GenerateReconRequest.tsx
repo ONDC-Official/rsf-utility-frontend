@@ -3,16 +3,22 @@ import ReconRequestTable from 'pages/ReconciliationManager/ReconRequestTable'
 // import OutgoingRequestsTable from 'pages/ReconciliationManager/OutgoingRequestsTable'
 import ReinitiateModal from 'pages/ReconciliationManager/ReinitiateModal'
 import { IOutgoingRequest } from 'interfaces/reconciliationManager'
-import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
+// import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IGenerateReconRequestProps } from 'pages/ReconciliationManager/types'
 import { IReconciliationDataItem } from 'hooks/queries/useGetReconciliationData'
 import useGenerateRecon, { IReconDataItem } from 'hooks/mutations/useGenerateRecon'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useUserContext } from 'context/userContext'
+import PayloadPreview from 'pages/ReconciliationManager/PayloadPreview'
+import { TRIGGER_ACTION } from 'constants/toastMessages'
+import { useToast } from 'context/toastContext'
 
 const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onSelectionChange }) => {
+  const toast = useToast()
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<IOutgoingRequest | null>(null)
+  const [showPayloadPreview, setShowPayloadPreview] = useState(false)
+  const [payloadData, setPayloadData] = useState<any>(null)
   // const [selectedCount, setSelectedCount] = useState(0)
   // const [selectedSettlements, setSelectedSettlements] = useState<IReconciliationDataItem[]>([])
 
@@ -42,8 +48,11 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
 
         if (firstApiResponse.success && firstApiResponse.data) {
           // Call second API with the response data (pass the entire data object, not data.data)
-          await triggerAction.triggerAsync('recon', firstApiResponse.data)
+
           onToastShow('Reconciliation request generated successfully!')
+
+          setPayloadData(firstApiResponse.data)
+          setShowPayloadPreview(true)
         }
       } catch (error) {
         console.error('Error generating reconciliation request:', error)
@@ -63,9 +72,9 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
         onSelectionChange(count, count > 0, () => handleGenerateReconRequestWithData(settlements))
       }
 
-      if (count > 0) {
-        onToastShow(RECONCILIATION_LABELS.TOAST_MESSAGE)
-      }
+      // if (count > 0) {
+      //   onToastShow(RECONCILIATION_LABELS.TOAST_MESSAGE)
+      // }
     },
     [onSelectionChange, onToastShow, handleGenerateReconRequestWithData],
   )
@@ -106,6 +115,19 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
     }
   }
 
+  const handleTriggerSettlement = async (): Promise<void> => {
+    if (!payloadData) return
+
+    try {
+      await triggerAction.triggerAsync('recon', payloadData)
+
+      toast(TRIGGER_ACTION.SUCCESS)
+      setShowPayloadPreview(false)
+    } catch (e) {
+      toast(TRIGGER_ACTION.ERROR)
+    }
+  }
+
   const handleModalClose = (): void => {
     setModalOpen(false)
     setSelectedOrder(null)
@@ -122,6 +144,13 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
         onClose={handleModalClose}
         order={selectedOrder}
         onReinitiate={handleReinitiateWithData}
+      />
+
+      <PayloadPreview
+        data={payloadData}
+        onTrigger={handleTriggerSettlement}
+        open={showPayloadPreview}
+        onClose={() => setShowPayloadPreview(false)}
       />
     </>
   )
