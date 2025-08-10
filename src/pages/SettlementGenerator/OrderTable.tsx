@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { Edit, Undo } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
 import Button from 'components/common/Button'
@@ -15,6 +15,11 @@ import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styl
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 import ExportIcon from 'assets/images/svg/ExportIcon'
 import { formatCurrency } from 'utils/helpers'
+import { useToast } from 'context/toastContext'
+import { useUserContext } from 'context/userContext'
+import { useLoader } from 'context/loaderContext'
+import usePatchImportSettlements from 'hooks/mutations/usePatchImportSettlements'
+import { SETTLEMENT_PATCH_MESSAGES } from 'constants/toastMessages'
 
 const OrderTable: FC<IOrderTableProps> = ({
   allOrders,
@@ -22,9 +27,15 @@ const OrderTable: FC<IOrderTableProps> = ({
   setEditedRows,
   onSelectedOrdersChange,
   onExport,
-  onImport,
   handlePatchSettlements,
+  refetchOrders,
 }) => {
+  const toast = useToast()
+  const { selectedUser } = useUserContext()
+  const { showLoader, hideLoader } = useLoader()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const bulkImportMutation = usePatchImportSettlements(selectedUser?._id ?? '')
+
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
@@ -60,6 +71,29 @@ const OrderTable: FC<IOrderTableProps> = ({
 
   const handleDateRangeChange = (newDateRange: IDateRange): void => {
     setDateRange(newDateRange)
+  }
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      showLoader()
+      const result = await bulkImportMutation.triggerAsync(file)
+      if (result.success) {
+        toast(SETTLEMENT_PATCH_MESSAGES.SUCCESS)
+        refetchOrders()
+      } else {
+        toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
+      }
+    } catch (error) {
+      toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
+    } finally {
+      hideLoader()
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
   }
 
   const renderRow = (order: IUserSettlementItem): JSX.Element => {
@@ -114,6 +148,10 @@ const OrderTable: FC<IOrderTableProps> = ({
     )
   }
 
+  const handleImportClick = (): void => {
+    fileInputRef.current?.click()
+  }
+
   return (
     <Container>
       <Header>
@@ -132,9 +170,10 @@ const OrderTable: FC<IOrderTableProps> = ({
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
             Export
           </Button>
-          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onImport}>
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleImportClick}>
             Import
           </Button>
+          <input type="file" accept=".csv" style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
         </Actions>
       </Header>
 

@@ -4,10 +4,11 @@ import axiosInstance from 'services/axiosInstance'
 export interface IParams {
   url: string
   payload?: unknown
+  headers?: Record<string, string>
 }
 
-const patch = async <TResponse,>({ url, payload }: IParams): Promise<TResponse> => {
-  const { data } = await axiosInstance.patch<TResponse>(url, payload)
+const patch = async <TResponse,>({ url, payload, headers }: IParams): Promise<TResponse> => {
+  const { data } = await axiosInstance.patch<TResponse>(url, payload, headers ? { headers } : undefined)
   return data
 }
 

@@ -148,7 +148,7 @@ const MiscSettlements: FC = () => {
                 variant="outlined"
                 startIcon={<AddCircleOutline />}
                 onClick={handleAddForm}
-                disabled={fields.length >= provider_details.length}
+                // disabled={fields.length >= provider_details.length}
               >
                 Add
               </Button>

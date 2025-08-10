@@ -40,6 +40,7 @@ const SettlementGenerator: FC = () => {
     data: fetchedOrders,
     isLoading,
     isError,
+    refetch: refetchOrders,
   } = useGetUserSettlements(
     selectedUser?._id || '',
     {
@@ -180,6 +181,7 @@ const SettlementGenerator: FC = () => {
           setEditedRows={setEditedRows}
           onSelectedOrdersChange={handleSelectedOrdersChange}
           handlePatchSettlements={handlePatchSettlements}
+          refetchOrders={refetchOrders}
           onExport={() => {
             const orders = fetchedOrders?.data?.settlements || []
             if (orders.length > 0) {
@@ -194,7 +196,6 @@ const SettlementGenerator: FC = () => {
               toast(CSV_EXPORT_MESSAGES.NO_DATA)
             }
           }}
-          onImport={() => {}}
         />
       )}
     </Container>
