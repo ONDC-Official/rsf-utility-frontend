@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react'
 import { Popover, Checkbox, Box } from '@mui/material'
-import { Edit } from '@mui/icons-material'
+// import { Edit } from '@mui/icons-material'
 import Calendar from 'components/common/Calendar'
 import { IOrdersReadyRowProps } from './types'
-import { StyledTableBodyCell, ActionIconButton } from 'styles/components/Table.styled'
+import {
+  StyledTableBodyCell,
+  // ActionIconButton
+} from 'styles/components/Table.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import Button from 'components/common/Button'
 import CalendarIcon from 'assets/images/svg/CalendarIcon'
@@ -19,20 +22,20 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
   onCheckboxChange,
   onDueDateChange,
   editedDueDates,
-  onEditClick,
+  // onEditClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const ref = useRef<HTMLButtonElement | null>(null)
 
-  const handleOpenCalendar = () => {
+  const handleOpenCalendar = (): void => {
     setAnchorEl(ref.current)
   }
 
-  const handleCloseCalendar = () => {
+  const handleCloseCalendar = (): void => {
     setAnchorEl(null)
   }
 
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange = (date: Date | null): void => {
     if (date) {
       onDueDateChange(order.orderId, date.toISOString())
     }
@@ -81,13 +84,13 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
         </Box>
       </StyledTableBodyCell>
 
-      <StyledTableBodyCell>
+      {/* <StyledTableBodyCell>
         {!order.dueDate && (
           <ActionIconButton size="small" onClick={() => onEditClick(order.orderId)}>
             <Edit fontSize="small" />
           </ActionIconButton>
         )}
-      </StyledTableBodyCell>
+      </StyledTableBodyCell> */}
     </>
   )
 }
