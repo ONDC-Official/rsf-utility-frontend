@@ -16,13 +16,14 @@ import {
 import Button from 'components/common/Button'
 
 const SummarySection: FC<IProps> = ({
-  summary,
+  // summary,
   // customDueDate,
   // setCustomDueDate,
   onGeneratePreview,
   selectedOrderIds,
   formInputs,
   setFormInputs,
+  selectedOrders,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -31,18 +32,22 @@ const SummarySection: FC<IProps> = ({
     return input?.self_value && input?.provider_value
   })
 
+  const totalInterNpSettlement = selectedOrders.reduce((total, order) => {
+    return total + (order.inter_np_settlement || 0)
+  }, 0)
+
   return (
     <Container>
       <SummaryHeader>Settlement Summary</SummaryHeader>
 
       <SummaryCards>
-        <SummaryCard label="Selected Orders" value={summary.selectedOrders} bgColor="#F59E0B" />
+        <SummaryCard label="Selected Orders" value={selectedOrders.length} bgColor="#F59E0B" />
         <SummaryCard
           label="Total Settlement Amount"
-          value={`₹${summary.totalAmount.toLocaleString()}`}
+          value={`₹${totalInterNpSettlement.toLocaleString()}`}
           bgColor="#EF4444"
         />
-        <SummaryCard label="Batch Size" value={summary.batchSize} bgColor="#3B82F6" />
+        {/* <SummaryCard label="Batch Size" value={summary.batchSize} bgColor="#3B82F6" /> */}
       </SummaryCards>
 
       <Divider />

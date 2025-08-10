@@ -152,6 +152,7 @@ const SettlementGenerator: FC = () => {
           selectedOrderIds={Array.from(selectedOrders)}
           formInputs={formInputs}
           setFormInputs={setFormInputs}
+          selectedOrders={orders.filter((order) => selectedOrders.has(order.order_id))}
         />
       )}
 

@@ -9,6 +9,7 @@ export interface IProps {
   selectedOrderIds: string[]
   formInputs: Record<string, ISettleNpDataItem>
   setFormInputs: React.Dispatch<React.SetStateAction<Record<string, ISettleNpDataItem>>>
+  selectedOrders: IUserSettlementItem[]
 }
 
 export interface IOrderFormInput {
