@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import { Typography } from '@mui/material'
 // import { Upload } from '@mui/icons-material'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
-// import Button from 'components/common/Button'
+import Button from 'components/common/Button'
 import SettlementDetailsForm from './components/SettlementDetailsForm'
 import SettlementsTable from './components/SettlementsTable'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
@@ -21,11 +21,16 @@ import {
   Wrapper,
   TableHeader,
   TableActions,
-  // HeaderRight,
+  HeaderRight,
+  FormsContainer,
+  FormWrapper,
+  RotatedSendIcon,
+  // DeleteButton,
 } from 'styles/pages/MiscSettlements.styled'
 
 const MiscSettlements: FC = () => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
+  const [forms, setForms] = useState<Array<{ id: string; data?: MiscSettlementFormValues }>>([{ id: '1' }])
   const toast = useToast()
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
@@ -33,7 +38,7 @@ const MiscSettlements: FC = () => {
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
 
-  const handleSubmit = async (values: MiscSettlementFormValues): Promise<void> => {
+  const handleSubmit = async (values: MiscSettlementFormValues, _formId: string): Promise<void> => {
     try {
       showLoader()
       const payload = {
@@ -70,6 +75,17 @@ const MiscSettlements: FC = () => {
     }
   }
 
+  const handleAddForm = (): void => {
+    const newId = (forms.length + 1).toString()
+    setForms([...forms, { id: newId }])
+  }
+
+  const handleDeleteForm = (formId: string): void => {
+    if (forms.length > 1) {
+      setForms(forms.filter((form) => form.id !== formId))
+    }
+  }
+
   const handleDateRangeChange = (newDateRange: IDateRange): void => {
     setDateRange(newDateRange)
   }
@@ -81,14 +97,33 @@ const MiscSettlements: FC = () => {
           <Typography variant={TypographyVariant.H4}>Miscellaneous Settlements</Typography>
           <Typography>Create ad-hoc settlements for special cases</Typography>
         </HeaderLeft>
-        {/* <HeaderRight>
-          <Button variant="outlined" startIcon={<Upload />}>
-            Upload
+        <HeaderRight>
+          <Button variant="outlined" onClick={handleAddForm}>
+            Add
           </Button>
-        </HeaderRight> */}
+          <Button
+            type="submit"
+            variant="contained"
+            startIcon={<RotatedSendIcon />}
+            disabled={miscMutation.isLoading || triggerAction.isLoading}
+          >
+            Create a Trigger Settlement
+          </Button>
+        </HeaderRight>
       </Header>
 
-      <SettlementDetailsForm onSubmit={handleSubmit} isSubmitting={miscMutation.isLoading || triggerAction.isLoading} />
+      <FormsContainer>
+        {forms.map((form, _index) => (
+          <FormWrapper key={form.id}>
+            <SettlementDetailsForm
+              onSubmit={(values) => handleSubmit(values, form.id)}
+              isSubmitting={miscMutation.isLoading || triggerAction.isLoading}
+              onDelete={() => handleDeleteForm(form.id)}
+              showDelete={forms.length > 1}
+            />
+          </FormWrapper>
+        ))}
+      </FormsContainer>
 
       <Wrapper>
         <TableHeader>

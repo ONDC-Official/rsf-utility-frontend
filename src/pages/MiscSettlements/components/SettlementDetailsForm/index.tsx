@@ -8,22 +8,32 @@ import {
   FieldInputBox,
   FieldBox,
   Divider,
-  ActionButtons,
-  RotatedSendIcon,
+  // ActionButtons,
+  // RotatedSendIcon,
   BottomAlignedTypography,
+  DeleteButton,
+  SettleHeader,
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
-import Button from 'components/common/Button'
+// import Button from 'components/common/Button'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
 import Blockchain from 'assets/images/svg/Blockchain'
+import { useUserContext } from 'context/userContext'
 
 interface Props {
   onSubmit: (values: MiscSettlementFormValues) => void
   isSubmitting?: boolean
+  onDelete?: () => void
+  showDelete?: boolean
 }
 
-const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
+const SettlementDetailsForm: React.FC<Props> = ({
+  onSubmit,
+  // isSubmitting,
+  onDelete,
+  showDelete,
+}) => {
   const {
     control,
     handleSubmit,
@@ -45,12 +55,20 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
     reset()
   })
 
+  const { selectedUser } = useUserContext()
+
+  const provider_details = selectedUser?.provider_details || []
+
   return (
     <SettlementDetailsContainer>
-      <BottomAlignedTypography variant={TypographyVariant.H5Bold}>
-        <Blockchain style={{ marginRight: 4 }} />
-        Settlement Details
-      </BottomAlignedTypography>
+      <SettleHeader>
+        <BottomAlignedTypography variant={TypographyVariant.H5Bold}>
+          <Blockchain style={{ marginRight: 4 }} />
+          Settlement Details
+        </BottomAlignedTypography>
+
+        {showDelete && <DeleteButton onClick={onDelete} />}
+      </SettleHeader>
 
       <form onSubmit={internalSubmit} noValidate>
         <FieldRow>
@@ -75,111 +93,115 @@ const SettlementDetailsForm: React.FC<Props> = ({ onSubmit, isSubmitting }) => {
           </FieldInputBox>
         </FieldRow>
 
-        <Divider>OR</Divider>
+        {provider_details?.length > 0 && <Divider>OR</Divider>}
 
-        <FieldRow>
-          <FieldLabelBox>
-            <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider</Typography>
-          </FieldLabelBox>
-          <FieldInputBox>
-            <Controller
-              control={control}
-              name="providerAmount"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="00.0"
-                  fullWidth
-                  error={!!errors.providerAmount}
-                  helperText={errors.providerAmount?.message}
+        {provider_details?.length > 0 && (
+          <>
+            <FieldRow>
+              <FieldLabelBox>
+                <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider</Typography>
+              </FieldLabelBox>
+              <FieldInputBox>
+                <Controller
+                  control={control}
+                  name="providerAmount"
+                  rules={{ required: 'Required' }}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      placeholder="00.0"
+                      fullWidth
+                      error={!!errors.providerAmount}
+                      helperText={errors.providerAmount?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </FieldInputBox>
-        </FieldRow>
+              </FieldInputBox>
+            </FieldRow>
 
-        <FieldRow>
-          <FieldBox>
-            <Typography variant={TypographyVariant.Caption1}>Provider ID</Typography>
-            <Controller
-              control={control}
-              name="providerId"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="Enter provider ID"
-                  fullWidth
-                  error={!!errors.providerId}
-                  helperText={errors.providerId?.message}
+            <FieldRow>
+              <FieldBox>
+                <Typography variant={TypographyVariant.Caption1}>Provider ID</Typography>
+                <Controller
+                  control={control}
+                  name="providerId"
+                  rules={{ required: 'Required' }}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      placeholder="Enter provider ID"
+                      fullWidth
+                      error={!!errors.providerId}
+                      helperText={errors.providerId?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </FieldBox>
+              </FieldBox>
 
-          <FieldBox>
-            <Typography variant={TypographyVariant.Caption1}>Provider Name</Typography>
-            <Controller
-              control={control}
-              name="providerName"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="Enter provider name"
-                  fullWidth
-                  error={!!errors.providerName}
-                  helperText={errors.providerName?.message}
+              <FieldBox>
+                <Typography variant={TypographyVariant.Caption1}>Provider Name</Typography>
+                <Controller
+                  control={control}
+                  name="providerName"
+                  rules={{ required: 'Required' }}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      placeholder="Enter provider name"
+                      fullWidth
+                      error={!!errors.providerName}
+                      helperText={errors.providerName?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </FieldBox>
-        </FieldRow>
+              </FieldBox>
+            </FieldRow>
 
-        <FieldRow>
-          <FieldBox>
-            <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
-            <Controller
-              control={control}
-              name="bankAccountNumber"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="Enter account number"
-                  fullWidth
-                  error={!!errors.bankAccountNumber}
-                  helperText={errors.bankAccountNumber?.message}
+            <FieldRow>
+              <FieldBox>
+                <Typography variant={TypographyVariant.Caption1}>Bank Account Number</Typography>
+                <Controller
+                  control={control}
+                  name="bankAccountNumber"
+                  rules={{ required: 'Required' }}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      placeholder="Enter account number"
+                      fullWidth
+                      error={!!errors.bankAccountNumber}
+                      helperText={errors.bankAccountNumber?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </FieldBox>
+              </FieldBox>
 
-          <FieldBox>
-            <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
-            <Controller
-              control={control}
-              name="ifscCode"
-              rules={{ required: 'Required' }}
-              render={({ field }) => (
-                <InputField
-                  {...field}
-                  placeholder="Enter IFSC code"
-                  fullWidth
-                  error={!!errors.ifscCode}
-                  helperText={errors.ifscCode?.message}
+              <FieldBox>
+                <Typography variant={TypographyVariant.Caption1}>IFSC Code</Typography>
+                <Controller
+                  control={control}
+                  name="ifscCode"
+                  rules={{ required: 'Required' }}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      placeholder="Enter IFSC code"
+                      fullWidth
+                      error={!!errors.ifscCode}
+                      helperText={errors.ifscCode?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </FieldBox>
-        </FieldRow>
+              </FieldBox>
+            </FieldRow>
+          </>
+        )}
 
-        <ActionButtons>
+        {/* <ActionButtons>
           <Button type="submit" variant="contained" startIcon={<RotatedSendIcon />} disabled={isSubmitting}>
             Create a Trigger Settlement
           </Button>
-        </ActionButtons>
+        </ActionButtons> */}
       </form>
     </SettlementDetailsContainer>
   )

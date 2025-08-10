@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Box, Typography } from '@mui/material'
 import colors from 'theme/colors'
 import { typography } from 'theme/typography'
-import { SendRounded } from '@mui/icons-material'
+import { Delete, SendRounded } from '@mui/icons-material'
 
 export const Container = styled(Box)({
   background: colors.background.main,
@@ -146,4 +146,27 @@ export const RotatedSendIcon = styled(SendRounded)({
 export const BottomAlignedTypography = styled(Typography)({
   display: 'flex',
   alignItems: 'center',
+})
+
+export const FormsContainer = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 24,
+  marginBottom: 24,
+})
+
+export const FormWrapper = styled(Box)({
+  position: 'relative',
+})
+
+export const DeleteButton = styled(Delete)({
+  cursor: 'pointer',
+  color: 'red',
+})
+
+export const SettleHeader = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 16,
 })
