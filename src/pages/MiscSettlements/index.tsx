@@ -2,12 +2,12 @@ import React from 'react'
 import { FC } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { Tooltip, Typography } from '@mui/material'
-import DateRangePickerButton from 'components/common/DateRangePickerButton'
+// import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Button from 'components/common/Button'
 import SettlementsTable from './components/SettlementsTable'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
-import { IDateRange } from 'components/common/DateRangePickerButton/types'
+// import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { useToast } from 'context/toastContext'
 import { useLoader } from 'context/loaderContext'
 import { useUserContext } from 'context/userContext'
@@ -20,7 +20,7 @@ import {
   HeaderLeft,
   Wrapper,
   TableHeader,
-  TableActions,
+  // TableActions,
   HeaderRight,
   FormsContainer,
   FormWrapper,
@@ -44,7 +44,7 @@ const emptyFormValues: MiscSettlementFormValues = {
 }
 
 const MiscSettlements: FC = () => {
-  const [dateRange, setDateRange] = React.useState<IDateRange>({ startDate: null, endDate: null })
+  // const [dateRange, setDateRange] = React.useState<IDateRange>({ startDate: null, endDate: null })
   const [showPayloadPreview, setShowPayloadPreview] = React.useState(false)
   const [miscResponseData, setMiscResponseData] = React.useState<any>(null)
 
@@ -132,7 +132,7 @@ const MiscSettlements: FC = () => {
     }
   }
 
-  const handleDateRangeChange = (newDateRange: IDateRange) => setDateRange(newDateRange)
+  // const handleDateRangeChange = (newDateRange: IDateRange): void => setDateRange(newDateRange)
 
   return (
     <Container>
@@ -200,13 +200,13 @@ const MiscSettlements: FC = () => {
       <Wrapper>
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
-          <TableActions>
+          {/* <TableActions>
             <DateRangePickerButton
               variant="outlined"
               selectedDateRange={dateRange}
               onDateRangeChange={handleDateRangeChange}
             />
-          </TableActions>
+          </TableActions> */}
         </TableHeader>
         <SettlementsTable />
       </Wrapper>

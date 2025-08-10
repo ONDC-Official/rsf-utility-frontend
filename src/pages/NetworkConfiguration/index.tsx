@@ -1,4 +1,4 @@
-import { useEffect, FC } from 'react'
+import { useEffect, FC, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
 import { useToast } from 'context/toastContext'
@@ -13,11 +13,13 @@ import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/p
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 import { useLoader } from 'context/loaderContext'
+import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
 
 const NetworkConfiguration: FC = () => {
   const { selectedUser, isLoading, setSelectedUser, refetch, users } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const {
     control,
     handleSubmit,
@@ -58,9 +60,14 @@ const NetworkConfiguration: FC = () => {
     }
   }
 
-  const handleDelete = async (): Promise<void> => {
+  const handleDeleteClick = (): void => {
+    setDeleteModalOpen(true)
+  }
+
+  const handleDeleteConfirm = async (): Promise<void> => {
     if (!selectedUser?._id) return
 
+    setDeleteModalOpen(false)
     showLoader()
     try {
       await deleteConfig(selectedUser._id)
@@ -77,6 +84,10 @@ const NetworkConfiguration: FC = () => {
     } finally {
       hideLoader()
     }
+  }
+
+  const handleDeleteCancel = (): void => {
+    setDeleteModalOpen(false)
   }
 
   useEffect(() => {
@@ -143,7 +154,7 @@ const NetworkConfiguration: FC = () => {
             <BulkButton
               variant="outlined"
               color="error"
-              onClick={handleDelete}
+              onClick={handleDeleteClick}
               disabled={isDeleteLoading}
               style={{ marginLeft: '12px' }}
             >
@@ -152,6 +163,14 @@ const NetworkConfiguration: FC = () => {
           )}
         </SaveButtonContainer>
       </StyledForm>
+      <DeleteConfirmationModal
+        open={deleteModalOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        title="Confirm Deletion"
+        message="Are you sure you want to delete this configuration? This action cannot be undone."
+        isLoading={isDeleteLoading}
+      />
     </Container>
   )
 }
