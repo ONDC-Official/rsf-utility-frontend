@@ -57,9 +57,11 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
       </StyledTableBodyCell>
       <StyledTableBodyCell>{formatDate(order.due_date)}</StyledTableBodyCell>
       <StyledTableBodyCell>
-        <Button variant="outlined" onClick={handleReconcileClick}>
-          {ACTION_LABELS.RECONCILE}
-        </Button>
+        {order?.status === 'NOT_SETTLED' ? (
+          <Button variant="outlined" onClick={handleReconcileClick}>
+            {ACTION_LABELS.RECONCILE}
+          </Button>
+        ) : null}
       </StyledTableBodyCell>
     </>
   )

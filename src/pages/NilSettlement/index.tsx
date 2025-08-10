@@ -10,7 +10,11 @@ import {
   Wrapper,
   ActionButtons,
 } from 'styles/pages/NilSettlement.styled'
-import { CalendarTodayOutlined, InfoOutlined, WarningAmberOutlined } from '@mui/icons-material'
+import {
+  // CalendarTodayOutlined,
+  InfoOutlined,
+  WarningAmberOutlined,
+} from '@mui/icons-material'
 import { Typography } from '@mui/material'
 import Button from 'components/common/Button'
 import { useUserContext } from 'context/userContext'
@@ -99,13 +103,13 @@ const NilSettlement: FC = () => {
           >
             Trigger Nil Settlement
           </Button>
-          <Button
+          {/* <Button
             variant="outlined"
             startIcon={<CalendarTodayOutlined />}
             disabled={!isUserSelected || isTriggeringNil || isTriggeringSettle}
           >
             Schedule Nil Settlement
-          </Button>
+          </Button> */}
         </ActionButtons>
       </Wrapper>
     </Container>

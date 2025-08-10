@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import { Typography } from '@mui/material'
-import { Upload } from '@mui/icons-material'
+// import { Upload } from '@mui/icons-material'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
-import Button from 'components/common/Button'
+// import Button from 'components/common/Button'
 import SettlementDetailsForm from './components/SettlementDetailsForm'
 import SettlementsTable from './components/SettlementsTable'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
@@ -21,7 +21,7 @@ import {
   Wrapper,
   TableHeader,
   TableActions,
-  HeaderRight,
+  // HeaderRight,
 } from 'styles/pages/MiscSettlements.styled'
 
 const MiscSettlements: FC = () => {
@@ -81,11 +81,11 @@ const MiscSettlements: FC = () => {
           <Typography variant={TypographyVariant.H4}>Miscellaneous Settlements</Typography>
           <Typography>Create ad-hoc settlements for special cases</Typography>
         </HeaderLeft>
-        <HeaderRight>
+        {/* <HeaderRight>
           <Button variant="outlined" startIcon={<Upload />}>
             Upload
           </Button>
-        </HeaderRight>
+        </HeaderRight> */}
       </Header>
 
       <SettlementDetailsForm onSubmit={handleSubmit} isSubmitting={miscMutation.isLoading || triggerAction.isLoading} />
