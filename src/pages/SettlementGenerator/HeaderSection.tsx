@@ -3,8 +3,6 @@ import { Warning } from '@mui/icons-material'
 import { PageHeader as Container, Left, Right, AlertContainer } from 'styles/pages/SettlementGenerator.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
-import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { useUserContext } from 'context/userContext'
 
 interface HeaderSectionProps {
