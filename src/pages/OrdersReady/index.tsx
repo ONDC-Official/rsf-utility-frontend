@@ -41,6 +41,7 @@ const OrdersReady: FC = () => {
   const [editedDueDates, setEditedDueDates] = useState<Map<string, string>>(new Map())
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [selectedOrderId, setSelectedOrderId] = useState('')
+  const patchMutation = usePatchOrderDueDate(selectedUser?._id || '')
 
   const handleDueDateChange = (orderId: string, newDueDate: string): void => {
     setEditedDueDates((prev) => {
@@ -61,8 +62,7 @@ const OrdersReady: FC = () => {
     }))
 
     try {
-      if (!patchMutation.triggerAsync) return
-      const res = await patchMutation.triggerAsync(payload)
+      const res = await patchMutation.patchOrderAsync(payload)
       if (res.success) {
         muiToast(ORDER_PATCH_MESSAGES.SUCCESS)
         resetEditedDueDates()
@@ -91,7 +91,7 @@ const OrdersReady: FC = () => {
     window.location.reload()
   }
 
-  const handleEditSuccess = (message: string): void => {
+  const handleEditSuccess = (): void => {
     // This will be called from the modal for additional handling if needed
   }
 
