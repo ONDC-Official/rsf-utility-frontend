@@ -44,8 +44,6 @@ const OrdersReady: FC = () => {
   const [selectedOrderId, setSelectedOrderId] = useState('')
   const patchMutation = usePatchOrderDueDate(selectedUser?._id || '')
 
-  const patchMutation = usePatchOrderDueDate(selectedUser?._id || '')
-
   const handleDueDateChange = (orderId: string, newDueDate: string): void => {
     setEditedDueDates((prev) => {
       const updated = new Map(prev)
