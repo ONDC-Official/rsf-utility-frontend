@@ -29,6 +29,8 @@ export interface IFormData {
   sellerNpToTds?: number
   sellerNpToProviderTcs?: number
   sellerNpToProviderTds?: number
+  tcs_applicability?: string
+  tds_applicability?: string
 }
 
 export interface IDomainConfigurationProps {

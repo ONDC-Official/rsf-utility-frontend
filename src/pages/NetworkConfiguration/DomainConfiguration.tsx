@@ -116,6 +116,31 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
           )}
         </div>
 
+        <div>
+          <RequiredFieldLabel>Subscriber URL</RequiredFieldLabel>
+          <Controller
+            control={control}
+            name="subscriberUrl"
+            rules={{
+              required: 'URL is required',
+              pattern: { value: regexUrl, message: 'Invalid URL' },
+            }}
+            render={({ field }) => (
+              <StyledInput
+                placeholder="Enter Subscriber URL"
+                value={field.value || ''}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                inputRef={field.ref}
+                error={!!errors.subscriberUrl}
+                helperText={errors.subscriberUrl?.message}
+                disabled={!!selectedUser}
+              />
+            )}
+          />
+        </div>
+
         {role !== 'Buyer App' && (
           <div>
             <RequiredFieldLabel>Type</RequiredFieldLabel>
@@ -181,6 +206,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             </div>
 
             <div>
+              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tcs_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tcs_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tcs_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tcs_applicability.message}
+                </ErrorMessage>
+              )}
+            </div>
+
+            <div>
               <LabelWrapper>
                 <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Buyer NP to NP" arrow placement="right-start">
@@ -212,6 +266,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                   />
                 )}
               />
+            </div>
+
+            <div>
+              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tds_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tds_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tds_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tds_applicability.message}
+                </ErrorMessage>
+              )}
             </div>
           </>
         )}
@@ -253,6 +336,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             </div>
 
             <div>
+              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tcs_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tcs_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tcs_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tcs_applicability.message}
+                </ErrorMessage>
+              )}
+            </div>
+
+            <div>
               <LabelWrapper>
                 <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Seller NP to NP" arrow placement="right-start">
@@ -284,6 +396,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                   />
                 )}
               />
+            </div>
+
+            <div>
+              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tds_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tds_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tds_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tds_applicability.message}
+                </ErrorMessage>
+              )}
             </div>
           </>
         )}
@@ -325,6 +466,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             </div>
 
             <div>
+              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tcs_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tcs_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tcs_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tcs_applicability.message}
+                </ErrorMessage>
+              )}
+            </div>
+
+            <div>
               <LabelWrapper>
                 <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
                 <Tooltip title="TDS applicable for Seller NP to NP " arrow placement="right-start">
@@ -356,6 +526,35 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                   />
                 )}
               />
+            </div>
+
+            <div>
+              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
+              <Controller
+                control={control}
+                name="tds_applicability"
+                render={({ field }) => (
+                  <StyledSelect
+                    value={field.value || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.tds_applicability}
+                    disabled={!!selectedUser}
+                    displayEmpty
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    options={[
+                      { value: 'ISN', label: 'ISN' },
+                      { value: 'MSN', label: 'MSN' },
+                      { value: 'Both', label: 'Both' },
+                    ]}
+                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
+                  />
+                )}
+              />
+              {errors.tds_applicability && (
+                <ErrorMessage color="error" variant="caption">
+                  {errors.tds_applicability.message}
+                </ErrorMessage>
+              )}
             </div>
 
             <div>
@@ -427,31 +626,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
             </div>
           </>
         )}
-
-        <div>
-          <RequiredFieldLabel>Subscriber URL</RequiredFieldLabel>
-          <Controller
-            control={control}
-            name="subscriberUrl"
-            rules={{
-              required: 'URL is required',
-              pattern: { value: regexUrl, message: 'Invalid URL' },
-            }}
-            render={({ field }) => (
-              <StyledInput
-                placeholder="Enter Subscriber URL"
-                value={field.value || ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.subscriberUrl}
-                helperText={errors.subscriberUrl?.message}
-                disabled={!!selectedUser}
-              />
-            )}
-          />
-        </div>
       </FormContainer>
     </DomainConfigContainer>
   </ConfigurationBox>

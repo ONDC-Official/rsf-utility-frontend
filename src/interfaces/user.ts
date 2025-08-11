@@ -22,6 +22,8 @@ export interface IUser {
   provider_details: ProviderDetails[]
   counterparty_ids: string[]
   _id: string
+  tcs_applicability?: string
+  tds_applicability?: string
 }
 
 export interface IUserContext {
