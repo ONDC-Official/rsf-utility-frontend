@@ -5,11 +5,9 @@ import { UseMutationResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
 
 export interface IMoveToReadyPayload {
-  orders: {
-    orders: Array<{
-      order_id: string
-    }>
-  }
+  orders: Array<{
+    order_id: string
+  }>
 }
 
 export interface IMoveToReadyResponse {
