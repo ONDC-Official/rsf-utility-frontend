@@ -97,13 +97,11 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
     try {
       showLoader()
       const payload = {
-        orders: {
-          orders: [
-            {
-              order_id: request.orderId,
-            },
-          ],
-        },
+        orders: [
+          {
+            order_id: request.orderId,
+          },
+        ],
       }
 
       await moveToReady.moveToReadyAsync(payload)
