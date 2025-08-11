@@ -7,7 +7,7 @@ export interface IOrder extends Record<string, unknown> {
   totalOrderValue: number
   bffPercent: number
   domain: string
-  dueDate: string
+  dueDate: string | null
   msn?: boolean
   settle_status: 'RECON' | string
 }

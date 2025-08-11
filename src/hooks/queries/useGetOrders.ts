@@ -4,6 +4,7 @@ import useGet from 'hooks/useGet'
 import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
+import { formatDate } from 'utils/formatters'
 
 interface IOrderApiResponse {
   _id: string
@@ -43,19 +44,6 @@ interface IOrderApiResponse {
   __v: number
 }
 
-const formatDate = (dateString: string): string => {
-  try {
-    const date = new Date(dateString)
-    if (isNaN(date.getTime())) {
-      return new Date().toISOString().split('T')[0]
-    }
-
-    return date.toISOString().split('T')[0]
-  } catch {
-    return new Date().toISOString().split('T')[0]
-  }
-}
-
 const transformOrderData = (apiOrders: IOrderApiResponse[]): IOrder[] => {
   return apiOrders.map((order) => ({
     id: order._id,
@@ -66,7 +54,7 @@ const transformOrderData = (apiOrders: IOrderApiResponse[]): IOrder[] => {
     totalOrderValue: order.quote?.total_order_value || 0,
     bffPercent: order.buyer_finder_fee_amount,
     domain: order.domain || '',
-    dueDate: formatDate(order.due_date),
+    dueDate: order.due_date ? formatDate(order.due_date) : null,
     msn: order.msn,
     settle_status: order.settle_status,
   }))
