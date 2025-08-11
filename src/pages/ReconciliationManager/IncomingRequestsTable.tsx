@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react'
-import { Tooltip, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { KeyboardArrowDown, KeyboardArrowUp, Check, Close } from '@mui/icons-material'
 import Table from 'components/common/Table'
 import StatusChip from 'components/common/StatusChip'
@@ -89,10 +89,10 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
     return `${CURRENCY_SYMBOL}${amount?.toFixed(2) ?? TABLE_CELL_DEFAULTS.TOTAL_VALUE}`
   }
 
-  const truncateText = (text: string, maxLength = 20): string => {
-    if (text.length <= maxLength) return text
-    return `${text.substring(0, maxLength)}...`
-  }
+  // const truncateText = (text: string, maxLength = 20): string => {
+  //   if (text.length <= maxLength) return text
+  //   return `${text.substring(0, maxLength)}...`
+  // }
 
   const formatDate = (dateString: string): string => {
     try {
