@@ -40,7 +40,7 @@ export interface ISettlementPayload extends Record<string, unknown> {
 
 export interface ISettleNpDataItem {
   order_id: string
-  provider_value: number
+  provider_value?: number
   self_value: number
 }
 

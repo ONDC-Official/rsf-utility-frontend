@@ -48,7 +48,9 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
       sanitizedData[orderId] = {
         order_id: orderId,
         self_value: Number(entry.self_value) || 0,
-        provider_value: Number(entry.provider_value) || 0,
+        ...(selectedUser?.msn === true && {
+          provider_value: Number(entry.provider_value) || 0,
+        }),
       }
     }
 

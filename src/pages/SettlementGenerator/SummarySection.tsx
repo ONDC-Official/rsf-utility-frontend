@@ -29,7 +29,7 @@ const SummarySection: FC<IProps> = ({
 
   const isFormValid = selectedOrderIds.every((orderId) => {
     const input = formInputs[orderId]
-    return input?.self_value && input?.provider_value
+    return input?.self_value
   })
 
   const totalInterNpSettlement = selectedOrders.reduce((total, order) => {
