@@ -17,7 +17,7 @@ import {
   RemoveWrapper,
   StyledInput,
 } from 'styles/pages/NetworkConfiguration'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
+import { Typography } from '@mui/material'
 
 const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({
@@ -52,11 +52,13 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             {/* Provider ID */}
 
             <div>
-              <RequiredFieldLabel>Provider Name</RequiredFieldLabel>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Provider Name
+              </Typography>
               <Controller
                 control={control}
                 name={`providers.${index}.providerName`}
-                rules={{ required: 'Provider Name is required' }}
+                rules={{}}
                 render={({ field }) => (
                   <StyledInput
                     placeholder="Enter Provider Name"
@@ -73,11 +75,13 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
             </div>
 
             <div>
-              <RequiredFieldLabel>Provider ID</RequiredFieldLabel>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Provider ID
+              </Typography>
               <Controller
                 control={control}
                 name={`providers.${index}.providerId`}
-                rules={{ required: 'Provider ID is required' }}
+                rules={{}}
                 render={({ field }) => (
                   <StyledInput
                     placeholder="Enter Provider ID"
@@ -95,12 +99,13 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* IFSC Code */}
             <div>
-              <RequiredFieldLabel>IFSC Code</RequiredFieldLabel>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                IFSC Code
+              </Typography>
               <Controller
                 control={control}
                 name={`providers.${index}.ifscCode`}
                 rules={{
-                  required: 'IFSC Code is required',
                   pattern: {
                     value: /^[A-Z]{4}0[A-Z0-9]{6}$/,
                     message: 'Invalid IFSC code',
@@ -123,12 +128,13 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* Account Number */}
             <div>
-              <RequiredFieldLabel>Account Number</RequiredFieldLabel>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Account Number
+              </Typography>
               <Controller
                 control={control}
                 name={`providers.${index}.accountNumber`}
                 rules={{
-                  required: 'Account number is required',
                   pattern: {
                     value: /^\d{9,18}$/,
                     message: 'Must be 9-18 digits',
@@ -151,12 +157,13 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
 
             {/* Bank Name */}
             <div>
-              <RequiredFieldLabel>Bank Name</RequiredFieldLabel>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Bank Name
+              </Typography>
               <Controller
                 control={control}
                 name={`providers.${index}.bankName`}
                 rules={{
-                  required: 'Bank name is required',
                   minLength: {
                     value: 3,
                     message: 'Minimum 3 characters',

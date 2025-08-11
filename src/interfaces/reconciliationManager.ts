@@ -16,6 +16,7 @@ export interface IOutgoingRequest extends Record<string, unknown> {
   collectorId: string
   status: 'SENT_PENDING' | 'SENT_ACCEPTED' | 'SENT_REJECTED' | 'ERROR' | string
   dueDate: string
+  initiatedDate?: string
   response: string
   error?: string
 }
