@@ -215,7 +215,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
-                    // disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[
@@ -278,7 +277,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
-                    // disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[
@@ -345,7 +343,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
-                    disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[
@@ -408,7 +405,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
-                    disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[
@@ -475,7 +471,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
-                    disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[
@@ -538,7 +533,6 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     value={field.value || ''}
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
-                    disabled={!!selectedUser}
                     displayEmpty
                     renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
                     options={[

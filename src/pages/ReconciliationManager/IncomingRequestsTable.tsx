@@ -40,26 +40,28 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
     }
   }, [isLoading, showLoader, hideLoader])
 
-  // Flatten the nested recons structure
-  const reconRequests = (reconData?.data?.recons || []).flatMap((item) => item.recons || [])
-
-  // Convert IReconDataItem to IIncomingRequest format for compatibility
-  const data: IIncomingRequest[] = Array.isArray(reconRequests)
-    ? reconRequests.map((item: IReconDataItem) => ({
-        id: item._id,
-        reconTransactionId: item._id,
-        orderId: item.order_id,
-        receiverId: item.receiver_id || '-',
-        collectorId: item.collector_id || '-',
-        requestedAmount: item.recon_breakdown.amount,
-        currentAmount: item.recon_breakdown.amount,
-        requestedCommission: item.recon_breakdown.commission,
-        currentCommission: item.recon_breakdown.commission,
-        reason: 'Reconciliation request',
-        receivedDate: item.createdAt,
-        recon_status: item.recon_status,
-      }))
-    : []
+  // Properly map the nested recons structure
+  const data: IIncomingRequest[] = (reconData?.data?.recons || []).flatMap((parentRecon) =>
+    (parentRecon.recons || []).map((item: IReconDataItem) => ({
+      id: item._id,
+      reconTransactionId: parentRecon.transaction_id, // Use parent transaction_id
+      orderId: item.order_id,
+      receiverId: item.receiver_id || '-',
+      collectorId: item.collector_id || '-',
+      requestedAmount: item.recon_breakdown.amount,
+      currentAmount: item.recon_breakdown.amount,
+      requestedCommission: item.recon_breakdown.commission,
+      currentCommission: item.recon_breakdown.commission,
+      reason: 'Reconciliation request',
+      receivedDate: item.createdAt,
+      recon_status: item.recon_status,
+      withholding_amount: item.recon_breakdown.withholding_amount,
+      tcs: item.recon_breakdown.tcs,
+      tds: item.recon_breakdown.tds,
+      settlement_id: item.settlement_id,
+      payment_id: item.payment_id,
+    })),
+  )
 
   const {
     currentItems: orders,
@@ -90,6 +92,15 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
   const truncateText = (text: string, maxLength = 20): string => {
     if (text.length <= maxLength) return text
     return `${text.substring(0, maxLength)}...`
+  }
+
+  const formatDate = (dateString: string): string => {
+    try {
+      const date = new Date(dateString)
+      return date.toISOString().split('T')[0] // Returns YYYY-MM-DD format
+    } catch {
+      return dateString // Return original if parsing fails
+    }
   }
 
   const getItemId = (item: IIncomingRequest): string => item.id
@@ -140,7 +151,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
             <span>{truncateText(item.reason || '', 20)}</span>
           </Tooltip>
         </StyledTableBodyCell>
-        <StyledTableBodyCell>{item.receivedDate}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatDate(item.receivedDate)}</StyledTableBodyCell>
 
         <StyledTableBodyCell>
           <div style={{ display: 'flex', gap: '4px' }}>

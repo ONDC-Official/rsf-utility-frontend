@@ -59,6 +59,12 @@ export const incomingRequestData: IIncomingRequest[] = [
     currentCommission: 125.0,
     reason: 'Commission rate disagreement due to policy changes',
     receivedDate: '2024-01-20',
+    recon_status: 'RECEIVED_PENDING',
+    withholding_amount: 50.0,
+    tcs: 15.0,
+    tds: 20.0,
+    settlement_id: 'SETT001',
+    payment_id: 'PAY001',
   },
   {
     id: '2',
@@ -72,6 +78,12 @@ export const incomingRequestData: IIncomingRequest[] = [
     currentCommission: 115.0,
     reason: 'Settlement amount mismatch',
     receivedDate: '2024-01-20',
+    recon_status: 'RECEIVED_PENDING',
+    withholding_amount: 45.0,
+    tcs: 12.0,
+    tds: 18.0,
+    settlement_id: 'SETT002',
+    payment_id: 'PAY002',
   },
 ]
 
@@ -123,6 +135,8 @@ export const generateIncomingRequests = (count: number): IIncomingRequest[] => {
     'Tax calculation differences',
   ]
 
+  const statuses = ['RECEIVED_PENDING', 'RECEIVED_ACCEPTED', 'RECEIVED_REJECTED']
+
   for (let i = 0; i < count; i++) {
     const baseRequest = baseData[i % baseData.length]
 
@@ -132,6 +146,12 @@ export const generateIncomingRequests = (count: number): IIncomingRequest[] => {
       reconTransactionId: `RECT${String(i + 1).padStart(3, '0')}`,
       orderId: `ORD${String(i + 1).padStart(3, '0')}`,
       reason: reasons[i % reasons.length],
+      recon_status: statuses[i % statuses.length],
+      settlement_id: `SETT${String(i + 1).padStart(3, '0')}`,
+      payment_id: `PAY${String(i + 1).padStart(3, '0')}`,
+      withholding_amount: Math.round((Math.random() * 100 + 20) * 100) / 100,
+      tcs: Math.round((Math.random() * 30 + 10) * 100) / 100,
+      tds: Math.round((Math.random() * 30 + 15) * 100) / 100,
     })
   }
 

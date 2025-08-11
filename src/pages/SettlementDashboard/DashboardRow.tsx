@@ -18,7 +18,12 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
 
   const formatDate = (dateString: string | undefined): string => {
     if (!dateString) return TABLE_CELL_DEFAULTS.SETTLEMENT_INITIATED_DATE
-    return dateString
+    try {
+      const date = new Date(dateString)
+      return date.toISOString().split('T')[0] // Returns YYYY-MM-DD format
+    } catch {
+      return dateString // Return original if parsing fails
+    }
   }
 
   const handleReconcileClick = () => {
