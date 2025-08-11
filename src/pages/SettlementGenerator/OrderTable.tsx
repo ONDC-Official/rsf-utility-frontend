@@ -78,6 +78,16 @@ const OrderTable: FC<IOrderTableProps> = ({
     }
   }
 
+  const formatDate = (dateString: string | undefined): string => {
+    if (!dateString) return '-'
+    try {
+      const date = new Date(dateString)
+      return date.toISOString().split('T')[0] // Returns YYYY-MM-DD format
+    } catch {
+      return dateString // Return original if parsing fails
+    }
+  }
+
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0]
     if (!file) return
@@ -130,7 +140,7 @@ const OrderTable: FC<IOrderTableProps> = ({
           {formatCurrency(merged.inter_np_settlement)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.provider_id}</StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.due_date}</StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{formatDate(merged.due_date)}</StyledTableBodyCell>
         <ActionsCell>
           <ActionIconButton size="small" onClick={() => setEditingOrder(order)}>
             <Edit fontSize="small" />
