@@ -224,7 +224,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                       { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
+                      { value: 'Both', label: 'BOTH' },
+                      { value: 'None', label: 'NONE' },
                     ]}
                     formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
                   />
@@ -287,7 +288,8 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                       { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
+                      { value: 'Both', label: 'BOTH' },
+                      { value: 'None', label: 'NONE' },
                     ]}
                     formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
                   />
