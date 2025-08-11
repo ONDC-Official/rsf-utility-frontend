@@ -72,6 +72,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
         collectorId: item.collector_id || '-',
         status: item.recon_status,
         dueDate: item.createdAt || '-',
+        initiatedDate: item.initiated_date,
         response: '-',
         error: '-',
       }))
@@ -122,6 +123,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
         <StatusChip status={request.status} />
       </StyledTableBodyCell>
       <StyledTableBodyCell>{formatDate(request.dueDate)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{request.initiatedDate ? formatDate(request.initiatedDate) : '-'}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.response}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {request.status === 'SENT_PENDING' ? null : request.status === 'SENT_ACCEPTED' ||

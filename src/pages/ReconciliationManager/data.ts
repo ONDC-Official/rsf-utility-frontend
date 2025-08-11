@@ -28,6 +28,7 @@ export const outgoingRequestColumns: ITableColumn<IOutgoingRequest>[] = [
   { id: 'collectorId', label: 'Collector ID' },
   { id: 'status', label: 'Status' },
   { id: 'dueDate', label: 'Due Date' },
+  { id: 'initiatedDate', label: 'Initiated Date' },
   { id: 'response', label: 'Response' },
   { id: 'actions', label: 'Actions' },
   { id: 'error', label: 'Error' },

@@ -16,8 +16,6 @@ export const columns: ITableColumn<ISettlementOrder>[] = [
   { id: 'tds', label: 'TDS' },
   { id: 'withholdingAmount', label: 'Withholding (Incl. Item Tax)' },
   { id: 'collectorSettlement', label: 'Collector Settlement' },
-  { id: 'interNpSettlement', label: 'Inter NP Settlement' },
-  { id: 'interNpTax', label: 'Inter NP Tax' },
   { id: 'provider', label: 'Provider' },
   { id: 'dueDate', label: 'Due Date' },
   { id: 'actions', label: 'Actions' },
