@@ -103,6 +103,7 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
       </TableBodyCheckboxCell>
       <StyledTableBodyCell>{settlement.order_id}</StyledTableBodyCell>
       <StyledTableBodyCell>{settlement.collector_id}</StyledTableBodyCell>
+      <StyledTableBodyCell>{settlement.receiver_id}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {CURRENCY_SYMBOL}
         {settlement.total_order_value.toFixed(2)}

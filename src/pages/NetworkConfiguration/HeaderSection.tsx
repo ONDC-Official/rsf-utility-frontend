@@ -18,7 +18,7 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ reset, setSelectedUser, select
   return (
     <HeaderSectionStyled>
       <HeaderCard>
-        <SectionTitle>Network Configuration</SectionTitle>
+        <SectionTitle>Configuration</SectionTitle>
       </HeaderCard>
 
       {selectedUser && (

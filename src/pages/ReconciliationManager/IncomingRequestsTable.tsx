@@ -49,7 +49,8 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         id: item._id,
         reconTransactionId: item._id,
         orderId: item.order_id,
-        receiverId: item.settlement_id || '-',
+        receiverId: item.receiver_id || '-',
+        collectorId: item.collector_id || '-',
         requestedAmount: item.recon_breakdown.amount,
         currentAmount: item.recon_breakdown.amount,
         requestedCommission: item.recon_breakdown.commission,
@@ -126,6 +127,7 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>{item.reconTransactionId}</StyledTableBodyCell>
         <StyledTableBodyCell>{item.orderId}</StyledTableBodyCell>
         <StyledTableBodyCell>{item.receiverId}</StyledTableBodyCell>
+        <StyledTableBodyCell>{item.collectorId}</StyledTableBodyCell>
         <StyledTableBodyCell>
           <StatusChip status={item.recon_status} />
         </StyledTableBodyCell>

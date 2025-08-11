@@ -11,6 +11,8 @@ export interface IReconDataItem {
   order_id: string
   recon_status: string
   settlement_id: string
+  receiver_id: string
+  collector_id: string
   payment_id: string
   transaction_db_ids: string[]
   recon_breakdown: {

@@ -11,6 +11,7 @@ export const receiverOptions = [
 export const reconRequestColumns: ITableColumn<IReconciliationDataItem>[] = [
   { id: 'order_id', label: 'Order ID' },
   { id: 'collector_id', label: 'Collector ID' },
+  { id: 'receiver_id', label: 'Receiver ID' },
   { id: 'total_order_value', label: 'Total Value' },
   { id: 'collector_settlement', label: 'Settlement Amount' },
   { id: 'commission', label: 'Commission' },
@@ -21,6 +22,7 @@ export const reconRequestColumns: ITableColumn<IReconciliationDataItem>[] = [
 export const outgoingRequestColumns: ITableColumn<IOutgoingRequest>[] = [
   { id: 'orderId', label: 'Order ID' },
   { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'collectorId', label: 'Collector ID' },
   { id: 'status', label: 'Status' },
   { id: 'dueDate', label: 'Due Date' },
   { id: 'response', label: 'Response' },
@@ -32,6 +34,7 @@ export const incomingRequestColumns: ITableColumn<IIncomingRequest>[] = [
   { id: 'reconTransactionId', label: 'Recon Transaction ID' },
   { id: 'orderId', label: 'Order ID' },
   { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'collectorId', label: 'Collector ID' },
   { id: 'status', label: 'Status' },
   { id: 'requestedAmount', label: 'Requested Amount' },
   { id: 'currentAmount', label: 'Current Amount' },

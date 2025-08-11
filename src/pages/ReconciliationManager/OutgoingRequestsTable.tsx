@@ -69,7 +69,8 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
     ? reconRequests.map((item: IReconDataItem) => ({
         id: item._id,
         orderId: item.order_id,
-        receiverId: item.settlement_id || '-',
+        receiverId: item.receiver_id || '-',
+        collectorId: item.collector_id || '-',
         status: item.recon_status,
         dueDate: item.createdAt || '-',
         response: '-',
@@ -119,6 +120,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
     <>
       <StyledTableBodyCell>{request.orderId}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.receiverId}</StyledTableBodyCell>
+      <StyledTableBodyCell>{request.collectorId}</StyledTableBodyCell>
       <StyledTableBodyCell>
         <StatusChip status={request.status} />
       </StyledTableBodyCell>

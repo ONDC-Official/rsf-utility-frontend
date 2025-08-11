@@ -10,7 +10,7 @@ export const columns: ITableColumn[] = [
   { id: 'interNpSettlementStatus', label: 'Inter NP Settlement Status' },
   { id: 'selfStatus', label: 'Self Status' },
   { id: 'providerStatus', label: 'Provider Status' },
-  { id: 'settlementReference', label: 'Settlement Reference' },
+  { id: 'settlementReference', label: 'Settlement Reference No.' },
   { id: 'error', label: 'Error' },
   { id: 'settlementInitiatedDate', label: 'Settlement Initiated Date' },
   { id: 'actions', label: 'Actions' },
