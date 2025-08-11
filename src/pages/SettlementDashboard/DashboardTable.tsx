@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Typography } from '@mui/material'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
@@ -17,8 +17,7 @@ import {
 import { TypographyVariant } from 'enums/typography'
 import { IUserSettlementItem } from '@interfaces/settlement'
 
-const DashboardTable: FC<IDashboardTableProps> = ({ orders, counterpartyId }) => {
-  const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
+const DashboardTable: FC<IDashboardTableProps> = ({ orders, counterpartyId, onDateRangeChange, dateRange }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
   const {
@@ -41,7 +40,7 @@ const DashboardTable: FC<IDashboardTableProps> = ({ orders, counterpartyId }) =>
   }, [orders, setSelectedItems, setPage])
 
   const handleDateRangeChange = (newDateRange: IDateRange): void => {
-    setDateRange(newDateRange)
+    onDateRangeChange?.(newDateRange)
   }
 
   const renderRow = (order: IUserSettlementItem): JSX.Element => (

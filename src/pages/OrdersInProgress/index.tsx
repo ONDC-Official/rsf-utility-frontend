@@ -13,6 +13,7 @@ import { IOrderRow } from 'pages/OrdersInProgress/types'
 import { Container, Header, HeaderLeft, HeaderRight, Wrapper, TableHeader } from 'styles/pages/OrdersInProgress.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import StatusChip from 'components/common/StatusChip'
+import { formatDate, formatCurrency, formatNumber } from 'utils/formatters'
 
 const OrdersInProgress: React.FC = () => {
   const { selectedUser } = useUserContext()
@@ -81,10 +82,14 @@ const OrdersInProgress: React.FC = () => {
       <TableCell sx={TableCellStyles.DEFAULT}>
         <StatusChip status={order.orderStatus} />
       </TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>₹{order.totalOrderValue.toFixed(2)}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.bffPercent}%</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>{formatCurrency(order.totalOrderValue)}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>
+        {formatNumber(typeof order.bffPercent === 'number' ? order.bffPercent : String(order.bffPercent) || '0')}
+      </TableCell>
       <TableCell sx={TableCellStyles.DEFAULT}>{DOMAIN_CATEGORY_LABELS[order.domain] || order.domain}</TableCell>
-      <TableCell sx={TableCellStyles.DEFAULT}>{order.dueDate}</TableCell>
+      <TableCell sx={TableCellStyles.DEFAULT}>
+        {formatDate(typeof order.dueDate === 'string' ? order.dueDate : String(order.dueDate) || '')}
+      </TableCell>
     </>
   )
 

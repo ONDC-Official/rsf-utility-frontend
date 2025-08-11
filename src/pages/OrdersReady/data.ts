@@ -6,7 +6,7 @@ export const columns: ITableColumn<IOrderReady>[] = [
   { id: 'collectorId', label: 'Collector ID' },
   { id: 'receiverId', label: 'Receiver ID' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
-  { id: 'commission', label: 'Commission' },
+  { id: 'commission', label: 'BFF (Commission)' },
   { id: 'sellerType', label: 'Seller Type' },
   { id: 'domain', label: 'Domain' },
   { id: 'dueDate', label: 'Due Date' },

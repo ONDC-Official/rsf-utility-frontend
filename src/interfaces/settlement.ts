@@ -135,6 +135,8 @@ export interface IUserSettlementItem {
   settlement_id: string
   total_order_value: number
   commission: number
+  tcs: number
+  tds: number
   tax: number
   withholding_amount: number
   inter_np_settlement: number

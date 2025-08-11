@@ -3,7 +3,8 @@ import { SelectChangeEvent, Typography, Checkbox } from '@mui/material'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
 import { reconRequestColumns } from 'pages/ReconciliationManager/data'
-import { RECONCILIATION_LABELS, CURRENCY_SYMBOL } from 'pages/ReconciliationManager/constants'
+import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
+import { formatCurrency } from 'utils/formatters'
 import { IReconRequestTableProps } from 'pages/ReconciliationManager/types'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -104,18 +105,12 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
       <StyledTableBodyCell>{settlement.order_id}</StyledTableBodyCell>
       <StyledTableBodyCell>{settlement.collector_id}</StyledTableBodyCell>
       <StyledTableBodyCell>{settlement.receiver_id}</StyledTableBodyCell>
-      <StyledTableBodyCell>
-        {CURRENCY_SYMBOL}
-        {settlement.total_order_value.toFixed(2)}
-      </StyledTableBodyCell>
-      <StyledTableBodyCell>
-        {CURRENCY_SYMBOL}
-        {settlement.collector_settlement.toFixed(2)}
-      </StyledTableBodyCell>
-      <StyledTableBodyCell>
-        {CURRENCY_SYMBOL}
-        {settlement.commission.toFixed(2)}
-      </StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.total_order_value)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.collector_settlement)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.commission)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.tcs)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.tds)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatCurrency(settlement.withholding_amount)}</StyledTableBodyCell>
       <StyledTableBodyCell>
         <StatusChip label={settlement.status} size="small" color="error" />
       </StyledTableBodyCell>

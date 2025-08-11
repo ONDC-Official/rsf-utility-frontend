@@ -1,4 +1,5 @@
 import { IUserSettlementItem } from '@interfaces/settlement'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 export interface IDashboardRowProps {
   order: IUserSettlementItem
@@ -9,6 +10,8 @@ export interface IDashboardRowProps {
 export interface IDashboardTableProps {
   orders: IUserSettlementItem[]
   counterpartyId: string
+  onDateRangeChange?: (dateRange: IDateRange) => void
+  dateRange?: IDateRange
 }
 
 export interface IHeaderSectionProps {

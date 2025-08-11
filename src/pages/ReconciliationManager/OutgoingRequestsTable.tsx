@@ -13,8 +13,9 @@ import { useLoader } from 'context/loaderContext'
 import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
 import { OUTGOING_RECON_STATUSES } from 'enums/recon'
 import useMoveToReady from 'hooks/mutations/useMoveToReady'
-// import useGenerateRecon from 'hooks/mutations/useGenerateRecon'
-// import useTriggerAction from 'hooks/mutations/useTriggerAction'
+import { formatDate } from 'utils/formatters'
+import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import {
   TableContainer as Container,
   TableHeader as Header,
@@ -25,8 +26,6 @@ import {
 } from 'styles/pages/ReconciliationManager.styled'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
-import DateRangePickerButton from 'components/common/DateRangePickerButton'
-import { IDateRange } from 'components/common/DateRangePickerButton/types'
 // import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }) => {
@@ -73,6 +72,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
         collectorId: item.collector_id || '-',
         status: item.recon_status,
         dueDate: item.createdAt || '-',
+        initiatedDate: item.initiated_date,
         response: '-',
         error: '-',
       }))
@@ -122,7 +122,8 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
       <StyledTableBodyCell>
         <StatusChip status={request.status} />
       </StyledTableBodyCell>
-      <StyledTableBodyCell>{request.dueDate}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatDate(request.dueDate)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{request.initiatedDate ? formatDate(request.initiatedDate) : '-'}</StyledTableBodyCell>
       <StyledTableBodyCell>{request.response}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {request.status === 'SENT_PENDING' ? null : request.status === 'SENT_ACCEPTED' ||

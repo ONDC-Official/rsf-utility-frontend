@@ -135,9 +135,17 @@ const OrderTable: FC<IOrderTableProps> = ({
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
           {formatCurrency(merged.commission)}
         </StyledTableBodyCell>
-        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{formatCurrency(merged.tax)}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
-          {formatCurrency(merged.inter_np_settlement)}
+          {formatCurrency(merged.tcs || 0)}
+        </StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
+          {formatCurrency(merged.tds || 0)}
+        </StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
+          {formatCurrency(merged.withholding_amount)}
+        </StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
+          {formatCurrency(merged.collector_settlement)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{merged.provider_id}</StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>{formatDate(merged.due_date)}</StyledTableBodyCell>

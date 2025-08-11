@@ -7,7 +7,7 @@ export interface IOrderReady extends Record<string, unknown> {
   commission: number
   sellerType: string
   domain: string
-  dueDate: string
+  dueDate: string | null
 }
 
 export interface IToastState {

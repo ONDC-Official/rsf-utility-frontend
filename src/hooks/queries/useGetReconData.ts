@@ -15,6 +15,7 @@ export interface IReconDataItem {
   collector_id: string
   payment_id: string
   transaction_db_ids: string[]
+  initiated_date?: string
   recon_breakdown: {
     amount: number
     commission: number

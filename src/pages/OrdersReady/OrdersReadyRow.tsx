@@ -1,48 +1,17 @@
-import React, { useState, useRef } from 'react'
-import { Popover, Checkbox, Box } from '@mui/material'
-// import { Edit } from '@mui/icons-material'
-import Calendar from 'components/common/Calendar'
+import React from 'react'
+import { Checkbox, Box } from '@mui/material'
+import { Edit } from '@mui/icons-material'
 import { IOrdersReadyRowProps } from './types'
-import {
-  StyledTableBodyCell,
-  // ActionIconButton
-} from 'styles/components/Table.styled'
+import { StyledTableBodyCell, ActionIconButton } from 'styles/components/Table.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
-import Button from 'components/common/Button'
-import CalendarIcon from 'assets/images/svg/CalendarIcon'
 import { formatCurrency } from 'utils/helpers'
+import { formatDate } from 'utils/formatters'
 
 interface ExtendedOrdersReadyRowProps extends IOrdersReadyRowProps {
   onEditClick: (orderId: string) => void
 }
 
-const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
-  order,
-  selected,
-  onCheckboxChange,
-  onDueDateChange,
-  editedDueDates,
-  // onEditClick,
-}) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const ref = useRef<HTMLButtonElement | null>(null)
-
-  const handleOpenCalendar = (): void => {
-    setAnchorEl(ref.current)
-  }
-
-  const handleCloseCalendar = (): void => {
-    setAnchorEl(null)
-  }
-
-  const handleDateChange = (date: Date | null): void => {
-    if (date) {
-      onDueDateChange(order.orderId, date.toISOString())
-    }
-
-    handleCloseCalendar()
-  }
-
+const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({ order, selected, onCheckboxChange, onEditClick }) => {
   return (
     <>
       <StyledTableBodyCell padding="checkbox">
@@ -62,35 +31,16 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({
       <StyledTableBodyCell>{DOMAIN_CATEGORY_LABELS[order.domain]}</StyledTableBodyCell>
 
       <StyledTableBodyCell>
-        <Box ref={ref}>
+        <Box display="flex" alignItems="center" gap={1}>
           {order.dueDate ? (
-            new Date(order.dueDate).toLocaleDateString()
+            formatDate(order.dueDate)
           ) : (
-            <>
-              <Button variant="outlined" startIcon={<CalendarIcon />} size="small" onClick={handleOpenCalendar}>
-                {editedDueDates.get(order.orderId) || 'Select'}
-              </Button>
-
-              <Popover
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={handleCloseCalendar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-              >
-                <Calendar value={order.dueDate ? new Date(order.dueDate) : null} onChange={handleDateChange} />
-              </Popover>
-            </>
+            <ActionIconButton size="small" onClick={() => onEditClick(order.orderId)}>
+              <Edit fontSize="small" />
+            </ActionIconButton>
           )}
         </Box>
       </StyledTableBodyCell>
-
-      {/* <StyledTableBodyCell>
-        {!order.dueDate && (
-          <ActionIconButton size="small" onClick={() => onEditClick(order.orderId)}>
-            <Edit fontSize="small" />
-          </ActionIconButton>
-        )}
-      </StyledTableBodyCell> */}
     </>
   )
 }
