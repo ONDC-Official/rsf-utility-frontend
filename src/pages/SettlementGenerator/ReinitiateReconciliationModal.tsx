@@ -106,14 +106,14 @@ const ReinitiateReconciliationModal: FC<
                 }}
                 render={({ field }) => (
                   <InputField
-                    label={`${RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT} *`}
+                    label={RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT}
                     {...field}
                     error={!!errors.total_order_value}
                     helperText={errors.total_order_value?.message}
-                    placeholder="Enter Settlement Amount"
+                    placeholder="Order Amount"
                     type="number"
+                    disabled
                     inputProps={{ min: 0, step: 'any' }}
-                    required
                   />
                 )}
               />
@@ -195,22 +195,6 @@ const ReinitiateReconciliationModal: FC<
 
             <FormRow>
               <Controller
-                name="collector_settlement"
-                control={control}
-                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
-                render={({ field }) => (
-                  <InputField
-                    label="Collector Settlement"
-                    {...field}
-                    error={!!errors.collector_settlement}
-                    helperText={errors.collector_settlement?.message}
-                    placeholder="Enter Collector Settlement"
-                    type="number"
-                    inputProps={{ min: 0, step: 'any' }}
-                  />
-                )}
-              />
-              <Controller
                 name="inter_np_settlement"
                 control={control}
                 rules={{ min: { value: 0, message: 'Must be >= 0' } }}
@@ -221,6 +205,22 @@ const ReinitiateReconciliationModal: FC<
                     error={!!errors.inter_np_settlement}
                     helperText={errors.inter_np_settlement?.message}
                     placeholder="Enter Inter NP Settlement"
+                    type="number"
+                    inputProps={{ min: 0, step: 'any' }}
+                  />
+                )}
+              />
+              <Controller
+                name="collector_settlement"
+                control={control}
+                rules={{ min: { value: 0, message: 'Must be >= 0' } }}
+                render={({ field }) => (
+                  <InputField
+                    label="Collector Settlement"
+                    {...field}
+                    error={!!errors.collector_settlement}
+                    helperText={errors.collector_settlement?.message}
+                    placeholder="Enter Collector Settlement"
                     type="number"
                     inputProps={{ min: 0, step: 'any' }}
                   />

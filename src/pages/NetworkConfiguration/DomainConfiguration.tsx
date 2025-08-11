@@ -156,7 +156,10 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                   disabled={!!selectedUser}
                   displayEmpty
                   renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Type')}
-                  options={[{ value: 'MSN', label: 'MSN' }]}
+                  options={[
+                    { value: 'MSN', label: 'MSN' },
+                    { value: 'ISN', label: 'ISN' },
+                  ]}
                   formControlProps={{ error: !!errors.type, fullWidth: true }}
                 />
               )}
@@ -216,8 +219,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },
@@ -278,8 +282,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },
@@ -344,8 +349,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },
@@ -406,8 +412,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },
@@ -472,8 +479,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tcs_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },
@@ -534,8 +542,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                     onChange={(e) => field.onChange(e.target.value)}
                     error={!!errors.tds_applicability}
                     displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'None')}
+                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
                     options={[
+                      { value: 'None', label: 'None' },
                       { value: 'ISN', label: 'ISN' },
                       { value: 'MSN', label: 'MSN' },
                       { value: 'Both', label: 'Both' },

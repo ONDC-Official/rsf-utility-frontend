@@ -6,7 +6,7 @@ export const columns: ITableColumn[] = [
   { id: 'receiverId', label: 'Receiver ID' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
   { id: 'interNpSettlement', label: 'Inter NP Settlement' },
-  { id: 'commission', label: 'Commission' },
+  { id: 'commission', label: 'Collector Settlement' },
   { id: 'interNpSettlementStatus', label: 'Inter NP Settlement Status' },
   { id: 'selfStatus', label: 'Self Status' },
   { id: 'providerStatus', label: 'Provider Status' },

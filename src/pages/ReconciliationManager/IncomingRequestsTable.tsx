@@ -142,15 +142,11 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>
           <StatusChip status={item.recon_status} />
         </StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.requestedAmount)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.currentAmount)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.requestedCommission)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.currentCommission)}</StyledTableBodyCell>
-        <StyledTableBodyCell>
-          <Tooltip title={item.reason || ''} arrow>
-            <span>{truncateText(item.reason || '', 20)}</span>
-          </Tooltip>
-        </StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.diffInterNpSettlement || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.diffCommission || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.diffTcs || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.diffTds || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.diffWithholding || 0)}</StyledTableBodyCell>
         <StyledTableBodyCell>{formatDate(item.receivedDate)}</StyledTableBodyCell>
 
         <StyledTableBodyCell>

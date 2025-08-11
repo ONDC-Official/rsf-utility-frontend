@@ -81,14 +81,14 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order, onRe
           <StyledForm>
             <FormRow>
               <InputField
-                label={`${RECONCILIATION_LABELS.FORM_ORDER_ID} *`}
+                label={`${RECONCILIATION_LABELS.FORM_ORDER_ID}`}
                 value={formData.orderId}
                 onChange={handleInputChange('orderId')}
                 placeholder="Enter Order ID"
                 required
               />
               <InputField
-                label={`${RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT} *`}
+                label={`${RECONCILIATION_LABELS.FORM_SETTLEMENT_AMOUNT}`}
                 value={formData.settlementAmount}
                 onChange={handleInputChange('settlementAmount')}
                 placeholder="Enter Settlement Amount"
@@ -98,7 +98,7 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order, onRe
 
             <FormRow>
               <InputField
-                label={`${RECONCILIATION_LABELS.FORM_COMMISSION} *`}
+                label={`${RECONCILIATION_LABELS.FORM_COMMISSION}`}
                 value={formData.commission}
                 onChange={handleInputChange('commission')}
                 placeholder="Enter Commission"
