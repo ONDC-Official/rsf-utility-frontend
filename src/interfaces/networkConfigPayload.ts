@@ -16,4 +16,6 @@ export interface NetworkConfigPayload {
   pr_tds: number
   msn: boolean
   provider_details?: ProviderDetail[]
+  tcs_applicability?: string
+  tds_applicability?: string
 }

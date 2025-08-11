@@ -19,6 +19,15 @@ const mapToPayload = (data: IFormData, selectedUser: IUser | null): NetworkConfi
 
   payload.title = data.title
 
+  // Add the new applicability fields
+  if (data.tcs_applicability) {
+    payload.tcs_applicability = data.tcs_applicability
+  }
+
+  if (data.tds_applicability) {
+    payload.tds_applicability = data.tds_applicability
+  }
+
   // Buyer Role → only NP to NP TCS / NP to NP TDS
   if (isBuyer) {
     payload.np_tcs = parseFloat(`${data?.buyerNpToNpTcs}`)

@@ -103,6 +103,8 @@ const NetworkConfiguration: FC = () => {
       setValue('sellerNpToProviderTcs', selectedUser?.pr_provider_tcs || 0)
       setValue('sellerNpToProviderTds', selectedUser?.pr_provider_tds || 0)
       setValue('type', selectedUser?.msn ? 'MSN' : '')
+      setValue('tcs_applicability', selectedUser?.tcs_applicability || '')
+      setValue('tds_applicability', selectedUser?.tds_applicability || '')
       setValue(
         'providers',
         selectedUser?.provider_details?.length
@@ -131,6 +133,8 @@ const NetworkConfiguration: FC = () => {
       setValue('sellerNpToProviderTds', 0)
       setValue('type', '')
       setValue('subscriberUrl', '')
+      setValue('tcs_applicability', '')
+      setValue('tds_applicability', '')
       setValue('providers', [defaultProvider])
     }
   }, [role, setValue])
