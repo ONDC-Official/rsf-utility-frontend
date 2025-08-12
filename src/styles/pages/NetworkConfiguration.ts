@@ -62,6 +62,7 @@ export const ConfigurationBox = styled('div')(() => ({
 export const NetworkIdentityHeader = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'center',
   gap: '10px',
 }))
 

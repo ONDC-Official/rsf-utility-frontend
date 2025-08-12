@@ -11,7 +11,7 @@ import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { IUserSettlementItem } from 'interfaces/settlement'
 import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
-import { Container, Header, Actions, Title } from 'styles/pages/OrdersReady.styled'
+import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 import ExportIcon from 'assets/images/svg/ExportIcon'
 import { formatCurrency } from 'utils/helpers'
@@ -178,7 +178,6 @@ const OrderTable: FC<IOrderTableProps> = ({
   return (
     <Container>
       <Header>
-        <Title>Select Orders for Settlement</Title>
         <Actions>
           {Object.keys(editedRows).length > 0 && (
             <Button variant="contained" onClick={handlePatchSettlements}>
