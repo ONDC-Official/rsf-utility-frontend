@@ -31,7 +31,7 @@ export const outgoingRequestColumns: ITableColumn<IOutgoingRequest>[] = [
   { id: 'initiatedDate', label: 'Initiated Date' },
   { id: 'response', label: 'Response' },
   { id: 'actions', label: 'Actions' },
-  { id: 'error', label: 'Error' },
+  { id: 'diffValue', label: 'Diff Value' },
 ]
 
 export const incomingRequestColumns: ITableColumn<IIncomingRequest>[] = [
@@ -40,11 +40,11 @@ export const incomingRequestColumns: ITableColumn<IIncomingRequest>[] = [
   { id: 'receiverId', label: 'Receiver ID' },
   { id: 'collectorId', label: 'Collector ID' },
   { id: 'status', label: 'Status' },
-  { id: 'diffInterNpSettlement', label: 'Diff Inter NP Settlement' },
-  { id: 'diffCommission', label: 'Diff Commission' },
-  { id: 'diffTcs', label: 'Diff TCS' },
-  { id: 'diffTds', label: 'Diff TDS' },
-  { id: 'diffWithholding', label: 'Diff Withholding' },
+  { id: 'diffInterNpSettlement', label: 'Inter NP Settlement' },
+  { id: 'diffCommission', label: 'Commission' },
+  { id: 'diffTcs', label: 'TCS' },
+  { id: 'diffTds', label: 'TDS' },
+  { id: 'diffWithholding', label: 'Withholding' },
   { id: 'receivedDate', label: 'Received Date' },
   { id: 'actions', label: 'Actions' },
 ]

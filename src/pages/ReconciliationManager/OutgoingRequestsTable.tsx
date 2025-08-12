@@ -65,17 +65,34 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
 
   // Convert IReconDataItem to IOutgoingRequest format for compatibility
   const requests: IOutgoingRequest[] = Array.isArray(reconRequests)
-    ? reconRequests.map((item: IReconDataItem) => ({
-        id: item._id,
-        orderId: item.order_id,
-        receiverId: item.receiver_id || '-',
-        collectorId: item.collector_id || '-',
-        status: item.recon_status,
-        dueDate: item.createdAt || '-',
-        initiatedDate: item.initiated_date,
-        response: '-',
-        error: '-',
-      }))
+    ? reconRequests.map((item: IReconDataItem) => {
+        const differingKeys: string[] = []
+        let totalDiff = 0
+
+        if (item.recon_breakdown && item.on_recon_breakdown) {
+          ;(Object.keys(item.recon_breakdown) as (keyof IReconDataItem['recon_breakdown'])[]).forEach((key) => {
+            const a = item.recon_breakdown[key] ?? 0
+            const b = item.on_recon_breakdown[key] ?? 0
+
+            if (a !== b) {
+              differingKeys.push(key)
+              totalDiff += Math.abs(a - b)
+            }
+          })
+        }
+
+        return {
+          id: item._id,
+          orderId: item.order_id,
+          receiverId: item.receiver_id || '-',
+          collectorId: item.collector_id || '-',
+          status: item.recon_status,
+          dueDate: item.createdAt || '-',
+          initiatedDate: item.initiated_date,
+          response: differingKeys.length > 0 ? differingKeys.join(', ') : '-',
+          diffValue: totalDiff || '-',
+        }
+      })
     : []
 
   const {
@@ -143,7 +160,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
           </Button>
         ) : null}
       </StyledTableBodyCell>
-      <ErrorCell>{request.error || '-'}</ErrorCell>
+      <ErrorCell>{request.diffValue || '-'}</ErrorCell>
     </>
   )
 

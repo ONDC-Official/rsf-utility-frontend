@@ -23,6 +23,13 @@ export interface IReconDataItem {
     tcs: number
     tds: number
   }
+  on_recon_breakdown: {
+    amount: number
+    commission: number
+    withholding_amount: number
+    tcs: number
+    tds: number
+  }
   createdAt: string
   updatedAt: string
   __v: number

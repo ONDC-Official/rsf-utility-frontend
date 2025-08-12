@@ -18,7 +18,7 @@ export interface IOutgoingRequest extends Record<string, unknown> {
   dueDate: string
   initiatedDate?: string
   response: string
-  error?: string
+  diffValue?: number | string
 }
 
 export interface IIncomingRequest extends Record<string, unknown> {
