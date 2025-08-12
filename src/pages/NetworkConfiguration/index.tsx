@@ -34,12 +34,23 @@ const NetworkConfiguration: FC = () => {
 
   const onSubmit = async (data: IFormData): Promise<void> => {
     showLoader()
+
+    const cleanedProviders = data.providers?.filter((p) => {
+      return (
+        p.providerId?.trim() ||
+        p.accountNumber?.trim() ||
+        p.ifscCode?.trim() ||
+        p.bankName?.trim() ||
+        p.providerName?.trim()
+      )
+    })
+
     const payload =
       !selectedUser && (!data.role || data.role === '')
         ? { ...data, providers: undefined }
         : data.role === 'Buyer App'
         ? { ...data, providers: undefined }
-        : data
+        : { ...data, providers: cleanedProviders }
 
     try {
       await submitConfig(payload)
