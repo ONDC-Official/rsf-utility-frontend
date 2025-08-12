@@ -17,6 +17,7 @@ export interface ISelectedUser extends IUser {
 }
 
 export interface IFormData {
+  _id?: string
   title: string
   role: string
   domainCategory: string
@@ -37,7 +38,7 @@ export interface IDomainConfigurationProps {
   errors: FieldErrors<IFormData>
   role: string
   type: string
-  selectedUser: ISelectedUser | IUser | null
+  isEditing: boolean
   control: Control<IFormData>
 }
 

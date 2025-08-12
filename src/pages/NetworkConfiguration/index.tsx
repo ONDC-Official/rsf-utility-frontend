@@ -1,9 +1,8 @@
-import { useEffect, FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
 import { useToast } from 'context/toastContext'
 import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
-import HeaderSection from './HeaderSection'
 import DomainConfiguration from './DomainConfiguration'
 import ProviderBankDetails from './ProviderBankDetails'
 import SaveIcon from 'assets/images/svg/SaveIcon'
@@ -14,173 +13,174 @@ import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 import { useLoader } from 'context/loaderContext'
 import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
+import Loader from 'components/common/Loader'
+import { IUser } from '@interfaces/user'
+import AddIcon from 'assets/images/svg/AddIcon'
+import {
+  HeaderSection as HeaderSectionStyled,
+  HeaderCard,
+  SectionTitle,
+  ActionButton,
+} from 'styles/pages/NetworkConfiguration'
+
+const mapUserToFormData = (user: IUser): IFormData => ({
+  _id: user?._id,
+  title: user.title || '',
+  role: user.role === 'BPP' ? 'Seller App' : user.role === 'BAP' ? 'Buyer App' : '',
+  subscriberUrl: user.subscriber_url || '',
+  domainCategory: user.domain?.toUpperCase() || '',
+  buyerNpToNpTcs: user.np_tcs || 0,
+  buyerNpToNpTds: user.np_tds || 0,
+  sellerNpToTcs: user.pr_tcs || 0,
+  sellerNpToTds: user.pr_tds || 0,
+  sellerNpToProviderTcs: user.pr_provider_tcs || 0,
+  sellerNpToProviderTds: user.pr_provider_tds || 0,
+  type: user.msn ? 'MSN' : 'ISN',
+  tcs_applicability: user.tcs_applicability || '',
+  tds_applicability: user.tds_applicability || '',
+  providers: user.provider_details?.length
+    ? user.provider_details.map((p) => ({
+        providerId: p.provider_id || '',
+        accountNumber: p.account_number || '',
+        ifscCode: p.ifsc_code || '',
+        bankName: p.bank_name || '',
+        providerName: p.provider_name || '',
+      }))
+    : [defaultProvider],
+})
 
 const NetworkConfiguration: FC = () => {
-  const { selectedUser, isLoading, setSelectedUser, refetch, users } = useUserContext()
-  const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
+  const { showLoader, hideLoader } = useLoader()
+  const { selectedUser, isLoading, setSelectedUser, refetch, users } = useUserContext()
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+
   const {
     control,
     handleSubmit,
-    watch,
-    setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
+
+  const { role, type, _id } = watch()
+  const isEditing = !!_id
+
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
   const { triggerAsync: deleteConfig, isLoading: isDeleteLoading } = useDeleteNetworkConfig()
-  const { role, type } = watch()
+
+  useEffect(() => {
+    if (selectedUser) {
+      reset(mapUserToFormData(selectedUser))
+    } else {
+      reset(defaultFormData)
+    }
+  }, [selectedUser, reset])
 
   const onSubmit = async (data: IFormData): Promise<void> => {
     showLoader()
 
-    const cleanedProviders = data.providers?.filter((p) => {
-      return (
-        p.providerId?.trim() ||
-        p.accountNumber?.trim() ||
-        p.ifscCode?.trim() ||
-        p.bankName?.trim() ||
-        p.providerName?.trim()
-      )
-    })
+    const cleanedProviders =
+      data.role === 'Buyer App'
+        ? undefined
+        : data.providers?.filter((p) =>
+            [p.providerId, p.accountNumber, p.ifscCode, p.bankName, p.providerName].some(
+              (v) => !!(v && String(v).trim()),
+            ),
+          )
 
-    const payload =
-      !selectedUser && (!data.role || data.role === '')
-        ? { ...data, providers: undefined }
-        : data.role === 'Buyer App'
-        ? { ...data, providers: undefined }
-        : { ...data, providers: cleanedProviders }
+    const payload = { ...data, providers: cleanedProviders }
 
     try {
-      await submitConfig(payload)
-      refetch()
-      reset(defaultFormData)
-      setSelectedUser(!!users && users?.length > 0 ? users[0] : null)
+      const configuration = await submitConfig(payload)
+
+      if (configuration?.data?._id) {
+        setSelectedUser(configuration.data)
+      }
+
+      await refetch()
       toast({
-        message: `User ${selectedUser?._id ? 'updated' : 'created'} successfully.`,
+        message: `User ${configuration.data.title ? 'updated' : 'created'} successfully.`,
         severity: NETWORK_CONFIGURATION.SUCCESS.severity,
       })
-    } catch {
-      hideLoader()
-      reset(defaultFormData)
-      setSelectedUser(null)
+    } catch (err) {
       toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
       hideLoader()
     }
   }
 
-  const handleDeleteClick = (): void => {
-    setDeleteModalOpen(true)
-  }
-
   const handleDeleteConfirm = async (): Promise<void> => {
-    if (!selectedUser?._id) return
+    if (!_id) return
 
     setDeleteModalOpen(false)
     showLoader()
+
     try {
-      await deleteConfig(selectedUser._id)
-      refetch()
-      reset(defaultFormData)
-      setSelectedUser(null)
+      await deleteConfig(_id)
+
+      if (users?.length) {
+        const remainingUsers = users.filter((u) => u._id !== _id)
+
+        const lastUser = remainingUsers.length > 0 ? remainingUsers[remainingUsers.length - 1] : null
+
+        setSelectedUser(lastUser)
+        reset(lastUser || defaultFormData)
+      }
+
       toast({
         message: 'User deleted successfully.',
         severity: NETWORK_CONFIGURATION.SUCCESS.severity,
       })
     } catch {
-      hideLoader()
       toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
       hideLoader()
     }
   }
 
-  const handleDeleteCancel = (): void => {
-    setDeleteModalOpen(false)
-  }
-
-  useEffect(() => {
-    if (selectedUser) {
-      setValue('title', selectedUser?.title || '')
-      setValue('role', selectedUser?.role === 'BPP' ? 'Seller App' : selectedUser?.role === 'BAP' ? 'Buyer App' : '')
-      setValue('subscriberUrl', selectedUser?.subscriber_url || '')
-      setValue('domainCategory', selectedUser?.domain?.toUpperCase() || '')
-      setValue('buyerNpToNpTcs', selectedUser?.np_tcs || 0)
-      setValue('buyerNpToNpTds', selectedUser?.np_tds || 0)
-      setValue('sellerNpToTcs', selectedUser?.pr_tcs || 0)
-      setValue('sellerNpToTds', selectedUser?.pr_tds || 0)
-      setValue('sellerNpToProviderTcs', selectedUser?.pr_provider_tcs || 0)
-      setValue('sellerNpToProviderTds', selectedUser?.pr_provider_tds || 0)
-      setValue('type', selectedUser?.msn ? 'MSN' : '')
-      setValue('tcs_applicability', selectedUser?.tcs_applicability || '')
-      setValue('tds_applicability', selectedUser?.tds_applicability || '')
-      setValue(
-        'providers',
-        selectedUser?.provider_details?.length
-          ? selectedUser?.provider_details?.map((p) => ({
-              providerId: p?.provider_id || '',
-              accountNumber: p.account_number || '',
-              ifscCode: p?.ifsc_code || '',
-              bankName: p?.bank_name || '',
-              providerName: p?.provider_name || '',
-            }))
-          : [defaultFormData.providers?.[0] ?? defaultProvider],
-      )
-    } else {
-      setValue('providers', defaultFormData.providers)
-    }
-  }, [selectedUser, setValue])
-
-  useEffect(() => {
-    if (role && !selectedUser) {
-      setValue('role', role)
-      setValue('buyerNpToNpTcs', 0)
-      setValue('buyerNpToNpTds', 0)
-      setValue('sellerNpToTcs', 0)
-      setValue('sellerNpToTds', 0)
-      setValue('sellerNpToProviderTcs', 0)
-      setValue('sellerNpToProviderTds', 0)
-      setValue('type', '')
-      setValue('subscriberUrl', '')
-      setValue('tcs_applicability', '')
-      setValue('tds_applicability', '')
-      setValue('providers', [defaultProvider])
-    }
-  }, [role, setValue])
-
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loader open />
 
   return (
     <Container>
-      <HeaderSection reset={reset} setSelectedUser={setSelectedUser} selectedUser={selectedUser} />
+      <HeaderSectionStyled>
+        <HeaderCard>
+          <SectionTitle>Configuration</SectionTitle>
+        </HeaderCard>
+
+        <ActionButton variant="outlined" onClick={reset} aria-label="Add configuration">
+          <AddIcon /> Add Configuration
+        </ActionButton>
+      </HeaderSectionStyled>
+
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration errors={errors} role={role} type={type} selectedUser={selectedUser} control={control} />
+        <DomainConfiguration errors={errors} role={role} type={type} isEditing={isEditing} control={control} />
+
         {role === 'Seller App' && type === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
-        {/* {(!selectedUser && (!role || role === '') && !type ? false : role !== 'Buyer App') && (
-          <ProviderBankDetails control={control} errors={errors} />
-        )} */}
+
         <SaveButtonContainer>
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
-            <SaveIcon /> {isSubmitLoading ? 'Submitting...' : selectedUser?._id ? 'Update' : 'Save & Proceed'}
+            <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
           </BulkButton>
+
           {selectedUser?._id && (
             <BulkButton
               variant="outlined"
               color="error"
-              onClick={handleDeleteClick}
+              onClick={() => setDeleteModalOpen(true)}
               disabled={isDeleteLoading}
-              style={{ marginLeft: '12px' }}
+              style={{ marginLeft: 12 }}
             >
               Delete
             </BulkButton>
           )}
         </SaveButtonContainer>
       </StyledForm>
+
       <DeleteConfirmationModal
         open={deleteModalOpen}
-        onClose={handleDeleteCancel}
+        onClose={() => setDeleteModalOpen(false)}
         onConfirm={handleDeleteConfirm}
         title="Confirm Deletion"
         message="Are you sure you want to delete this configuration? This action cannot be undone."

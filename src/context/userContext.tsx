@@ -2,8 +2,7 @@ import { FC, createContext, useContext, useEffect, useState, ReactNode } from 'r
 import useGetUsers from 'hooks/queries/useGetUsers'
 import { IUser, IUserContext } from '@interfaces/user'
 import { useLoader } from 'context/loaderContext'
-import { ROUTES } from 'constants/routes.constants'
-import { useNavigate } from 'react-router-dom'
+import { LOCAL_STORAGE_KEY } from 'constants/user'
 
 const UserContext = createContext<IUserContext | null>(null)
 
@@ -15,7 +14,6 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   const { data: usersData, isLoading, refetch } = useGetUsers({ enabled: true })
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null)
   const { showLoader, hideLoader } = useLoader()
-  const navigate = useNavigate()
   const [initialLoadHandled, setInitialLoadHandled] = useState(false)
 
   useEffect(() => {
@@ -30,11 +28,36 @@ export const UserProvider: FC<UserProviderProps> = ({ children }) => {
   }, [isLoading, initialLoadHandled, showLoader, hideLoader])
 
   useEffect(() => {
-    if (usersData?.data && usersData?.data?.length > 0 && !selectedUser) {
-      setSelectedUser(usersData?.data[0])
-      navigate(ROUTES.ORDERS_IN_PROGRESS)
+    if (isLoading) return
+
+    const users = usersData?.data || []
+
+    if (users.length === 0) {
+      setSelectedUser(null)
+      localStorage.removeItem(LOCAL_STORAGE_KEY)
+      return
     }
-  }, [usersData])
+
+    const savedUserId = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (!selectedUser) {
+      if (savedUserId) {
+        const savedUser = users.find((u) => u._id === savedUserId)
+        if (savedUser) {
+          setSelectedUser(savedUser)
+          return
+        }
+      }
+
+      setSelectedUser(users[users?.length - 1])
+    }
+  }, [usersData, selectedUser])
+
+  useEffect(() => {
+    if (selectedUser) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, selectedUser._id)
+    }
+  }, [selectedUser])
 
   return (
     <UserContext.Provider

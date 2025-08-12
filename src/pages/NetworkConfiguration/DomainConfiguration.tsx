@@ -22,7 +22,7 @@ import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
-const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDomainConfigurationProps): JSX.Element => (
+const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => (
   <ConfigurationBox>
     <SettlementHeader>
       <NetworkIdentityHeader>
@@ -68,7 +68,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 value={field.value || ''}
                 onChange={(e) => field.onChange(e.target.value)}
                 error={!!errors.role}
-                disabled={!!selectedUser}
+                disabled={isEditing}
                 displayEmpty
                 renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Role')}
                 options={[
@@ -97,7 +97,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 value={DOMAIN_CATEGORIES?.find((d) => d?.value === field.value)?.label || ''}
                 onChange={(e) => field.onChange(e.target.value)}
                 error={!!errors.domainCategory}
-                disabled={!!selectedUser}
+                disabled={isEditing}
                 displayEmpty
                 renderValue={(selected: unknown) => {
                   if (!selected) return 'Select Domain Category'
@@ -135,7 +135,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 inputRef={field.ref}
                 error={!!errors.subscriberUrl}
                 helperText={errors.subscriberUrl?.message}
-                disabled={!!selectedUser}
+                disabled={isEditing}
               />
             )}
           />
@@ -153,9 +153,9 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                   value={field.value || ''}
                   onChange={(e) => field.onChange(e.target.value)}
                   error={!!errors.type}
-                  disabled={!!selectedUser}
+                  disabled={isEditing}
                   displayEmpty
-                  renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Type')}
+                  renderValue={(selected: unknown) => (selected && selected !== '' ? String(selected) : 'Select Type')}
                   options={[
                     { value: 'MSN', label: 'MSN' },
                     { value: 'ISN', label: 'ISN' },
@@ -164,6 +164,7 @@ const DomainConfiguration = ({ control, errors, role, selectedUser, type }: IDom
                 />
               )}
             />
+
             {errors.type && (
               <ErrorMessage color="error" variant="caption">
                 {errors.type.message}
