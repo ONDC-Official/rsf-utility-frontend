@@ -45,7 +45,7 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
         <StatusChip status={order.self_status} />
       </StyledTableBodyCell>
       <StyledTableBodyCell>
-        <StatusChip status={order.provider_status} />
+        {order.provider_status ? <StatusChip status={order.provider_status} /> : 'Not Applicable'}
       </StyledTableBodyCell>
       <StyledTableBodyCell>{order.settlement_reference}</StyledTableBodyCell>
       <StyledTableBodyCell>
