@@ -35,7 +35,7 @@ export const ConfigurationLabel = styled(Typography)({
 
 export const StyledSelect = styled(Select)({
   width: '140px',
-  height: '16px',
+  height: '24px',
   justifyContent: 'space-between',
   borderRadius: '8px',
   paddingTop: '8px',
