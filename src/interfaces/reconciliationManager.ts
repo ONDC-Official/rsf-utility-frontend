@@ -27,10 +27,8 @@ export interface IIncomingRequest extends Record<string, unknown> {
   orderId: string
   receiverId: string
   collectorId: string
-  requestedAmount: number
-  currentAmount: number
-  requestedCommission: number
-  currentCommission: number
+  inter_np_settlement: number
+  commission: number
   reason: string
   receivedDate: string
   recon_status: string

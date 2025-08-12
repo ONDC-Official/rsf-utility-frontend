@@ -19,7 +19,6 @@ export interface IReinitiateModalProps {
 }
 
 export interface IGenerateReconRequestProps {
-  allOrders: IReconciliationOrder[]
   onToastShow: (message: string) => void
   onSelectionChange?: (count: number, canGenerate: boolean, generateHandler: () => Promise<void>) => void
 }

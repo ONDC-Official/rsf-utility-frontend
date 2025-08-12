@@ -48,10 +48,8 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
       orderId: item.order_id,
       receiverId: item.receiver_id || '-',
       collectorId: item.collector_id || '-',
-      requestedAmount: item.recon_breakdown.amount,
-      currentAmount: item.recon_breakdown.amount,
-      requestedCommission: item.recon_breakdown.commission,
-      currentCommission: item.recon_breakdown.commission,
+      inter_np_settlement: item.recon_breakdown.amount,
+      commission: item.recon_breakdown.commission,
       reason: 'Reconciliation request',
       receivedDate: item.createdAt,
       recon_status: item.recon_status,
@@ -142,11 +140,11 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>
           <StatusChip status={item.recon_status} />
         </StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.diffInterNpSettlement || 0)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.diffCommission || 0)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.diffTcs || 0)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.diffTds || 0)}</StyledTableBodyCell>
-        <StyledTableBodyCell>{formatCurrency(item.diffWithholding || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.inter_np_settlement || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.commission || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.tcs || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.tds || 0)}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formatCurrency(item.withholding_amount || 0)}</StyledTableBodyCell>
         <StyledTableBodyCell>{formatDate(item.receivedDate)}</StyledTableBodyCell>
 
         <StyledTableBodyCell>

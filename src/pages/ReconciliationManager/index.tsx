@@ -4,7 +4,6 @@ import HeaderSection from 'pages/ReconciliationManager/HeaderSection'
 import ReconciliationTabs from 'pages/ReconciliationManager/ReconciliationTabs'
 import GenerateReconRequest from 'pages/ReconciliationManager/GenerateReconRequest'
 import ReviewReconRequests from 'pages/ReconciliationManager/ReviewReconRequests'
-import { generateReconciliationData } from 'data/reconciliationManagerData'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
 import OutgoingRequestsSection from './OutgoingRequestSection'
 
@@ -13,8 +12,6 @@ const ReconciliationManager: FC = () => {
   const [toast, setToast] = useState({ isVisible: false, message: '' })
   const [isGenerateButtonDisabled, setIsGenerateButtonDisabled] = useState(true)
   const [generateHandler, setGenerateHandler] = useState<(() => Promise<void>) | null>(null)
-
-  const allOrders = generateReconciliationData(256)
 
   const handleToastShow = (message: string): void => {
     setToast({ isVisible: true, message })
@@ -65,11 +62,7 @@ const ReconciliationManager: FC = () => {
       <ReconciliationTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === 0 && (
-        <GenerateReconRequest
-          allOrders={allOrders}
-          onToastShow={handleToastShow}
-          onSelectionChange={handleSelectionChange}
-        />
+        <GenerateReconRequest onToastShow={handleToastShow} onSelectionChange={handleSelectionChange} />
       )}
 
       {activeTab === 1 && <OutgoingRequestsSection onToastShow={handleToastShow} />}
