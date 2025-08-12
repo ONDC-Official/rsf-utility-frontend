@@ -68,7 +68,10 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
           <Controller
             control={control}
             name={`settlements.${index}.selfAmount` as const}
-            rules={{ required: 'Required' }}
+            rules={{
+              required: 'Required',
+              min: { value: 0, message: 'Must be 0 or greater' },
+            }}
             render={({ field, fieldState }) => (
               <InputField
                 {...field}
@@ -97,7 +100,10 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
               <Controller
                 control={control}
                 name={`settlements.${index}.providerAmount` as const}
-                rules={{ required: 'Required' }}
+                rules={{
+                  required: 'Required',
+                  min: { value: 0, message: 'Must be 0 or greater' },
+                }}
                 render={({ field, fieldState }) => (
                   <InputField
                     {...field}
