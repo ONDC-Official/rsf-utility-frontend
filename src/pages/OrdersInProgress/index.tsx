@@ -72,7 +72,7 @@ const OrdersInProgress: React.FC = () => {
   }, [isLoading, showLoader, hideLoader])
 
   const orders = ordersData?.data || []
-  const totalCount = orders.length
+  const totalCount = ordersData?.pagination?.totalCount || 0
 
   const renderRow = (order: IOrderRow): JSX.Element => (
     <>

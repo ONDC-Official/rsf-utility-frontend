@@ -89,7 +89,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
     dueDate: order.dueDate,
     settle_status: order.settle_status,
   }))
-  const totalCount = currentOrders.length
+  const totalCount = ordersData?.pagination?.totalCount || 0
 
   useEffect(() => {
     const selectedCount = selectedOrders.size

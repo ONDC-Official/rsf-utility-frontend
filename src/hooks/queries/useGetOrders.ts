@@ -101,6 +101,7 @@ const useGetOrders = (
       ? {
           ...query.data,
           data: transformOrderData(query.data.data.orders),
+          pagination: query.data.data.pagination,
         }
       : undefined,
   } as UseQueryResult<IApiResponse<IOrder[]>>
