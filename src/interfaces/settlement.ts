@@ -130,6 +130,7 @@ export interface IUserSettlementItem {
   id: string
   order_id: string
   user_id: string
+  initiated_date: string
   collector_id: string
   receiver_id: string
   settlement_id: string

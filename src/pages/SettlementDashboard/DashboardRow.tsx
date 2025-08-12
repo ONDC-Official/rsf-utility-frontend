@@ -60,7 +60,7 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
           TABLE_CELL_DEFAULTS.ERROR
         )}
       </StyledTableBodyCell>
-      <StyledTableBodyCell>{formatDate(order.due_date)}</StyledTableBodyCell>
+      <StyledTableBodyCell>{formatDate(order.initiated_date)}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {order?.status === 'NOT_SETTLED' ? (
           <Button variant="outlined" onClick={handleReconcileClick}>

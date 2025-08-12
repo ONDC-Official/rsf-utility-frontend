@@ -38,11 +38,12 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
     }
   }
 
-  // Common creation/update fields
-  payload.role = isSeller ? 'BPP' : 'BAP'
-  payload.msn = isMsn
-  payload.subscriber_url = data.subscriberUrl
-  payload.domain = data.domainCategory
+  if (!data._id) {
+    payload.role = isSeller ? 'BPP' : 'BAP'
+    payload.msn = isMsn
+    payload.subscriber_url = data.subscriberUrl
+    payload.domain = data.domainCategory
+  }
 
   // Providers (only for seller)
   if (!isBuyer && data.providers?.length) {

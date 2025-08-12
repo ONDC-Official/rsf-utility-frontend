@@ -1,11 +1,10 @@
-import { Tooltip } from '@mui/material'
+import { Tooltip, Typography } from '@mui/material'
 import TaxesIcon from 'assets/images/svg/TaxesIcon'
 import ToolTipIcon from 'assets/images/svg/ToolTipIcon'
 import {
   ConfigurationBox,
   SettlementHeader,
   NetworkIdentityHeader,
-  NetworkIdentityTitle,
   DomainConfigContainer,
   ConfigHeader,
   FormContainer,
@@ -19,6 +18,7 @@ import { Controller } from 'react-hook-form'
 import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
 import { DOMAIN_CATEGORIES } from 'constants/domains'
 import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
+import { TypographyVariant } from 'enums/typography'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
@@ -27,7 +27,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
     <SettlementHeader>
       <NetworkIdentityHeader>
         <TaxesIcon />
-        <NetworkIdentityTitle>Settlement Configuration</NetworkIdentityTitle>
+        <Typography variant={TypographyVariant.H5Bold}>Settlement Configuration</Typography>
       </NetworkIdentityHeader>
     </SettlementHeader>
 

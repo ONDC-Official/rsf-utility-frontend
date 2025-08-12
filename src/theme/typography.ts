@@ -50,24 +50,24 @@ export const typography = {
     fontWeight: 600,
   },
   h4: {
-    fontSize: '28px',
+    fontSize: '26px',
     lineHeight: '40px',
     fontFamily: BOLD,
     fontWeight: 700,
   },
   h5: {
-    fontSize: '24px',
+    fontSize: '22px',
     lineHeight: '36px',
     fontFamily: BOLD,
   },
   h5_semibold: {
-    fontSize: '24px',
+    fontSize: '22px',
     lineHeight: '32px',
     fontFamily: SEMI_BOLD,
     fontWeight: 600,
   },
   h5_bold: {
-    fontSize: '24px',
+    fontSize: '22px',
     lineHeight: '32px',
     fontFamily: SEMI_BOLD,
     fontWeight: 700,
