@@ -28,8 +28,8 @@ const SummarySection: FC<IProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const isFormValid = selectedOrderIds.every((orderId) => {
-    const input = formInputs[orderId]
-    return input?.self_value
+    const value = Number(formInputs[orderId]?.self_value)
+    return !isNaN(value) && value >= 0
   })
 
   const totalInterNpSettlement = selectedOrders.reduce((total, order) => {

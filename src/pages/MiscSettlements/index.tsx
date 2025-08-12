@@ -1,13 +1,11 @@
 import React from 'react'
 import { FC } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-import { Tooltip, Typography } from '@mui/material'
-// import DateRangePickerButton from 'components/common/DateRangePickerButton'
+import { Typography } from '@mui/material'
 import Button from 'components/common/Button'
 import SettlementsTable from './components/SettlementsTable'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
-// import { IDateRange } from 'components/common/DateRangePickerButton/types'
 import { useToast } from 'context/toastContext'
 import { useLoader } from 'context/loaderContext'
 import { useUserContext } from 'context/userContext'
@@ -20,14 +18,13 @@ import {
   HeaderLeft,
   Wrapper,
   TableHeader,
-  // TableActions,
   HeaderRight,
   FormsContainer,
   FormWrapper,
   RotatedSendIcon,
 } from 'styles/pages/MiscSettlements.styled'
 import PayloadPreview from 'pages/MiscSettlements/PayloadPreview'
-import SettlementDetailsForm from './components/SettlementDetailsForm' // updated child below
+import SettlementDetailsForm from './components/SettlementDetailsForm'
 import { AddCircleOutline } from '@mui/icons-material'
 
 type FormValues = {
@@ -44,7 +41,6 @@ const emptyFormValues: MiscSettlementFormValues = {
 }
 
 const MiscSettlements: FC = () => {
-  // const [dateRange, setDateRange] = React.useState<IDateRange>({ startDate: null, endDate: null })
   const [showPayloadPreview, setShowPayloadPreview] = React.useState(false)
   const [miscResponseData, setMiscResponseData] = React.useState<any>(null)
 
@@ -58,7 +54,7 @@ const MiscSettlements: FC = () => {
 
   const { control, handleSubmit, setValue, formState } = useForm<FormValues>({
     defaultValues: { settlements: [{ ...emptyFormValues }] },
-    mode: 'onChange', // to make formState.isValid update on change
+    mode: 'onChange',
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -67,21 +63,25 @@ const MiscSettlements: FC = () => {
   })
 
   const handleAddForm = (): void => {
-    // if (fields.length < provider_details.length) {
     append({ ...emptyFormValues })
-    // }
   }
-
-  // const selectedProviderIds = watch('settlements')
-  //   .map((s) => s.providerId)
-  //   .filter(Boolean)
 
   const onSubmit = async (data: FormValues) => {
     try {
       showLoader()
+
       const payloads = data.settlements.map((values) => {
-        return {
-          provider: {
+        const payload: any = {
+          self: {
+            amount: {
+              currency: 'INR',
+              value: values.selfAmount,
+            },
+          },
+        }
+
+        if (values.providerId) {
+          payload.provider = {
             id: values.providerId,
             name: values.providerName,
             bank_details: {
@@ -92,14 +92,10 @@ const MiscSettlements: FC = () => {
               currency: 'INR',
               value: values.providerAmount,
             },
-          },
-          self: {
-            amount: {
-              currency: 'INR',
-              value: values.selfAmount,
-            },
-          },
+          }
         }
+
+        return payload
       })
 
       const res = await miscMutation.triggerAsync(payloads)
@@ -132,8 +128,6 @@ const MiscSettlements: FC = () => {
     }
   }
 
-  // const handleDateRangeChange = (newDateRange: IDateRange): void => setDateRange(newDateRange)
-
   return (
     <Container>
       <Header>
@@ -142,18 +136,10 @@ const MiscSettlements: FC = () => {
           <Typography>Create ad-hoc settlements for special cases</Typography>
         </HeaderLeft>
         <HeaderRight>
-          <Tooltip title={fields.length >= provider_details.length ? 'All providers have been added' : ''}>
-            <span>
-              <Button
-                variant="outlined"
-                startIcon={<AddCircleOutline />}
-                onClick={handleAddForm}
-                // disabled={fields.length >= provider_details.length}
-              >
-                Add
-              </Button>
-            </span>
-          </Tooltip>
+          <Button variant="outlined" startIcon={<AddCircleOutline />} onClick={handleAddForm}>
+            Add
+          </Button>
+
           <Button
             variant="contained"
             startIcon={<RotatedSendIcon />}
@@ -168,26 +154,18 @@ const MiscSettlements: FC = () => {
       </Header>
 
       <FormsContainer>
-        {fields.map((field, index) => {
-          // const filteredProviders = provider_details.filter(
-          //   (p) =>
-          //     !selectedProviderIds.includes(p.provider_id) ||
-          //     p.provider_id === watch(`settlements.${index}.providerId`),
-          // )
-
-          return (
-            <FormWrapper key={field.id}>
-              <SettlementDetailsForm
-                control={control}
-                index={index}
-                providers={provider_details}
-                setValue={setValue}
-                onRemove={() => remove(index)}
-                showDelete={fields.length > 1}
-              />
-            </FormWrapper>
-          )
-        })}
+        {fields.map((field, index) => (
+          <FormWrapper key={field.id}>
+            <SettlementDetailsForm
+              control={control}
+              index={index}
+              providers={provider_details}
+              setValue={setValue}
+              onRemove={() => remove(index)}
+              showDelete={fields.length > 1}
+            />
+          </FormWrapper>
+        ))}
       </FormsContainer>
 
       <PayloadPreview
@@ -200,13 +178,6 @@ const MiscSettlements: FC = () => {
       <Wrapper>
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
-          {/* <TableActions>
-            <DateRangePickerButton
-              variant="outlined"
-              selectedDateRange={dateRange}
-              onDateRangeChange={handleDateRangeChange}
-            />
-          </TableActions> */}
         </TableHeader>
         <SettlementsTable />
       </Wrapper>
