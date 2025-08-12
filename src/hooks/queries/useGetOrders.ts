@@ -6,6 +6,16 @@ import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 import { formatDate } from 'utils/formatters'
 
+interface IOrdersApiResponse {
+  orders: IOrderApiResponse[]
+  pagination: {
+    totalCount: number
+    page: number
+    limit: number
+    totalPages: number
+  }
+}
+
 interface IOrderApiResponse {
   _id: string
   order_id: string
@@ -63,7 +73,7 @@ const transformOrderData = (apiOrders: IOrderApiResponse[]): IOrder[] => {
 const useGetOrders = (
   userId: string,
   params?: OrderQueryParams,
-  configs?: UseQueryOptions<IApiResponse<IOrderApiResponse[]>>,
+  configs?: UseQueryOptions<IApiResponse<IOrdersApiResponse>>,
 ): UseQueryResult<IApiResponse<IOrder[]>> => {
   const baseUrl = buildApiUrl(APIRoute.ORDERS, { userId })
 
@@ -80,7 +90,7 @@ const useGetOrders = (
 
   const url = searchParams.toString() ? `${baseUrl}?${searchParams}` : baseUrl
 
-  const query = useGet<IOrderApiResponse[]>(['orders', userId, params], url, {
+  const query = useGet<IOrdersApiResponse>(['orders', userId, params], url, {
     enabled: !!userId && !!params?.status,
     ...configs,
   })
@@ -90,7 +100,7 @@ const useGetOrders = (
     data: query.data
       ? {
           ...query.data,
-          data: transformOrderData(query.data.data),
+          data: transformOrderData(query.data.data.orders),
         }
       : undefined,
   } as UseQueryResult<IApiResponse<IOrder[]>>
