@@ -50,7 +50,7 @@ export const typography = {
     fontWeight: 600,
   },
   h4: {
-    fontSize: '32px',
+    fontSize: '28px',
     lineHeight: '40px',
     fontFamily: BOLD,
     fontWeight: 700,

@@ -12,7 +12,7 @@ export const StyledAppBar = styled(AppBar)({
 })
 
 export const StyledToolbar = styled(Toolbar)({
-  minHeight: '64px !important',
+  minHeight: '48px !important',
 })
 
 export const TitleContainer = styled(Box)({
@@ -35,7 +35,7 @@ export const ConfigurationLabel = styled(Typography)({
 
 export const StyledSelect = styled(Select)({
   width: '140px',
-  height: '32px',
+  height: '16px',
   justifyContent: 'space-between',
   borderRadius: '8px',
   paddingTop: '8px',

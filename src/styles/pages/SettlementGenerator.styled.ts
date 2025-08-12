@@ -13,7 +13,7 @@ export const PageHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const Left = styled(Box)({

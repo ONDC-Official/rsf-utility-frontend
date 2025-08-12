@@ -22,7 +22,6 @@ const renderEmptyState = (): JSX.Element => (
 )
 
 const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
-  receiverId,
   columns,
   data,
   totalCount,
@@ -41,7 +40,6 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
   return (
     <Container>
       <Header>
-        <Typography variant={TypographyVariant.H6Bold}>{receiverId}</Typography>
         <Actions>
           {showSaveButton && (
             <Button variant="contained" onClick={onSaveDueDatesClick}>

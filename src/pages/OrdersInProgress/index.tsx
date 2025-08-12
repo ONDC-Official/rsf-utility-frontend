@@ -10,7 +10,7 @@ import { columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
 import { IOrderRow } from 'pages/OrdersInProgress/types'
-import { Container, Header, HeaderLeft, HeaderRight, Wrapper, TableHeader } from 'styles/pages/OrdersInProgress.styled'
+import { Container, Header, HeaderLeft, HeaderRight, Wrapper } from 'styles/pages/OrdersInProgress.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import StatusChip from 'components/common/StatusChip'
 import { formatDate, formatCurrency, formatNumber } from 'utils/formatters'
@@ -126,9 +126,6 @@ const OrdersInProgress: React.FC = () => {
         </HeaderRight>
       </Header>
       <Wrapper>
-        <TableHeader>
-          <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>
-        </TableHeader>
         <Table
           columns={columns}
           data={orders}

@@ -4,11 +4,8 @@ import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
 import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
-import { Typography } from '@mui/material'
-import { TypographyVariant } from 'enums/typography'
 import useGenerateNpSettlement from 'hooks/mutations/useGenerateNpSettlement'
 import { useUserContext } from 'context/userContext'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
@@ -25,6 +22,7 @@ import { useLoader } from 'context/loaderContext'
 import { SettlementStatus } from 'enums/settlement'
 import usePatchSettlements from 'hooks/mutations/usePatchSettlements'
 import { downloadOrdersAsCSV } from 'utils/helpers'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
@@ -187,17 +185,13 @@ const SettlementGenerator: FC = () => {
 
       <div
         style={{
-          padding: '8px 0px',
-
+          marginBottom: 16,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
         }}
       >
-        <div style={{ flex: 1 }}>
-          {counterpartyId && <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>}
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
           <Select
             value={counterpartyId}

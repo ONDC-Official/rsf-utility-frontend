@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react'
-import { Typography } from '@mui/material'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
 import DashboardRow from 'pages/SettlementDashboard/DashboardRow'
@@ -14,10 +13,9 @@ import {
   Wrapper,
 } from 'styles/pages/SettlementDashboard.styled'
 // import ExportIcon from 'assets/images/svg/ExportIcon'
-import { TypographyVariant } from 'enums/typography'
 import { IUserSettlementItem } from '@interfaces/settlement'
 
-const DashboardTable: FC<IDashboardTableProps> = ({ orders, counterpartyId, onDateRangeChange, dateRange }) => {
+const DashboardTable: FC<IDashboardTableProps> = ({ orders, onDateRangeChange, dateRange }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
   const {
@@ -55,7 +53,6 @@ const DashboardTable: FC<IDashboardTableProps> = ({ orders, counterpartyId, onDa
   return (
     <Container>
       <Header>
-        <Typography variant={TypographyVariant.H6Bold}>{counterpartyId}</Typography>
         <Actions>
           <DateRangePickerButton
             variant="outlined"

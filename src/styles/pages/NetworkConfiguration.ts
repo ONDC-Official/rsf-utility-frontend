@@ -54,7 +54,7 @@ export const ConfigurationBox = styled('div')(() => ({
   flexDirection: 'column',
   gap: '15px',
   borderRadius: '20px',
-  padding: '32px',
+  padding: '16px',
   background: colors.text.light,
   boxShadow: '6px 6px 54px 0px #0000000d',
 }))
@@ -76,7 +76,7 @@ export const NetworkIdentityTitle = styled('div')(() => ({
   fontFamily: 'Inter',
   fontWeight: 700,
   fontSize: '24px',
-  lineHeight: '32px',
+  lineHeight: '16px',
   color: colors.text.caption,
 }))
 
@@ -122,7 +122,7 @@ export const DomainConfigContainer = styled('div')(() => ({
   flexDirection: 'column',
   padding: '20px',
   borderRadius: '8px',
-  marginBottom: '32px', // Add space below for section separation
+  marginBottom: '16px', // Add space below for section separation
 }))
 
 export const ConfigTitleSection = styled('div')(() => ({

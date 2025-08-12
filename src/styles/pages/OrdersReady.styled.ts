@@ -53,15 +53,14 @@ export const Container = styled(Box)({
   borderRadius: 8,
   overflow: 'hidden',
   marginBottom: 16,
-  padding: '32px',
+  padding: '16px',
 })
 
 export const Header = styled(Box)({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   background: colors.background.light,
   alignItems: 'center',
-  marginBottom: 16,
 })
 
 export const Actions = styled(Box)({

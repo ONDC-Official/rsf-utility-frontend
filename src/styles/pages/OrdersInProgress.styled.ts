@@ -49,7 +49,7 @@ export const Wrapper = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
-  padding: '32px',
+  padding: '16px',
 })
 
 export const TableHeader = styled(Box)({

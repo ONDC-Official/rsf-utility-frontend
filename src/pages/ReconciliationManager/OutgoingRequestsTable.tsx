@@ -6,7 +6,6 @@ import { IOutgoingRequest } from 'interfaces/reconciliationManager'
 import { outgoingRequestColumns } from 'pages/ReconciliationManager/data'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
-import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
 import { IOutgoingRequestsTableProps } from 'pages/ReconciliationManager/types'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -24,8 +23,6 @@ import {
   ErrorCell,
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
-import { Typography } from '@mui/material'
-import { TypographyVariant } from 'enums/typography'
 // import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }) => {
@@ -167,7 +164,6 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
   return (
     <Container style={{ marginTop: '24px' }}>
       <Header>
-        <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.OUTGOING_TITLE}</Typography>
         <Actions>
           <DateRangePickerButton
             variant="outlined"

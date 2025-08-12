@@ -30,10 +30,10 @@ export const TableContainer = styled(Box)({
 
 export const TableHeader = styled(Box)({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'center',
-  padding: '32px',
-  paddingBottom: 16,
+  padding: '16px',
+  paddingBottom: 0,
 })
 
 export const TableTitle = styled(Typography)({
@@ -113,7 +113,7 @@ export const Header = styled(Box)({
 export const Wrapper = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
-  padding: '0 32px',
+  padding: '0 16px',
 })
 
 export const ModalTitle = styled(Typography)({
