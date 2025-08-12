@@ -132,7 +132,7 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
             variant="contained"
             size="small"
             startIcon={<MoveToInbox />}
-            sx={{ height: 'auto' }}
+            sx={{ height: 'auto', width: 'max-content' }}
             onClick={() => handleMoveToReady(request)}
           >
             Move to Ready
