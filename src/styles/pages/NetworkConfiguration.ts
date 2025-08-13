@@ -8,19 +8,22 @@ export const Container = styled('div')(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: '20px',
 }))
 
 export const HeaderSection = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'start',
+  paddingTop: '16px',
 }))
 
 export const HeaderCard = styled('div')(() => ({
   borderRadius: '12px',
   display: 'flex',
   flexDirection: 'column',
+  padding: '16px',
+  gap: 20,
 }))
 
 export const SectionDescription = styled('div')(() => ({
@@ -41,9 +44,9 @@ export const StyledForm = styled('form')({
 export const ConfigurationBox = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: '8px',
+  gap: '16px',
   borderRadius: '20px',
-  padding: '8px',
+  padding: '16px',
   background: colors.text.light,
   boxShadow: '6px 6px 54px 0px #0000000d',
 }))
@@ -94,7 +97,7 @@ export const DomainConfigContainer = styled('div')(() => ({
   border: '1px solid #dfe0e5',
   display: 'flex',
   flexDirection: 'column',
-  padding: '8px',
+  padding: '20px',
   borderRadius: '16px',
 }))
 
@@ -108,7 +111,7 @@ export const ConfigTitleSection = styled('div')(() => ({
 export const FormContainer = styled('div')(() => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  gap: '8px',
+  gap: '20px',
   marginTop: '20px',
   alignItems: 'start',
   '& > div': {
