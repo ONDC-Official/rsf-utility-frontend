@@ -10,10 +10,12 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
       <Sidebar />
       <Wrapper>
         <Navbar />
-        <Content>{children}</Content>
-        <Footer>
-          <FooterText>© ONDC 2025, All Rights Reserved.</FooterText>
-        </Footer>
+        <Content>
+          {children}
+          <Footer>
+            <FooterText>© ONDC 2025, All Rights Reserved.</FooterText>
+          </Footer>
+        </Content>
       </Wrapper>
     </Container>
   )

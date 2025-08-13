@@ -34,7 +34,7 @@ export const Content = styled('main')({
 })
 
 export const SidebarContainer = styled('div')({
-  width: 300,
+  width: 280,
   height: '97vh',
   borderRadius: 20,
   padding: '30px 0',
