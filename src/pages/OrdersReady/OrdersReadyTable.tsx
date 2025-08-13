@@ -39,15 +39,15 @@ const OrdersReadyTable: FC<IOrdersReadyTableExtendedProps> = ({
 
   return (
     <Container>
-      <Header>
-        <Actions>
-          {showSaveButton && (
+      {showSaveButton && (
+        <Header>
+          <Actions>
             <Button variant="contained" onClick={onSaveDueDatesClick}>
               Save Orders
             </Button>
-          )}
-        </Actions>
-      </Header>
+          </Actions>
+        </Header>
+      )}
       <Table
         columns={columns}
         data={data}
