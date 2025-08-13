@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Close, Send } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
@@ -12,13 +12,12 @@ import {
   ModalContainer as Container,
   Content,
   Header,
-  ModalTitle as Title,
   CloseButton,
   StyledForm,
   FormRow,
   ButtonContainer,
-  ModalSubtitle,
 } from 'styles/pages/ReconciliationManager.styled'
+import { TypographyVariant } from 'enums/typography'
 
 interface IRejectModalProps {
   open: boolean
@@ -110,16 +109,16 @@ const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order, o
       <Container>
         <Content>
           <Header>
-            <Title>{RECONCILIATION_LABELS.REJECT_MODAL_TITLE}</Title>
+            <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.REJECT_MODAL_TITLE}</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>
           </Header>
 
           <StyledForm>
-            <ModalSubtitle>
+            <Typography variant={TypographyVariant.Body1Regular}>
               {RECONCILIATION_LABELS.REJECT_MODAL_SUBTITLE} {order?.orderId}
-            </ModalSubtitle>
+            </Typography>
 
             <FormRow>
               <InputField

@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 export const Container = styled(Box)({
@@ -27,20 +26,6 @@ export const Right = styled(Box)({
   alignItems: 'center',
 })
 
-export const PageTitle = styled(Typography)({
-  fontFamily: typography.h3_semibold.fontFamily,
-  fontWeight: typography.h3_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h3_semibold.fontSize,
-  lineHeight: typography.h3_semibold.lineHeight,
-})
-
-export const PageSubtitle = styled(Typography)({
-  color: colors.text.secondary,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
-})
-
 export const AlertContainer = styled(Box)({
   background: colors.alert.light,
   border: `1px solid ${colors.alert.main}`,
@@ -50,8 +35,6 @@ export const AlertContainer = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 8,
-  fontFamily: typography.body2_medium.fontFamily,
-  fontSize: typography.body2_medium.fontSize,
 })
 
 export const SettlementModeContainer = styled(Box)({
@@ -89,34 +72,6 @@ export const ModeRow = styled(Box)({
   gap: 12,
 })
 
-export const CustomDateLabel = styled(Typography)({
-  fontFamily: typography.body2_medium.fontFamily,
-  fontWeight: typography.body2_medium.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.body2_medium.fontSize,
-  marginBottom: 8,
-})
-
-export const ModeTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-})
-
-export const ModeDescription = styled(Typography)({
-  fontFamily: typography.body2_regular.fontFamily,
-  color: colors.text.secondary,
-  fontSize: typography.body2_regular.fontSize,
-})
-
-export const CounterpartyLabel = styled(Typography)({
-  color: colors.text.primary,
-  fontFamily: typography.body2_medium.fontFamily,
-  fontWeight: typography.body2_medium.fontWeight,
-  fontSize: typography.body2_medium.fontSize,
-})
-
 export const OrderSelectionContainer = styled(Box)({
   background: colors.background.light,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
@@ -133,13 +88,6 @@ export const OrderSelectionHeader = styled(Box)({
   borderBottom: `1px solid ${colors.border.main}`,
 })
 
-export const SectionTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-})
-
 export const ActionButtons = styled(Box)({
   display: 'flex',
   alignItems: 'center',
@@ -154,19 +102,11 @@ export const SummaryContainer = styled(Box)({
   marginBottom: 24,
 })
 
-export const SummaryHeader = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-  marginBottom: 20,
-})
-
 export const SummaryCards = styled(Box)({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 16,
-  marginBottom: 24,
+  margin: '16px 0',
 })
 
 export const Divider = styled(Box)({
@@ -237,13 +177,6 @@ export const Content = styled(Box)({
   borderRadius: 8,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   padding: 0,
-})
-
-export const ModalTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
 })
 
 export const CloseButton = styled(IconButton)({

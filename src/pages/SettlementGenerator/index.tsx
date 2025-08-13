@@ -22,7 +22,8 @@ import { useLoader } from 'context/loaderContext'
 import { SettlementStatus } from 'enums/settlement'
 import usePatchSettlements from 'hooks/mutations/usePatchSettlements'
 import { downloadOrdersAsCSV } from 'utils/helpers'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
@@ -95,13 +96,18 @@ const SettlementGenerator: FC = () => {
       showLoader()
       const payload = { settle_data: Object.values(formInputs) || [] }
       const res = await miscMutation.triggerAsync(payload)
-      toast(GENERATE_NP_NP_SETTLEMENT.SUCCESS)
+
+      if (res.success) {
+        toast(GENERATE_NP_NP_SETTLEMENT.SUCCESS)
+      } else {
+        throw res
+      }
 
       if (res?.success) {
         setNpSettlementResponseData(res.data)
         setShowPayloadPreview(true)
       }
-    } catch (e) {
+    } catch (e: any) {
       toast(GENERATE_NP_NP_SETTLEMENT.ERROR)
     } finally {
       hideLoader()
@@ -112,8 +118,11 @@ const SettlementGenerator: FC = () => {
     if (!userId || !npSettlementResponseData) return
 
     try {
-      await triggerAction.triggerAsync('settle', npSettlementResponseData)
-      toast(TRIGGER_ACTION.SUCCESS)
+      const res = await triggerAction.triggerAsync('settle', npSettlementResponseData)
+      if (res.success) {
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+
       setShowPayloadPreview(false)
     } catch (e) {
       toast(TRIGGER_ACTION.ERROR)
@@ -165,8 +174,6 @@ const SettlementGenerator: FC = () => {
       const res = await patchSettlementsMutation.triggerAsync(payload)
       if (res.success) {
         toast(SETTLEMENT_PATCH_MESSAGES.SUCCESS)
-      } else {
-        toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
       }
     } catch (error) {
       toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
@@ -192,7 +199,7 @@ const SettlementGenerator: FC = () => {
         }}
       >
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
+          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
           <Select
             value={counterpartyId}
             onChange={(e) => setCounterpartyId(e.target.value as string)}

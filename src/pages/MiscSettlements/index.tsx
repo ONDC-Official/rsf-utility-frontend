@@ -104,8 +104,6 @@ const MiscSettlements: FC = () => {
         setMiscResponseData(res.data)
         toast(GENERATE_MISC_SETTLEMENT.SUCCESS)
         setShowPayloadPreview(true)
-      } else {
-        toast(GENERATE_MISC_SETTLEMENT.ERROR)
       }
     } catch (e) {
       toast(GENERATE_MISC_SETTLEMENT.ERROR)
@@ -118,8 +116,11 @@ const MiscSettlements: FC = () => {
     if (!miscResponseData) return
 
     try {
-      await triggerAction.triggerAsync('settle', miscResponseData)
-      toast(TRIGGER_ACTION.SUCCESS)
+      const res = await triggerAction.triggerAsync('settle', miscResponseData)
+      if (res.success) {
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+
       setShowPayloadPreview(false)
     } catch (e) {
       toast(TRIGGER_ACTION.ERROR)
@@ -132,8 +133,8 @@ const MiscSettlements: FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H4}>Miscellaneous Settlements</Typography>
-          <Typography>Create ad-hoc settlements for special cases</Typography>
+          <Typography variant={TypographyVariant.H5Bold}>Miscellaneous Settlements</Typography>
+          <Typography variant={TypographyVariant.Body1Regular}>Create ad-hoc settlements for special cases</Typography>
         </HeaderLeft>
         <HeaderRight>
           <Button variant="outlined" startIcon={<AddCircleOutline />} onClick={handleAddForm}>

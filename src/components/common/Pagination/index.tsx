@@ -34,7 +34,7 @@ const Pagination: FC<IPaginationProps> = ({
   return (
     <Container>
       <Wrapper>
-        <PaginationInfo variant={TypographyVariant.Body5Regular}>
+        <PaginationInfo variant={TypographyVariant.Body3Regular}>
           Showing {startEntry} to {endEntry} of {count} entries
         </PaginationInfo>
 
@@ -47,9 +47,9 @@ const Pagination: FC<IPaginationProps> = ({
         />
 
         <PaginationShowContainer>
-          <PaginationShowText variant={TypographyVariant.Body5Regular}>Show</PaginationShowText>
+          <PaginationShowText variant={TypographyVariant.Body3Regular}>Show</PaginationShowText>
           <Select value={rowsPerPage} onChange={handleRowsPerPageChange} options={ROWS_PER_PAGE_OPTIONS} size="small" />
-          <PaginationShowText variant={TypographyVariant.Body5Regular}>entries</PaginationShowText>
+          <PaginationShowText variant={TypographyVariant.Body3Regular}>entries</PaginationShowText>
         </PaginationShowContainer>
       </Wrapper>
     </Container>

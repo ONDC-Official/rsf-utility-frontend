@@ -21,7 +21,7 @@ import { useUserContext } from 'context/userContext'
 import useGenerateNilSettlement from 'hooks/mutations/useGenerateNilSettlement'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useToast } from 'context/toastContext'
-import { GENERATE_NIL_SETTLEMENT, GENERIC, TRIGGER_ACTION } from 'constants/toastMessages'
+import { GENERATE_NIL_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
 import { useLoader } from 'context/loaderContext'
 
 const NilSettlement: FC = () => {
@@ -36,11 +36,6 @@ const NilSettlement: FC = () => {
   const { triggerAsync: triggerAction, isLoading: isTriggeringSettle } = useTriggerAction(selectedUser?._id || '')
 
   const handleTriggerNil = async (): Promise<void> => {
-    if (!isUserSelected) {
-      toast(GENERIC.USER_NOT_SELECTED)
-      return
-    }
-
     try {
       showLoader()
       const res = await triggerNil()
@@ -61,15 +56,15 @@ const NilSettlement: FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H4}>Nil Settlement</Typography>
-          <Typography variant={TypographyVariant.H6}>
+          <Typography variant={TypographyVariant.H5Bold}>Nil Settlement</Typography>
+          <Typography variant={TypographyVariant.Body1Regular}>
             Trigger nil settlement when no transactions are recorded for a cycle
           </Typography>
         </HeaderLeft>
       </Header>
 
       <Wrapper>
-        <Typography variant={TypographyVariant.H5Semibold}>
+        <Typography variant={TypographyVariant.H6Bold}>
           <InfoOutlined sx={{ mr: 1 }} /> Nil Settlement Trigger
         </Typography>
 
@@ -78,7 +73,7 @@ const NilSettlement: FC = () => {
             <WarningAmberOutlined />
           </NoticeIconBox>
           <NoticeTextBox>
-            <Typography variant={TypographyVariant.H6Semibold} color="warning.main">
+            <Typography variant={TypographyVariant.H6Bold} color="warning.main">
               Important Notice
             </Typography>
             <Typography color="warning.main">
@@ -87,12 +82,6 @@ const NilSettlement: FC = () => {
             </Typography>
           </NoticeTextBox>
         </NoticeBox>
-
-        {!isUserSelected && (
-          <Typography color="warning.main" sx={{ my: 2 }}>
-            Please select a user to proceed with Nil Settlement.
-          </Typography>
-        )}
 
         <ActionButtons>
           <Button

@@ -19,9 +19,9 @@ export const LogoContainer = styled(Box)({
 
 export const LogoText = styled(Typography)({
   color: colors.primary.contrastText,
-  fontWeight: typography.h6_semibold.fontWeight,
-  fontSize: typography.h6_semibold.fontSize,
-  fontFamily: typography.h6_semibold.fontFamily,
+  fontWeight: typography.h6_medium.fontWeight,
+  fontSize: typography.h6_medium.fontSize,
+  fontFamily: typography.h6_medium.fontFamily,
 })
 
 export const MenuList = styled(List)({

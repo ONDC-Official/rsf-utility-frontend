@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Close, Event } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'
@@ -12,12 +12,11 @@ import {
   ModalContainer as Container,
   Content,
   Header,
-  ModalTitle,
   CloseButton,
   StyledForm,
   ButtonContainer,
-  ModalSubtitle,
 } from 'styles/pages/ReconciliationManager.styled'
+import { TypographyVariant } from 'enums/typography'
 
 interface EditDueDateModalProps {
   open: boolean
@@ -32,7 +31,7 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
 
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
-  const muiToast = useToast()
+  const toast = useToast()
   const patchOrderDueDate = usePatchOrderDueDate(selectedUser?._id || '')
 
   const handleConfirm = async (): Promise<void> => {
@@ -50,19 +49,22 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
         },
       ]
 
-      await patchOrderDueDate.patchOrderAsync(payload)
+      const res = await patchOrderDueDate.patchOrderAsync(payload)
 
       hideLoader()
       setDueDate('')
       onConfirm()
-      muiToast(ORDER_PATCH_MESSAGES.SUCCESS)
+
+      if (res.success) {
+        toast(ORDER_PATCH_MESSAGES.SUCCESS)
+      }
 
       if (onEditSuccess) {
         onEditSuccess('Due date updated successfully!')
       }
     } catch (error) {
       hideLoader()
-      muiToast(ORDER_PATCH_MESSAGES.ERROR)
+      toast(ORDER_PATCH_MESSAGES.ERROR)
 
       if (onEditSuccess) {
         onEditSuccess('Failed to update due date')
@@ -80,14 +82,14 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
       <Container>
         <Content>
           <Header>
-            <ModalTitle>Edit Due Date</ModalTitle>
+            <Typography variant={TypographyVariant.H6Bold}>Edit Due Date</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>
           </Header>
 
           <StyledForm style={{ padding: '0 24px 24px 24px' }}>
-            <ModalSubtitle>Edit due date for Order ID: {orderId}</ModalSubtitle>
+            <Typography variant={TypographyVariant.Body1Regular}>Edit due date for Order ID: {orderId}</Typography>
 
             <InputField
               label="Due Date *"

@@ -6,7 +6,7 @@ import colors from 'theme/colors'
 
 const RequiredFieldLabel: FC<RequiredFieldLabelProps> = ({
   children,
-  variant = TypographyVariant.Body2Semibold,
+  variant = TypographyVariant.Body2Medium,
   ...props
 }) => {
   return (

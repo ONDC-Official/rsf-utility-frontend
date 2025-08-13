@@ -13,11 +13,10 @@ import {
   DomainConfigContainer,
   ConfigHeader,
   FormContainer,
-  ActionButton,
-  RemoveWrapper,
   StyledInput,
 } from 'styles/pages/NetworkConfiguration'
 import { Typography } from '@mui/material'
+import Button from 'components/common/Button'
 
 const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({
@@ -32,9 +31,9 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
           <BankIcon />
           <NetworkIdentityTitle>Provider Bank Account Details</NetworkIdentityTitle>
         </NetworkIdentityHeader>
-        <ActionButton variant="outlined" onClick={() => append(defaultProvider)}>
+        <Button variant="outlined" onClick={() => append(defaultProvider)}>
           <AddIcon /> Add Provider
-        </ActionButton>
+        </Button>
       </SettlementHeader>
 
       {fields.map((field, index) => (
@@ -42,9 +41,9 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
           <ConfigHeader>
             <div>Provider {index + 1}</div>
             {fields.length > 1 && (
-              <RemoveWrapper>
+              <Button variant="text">
                 <RemoveIcon onClick={() => remove(index)} />
-              </RemoveWrapper>
+              </Button>
             )}
           </ConfigHeader>
 

@@ -67,9 +67,12 @@ const OutgoingRequestsSection: FC<OutgoingRequestsSectionProps> = ({ onToastShow
     if (!payloadData) return
 
     try {
-      await triggerAction.triggerAsync('recon', payloadData)
+      const res = await triggerAction.triggerAsync('recon', payloadData)
 
-      toast(TRIGGER_ACTION.SUCCESS)
+      if (res.success) {
+        toast(TRIGGER_ACTION.SUCCESS)
+      }
+
       setShowPayloadPreview(false)
     } catch (e) {
       toast(TRIGGER_ACTION.ERROR)

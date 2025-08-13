@@ -1,15 +1,7 @@
 import { FC } from 'react'
-import { SelectChangeEvent } from '@mui/material'
+import { SelectChangeEvent, Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
-import {
-  StyledAppBar,
-  StyledToolbar,
-  TitleContainer,
-  RightSection,
-  NavbarTitle,
-  ConfigurationLabel,
-  StyledSelect,
-} from 'styles/layout/Navbar.styled'
+import { StyledAppBar, StyledToolbar, TitleContainer, RightSection, StyledSelect } from 'styles/layout/Navbar.styled'
 import { useUserContext } from 'context/userContext'
 
 const Navbar: FC = () => {
@@ -33,11 +25,11 @@ const Navbar: FC = () => {
     <StyledAppBar position="static">
       <StyledToolbar>
         <TitleContainer>
-          <NavbarTitle variant={TypographyVariant.Caption1Semibold}>Reconciliation and Settlement System</NavbarTitle>
+          <Typography variant={TypographyVariant.H6Bold}>Reconciliation and Settlement System</Typography>
         </TitleContainer>
 
         <RightSection>
-          <ConfigurationLabel variant={TypographyVariant.Body5Medium}>Configuration</ConfigurationLabel>
+          <Typography variant={TypographyVariant.Caption1Bold}>Configuration</Typography>
 
           <StyledSelect
             value={selectedUser?._id ?? ''}

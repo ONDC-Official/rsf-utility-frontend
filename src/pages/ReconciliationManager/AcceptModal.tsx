@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Close, Event } from '@mui/icons-material'
 import InputField from 'components/common/InputField'
 import { RECONCILIATION_LABELS } from 'pages/ReconciliationManager/constants'
@@ -12,12 +12,11 @@ import {
   ModalContainer as Container,
   Content,
   Header,
-  ModalTitle as Title,
   CloseButton,
   StyledForm,
   ButtonContainer,
-  ModalSubtitle,
 } from 'styles/pages/ReconciliationManager.styled'
+import { TypographyVariant } from 'enums/typography'
 
 const AcceptModal: FC<IAcceptModalProps> = ({ open, onClose, onConfirm, order, onAcceptSuccess }) => {
   const [dueDate, setDueDate] = useState('')
@@ -75,16 +74,16 @@ const AcceptModal: FC<IAcceptModalProps> = ({ open, onClose, onConfirm, order, o
       <Container>
         <Content>
           <Header>
-            <Title>{RECONCILIATION_LABELS.ACCEPT_MODAL_TITLE}</Title>
+            <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.ACCEPT_MODAL_TITLE}</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>
           </Header>
 
           <StyledForm>
-            <ModalSubtitle>
+            <Typography variant={TypographyVariant.Body1Regular}>
               {RECONCILIATION_LABELS.ACCEPT_MODAL_SUBTITLE} {order?.orderId}
-            </ModalSubtitle>
+            </Typography>
 
             <InputField
               label={`${RECONCILIATION_LABELS.FORM_DUE_DATE} *`}

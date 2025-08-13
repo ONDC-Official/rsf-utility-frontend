@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react'
 import { SelectChangeEvent, Typography } from '@mui/material'
 import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { DASHBOARD_LABELS } from 'pages/SettlementDashboard/constants'
 import { IHeaderSectionProps } from 'pages/SettlementDashboard/types'
 import { PageHeader as Container, Left, Right } from 'styles/pages/SettlementDashboard.styled'
@@ -40,13 +39,11 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterparty
   return (
     <Container>
       <Left>
-        <Typography variant={TypographyVariant.H4}>{DASHBOARD_LABELS.TITLE}</Typography>
-        <Typography variant={TypographyVariant.H6}>{DASHBOARD_LABELS.SUBTITLE}</Typography>
+        <Typography variant={TypographyVariant.H5Bold}>{DASHBOARD_LABELS.TITLE}</Typography>
+        <Typography variant={TypographyVariant.Body1Regular}>{DASHBOARD_LABELS.SUBTITLE}</Typography>
       </Left>
       <Right>
-        <RequiredFieldLabel variant={TypographyVariant.Body1Medium}>
-          {DASHBOARD_LABELS.COUNTERPARTY_LABEL}
-        </RequiredFieldLabel>
+        <Typography variant={TypographyVariant.Body1Medium}>{DASHBOARD_LABELS.COUNTERPARTY_LABEL}</Typography>
         <Select value={counterpartyId} onChange={handleChange} options={counterpartyOptions} size="small" />
       </Right>
     </Container>

@@ -16,7 +16,7 @@ interface IOrdersReadyTableExtendedProps extends IOrdersReadyTableProps {
 }
 
 const renderEmptyState = (): JSX.Element => (
-  <Typography variant={TypographyVariant.H6} color="text.secondary">
+  <Typography variant={TypographyVariant.H6Regular} color="text.secondary">
     No orders in ready
   </Typography>
 )

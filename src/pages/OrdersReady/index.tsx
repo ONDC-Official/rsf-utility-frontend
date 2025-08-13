@@ -67,8 +67,6 @@ const OrdersReady: FC = () => {
       if (res.success) {
         muiToast(ORDER_PATCH_MESSAGES.SUCCESS)
         resetEditedDueDates()
-      } else {
-        muiToast(ORDER_PATCH_MESSAGES.ERROR)
       }
     } catch (e) {
       muiToast(ORDER_PATCH_MESSAGES.ERROR)

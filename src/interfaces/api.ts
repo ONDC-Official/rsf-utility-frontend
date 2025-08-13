@@ -7,6 +7,9 @@ export interface IApiResponse<T> {
   success: boolean
   message: string
   data: T
+  details: {
+    error: string
+  }
   pagination?: {
     totalCount: number
     page: number

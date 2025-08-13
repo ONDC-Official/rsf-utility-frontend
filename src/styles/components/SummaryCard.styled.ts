@@ -36,8 +36,8 @@ export const SummaryCardLabel = styled(Typography)({
 })
 
 export const SummaryCardValue = styled(Typography)({
-  fontFamily: typography.h5_semibold.fontFamily,
-  fontWeight: typography.h5_semibold.fontWeight,
-  fontSize: typography.h5_semibold.fontSize,
+  fontFamily: typography.h5_medium.fontFamily,
+  fontWeight: typography.h5_medium.fontWeight,
+  fontSize: typography.h5_medium.fontSize,
   color: colors.background.light,
 })

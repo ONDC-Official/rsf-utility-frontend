@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 import { Delete, SendRounded } from '@mui/icons-material'
 
 export const Container = styled(Box)({
@@ -28,19 +27,6 @@ export const HeaderRight = styled(Box)({
   gap: 16,
 })
 
-export const PageTitle = styled(Typography)({
-  fontWeight: typography.h3_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h3_semibold.fontSize,
-  lineHeight: typography.h3_semibold.lineHeight,
-})
-
-export const PageSubtitle = styled(Typography)({
-  color: colors.text.secondary,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
-})
-
 export const Wrapper = styled(Box)({
   background: colors.background.light,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
@@ -62,26 +48,12 @@ export const TableActions = styled(Box)({
   gap: 16,
 })
 
-export const TableTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-})
-
 export const SettlementDetailsContainer = styled(Container)({
   background: colors.background.light,
   border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
   borderRadius: 8,
   padding: '20px 24px',
   marginBottom: 24,
-})
-
-export const SectionTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
 })
 
 export const FieldRow = styled(Box)({
@@ -119,8 +91,6 @@ export const Divider = styled(Box)({
   justifyContent: 'center',
   width: '100%',
   color: colors.text.secondary,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
   marginBottom: 16,
 
   '&::before, &::after': {
@@ -144,11 +114,6 @@ export const Divider = styled(Box)({
 export const RotatedSendIcon = styled(SendRounded)({
   transform: 'rotate(-45deg)',
   margin: '0 8px',
-})
-
-export const BottomAlignedTypography = styled(Typography)({
-  display: 'flex',
-  alignItems: 'center',
 })
 
 export const FormsContainer = styled(Box)({

@@ -19,10 +19,10 @@ import {
   TableContainer as Container,
   TableHeader as Header,
   TableActions as Actions,
-  ActionButton as Button,
   ErrorCell,
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
+import Button from 'components/common/Button'
 // import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }) => {

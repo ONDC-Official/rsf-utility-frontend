@@ -1,12 +1,11 @@
 import { FC, useCallback } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Visibility, Download, Close } from '@mui/icons-material'
 import { IPayloadPreviewProps } from 'pages/SettlementGenerator/types'
 import {
   ModalContainer,
   Content,
   Header,
-  ModalTitle,
   CloseButton,
   PayloadHeader,
   PayloadActions,
@@ -15,6 +14,7 @@ import {
 import Button from 'components/common/Button'
 import { useToast } from 'context/toastContext'
 import { FILE_DOWNLOAD_MESSAGES } from 'constants/toastMessages'
+import { TypographyVariant } from 'enums/typography'
 
 const PayloadPreview: FC<IPayloadPreviewProps> = ({ data, onTrigger, open, onClose }): JSX.Element => {
   const toast = useToast()
@@ -45,7 +45,7 @@ const PayloadPreview: FC<IPayloadPreviewProps> = ({ data, onTrigger, open, onClo
       <ModalContainer>
         <Content>
           <Header>
-            <ModalTitle>Settlement Payload Preview</ModalTitle>
+            <Typography variant={TypographyVariant.H6Bold}>Settlement Payload Preview</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>

@@ -33,8 +33,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (res.success && res.data?.token) {
         setToken(res.data.token)
         localStorage.setItem('authToken', res.data.token)
-      } else {
-        toast(TOKEN_MESSAGES.ERROR)
       }
     } catch {
       toast(TOKEN_MESSAGES.ERROR)

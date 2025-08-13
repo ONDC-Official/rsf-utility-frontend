@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react'
 import { Box, Typography, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { IOrdersReadyHeaderProps } from 'pages/OrdersReady/types'
 import { ORDER_HEADER_LABELS, PrepareButtonState } from 'pages/OrdersReady/constants'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
@@ -52,11 +51,11 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   return (
     <Container>
       <HeaderLeft>
-        <Typography variant={TypographyVariant.H4}>{ORDER_HEADER_LABELS.title}</Typography>
-        <Typography variant={TypographyVariant.H6}>{ORDER_HEADER_LABELS.subtitle}</Typography>
+        <Typography variant={TypographyVariant.H5Bold}>{ORDER_HEADER_LABELS.title}</Typography>
+        <Typography variant={TypographyVariant.Body1Regular}>{ORDER_HEADER_LABELS.subtitle}</Typography>
       </HeaderLeft>
       <HeaderRight>
-        <RequiredFieldLabel variant={TypographyVariant.H6Bold}>{ORDER_HEADER_LABELS.receiverLabel}</RequiredFieldLabel>
+        <Typography variant={TypographyVariant.Body1Medium}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
         <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
         <Box>
           <PrepareButton

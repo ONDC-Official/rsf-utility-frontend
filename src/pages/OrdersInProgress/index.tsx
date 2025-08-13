@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -103,7 +102,7 @@ const OrdersInProgress: React.FC = () => {
   }
 
   const renderEmptyState = (): JSX.Element => (
-    <Typography variant={TypographyVariant.H6} color="text.secondary">
+    <Typography variant={TypographyVariant.H6Bold} color="text.secondary">
       No orders in progress
     </Typography>
   )
@@ -112,11 +111,11 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H4}>Orders In Progress</Typography>
-          <Typography variant={TypographyVariant.H6}>Monitor orders currently being processed</Typography>
+          <Typography variant={TypographyVariant.H5Bold}>Orders In Progress</Typography>
+          <Typography variant={TypographyVariant.Body1Regular}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>
-          <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
+          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
           <Select
             value={counterpartyId}
             onChange={(e) => setCounterpartyId(e.target.value as string)}

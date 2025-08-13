@@ -10,7 +10,6 @@ import {
   FormContainer,
   LabelWrapper,
   IconWrapper,
-  ErrorMessage,
   StyledInput,
   StyledSelect,
 } from 'styles/pages/NetworkConfiguration'
@@ -80,9 +79,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
             )}
           />
           {errors.role && (
-            <ErrorMessage color="error" variant="caption">
+            <Typography variant={TypographyVariant.Caption1Regular} color="error">
               {errors.role.message}
-            </ErrorMessage>
+            </Typography>
           )}
         </div>
 
@@ -110,9 +109,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
             )}
           />
           {errors.domainCategory && (
-            <ErrorMessage color="error" variant="caption">
+            <Typography variant={TypographyVariant.Caption1Regular} color="error">
               {errors.domainCategory.message}
-            </ErrorMessage>
+            </Typography>
           )}
         </div>
 
@@ -166,9 +165,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
             />
 
             {errors.type && (
-              <ErrorMessage color="error" variant="caption">
+              <Typography variant={TypographyVariant.Caption1Regular} color="error">
                 {errors.type.message}
-              </ErrorMessage>
+              </Typography>
             )}
           </div>
         )}
@@ -233,9 +232,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tcs_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tcs_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
 
@@ -297,9 +296,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tds_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tds_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
           </>
@@ -364,9 +363,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tcs_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tcs_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
 
@@ -427,9 +426,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tds_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tds_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
           </>
@@ -494,9 +493,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tcs_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tcs_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
 
@@ -557,9 +556,9 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
                 )}
               />
               {errors.tds_applicability && (
-                <ErrorMessage color="error" variant="caption">
+                <Typography variant={TypographyVariant.Caption1Regular} color="error">
                   {errors.tds_applicability.message}
-                </ErrorMessage>
+                </Typography>
               )}
             </div>
 

@@ -8,7 +8,6 @@ import {
   FieldInputBox,
   FieldBox,
   Divider,
-  BottomAlignedTypography,
   DeleteButton,
   SettleHeader,
 } from 'styles/pages/MiscSettlements.styled'
@@ -55,14 +54,14 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
   return (
     <SettlementDetailsContainer>
       <SettleHeader>
-        <BottomAlignedTypography variant={TypographyVariant.H5Bold}>Settlement Details</BottomAlignedTypography>
+        <Typography variant={TypographyVariant.H6Bold}>Settlement Details</Typography>
 
         {showDelete && <DeleteButton onClick={onRemove} />}
       </SettleHeader>
 
       <FieldRow>
         <FieldLabelBox>
-          <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Self *</Typography>
+          <Typography variant={TypographyVariant.H6Medium}>Amount to Transfer to Self *</Typography>
         </FieldLabelBox>
         <FieldInputBox>
           <Controller
@@ -94,7 +93,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
         <>
           <FieldRow>
             <FieldLabelBox>
-              <Typography variant={TypographyVariant.H6Semibold}>Amount to Transfer to Provider *</Typography>
+              <Typography variant={TypographyVariant.H6Medium}>Amount to Transfer to Provider *</Typography>
             </FieldLabelBox>
             <FieldInputBox>
               <Controller
@@ -122,7 +121,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
 
           <FieldRow>
             <FieldBox>
-              <Typography variant={TypographyVariant.Caption1}>Select Provider *</Typography>
+              <Typography variant={TypographyVariant.Caption1Regular}>Select Provider *</Typography>
 
               <Controller
                 control={control}
@@ -150,7 +149,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
 
           <FieldRow>
             <FieldBox>
-              <Typography variant={TypographyVariant.Caption1}>Bank Account Number *</Typography>
+              <Typography variant={TypographyVariant.Caption1Regular}>Bank Account Number *</Typography>
               <Controller
                 control={control}
                 name={`settlements.${index}.bankAccountNumber` as const}
@@ -172,7 +171,7 @@ const SettlementDetailsForm: React.FC<Props> = ({ control, index, providers, set
             </FieldBox>
 
             <FieldBox>
-              <Typography variant={TypographyVariant.Caption1}>IFSC Code *</Typography>
+              <Typography variant={TypographyVariant.Caption1Regular}>IFSC Code *</Typography>
               <Controller
                 control={control}
                 name={`settlements.${index}.ifscCode` as const}

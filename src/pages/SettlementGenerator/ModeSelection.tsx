@@ -1,18 +1,11 @@
 import { FC, useEffect } from 'react'
-import { SelectChangeEvent } from '@mui/material'
+import { SelectChangeEvent, Typography } from '@mui/material'
 import Switch from 'components/common/Switch'
 import Select from 'components/common/Select'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { useUserContext } from 'context/userContext'
 import { IModeSelectionProps } from './types'
-import {
-  SettlementModeContainer,
-  ModeContent,
-  ModeTitle,
-  ModeRow,
-  ModeDescription,
-  ModeRight,
-} from 'styles/pages/SettlementGenerator.styled'
+import { SettlementModeContainer, ModeContent, ModeRow, ModeRight } from 'styles/pages/SettlementGenerator.styled'
+import { TypographyVariant } from 'enums/typography'
 
 const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, counterpartyId, setCounterpartyId }) => {
   const { selectedUser } = useUserContext()
@@ -43,15 +36,17 @@ const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, co
   return (
     <SettlementModeContainer>
       <ModeContent>
-        <ModeTitle>Settlement Mode</ModeTitle>
+        <Typography variant={TypographyVariant.H6Bold}>Settlement Mode</Typography>
         <ModeRow>
           <Switch checked={isManualMode} onChange={(e) => onToggleMode(e.target.checked)} />
-          <ModeDescription>Manual Mode Manually select orders for settlement</ModeDescription>
+          <Typography variant={TypographyVariant.Body1Regular}>
+            Manual Mode Manually select orders for settlement
+          </Typography>
         </ModeRow>
       </ModeContent>
 
       <ModeRight>
-        <RequiredFieldLabel>Counterparty ID</RequiredFieldLabel>
+        <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
         <Select
           value={counterpartyId}
           onChange={(e: SelectChangeEvent<unknown>) => setCounterpartyId(e.target.value as string)}

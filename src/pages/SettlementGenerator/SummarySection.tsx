@@ -7,13 +7,14 @@ import OrderSummaryFormModal from './OrderSummaryFormModal'
 import { IProps } from './types'
 import {
   SummaryContainer as Container,
-  SummaryHeader,
   SummaryCards,
   Divider,
   // CustomDateSection,
   ButtonSection,
 } from 'styles/pages/SettlementGenerator.styled'
 import Button from 'components/common/Button'
+import { Typography } from '@mui/material'
+import { TypographyVariant } from 'enums/typography'
 
 const SummarySection: FC<IProps> = ({
   // summary,
@@ -38,7 +39,7 @@ const SummarySection: FC<IProps> = ({
 
   return (
     <Container>
-      <SummaryHeader>Settlement Summary</SummaryHeader>
+      <Typography variant={TypographyVariant.H6Bold}>Settlement Summary</Typography>
 
       <SummaryCards>
         <SummaryCard label="Selected Orders" value={selectedOrders.length} bgColor="#F59E0B" />

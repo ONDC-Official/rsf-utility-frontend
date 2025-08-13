@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { useForm, Controller } from 'react-hook-form'
 import { IOrderSummaryModalProps } from './types'
@@ -7,7 +7,6 @@ import {
   ModalContainer,
   Content,
   Header,
-  ModalTitle,
   CloseButton,
   StyledForm,
   ButtonContainer,
@@ -18,6 +17,7 @@ import InputField from 'components/common/InputField'
 import Button from 'components/common/Button'
 import { ISettleNpDataItem } from '@interfaces/settlementGenerator'
 import { useUserContext } from 'context/userContext'
+import { TypographyVariant } from 'enums/typography'
 
 type FormValues = Record<string, ISettleNpDataItem>
 
@@ -63,7 +63,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
       <ModalContainer>
         <Content>
           <Header>
-            <ModalTitle>Update Selected Orders</ModalTitle>
+            <Typography variant={TypographyVariant.H6Bold}>Update Selected Orders</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>

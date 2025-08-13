@@ -40,9 +40,9 @@ export const ToastTextContainer = styled(Box)({
 })
 
 export const ToastTitle = styled(Typography)({
-  fontFamily: typography.body2_semibold.fontFamily,
-  fontWeight: typography.body2_semibold.fontWeight,
-  fontSize: typography.body2_semibold.fontSize,
+  fontFamily: typography.body2_medium.fontFamily,
+  fontWeight: typography.body2_medium.fontWeight,
+  fontSize: typography.body2_medium.fontSize,
   color: colors.text.primary,
   marginBottom: 2,
 })

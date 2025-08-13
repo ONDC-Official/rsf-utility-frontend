@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 
 export const PageContainer = styled(Box)({
   background: colors.background.main,
@@ -27,27 +26,6 @@ export const HeaderRight = styled(Box)({
   gap: 16,
 })
 
-export const PageTitle = styled(Typography)({
-  fontFamily: typography.h3_semibold.fontFamily,
-  fontWeight: typography.h3_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h3_semibold.fontSize,
-  lineHeight: typography.h3_semibold.lineHeight,
-})
-
-export const PageSubtitle = styled(Typography)({
-  color: colors.text.secondary,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
-})
-
-export const ReceiverLabel = styled(Typography)({
-  color: colors.text.primary,
-  fontFamily: typography.body2_medium.fontFamily,
-  fontWeight: typography.body2_medium.fontWeight,
-  fontSize: typography.body2_medium.fontSize,
-})
-
 export const Container = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
@@ -67,11 +45,4 @@ export const Actions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
-})
-
-export const Title = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
 })

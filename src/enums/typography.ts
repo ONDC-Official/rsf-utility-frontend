@@ -1,26 +1,41 @@
 export enum TypographyVariant {
-  H1 = 'h1',
-  H2 = 'h2',
-  H3 = 'h3',
-  H3Semibold = 'h3_semibold',
-  H4 = 'h4',
-  H5 = 'h5',
-  H5Semibold = 'h5_semibold',
+  H1Regular = 'h1_regular',
+  H1Medium = 'h1_medium',
+  H1Bold = 'h1_bold',
+
+  H2Regular = 'h2_regular',
+  H2Medium = 'h2_medium',
+  H2Bold = 'h2_bold',
+
+  H3Regular = 'h3_regular',
+  H3Medium = 'h3_medium',
+  H3Bold = 'h3_bold',
+
+  H4Regular = 'h4_regular',
+  H4Medium = 'h4_medium',
+  H4Bold = 'h4_bold',
+
+  H5Regular = 'h5_regular',
+  H5Medium = 'h5_medium',
   H5Bold = 'h5_bold',
-  H6 = 'h6',
-  H6Semibold = 'h6_semibold',
+
+  H6Regular = 'h6_regular',
+  H6Medium = 'h6_medium',
   H6Bold = 'h6_bold',
-  Body1 = 'body1',
+
   Body1Regular = 'body1_regular',
   Body1Medium = 'body1_medium',
-  Body2 = 'body2',
+  Body1Bold = 'body1_bold',
+
   Body2Regular = 'body2_regular',
-  Body2Semibold = 'body2_semibold',
   Body2Medium = 'body2_medium',
-  Body5Light = 'body5_light',
-  Body5Medium = 'body5_medium',
-  Body5Regular = 'body5_regular',
-  Body5Semibold = 'body5_semibold',
-  Caption1 = 'caption1',
-  Caption1Semibold = 'caption1_semibold',
+  Body2Bold = 'body2_bold',
+
+  Body3Regular = 'body3_regular',
+  Body3Medium = 'body3_medium',
+  Body3Bold = 'body3_bold',
+
+  Caption1Regular = 'caption1_regular',
+  Caption1Medium = 'caption1_medium',
+  Caption1Bold = 'caption1_bold',
 }

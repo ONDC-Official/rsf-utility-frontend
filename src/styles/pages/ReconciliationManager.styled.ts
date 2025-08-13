@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography, IconButton, Button } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 export const Container = styled(Box)({
@@ -11,9 +10,6 @@ export const Container = styled(Box)({
     minHeight: 'auto',
   },
   '& .MuiTab-root': {
-    fontFamily: typography.body2_medium.fontFamily,
-    fontSize: typography.body2_medium.fontSize,
-    fontWeight: typography.body2_medium.fontWeight,
     textTransform: 'none',
     minHeight: '48px',
     padding: '12px 24px',
@@ -36,13 +32,6 @@ export const TableHeader = styled(Box)({
   paddingBottom: 0,
 })
 
-export const TableTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-})
-
 export const TableActions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
@@ -55,33 +44,9 @@ export const TableReceiverSection = styled(Box)({
   gap: 16,
 })
 
-export const ReceiverLabel = styled(Typography)({
-  color: colors.text.primary,
-  fontFamily: typography.body2_medium.fontFamily,
-  fontWeight: typography.body2_medium.fontWeight,
-  fontSize: typography.body2_medium.fontSize,
-  whiteSpace: 'nowrap',
-})
-
-export const PlaceholderText = styled('span')({
-  color: colors.text.secondary,
-  fontFamily: typography.body2_regular.fontFamily,
-  fontSize: typography.body2_regular.fontSize,
-})
-
 export const ActionButtonGroup = styled(Box)({
   display: 'flex',
   gap: 8,
-})
-
-export const ActionButton = styled(Button)({
-  fontFamily: typography.body2_regular.fontFamily,
-  fontSize: typography.body2_regular.fontSize,
-  fontWeight: typography.body2_regular.fontWeight,
-  textTransform: 'none',
-  minWidth: 'auto',
-  padding: '4px 8px',
-  height: '28px',
 })
 
 export const ModalContainer = styled(Box)({
@@ -116,13 +81,6 @@ export const Wrapper = styled(Box)({
   padding: '0 16px',
 })
 
-export const ModalTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
-})
-
 export const CloseButton = styled(IconButton)({
   padding: '8px',
   color: colors.text.secondary,
@@ -150,11 +108,4 @@ export const ButtonContainer = styled(Box)({
 
 export const ErrorCell = styled(StyledTableBodyCell)({
   color: colors.error.main,
-})
-
-export const ModalSubtitle = styled(Typography)({
-  fontFamily: typography.body2_regular.fontFamily,
-  fontSize: typography.body2_regular.fontSize,
-  color: colors.text.secondary,
-  marginBottom: '16px',
 })

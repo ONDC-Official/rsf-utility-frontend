@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { Modal } from '@mui/material'
+import { Modal, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { useForm, Controller } from 'react-hook-form'
 import InputField from 'components/common/InputField'
@@ -10,12 +10,12 @@ import {
   ModalContainer as Container,
   Content,
   Header,
-  ModalTitle,
   CloseButton,
   StyledForm,
   FormRow,
   ButtonContainer,
 } from 'styles/pages/SettlementGenerator.styled'
+import { TypographyVariant } from 'enums/typography'
 
 export interface SettlementPayload {
   order_id: string
@@ -74,7 +74,7 @@ const ReinitiateReconciliationModal: FC<
       <Container>
         <Content>
           <Header>
-            <ModalTitle>{RECONCILIATION_LABELS.MODAL_TITLE}</ModalTitle>
+            <Typography variant={TypographyVariant.H6Bold}>{RECONCILIATION_LABELS.MODAL_TITLE}</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>

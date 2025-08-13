@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import colors from 'theme/colors'
-import { typography } from 'theme/typography'
 
 export const Container = styled(Box)({
   background: colors.background.main,
@@ -25,19 +24,6 @@ export const HeaderRight = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: 16,
-})
-
-export const PageTitle = styled(Typography)({
-  fontWeight: typography.h3_semibold.fontWeight,
-  color: colors.text.primary,
-  fontSize: typography.h3_semibold.fontSize,
-  lineHeight: typography.h3_semibold.lineHeight,
-})
-
-export const PageSubtitle = styled(Typography)({
-  color: colors.text.secondary,
-  fontFamily: typography.body1_regular.fontFamily,
-  fontSize: typography.body1_regular.fontSize,
 })
 
 export const Wrapper = styled(Box)({

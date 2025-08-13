@@ -30,10 +30,10 @@ export const Header = styled(Box)({
 })
 
 export const ModalTitle = styled(Typography)({
-  fontFamily: typography.h6_semibold.fontFamily,
-  fontWeight: typography.h6_semibold.fontWeight,
+  fontFamily: typography.h6_medium.fontFamily,
+  fontWeight: typography.h6_medium.fontWeight,
   color: colors.text.primary,
-  fontSize: typography.h6_semibold.fontSize,
+  fontSize: typography.h6_medium.fontSize,
 })
 
 export const CloseButton = styled(IconButton)({

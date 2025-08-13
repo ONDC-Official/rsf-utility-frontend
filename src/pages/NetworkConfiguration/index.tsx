@@ -16,9 +16,10 @@ import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
 import Loader from 'components/common/Loader'
 import { IUser } from '@interfaces/user'
 import AddIcon from 'assets/images/svg/AddIcon'
-import { HeaderSection as HeaderSectionStyled, HeaderCard, ActionButton } from 'styles/pages/NetworkConfiguration'
+import { HeaderSection as HeaderSectionStyled, HeaderCard } from 'styles/pages/NetworkConfiguration'
 import { Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
+import Button from 'components/common/Button'
 
 const mapUserToFormData = (user: IUser): IFormData => ({
   _id: user?._id,
@@ -90,17 +91,20 @@ const NetworkConfiguration: FC = () => {
     const payload = { ...data, providers: cleanedProviders }
 
     try {
-      const configuration = await submitConfig(payload)
+      const res = await submitConfig(payload)
 
-      if (configuration?.data?._id) {
-        setSelectedUser(configuration.data)
+      if (res?.data?._id) {
+        setSelectedUser(res.data)
       }
 
       await refetch()
-      toast({
-        message: `User ${configuration.data.title ? 'updated' : 'created'} successfully.`,
-        severity: NETWORK_CONFIGURATION.SUCCESS.severity,
-      })
+
+      if (res.success) {
+        toast({
+          message: `User ${res.data.title ? 'updated' : 'created'} successfully.`,
+          severity: NETWORK_CONFIGURATION.SUCCESS.severity,
+        })
+      }
     } catch (err) {
       toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
@@ -143,12 +147,12 @@ const NetworkConfiguration: FC = () => {
     <Container>
       <HeaderSectionStyled>
         <HeaderCard>
-          <Typography variant={TypographyVariant.H4}>Configuration</Typography>
+          <Typography variant={TypographyVariant.H5Bold}>Configuration</Typography>
         </HeaderCard>
 
-        <ActionButton variant="outlined" onClick={reset} aria-label="Add configuration">
+        <Button variant="outlined" onClick={reset} aria-label="Add configuration">
           <AddIcon /> Add Configuration
-        </ActionButton>
+        </Button>
       </HeaderSectionStyled>
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>

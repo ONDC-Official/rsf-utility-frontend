@@ -24,8 +24,8 @@ export const StyledTableHead = styled(TableHead)({
 })
 
 export const StyledTableCell = styled(TableCell)({
-  fontWeight: typography.body5_semibold?.fontWeight || '600',
-  fontSize: typography.body5_semibold?.fontSize || '12px',
+  fontWeight: typography.Body3_semibold?.fontWeight || '600',
+  fontSize: typography.Body3_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
   padding: '12px 16px',
   height: '56px',
@@ -77,8 +77,8 @@ export const HeaderLabelContainer = styled('div')({
 })
 
 export const TableHeaderCheckboxCell = styled(TableCell)({
-  fontWeight: typography.body5_semibold?.fontWeight || '600',
-  fontSize: typography.body5_semibold?.fontSize || '12px',
+  fontWeight: typography.Body3_semibold?.fontWeight || '600',
+  fontSize: typography.Body3_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
   padding: '12px 16px',
   width: '60px',
@@ -153,8 +153,8 @@ export const ActionButton = styled('button')({
   border: colors.background.primary,
   borderRadius: 8,
   padding: '10px 12px',
-  fontSize: typography.body5_semibold.fontSize,
-  fontWeight: typography.body5_semibold.fontWeight,
+  fontSize: typography.body3_medium.fontSize,
+  fontWeight: typography.body3_medium.fontWeight,
   textTransform: 'none',
   minWidth: 'auto',
   cursor: 'pointer',

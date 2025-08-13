@@ -16,7 +16,6 @@ import {
   TableContainer as Container,
   TableHeader as Header,
   TableReceiverSection,
-  ReceiverLabel,
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
 import { TypographyVariant } from 'enums/typography'
@@ -121,7 +120,7 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
   )
 
   const renderEmptyState = (): JSX.Element => (
-    <Typography variant={TypographyVariant.H6} color="text.secondary">
+    <Typography variant={TypographyVariant.H6Regular} color="text.secondary">
       No reconciliation data available
     </Typography>
   )
@@ -130,7 +129,7 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
     <Container>
       <Header>
         <TableReceiverSection>
-          <ReceiverLabel>{RECONCILIATION_LABELS.RECEIVER_LABEL}</ReceiverLabel>
+          <Typography variant={TypographyVariant.Body1Regular}>{RECONCILIATION_LABELS.RECEIVER_LABEL}</Typography>
           <Select
             value={counterpartyId}
             onChange={handleCounterpartyChange}

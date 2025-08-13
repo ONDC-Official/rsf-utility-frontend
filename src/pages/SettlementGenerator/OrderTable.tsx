@@ -98,8 +98,6 @@ const OrderTable: FC<IOrderTableProps> = ({
       if (result.success) {
         toast(SETTLEMENT_PATCH_MESSAGES.SUCCESS)
         refetchOrders()
-      } else {
-        toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
       }
     } catch (error) {
       toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
