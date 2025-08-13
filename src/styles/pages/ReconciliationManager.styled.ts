@@ -5,14 +5,14 @@ import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 export const Container = styled(Box)({
   borderBottom: `1px solid ${colors.border.main}`,
-  marginBottom: '24px',
+  marginBottom: '8px',
   '& .MuiTabs-root': {
     minHeight: 'auto',
   },
   '& .MuiTab-root': {
     textTransform: 'none',
     minHeight: '48px',
-    padding: '12px 24px',
+    padding: '4px 8px',
   },
 })
 
@@ -21,15 +21,14 @@ export const TableContainer = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const TableHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  padding: '16px',
-  paddingBottom: 0,
+  padding: '8px',
 })
 
 export const TableActions = styled(Box)({
@@ -78,7 +77,7 @@ export const Header = styled(Box)({
 export const Wrapper = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
-  padding: '0 16px',
+  padding: '0 8px',
 })
 
 export const CloseButton = styled(IconButton)({

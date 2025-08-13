@@ -34,10 +34,10 @@ export const Content = styled('main')({
 })
 
 export const SidebarContainer = styled('div')({
-  width: 280,
+  width: 220,
   height: '97vh',
   borderRadius: 20,
-  padding: '30px 0',
+  padding: '10px 0',
   background: colors.primary.main,
   color: colors.primary.contrastText,
   display: 'flex',
@@ -74,7 +74,7 @@ export const MenuItem = styled('div')<{ active: boolean }>(({ active }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: 10,
-  padding: '10px 16px',
+  padding: '10px 8px',
   borderRadius: 100,
   cursor: 'pointer',
   background: active

@@ -6,7 +6,7 @@ import { IReviewReconRequestsProps } from 'pages/ReconciliationManager/types'
 import { IIncomingRequest } from 'interfaces/reconciliationManager'
 // import { generateIncomingRequests } from 'data/reconciliationManagerData'
 import { TableContainer as Container, TableHeader as Header, Wrapper } from 'styles/pages/ReconciliationManager.styled'
-import { Actions } from 'styles/pages/OrdersReady.styled'
+// import { Actions } from 'styles/pages/OrdersReady.styled'
 // import Button from 'components/common/Button'
 // import ExportIcon from 'assets/images/svg/ExportIcon'
 
@@ -55,11 +55,11 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
     <>
       <Container>
         <Header>
-          <Actions>
-            {/* <Button variant="outlined" startIcon={<ExportIcon />}>
+          {/* <Actions>
+            <Button variant="outlined" startIcon={<ExportIcon />}>
               Export
-            </Button> */}
-          </Actions>
+            </Button>
+          </Actions> */}
         </Header>
 
         <Wrapper>

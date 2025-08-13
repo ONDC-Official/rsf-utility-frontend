@@ -11,7 +11,7 @@ export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const HeaderLeft = styled(Box)({
@@ -31,7 +31,7 @@ export const Wrapper = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
-  padding: '16px',
+  padding: '8px',
 })
 
 export const TableHeader = styled(Box)({

@@ -10,7 +10,7 @@ export const PageHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const Left = styled(Box)({
@@ -34,15 +34,14 @@ export const TableContainer = styled(Box)({
 export const Wrapper = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
-  padding: '0 16px',
+  padding: '0 8px',
 })
 
 export const TableHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  padding: '16px',
-  paddingBottom: 0,
+  padding: '8px',
 })
 
 export const Actions = styled(Box)({

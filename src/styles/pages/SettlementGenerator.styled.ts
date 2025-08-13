@@ -98,21 +98,21 @@ export const SummaryContainer = styled(Box)({
   background: colors.background.light,
   boxShadow: '6px 6px 54px 0px rgba(0, 0, 0, 0.05)',
   borderRadius: 8,
-  padding: 24,
-  marginBottom: 24,
+  padding: 8,
+  marginBottom: 8,
 })
 
 export const SummaryCards = styled(Box)({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 16,
-  margin: '16px 0',
+  margin: '8px 0',
 })
 
 export const Divider = styled(Box)({
   height: 1,
   background: colors.border.main,
-  margin: '24px 0',
+  margin: '8px 0',
 })
 
 export const CustomDateSection = styled(Box)({

@@ -11,7 +11,7 @@ export const PageHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const HeaderLeft = styled(Box)({
@@ -30,19 +30,26 @@ export const Container = styled(Box)({
   background: colors.background.light,
   borderRadius: 8,
   overflow: 'hidden',
-  marginBottom: 16,
-  padding: '16px',
+  marginBottom: 8,
+  padding: '8px',
 })
 
 export const Header = styled(Box)({
   display: 'flex',
-  justifyContent: 'flex-end',
-  background: colors.background.light,
   alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: 8,
 })
 
 export const Actions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  gap: 16,
+  gap: 8,
+  marginBottom: 8,
+})
+
+export const ActionsContainer = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
 })

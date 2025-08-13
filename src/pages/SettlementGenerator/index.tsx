@@ -3,7 +3,6 @@ import HeaderSection from 'pages/SettlementGenerator/HeaderSection'
 import OrderTable from 'pages/SettlementGenerator/OrderTable'
 import SummarySection from 'pages/SettlementGenerator/SummarySection'
 import PayloadPreview from 'pages/SettlementGenerator/PayloadPreview'
-import Select from 'components/common/Select'
 import { ISettlementSummary, ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
 import useGenerateNpSettlement from 'hooks/mutations/useGenerateNpSettlement'
@@ -22,8 +21,6 @@ import { useLoader } from 'context/loaderContext'
 import { SettlementStatus } from 'enums/settlement'
 import usePatchSettlements from 'hooks/mutations/usePatchSettlements'
 import { downloadOrdersAsCSV } from 'utils/helpers'
-import { Typography } from '@mui/material'
-import { TypographyVariant } from 'enums/typography'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
@@ -187,26 +184,6 @@ const SettlementGenerator: FC = () => {
     <Container>
       <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={setCounterpartyId} />
 
-      <div
-        style={{
-          marginBottom: 16,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
-          <Select
-            value={counterpartyId}
-            onChange={(e) => setCounterpartyId(e.target.value as string)}
-            options={counterpartyOptions}
-            size="small"
-            style={{ minWidth: '200px' }}
-          />
-        </div>
-      </div>
-
       {!isLoading && !isError && selectedOrders.size > 0 && (
         <SummarySection
           summary={summary}
@@ -233,6 +210,9 @@ const SettlementGenerator: FC = () => {
         <div>Failed to load orders.</div>
       ) : (
         <OrderTable
+          counterpartyOptions={counterpartyOptions}
+          setCounterpartyId={setCounterpartyId}
+          counterpartyId={counterpartyId}
           allOrders={orders}
           editedRows={editedRows}
           setEditedRows={setEditedRows}

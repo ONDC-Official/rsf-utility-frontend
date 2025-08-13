@@ -129,7 +129,7 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
     <Container>
       <Header>
         <TableReceiverSection>
-          <Typography variant={TypographyVariant.Body1Regular}>{RECONCILIATION_LABELS.RECEIVER_LABEL}</Typography>
+          <Typography variant={TypographyVariant.Body1Medium}>{RECONCILIATION_LABELS.RECEIVER_LABEL}</Typography>
           <Select
             value={counterpartyId}
             onChange={handleCounterpartyChange}

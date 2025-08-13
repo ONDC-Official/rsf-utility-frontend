@@ -27,8 +27,8 @@ export const StyledTableCell = styled(TableCell)({
   fontWeight: typography.Body3_semibold?.fontWeight || '600',
   fontSize: typography.Body3_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
-  padding: '12px 16px',
-  height: '56px',
+  padding: '4px 8px',
+  height: '40px',
   verticalAlign: 'middle',
   whiteSpace: 'nowrap',
 })
@@ -38,7 +38,7 @@ export const StyledTableBodyCell = styled(TableCell)({
   fontSize: typography.body2_regular?.fontSize || '14px',
   color: colors.text.tertiary,
   fontFamily: typography.body2_regular.fontFamily,
-  padding: '12px 16px',
+  padding: '4px 8px',
   height: '64px',
   verticalAlign: 'middle',
   borderBottom: `1px solid ${colors.border.main}`,
@@ -61,9 +61,7 @@ export const StyledTableRow = styled(TableRow, {
   }),
 }))
 
-export const Wrapper = styled(TableContainer)({
-  padding: '16px 0',
-})
+export const Wrapper = styled(TableContainer)({})
 
 export const StyledIconButton = styled(IconButton)({
   padding: '2px',
@@ -80,7 +78,7 @@ export const TableHeaderCheckboxCell = styled(TableCell)({
   fontWeight: typography.Body3_semibold?.fontWeight || '600',
   fontSize: typography.Body3_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
-  padding: '12px 16px',
+  padding: '4px 8px',
   width: '60px',
   minWidth: '60px',
   maxWidth: '60px',
@@ -96,7 +94,7 @@ export const TableBodyCheckboxCell = styled(TableCell)({
   fontSize: typography.body2_regular?.fontSize || '14px',
   color: colors.text.tertiary,
   fontFamily: typography.body2_regular.fontFamily,
-  padding: '12px 16px',
+  padding: '4px 18x',
   width: '60px',
   minWidth: '60px',
   maxWidth: '60px',
@@ -122,7 +120,7 @@ export const ExpandableCell = styled(StyledTableBodyCell)<{ expanded?: boolean }
 }))
 
 export const ExpandedRow = styled(TableCell)({
-  padding: '16px 24px',
+  padding: '4px 8px',
   backgroundColor: '#F5F5F5',
   borderBottom: 'none',
   '& > div': {

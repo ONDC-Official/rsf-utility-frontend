@@ -39,6 +39,9 @@ export interface IPayloadPreviewProps {
 }
 
 export interface IOrderTableProps {
+  counterpartyOptions: any
+  counterpartyId: string
+  setCounterpartyId: any
   allOrders: IUserSettlementItem[]
   editedRows: Record<string, Partial<IUserSettlementItem>>
   setEditedRows: (data: any) => void

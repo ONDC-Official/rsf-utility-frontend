@@ -12,7 +12,7 @@ export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-start',
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const HeaderLeft = styled(Box)({
@@ -32,35 +32,35 @@ export const Wrapper = styled(Box)({
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   borderRadius: 8,
   overflow: 'hidden',
-  padding: '16px',
+  padding: '8px',
 })
 
 export const TableHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '16px',
+  marginBottom: '8px',
 })
 
 export const TableActions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  gap: 16,
+  gap: 8,
 })
 
 export const SettlementDetailsContainer = styled(Container)({
   background: colors.background.light,
   border: `1px solid ${colors.neutral?.main || '#DFE0E5'}`,
   borderRadius: 8,
-  padding: '20px 24px',
-  marginBottom: 24,
+  padding: '4px 8px',
+  marginBottom: 8,
 })
 
 export const FieldRow = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  gap: 16,
-  marginBottom: 16,
+  gap: 8,
+  marginBottom: 8,
 })
 
 export const FieldLabelBox = styled(Box)({
@@ -91,7 +91,7 @@ export const Divider = styled(Box)({
   justifyContent: 'center',
   width: '100%',
   color: colors.text.secondary,
-  marginBottom: 16,
+  marginBottom: 8,
 
   '&::before, &::after': {
     content: '""',
@@ -120,7 +120,7 @@ export const FormsContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   gap: 24,
-  marginBottom: 24,
+  marginBottom: 8,
 })
 
 export const FormWrapper = styled(Box)({
@@ -136,5 +136,5 @@ export const SettleHeader = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: 16,
+  marginBottom: 8,
 })

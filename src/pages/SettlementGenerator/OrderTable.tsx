@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react'
 import { Edit, Undo } from '@mui/icons-material'
-import { Checkbox } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 import Button from 'components/common/Button'
 import DateRangePickerButton from 'components/common/DateRangePickerButton'
 import Table from 'components/common/Table'
@@ -11,7 +11,7 @@ import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { IUserSettlementItem } from 'interfaces/settlement'
 import { ActionIconButton, StyledTableBodyCell, TableBodyCheckboxCell } from 'styles/components/Table.styled'
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
-import { Container, Header, Actions } from 'styles/pages/OrdersReady.styled'
+import { Container, Header, ActionsContainer } from 'styles/pages/OrdersReady.styled'
 import { ActionsCell } from 'styles/pages/SettlementGenerator.styled'
 import ExportIcon from 'assets/images/svg/ExportIcon'
 import { formatCurrency } from 'utils/helpers'
@@ -20,10 +20,15 @@ import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
 import usePatchImportSettlements from 'hooks/mutations/usePatchImportSettlements'
 import { SETTLEMENT_PATCH_MESSAGES } from 'constants/toastMessages'
+import { TypographyVariant } from 'enums/typography'
+import Select from 'components/common/Select'
 
 const OrderTable: FC<IOrderTableProps> = ({
   allOrders,
   editedRows,
+  counterpartyOptions,
+  counterpartyId,
+  setCounterpartyId,
   setEditedRows,
   onSelectedOrdersChange,
   onExport,
@@ -175,25 +180,39 @@ const OrderTable: FC<IOrderTableProps> = ({
   return (
     <Container>
       <Header>
-        <Actions>
+        <ActionsContainer>
+          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
+          <Select
+            value={counterpartyId}
+            onChange={(e) => setCounterpartyId(e.target.value as string)}
+            options={counterpartyOptions}
+            size="small"
+            style={{ minWidth: '200px' }}
+          />
+        </ActionsContainer>
+
+        <ActionsContainer>
           {Object.keys(editedRows).length > 0 && (
             <Button variant="contained" onClick={handlePatchSettlements}>
               Save edited order
             </Button>
           )}
+
           <DateRangePickerButton
             variant="outlined"
             selectedDateRange={dateRange}
             onDateRangeChange={handleDateRangeChange}
           />
+
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
             Export
           </Button>
+
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleImportClick}>
             Import
           </Button>
           <input type="file" accept=".csv" style={{ display: 'none' }} ref={fileInputRef} onChange={handleFileChange} />
-        </Actions>
+        </ActionsContainer>
       </Header>
 
       <Table

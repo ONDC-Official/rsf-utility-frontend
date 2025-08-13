@@ -8,7 +8,7 @@ export const StyledAppBar = styled(AppBar)({
   boxShadow: 'none !important',
   borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
   borderRadius: 20,
-  marginBottom: 16,
+  marginBottom: 8,
 })
 
 export const StyledToolbar = styled(Toolbar)({

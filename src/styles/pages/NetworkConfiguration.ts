@@ -8,7 +8,7 @@ export const Container = styled('div')(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  gap: '8px',
 }))
 
 export const HeaderSection = styled('div')(() => ({
@@ -19,10 +19,8 @@ export const HeaderSection = styled('div')(() => ({
 
 export const HeaderCard = styled('div')(() => ({
   borderRadius: '12px',
-  padding: '0 16px 16px 0',
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
 }))
 
 export const SectionDescription = styled('div')(() => ({
@@ -43,9 +41,9 @@ export const StyledForm = styled('form')({
 export const ConfigurationBox = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: '15px',
+  gap: '8px',
   borderRadius: '20px',
-  padding: '16px',
+  padding: '8px',
   background: colors.text.light,
   boxShadow: '6px 6px 54px 0px #0000000d',
 }))
@@ -62,6 +60,7 @@ export const SettlementHeader = styled('div')(() => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   gap: '10px',
+  marginLeft: 4,
 }))
 
 export const NetworkIdentityTitle = styled('div')(() => ({
@@ -95,9 +94,8 @@ export const DomainConfigContainer = styled('div')(() => ({
   border: '1px solid #dfe0e5',
   display: 'flex',
   flexDirection: 'column',
-  padding: '20px',
-  borderRadius: '8px',
-  marginBottom: '16px',
+  padding: '8px',
+  borderRadius: '16px',
 }))
 
 export const ConfigTitleSection = styled('div')(() => ({
@@ -110,7 +108,7 @@ export const ConfigTitleSection = styled('div')(() => ({
 export const FormContainer = styled('div')(() => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  gap: '20px',
+  gap: '8px',
   marginTop: '20px',
   alignItems: 'start',
   '& > div': {
