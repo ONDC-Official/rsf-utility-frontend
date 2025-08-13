@@ -106,7 +106,6 @@ const NetworkConfiguration: FC = () => {
         })
       }
     } catch (err) {
-      toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
       hideLoader()
     }
@@ -135,7 +134,6 @@ const NetworkConfiguration: FC = () => {
         severity: NETWORK_CONFIGURATION.SUCCESS.severity,
       })
     } catch {
-      toast(NETWORK_CONFIGURATION.ERROR)
     } finally {
       hideLoader()
     }

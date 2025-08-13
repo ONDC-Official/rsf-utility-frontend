@@ -74,9 +74,7 @@ const OutgoingRequestsSection: FC<OutgoingRequestsSectionProps> = ({ onToastShow
       }
 
       setShowPayloadPreview(false)
-    } catch (e) {
-      toast(TRIGGER_ACTION.ERROR)
-    }
+    } catch (e) {}
   }
 
   return (

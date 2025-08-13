@@ -27,6 +27,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-extra-semi': 'warn',
     'no-console': 'warn',
+    'no-empty': 'off',
 
     'padding-line-between-statements': [
       'error',

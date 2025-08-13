@@ -108,7 +108,6 @@ const SettlementGenerator: FC = () => {
         setShowPayloadPreview(true)
       }
     } catch (e: any) {
-      toast(GENERATE_NP_NP_SETTLEMENT.ERROR)
     } finally {
       hideLoader()
     }
@@ -125,7 +124,6 @@ const SettlementGenerator: FC = () => {
 
       setShowPayloadPreview(false)
     } catch (e) {
-      toast(TRIGGER_ACTION.ERROR)
     } finally {
       hideLoader()
     }
@@ -176,7 +174,6 @@ const SettlementGenerator: FC = () => {
         toast(SETTLEMENT_PATCH_MESSAGES.SUCCESS)
       }
     } catch (error) {
-      toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
     } finally {
       hideLoader()
     }

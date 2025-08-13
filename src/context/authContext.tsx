@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import useSignToken from 'hooks/mutations/useSignToken'
 import { IApiResponse } from '@interfaces/api'
-import { useToast } from 'context/toastContext'
-import { TOKEN_MESSAGES } from 'constants/toastMessages'
 import Loader from 'components/common/Loader'
 import { AuthContextType, ISignTokenPayload, ISignTokenResponse } from 'interfaces/auth'
 
@@ -12,7 +10,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(null)
   const [isAuthReady, setIsAuthReady] = useState(false)
   const { signTokenAsync } = useSignToken()
-  const toast = useToast()
 
   const fetchToken = async (): Promise<void> => {
     const stored = localStorage.getItem('authToken')
@@ -35,7 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         localStorage.setItem('authToken', res.data.token)
       }
     } catch {
-      toast(TOKEN_MESSAGES.ERROR)
     } finally {
       setIsAuthReady(true)
     }

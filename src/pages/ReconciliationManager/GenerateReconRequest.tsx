@@ -126,9 +126,7 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
       }
 
       setShowPayloadPreview(false)
-    } catch (e) {
-      toast(TRIGGER_ACTION.ERROR)
-    }
+    } catch (e) {}
   }
 
   const handleModalClose = (): void => {

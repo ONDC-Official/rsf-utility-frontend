@@ -100,7 +100,6 @@ const OrderTable: FC<IOrderTableProps> = ({
         refetchOrders()
       }
     } catch (error) {
-      toast(SETTLEMENT_PATCH_MESSAGES.ERROR)
     } finally {
       hideLoader()
       if (fileInputRef.current) {

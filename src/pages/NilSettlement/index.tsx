@@ -46,7 +46,6 @@ const NilSettlement: FC = () => {
         toast(TRIGGER_ACTION.SUCCESS)
       }
     } catch (err) {
-      toast(GENERATE_NIL_SETTLEMENT.ERROR)
     } finally {
       hideLoader()
     }

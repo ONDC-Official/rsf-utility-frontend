@@ -1,12 +1,11 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
+import { toastErrorFromApi } from 'context/toastContext'
 import { APIRoute } from 'enums/api'
 
 const instance = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL })
 
 const getStoredAuthToken = (): string | null => localStorage.getItem('authToken')
-
 const storeAuthToken = (token: string): void => localStorage.setItem('authToken', token)
-
 const clearStoredAuthToken = (): void => localStorage.removeItem('authToken')
 
 const setAuthorizationHeader = (headers: AxiosRequestHeaders | undefined, token: string): AxiosRequestHeaders => {
@@ -20,6 +19,7 @@ const isSignTokenRequest = (url: string | undefined): boolean => {
   return url.includes(APIRoute.SIGN_TOKEN)
 }
 
+// Request interceptor for auth
 instance.interceptors.request.use((config) => {
   const token = getStoredAuthToken()
   if (token) {
@@ -29,7 +29,7 @@ instance.interceptors.request.use((config) => {
   return config
 })
 
-// Minimal 401-only refresh and retry using sign-token
+// Minimal 401 refresh token logic
 const refreshClient = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL })
 
 const requestNewToken = async (): Promise<string> => {
@@ -46,16 +46,19 @@ const requestNewToken = async (): Promise<string> => {
   return token
 }
 
+// Response interceptor for error handling
 instance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const status = error.response?.status
     const originalRequest = error.config as (AxiosRequestConfig & { _retry?: boolean }) | undefined
 
-    // Only handle 401s with a valid original request
+    // Show toast for all errors
+    toastErrorFromApi(error)
+
+    // Only handle 401s with retry
     if (status !== 401 || !originalRequest) return Promise.reject(error)
 
-    // Avoid infinite loops and skip refresh for the refresh endpoint itself
     if (originalRequest._retry || isSignTokenRequest(originalRequest.url)) {
       return Promise.reject(error)
     }

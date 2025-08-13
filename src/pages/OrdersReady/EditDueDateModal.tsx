@@ -64,7 +64,6 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
       }
     } catch (error) {
       hideLoader()
-      toast(ORDER_PATCH_MESSAGES.ERROR)
 
       if (onEditSuccess) {
         onEditSuccess('Failed to update due date')

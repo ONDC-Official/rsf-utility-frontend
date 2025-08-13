@@ -106,7 +106,6 @@ const MiscSettlements: FC = () => {
         setShowPayloadPreview(true)
       }
     } catch (e) {
-      toast(GENERATE_MISC_SETTLEMENT.ERROR)
     } finally {
       hideLoader()
     }
@@ -123,7 +122,6 @@ const MiscSettlements: FC = () => {
 
       setShowPayloadPreview(false)
     } catch (e) {
-      toast(TRIGGER_ACTION.ERROR)
     } finally {
       hideLoader()
     }
