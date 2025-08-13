@@ -19,7 +19,7 @@ export const Wrapper = styled('div')({
 export const Footer = styled('footer')({
   display: 'flex',
   justifyContent: 'center',
-  padding: '4px 0',
+  padding: '16px 0',
 })
 
 export const FooterText = styled('p')({
