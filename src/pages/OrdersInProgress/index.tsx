@@ -111,7 +111,6 @@ const OrdersInProgress: React.FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H5Bold}>Orders In Progress</Typography>
           <Typography variant={TypographyVariant.Body1Regular}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>

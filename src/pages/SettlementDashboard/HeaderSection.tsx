@@ -39,7 +39,6 @@ const HeaderSection: FC<IHeaderSectionProps> = ({ counterpartyId, onCounterparty
   return (
     <Container>
       <Left>
-        <Typography variant={TypographyVariant.H5Bold}>{DASHBOARD_LABELS.TITLE}</Typography>
         <Typography variant={TypographyVariant.Body1Regular}>{DASHBOARD_LABELS.SUBTITLE}</Typography>
       </Left>
       <Right>

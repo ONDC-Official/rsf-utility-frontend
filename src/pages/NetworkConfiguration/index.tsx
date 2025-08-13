@@ -16,9 +16,7 @@ import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
 import Loader from 'components/common/Loader'
 import { IUser } from '@interfaces/user'
 import AddIcon from 'assets/images/svg/AddIcon'
-import { HeaderSection as HeaderSectionStyled, HeaderCard } from 'styles/pages/NetworkConfiguration'
-import { Typography } from '@mui/material'
-import { TypographyVariant } from 'enums/typography'
+import { HeaderSection as HeaderSectionStyled } from 'styles/pages/NetworkConfiguration'
 import Button from 'components/common/Button'
 
 const mapUserToFormData = (user: IUser): IFormData => ({
@@ -144,10 +142,6 @@ const NetworkConfiguration: FC = () => {
   return (
     <Container>
       <HeaderSectionStyled>
-        <HeaderCard>
-          <Typography variant={TypographyVariant.H5Bold}>Configuration</Typography>
-        </HeaderCard>
-
         <Button variant="outlined" onClick={reset} aria-label="Add configuration">
           <AddIcon /> Add Configuration
         </Button>

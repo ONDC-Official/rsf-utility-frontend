@@ -51,7 +51,6 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   return (
     <Container>
       <HeaderLeft>
-        <Typography variant={TypographyVariant.H5Bold}>{ORDER_HEADER_LABELS.title}</Typography>
         <Typography variant={TypographyVariant.Body1Regular}>{ORDER_HEADER_LABELS.subtitle}</Typography>
       </HeaderLeft>
       <HeaderRight>

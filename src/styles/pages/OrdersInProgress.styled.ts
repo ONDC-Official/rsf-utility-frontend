@@ -10,7 +10,7 @@ export const Container = styled(Box)({
 export const Header = styled(Box)({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   marginBottom: 8,
 })
 

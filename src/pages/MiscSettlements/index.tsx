@@ -131,7 +131,6 @@ const MiscSettlements: FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H5Bold}>Miscellaneous Settlements</Typography>
           <Typography variant={TypographyVariant.Body1Regular}>Create ad-hoc settlements for special cases</Typography>
         </HeaderLeft>
         <HeaderRight>

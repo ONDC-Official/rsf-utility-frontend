@@ -55,7 +55,6 @@ const NilSettlement: FC = () => {
     <Container>
       <Header>
         <HeaderLeft>
-          <Typography variant={TypographyVariant.H5Bold}>Nil Settlement</Typography>
           <Typography variant={TypographyVariant.Body1Regular}>
             Trigger nil settlement when no transactions are recorded for a cycle
           </Typography>

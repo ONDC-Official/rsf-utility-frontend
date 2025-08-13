@@ -33,7 +33,7 @@ export const ToastProvider: FC<{ children: React.ReactNode }> = ({ children }) =
     setTimeout(() => {
       setIsVisible(false)
       setTimeout(() => setToast(null), 300)
-    }, 3500)
+    }, 10000)
   }
 
   const handleClose = (): void => {

@@ -1,31 +1,46 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { SelectChangeEvent, Typography } from '@mui/material'
 import { TypographyVariant } from 'enums/typography'
 import { StyledAppBar, StyledToolbar, TitleContainer, RightSection, StyledSelect } from 'styles/layout/Navbar.styled'
 import { useUserContext } from 'context/userContext'
+import { useLocation } from 'react-router-dom'
+import { sidebarMenuItems } from '../Sidebar/sidebarMenuItems'
 
 const Navbar: FC = () => {
   const { users, selectedUser, setSelectedUser } = useUserContext()
+  const location = useLocation()
+
+  const normalizedPath = useMemo(() => {
+    return location.pathname.replace(/^\/rsf-sdk-utility/, '') || '/'
+  }, [location.pathname])
+
+  const currentTitle = useMemo(() => {
+    const matchedItem = sidebarMenuItems.find((item) => normalizedPath.startsWith(item.path))
+    return matchedItem?.text || 'ONDC Portal'
+  }, [normalizedPath])
 
   const handleUserChange = (event: SelectChangeEvent<unknown>): void => {
     const selectedId = event.target.value as string
-    // Prevent unnecessary state updates which can cause re-render loops
     if (selectedUser?._id === selectedId) return
+
     const userObj = users?.find((u) => u._id === selectedId) || null
     setSelectedUser(userObj)
   }
 
-  const userOptions =
-    users?.map((user) => ({
-      label: user.title || 'n/a',
-      value: user._id,
-    })) ?? []
+  const userOptions = useMemo(
+    () =>
+      users?.map((user) => ({
+        label: user.title || 'n/a',
+        value: user._id,
+      })) ?? [],
+    [users],
+  )
 
   return (
     <StyledAppBar position="static">
       <StyledToolbar>
         <TitleContainer>
-          <Typography variant={TypographyVariant.H6Bold}>Reconciliation and Settlement System</Typography>
+          <Typography variant={TypographyVariant.H6Bold}>{currentTitle}</Typography>
         </TitleContainer>
 
         <RightSection>

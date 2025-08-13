@@ -13,7 +13,6 @@ const HeaderSection: FC<IHeaderSectionProps> = ({
 }) => (
   <Container>
     <Left>
-      <Typography variant={TypographyVariant.H5Bold}>{RECONCILIATION_LABELS.TITLE}</Typography>
       <Typography variant={TypographyVariant.Body1Regular}>{RECONCILIATION_LABELS.SUBTITLE}</Typography>
     </Left>
     <Right>

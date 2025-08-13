@@ -13,7 +13,7 @@ export const Container = styled('div')(() => ({
 
 export const HeaderSection = styled('div')(() => ({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'flex-end',
   alignItems: 'start',
 }))
 

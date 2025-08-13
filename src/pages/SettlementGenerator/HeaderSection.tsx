@@ -39,7 +39,6 @@ const HeaderSection: FC<HeaderSectionProps> = ({ counterpartyId, onCounterpartyC
   return (
     <Container>
       <Left>
-        <Typography variant={TypographyVariant.H5Bold}>Settlement Generator</Typography>
         <Typography variant={TypographyVariant.Body1Regular}>Select orders to prepare for settlement</Typography>
       </Left>
       <Right>
