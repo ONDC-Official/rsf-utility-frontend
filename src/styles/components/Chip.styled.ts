@@ -32,9 +32,9 @@ export const StatusChip = styled(Chip)<{ color?: 'error' | 'warning' | 'success'
 
     return {
       ...getChipColors(),
-      fontSize: typography.Body3_medium.fontSize,
+      fontSize: typography.body3_medium.fontSize,
       height: 24,
-      fontFamily: typography.Body3_medium.fontFamily,
+      fontFamily: typography.body3_medium.fontFamily,
     }
   },
 )
