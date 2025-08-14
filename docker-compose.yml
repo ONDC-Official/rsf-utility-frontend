@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '6500:3000'
+    networks:
+      - rsf-utility
+    restart: always
+networks:
+  rsf-utility:
+    # Specify driver options
+    driver: bridge

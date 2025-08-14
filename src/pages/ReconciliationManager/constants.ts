@@ -1,0 +1,56 @@
+export const RECONCILIATION_LABELS = {
+  TITLE: 'Reconciliation Manager',
+  SUBTITLE: 'Manage reconciliation requests for not settled orders',
+  GENERATE_BUTTON: 'Generate Recon Request',
+  TAB_GENERATE: 'Generate Recon Request',
+  TAB_REVIEW: 'Review Recon Requests',
+  TAB_OUTGOING: 'Reconciliation In Progress',
+  RECEIVER_LABEL: 'Counterparty ID',
+  EXPORT: 'Export',
+  FILTER_BY_DATE: 'Filter by date',
+  OUTGOING_TITLE: 'Outgoing Reconciliation Requests',
+  INCOMING_TITLE: 'Incoming Reconciliation Requests',
+  TOAST_MESSAGE: 'Reconciliation request has been generated successfully.',
+  ACCEPT_TOAST_MESSAGE: 'Request Accepted\nOrder moved to Ready for Settlement Dashboard.',
+  REJECT_TOAST_MESSAGE: 'Request Rejected\non_recon payload generated with difference values.',
+  MODAL_TITLE: 'Reinitiate Reconciliation Request',
+  ACCEPT_MODAL_TITLE: 'Accept Reconciliation Request',
+  ACCEPT_MODAL_SUBTITLE: 'Provide a due date for settlement of Order ID:',
+  ACCEPT_BUTTON_TEXT: 'Accept & Set Due Date',
+  REJECT_MODAL_TITLE: 'Reject Reconciliation Request',
+  REJECT_MODAL_SUBTITLE: 'Provide difference values for Order ID:',
+  REJECT_BUTTON_TEXT: 'Reject & Send Differences',
+  FORM_ORDER_ID: 'Order ID',
+  FORM_SETTLEMENT_AMOUNT: 'Settlement Amount',
+  FORM_COMMISSION: 'Commission',
+  FORM_TCS: 'TCS',
+  FORM_TDS: 'TDS',
+  FORM_WITHHOLDING_AMOUNT: 'Withholding Amount',
+  FORM_DUE_DATE: 'Due Date',
+  FORM_DIFFERENCE_AMOUNT: 'Difference in Amount',
+  FORM_DIFFERENCE_COMMISSION: 'Difference in Commission',
+  FORM_DIFFERENCE_TCS: 'Difference in TCS',
+  FORM_DIFFERENCE_TDS: 'Difference in TDS',
+  FORM_DIFFERENCE_WITHHOLDING: 'Difference in Withholding amount',
+  FORM_CANCEL: 'Cancel',
+  FORM_GENERATE: 'Generate Recon Request',
+} as const
+
+export const TABLE_CELL_DEFAULTS = {
+  ORDER_ID: 'N/A',
+  COLLECTOR_ID: 'N/A',
+  RECEIVER_ID: 'N/A',
+  TOTAL_VALUE: '0.00',
+  SETTLEMENT_AMOUNT: '0.00',
+  COMMISSION: '0.00',
+  RECON_TRANSACTION_ID: 'N/A',
+} as const
+
+export const CURRENCY_SYMBOL = '₹' as const
+
+export const STATUS_TYPES = {
+  SETTLED: 'Settled',
+  NOT_SETTLED: 'Not Settled',
+  ACCEPTED: 'Accepted',
+  REJECTED: 'Rejected',
+} as const

@@ -1,0 +1,137 @@
+import React from 'react'
+import { Table as MUITable, TableRow, TableBody, Checkbox, TableCell, CircularProgress } from '@mui/material'
+import Pagination from 'components/common/Pagination'
+import { ITableProps } from 'interfaces/table'
+import {
+  Container,
+  StyledTableHead,
+  StyledTableCell,
+  StyledTableRow,
+  Wrapper,
+  TableHeaderCheckboxCell,
+} from 'styles/components/Table.styled'
+
+const Table = <T,>({
+  columns = [],
+  data = [],
+  totalCount = 0,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange,
+  renderRow,
+  hideCheckboxes = false,
+  selectedItems = new Set(),
+  onSelectAll,
+  getItemId,
+  expandable = false,
+  loading = false,
+  renderEmptyState,
+}: ITableProps<T> & { loading?: boolean }): JSX.Element => {
+  const handleSelectAllChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (onSelectAll && getItemId) {
+      onSelectAll(event.target.checked, data)
+    }
+  }
+
+  const getSelectAllCheckboxState = (): { checked: boolean; indeterminate: boolean } => {
+    if (!getItemId || data.length === 0) {
+      return { checked: false, indeterminate: false }
+    }
+
+    const currentPageIds = data.map(getItemId)
+    const selectedCurrentPageItems = currentPageIds.filter((id) => selectedItems.has(id))
+    if (selectedCurrentPageItems.length === currentPageIds.length) {
+      return { checked: true, indeterminate: false }
+    } else {
+      return { checked: false, indeterminate: false }
+    }
+  }
+
+  const selectAllState = getSelectAllCheckboxState()
+
+  return (
+    <Container elevation={0}>
+      <Wrapper>
+        <MUITable stickyHeader>
+          <StyledTableHead>
+            <TableRow>
+              {expandable && <StyledTableCell></StyledTableCell>}
+              {!hideCheckboxes && (
+                <TableHeaderCheckboxCell>
+                  <Checkbox
+                    size="small"
+                    checked={selectAllState.checked}
+                    indeterminate={selectAllState.indeterminate}
+                    onChange={handleSelectAllChange}
+                  />
+                </TableHeaderCheckboxCell>
+              )}
+              {(columns || []).map((column) => (
+                <StyledTableCell key={column.id}>
+                  {column.label}
+                  {/* {index === (expandable ? 1 : 0) ? (
+                    <HeaderLabelContainer>
+                      {column.label}
+                      <StyledIconButton size="small" onClick={handleOrderIdClick}>
+                        {orderIdSortOrder === 'asc' ? (
+                          <KeyboardArrowUp fontSize="small" />
+                        ) : (
+                          <KeyboardArrowDown fontSize="small" />
+                        )}
+                      </StyledIconButton>
+                      <Menu
+                        anchorEl={orderIdAnchorEl}
+                        open={Boolean(orderIdAnchorEl)}
+                        onClose={handleOrderIdClose}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                      >
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.ASC)}>Sort Ascending</MenuItem>
+                        <MenuItem onClick={() => handleOrderIdSort(SortOrder.DESC)}>Sort Descending</MenuItem>
+                      </Menu>
+                    </HeaderLabelContainer>
+                  ) : (
+                    column.label
+                  )} */}
+                </StyledTableCell>
+              ))}
+            </TableRow>
+          </StyledTableHead>
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length + (!hideCheckboxes ? 1 : 0) + (expandable ? 1 : 0)} align="center">
+                  <CircularProgress size={24} />
+                </TableCell>
+              </TableRow>
+            ) : (data || []).length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={columns.length + (!hideCheckboxes ? 1 : 0) + (expandable ? 1 : 0)} align="center">
+                  {renderEmptyState ? renderEmptyState() : null}
+                </TableCell>
+              </TableRow>
+            ) : (
+              (data || []).map((row, index) => (
+                <StyledTableRow key={index} isLast={index === data.length - 1}>
+                  {renderRow(row, index)}
+                </StyledTableRow>
+              ))
+            )}
+          </TableBody>
+        </MUITable>
+      </Wrapper>
+      <Pagination
+        count={totalCount}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
+      />
+    </Container>
+  )
+}
+
+export default Table

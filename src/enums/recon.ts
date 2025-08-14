@@ -1,0 +1,21 @@
+export enum ReconStatus {
+  ERROR = 'ERROR',
+  SENT_PENDING = 'SENT_PENDING',
+  SENT_ACCEPTED = 'SENT_ACCEPTED',
+  SENT_REJECTED = 'SENT_REJECTED',
+  RECEIVED_PENDING = 'RECEIVED_PENDING',
+  RECEIVED_ACCEPTED = 'RECEIVED_ACCEPTED',
+  RECEIVED_REJECTED = 'RECEIVED_REJECTED',
+}
+
+// Status groups for different table contexts
+export const OUTGOING_RECON_STATUSES: ReconStatus[] = [
+  ReconStatus.ERROR,
+  ReconStatus.SENT_PENDING,
+  ReconStatus.SENT_ACCEPTED,
+  ReconStatus.SENT_REJECTED,
+  ReconStatus.RECEIVED_REJECTED,
+  ReconStatus.RECEIVED_ACCEPTED,
+]
+
+export const INCOMING_RECON_STATUSES: ReconStatus[] = [ReconStatus.RECEIVED_PENDING]
