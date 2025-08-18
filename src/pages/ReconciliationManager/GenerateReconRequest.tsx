@@ -55,7 +55,6 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
           setShowPayloadPreview(true)
         }
       } catch (error) {
-        console.error('Error generating reconciliation request:', error)
         onToastShow('Failed to generate reconciliation request')
       }
     },

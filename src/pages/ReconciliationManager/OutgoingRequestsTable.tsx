@@ -123,7 +123,6 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
       await internalRefetch()
       hideLoader()
     } catch (error) {
-      console.error('Error moving to ready:', error)
       hideLoader()
     }
   }
@@ -161,6 +160,8 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
     </>
   )
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Container style={{ marginTop: '24px' }}>
       <Header>
@@ -176,7 +177,13 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
       <Wrapper>
         <Table
           columns={outgoingRequestColumns}
-          data={currentRequests}
+          data={currentRequests?.map((request) => ({
+            ...request,
+            collector_id:
+              counterpartyInfos.find((info) => info.id === request.collectorId)?.nickName || request.collectorId,
+            receiver_id:
+              counterpartyInfos.find((info) => info.id === request.receiverId)?.nickName || request.receiverId,
+          }))}
           totalCount={totalCount}
           page={page}
           rowsPerPage={rowsPerPage}

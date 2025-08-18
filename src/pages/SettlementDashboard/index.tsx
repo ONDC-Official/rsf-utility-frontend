@@ -41,11 +41,22 @@ const SettlementDashboard: FC = () => {
     setDateRange(newDateRange)
   }
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Container>
       <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={handleCounterpartyChange} />
       <DashboardTable
-        orders={fetchedSettlements?.data?.settlements || []}
+        orders={
+          fetchedSettlements?.data?.settlements?.map((settlement) => ({
+            ...settlement,
+            collector_id:
+              counterpartyInfos.find((info) => info.id === settlement.collector_id)?.nickName ||
+              settlement.collector_id,
+            receiver_id:
+              counterpartyInfos.find((info) => info.id === settlement.receiver_id)?.nickName || settlement.receiver_id,
+          })) || []
+        }
         counterpartyId={counterpartyId}
         onDateRangeChange={handleDateRangeChange}
         dateRange={dateRange}

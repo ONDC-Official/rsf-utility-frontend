@@ -41,7 +41,8 @@ const SettlementGenerator: FC = () => {
     endDate: null,
   })
 
-  const counterpartyOptions = selectedUser?.counterparty_infos?.map((info) => ({ value: info.id, label: info.nickName })) || []
+  const counterpartyOptions =
+    selectedUser?.counterparty_infos?.map((info) => ({ value: info.id, label: info.nickName })) || []
 
   // Auto-select first option when counterparty options change
   useEffect(() => {
@@ -192,6 +193,8 @@ const SettlementGenerator: FC = () => {
   const summary =
     !isLoading && !isError ? calculateSummary() : { selectedOrders: 0, totalAmount: 0, batchSize: '1 batch' }
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Container>
       <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={setCounterpartyId} />
@@ -225,7 +228,12 @@ const SettlementGenerator: FC = () => {
           counterpartyOptions={counterpartyOptions}
           setCounterpartyId={setCounterpartyId}
           counterpartyId={counterpartyId}
-          allOrders={orders}
+          allOrders={orders?.map((order) => ({
+            ...order,
+            collector_id:
+              counterpartyInfos.find((info) => info.id === order.collector_id)?.nickName || order.collector_id,
+            receiver_id: counterpartyInfos.find((info) => info.id === order.receiver_id)?.nickName || order.receiver_id,
+          }))}
           editedRows={editedRows}
           setEditedRows={setEditedRows}
           onSelectedOrdersChange={handleSelectedOrdersChange}

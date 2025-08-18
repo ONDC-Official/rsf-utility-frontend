@@ -39,6 +39,8 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
   const navigate = useNavigate()
   const { selectedUser } = useUserContext()
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [receiverId, setReceiverId] = useState(selectedUser?.counterparty_infos?.[0]?.id || '')
@@ -77,11 +79,12 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
   }, [isLoading, showLoader, hideLoader])
 
   const apiOrders = ordersData?.data || []
+
   const currentOrders = apiOrders.map((order) => ({
     id: order.id,
     orderId: order.orderId,
-    collectorId: order.collectorId,
-    receiverId: order.receiverId,
+    collectorId: counterpartyInfos.find((info) => info.id === order.collectorId)?.nickName || order.collectorId,
+    receiverId: counterpartyInfos.find((info) => info.id === order.receiverId)?.nickName || order.receiverId,
     totalOrderValue: order.totalOrderValue,
     commission: order.bffPercent,
     sellerType: order.msn ? 'MSN' : 'ISN',

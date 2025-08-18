@@ -88,10 +88,10 @@ const NetworkConfiguration: FC = () => {
             ),
           )
 
-    const payload = { 
-      ...data, 
+    const payload = {
+      ...data,
       providers: cleanedProviders,
-      counterparty_infos: data.counterparty_infos || []
+      counterparty_infos: data.counterparty_infos || [],
     }
 
     try {

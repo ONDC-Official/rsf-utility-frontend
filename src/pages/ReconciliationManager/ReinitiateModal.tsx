@@ -58,7 +58,6 @@ const ReinitiateModal: FC<IReinitiateModalProps> = ({ open, onClose, order, onRe
       hideLoader()
       onClose()
     } catch (error) {
-      console.error('Error in reinitiate modal:', error)
       hideLoader()
     }
   }

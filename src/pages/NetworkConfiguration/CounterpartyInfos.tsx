@@ -10,7 +10,7 @@ import {
 import { ICounterpartyInfosProps } from 'pages/NetworkConfiguration/type'
 import { TypographyVariant } from 'enums/typography'
 
-const CounterpartyInfos = ({ control, errors, isEditing }: ICounterpartyInfosProps): JSX.Element => (
+const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element => (
   <ConfigurationBox>
     <DomainConfigContainer>
       <ConfigHeader>CounterParty Infos</ConfigHeader>
@@ -22,7 +22,7 @@ const CounterpartyInfos = ({ control, errors, isEditing }: ICounterpartyInfosPro
             const counterpartyInfos = field.value || []
 
             if (!counterpartyInfos.length) {
-              return null
+              return <></>
             }
 
             return (

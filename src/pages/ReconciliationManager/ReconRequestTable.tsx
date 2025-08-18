@@ -87,10 +87,11 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
     setCounterpartyId(event.target.value as string)
   }
 
-  const counterpartyOptions = selectedUser?.counterparty_infos?.map((info) => ({ 
-    label: info.nickName, 
-    value: info.id 
-  })) || []
+  const counterpartyOptions =
+    selectedUser?.counterparty_infos?.map((info) => ({
+      label: info.nickName,
+      value: info.id,
+    })) || []
 
   // Auto-select first option when counterparty options change
   useEffect(() => {
@@ -144,6 +145,8 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
     </Typography>
   )
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Container>
       <Header>
@@ -161,7 +164,14 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
       <Wrapper>
         <Table
           columns={reconRequestColumns}
-          data={currentSettlements}
+          data={currentSettlements?.map((settlement) => ({
+            ...settlement,
+            collector_id:
+              counterpartyInfos.find((info) => info.id === settlement.collector_id)?.nickName ||
+              settlement.collector_id,
+            receiver_id:
+              counterpartyInfos.find((info) => info.id === settlement.receiver_id)?.nickName || settlement.receiver_id,
+          }))}
           totalCount={totalCount}
           page={page}
           rowsPerPage={rowsPerPage}

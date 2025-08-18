@@ -161,6 +161,8 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
     )
   }
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Table
       columns={[
@@ -168,7 +170,11 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         // { id: 'status', label: 'Status' }, // add Status column
         // { id: 'actions', label: 'Actions' }, // keep Actions column
       ]}
-      data={expandedData}
+      data={expandedData?.map((item) => ({
+        ...item,
+        collector_id: counterpartyInfos.find((info) => info.id === item.collector_id)?.nickName || item.collector_id,
+        receiver_id: counterpartyInfos.find((info) => info.id === item.receiver_id)?.nickName || item.receiver_id,
+      }))}
       totalCount={totalCount}
       page={page}
       rowsPerPage={rowsPerPage}

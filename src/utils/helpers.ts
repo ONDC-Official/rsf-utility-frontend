@@ -63,7 +63,6 @@ export const formatSettlementStatus = (status: SettlementStatus | string | undef
 export const downloadOrdersAsCSV = (orders: any[], filename: string = 'orders.csv'): boolean => {
   try {
     if (!orders || orders.length === 0) {
-      console.warn('No orders data to export')
       return false
     }
 
@@ -136,11 +135,9 @@ export const downloadOrdersAsCSV = (orders: any[], filename: string = 'orders.cs
       URL.revokeObjectURL(url)
       return true
     } else {
-      console.error('Download not supported in this browser')
       return false
     }
   } catch (error) {
-    console.error('Error downloading CSV:', error)
     return false
   }
 }

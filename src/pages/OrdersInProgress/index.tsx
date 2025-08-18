@@ -16,6 +16,7 @@ import { formatDate, formatCurrency, formatNumber } from 'utils/formatters'
 
 const OrdersInProgress: React.FC = () => {
   const { selectedUser } = useUserContext()
+
   const { showLoader, hideLoader } = useLoader()
 
   const [page, setPage] = useState(1)
@@ -107,6 +108,8 @@ const OrdersInProgress: React.FC = () => {
     </Typography>
   )
 
+  const counterpartyInfos = selectedUser?.counterparty_infos || []
+
   return (
     <Container>
       <Header>
@@ -126,7 +129,11 @@ const OrdersInProgress: React.FC = () => {
       <Wrapper>
         <Table
           columns={columns}
-          data={orders}
+          data={orders?.map((order) => ({
+            ...order,
+            collectorId: counterpartyInfos.find((info) => info.id === order.collectorId)?.nickName || order.collectorId,
+            receiverId: counterpartyInfos.find((info) => info.id === order.receiverId)?.nickName || order.receiverId,
+          }))}
           totalCount={totalCount}
           page={page}
           rowsPerPage={rowsPerPage}

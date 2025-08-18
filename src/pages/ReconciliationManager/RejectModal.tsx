@@ -84,7 +84,6 @@ const RejectModal: FC<IRejectModalProps> = ({ open, onClose, onConfirm, order, o
         onRejectSuccess('Reconciliation request rejected and differences sent successfully!')
       }
     } catch (error) {
-      console.error('Error rejecting reconciliation request:', error)
       hideLoader()
 
       if (onRejectSuccess) {

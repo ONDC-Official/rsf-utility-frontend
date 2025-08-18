@@ -55,7 +55,6 @@ const AcceptModal: FC<IAcceptModalProps> = ({ open, onClose, onConfirm, order, o
         onAcceptSuccess('Reconciliation request accepted successfully!')
       }
     } catch (error) {
-      console.error('Error accepting reconciliation request:', error)
       hideLoader()
 
       if (onAcceptSuccess) {
