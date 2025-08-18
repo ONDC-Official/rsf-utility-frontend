@@ -89,22 +89,34 @@ const SettlementGenerator: FC = () => {
   const handleSubmit = async (): Promise<void> => {
     if (!userId) return
 
+    // normalize inputs here
+    const normalizedInputs = Array.from(selectedOrders).map((orderId) => {
+      const existing = formInputs[orderId] || {}
+
+      return {
+        order_id: orderId, // always include order_id
+        self_value: Number(existing.self_value) >= 0 ? Number(existing.self_value) : 0,
+        provider_value: Number(existing.provider_value) >= 0 ? Number(existing.provider_value) : 0,
+      }
+    })
+
+    const payload = {
+      settle_data: normalizedInputs,
+    }
+
     try {
       showLoader()
-      const payload = { settle_data: Object.values(formInputs) || [] }
       const res = await miscMutation.triggerAsync(payload)
 
       if (res.success) {
         toast(GENERATE_NP_NP_SETTLEMENT.SUCCESS)
+        setNpSettlementResponseData(res.data)
+        setShowPayloadPreview(true)
       } else {
         throw res
       }
-
-      if (res?.success) {
-        setNpSettlementResponseData(res.data)
-        setShowPayloadPreview(true)
-      }
-    } catch (e: any) {
+    } catch (e) {
+      // optional error logging
     } finally {
       hideLoader()
     }

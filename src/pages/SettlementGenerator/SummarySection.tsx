@@ -28,11 +28,6 @@ const SummarySection: FC<IProps> = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const isFormValid = selectedOrderIds.every((orderId) => {
-    const value = Number(formInputs[orderId]?.self_value)
-    return !isNaN(value) && value >= 0
-  })
-
   const totalInterNpSettlement = selectedOrders.reduce((total, order) => {
     return total + (order.inter_np_settlement || 0)
   }, 0)
@@ -74,7 +69,12 @@ const SummarySection: FC<IProps> = ({
           Add Self / Provider Amount
         </Button>
 
-        <Button variant="contained" startIcon={<Visibility />} onClick={onGeneratePreview} disabled={!isFormValid}>
+        <Button
+          variant="contained"
+          startIcon={<Visibility />}
+          onClick={onGeneratePreview}
+          disabled={selectedOrderIds.length === 0}
+        >
           Generate & Preview Payload
         </Button>
 
