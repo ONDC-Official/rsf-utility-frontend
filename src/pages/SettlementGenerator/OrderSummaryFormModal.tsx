@@ -81,7 +81,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
                     rules={{ required: true, min: 0 }}
                     render={({ field }) => (
                       <InputField
-                        label="Self Amount *"
+                        label="Self Amount"
                         placeholder="Enter self amount"
                         {...field}
                         value={field.value ?? ''}
