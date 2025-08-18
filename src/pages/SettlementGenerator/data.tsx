@@ -11,10 +11,26 @@ export const columns: ITableColumn<ISettlementOrder>[] = [
   { id: 'collectorId', label: 'Collector' },
   { id: 'receiverId', label: 'Receiver' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
-  { id: 'commission', label: 'BFF (Commission)' },
+  {
+    id: 'commission',
+    label: (
+      <div style={{ lineHeight: '16px' }}>
+        <div>BFF</div>
+        <div>(Commission)</div>
+      </div>
+    ),
+  },
   { id: 'tcs', label: 'TCS' },
   { id: 'tds', label: 'TDS' },
-  { id: 'withholdingAmount', label: 'Withholding (Incl. Item Tax)' },
+  {
+    id: 'withholdingAmount',
+    label: (
+      <div style={{ lineHeight: '16px' }}>
+        <div>Withholding</div>
+        <div>(Incl. Item Tax)</div>
+      </div>
+    ),
+  },
   { id: 'collectorSettlement', label: 'Collector Settlement' },
   { id: 'provider', label: 'Provider' },
   { id: 'dueDate', label: 'Due Date' },

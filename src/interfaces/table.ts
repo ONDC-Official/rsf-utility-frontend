@@ -1,6 +1,6 @@
 export interface ITableColumn<T = unknown> {
   id: string
-  label: string
+  label: string | React.ReactNode
   sortable?: boolean
   width?: string
   icon?: React.ReactNode

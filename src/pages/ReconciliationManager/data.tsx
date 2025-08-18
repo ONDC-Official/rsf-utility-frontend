@@ -14,10 +14,26 @@ export const reconRequestColumns: ITableColumn<IReconciliationDataItem>[] = [
   { id: 'receiver_id', label: 'Receiver' },
   { id: 'total_order_value', label: 'Total Order Value' },
   { id: 'collector_settlement', label: 'Inter NP Settlement' },
-  { id: 'commission', label: 'BFF (Commission)' },
+  {
+    id: 'commission',
+    label: (
+      <div style={{ lineHeight: '16px' }}>
+        <div>BFF</div>
+        <div>(Commission)</div>
+      </div>
+    ),
+  },
   { id: 'tcs', label: 'TCS' },
   { id: 'tds', label: 'TDS' },
-  { id: 'withholding_amount', label: 'Withholding (Incl. Item Tax)' },
+  {
+    id: 'withholding_amount',
+    label: (
+      <div style={{ lineHeight: '16px' }}>
+        <div>Withholding</div>
+        <div>(Incl. Item Tax)</div>
+      </div>
+    ),
+  },
   { id: 'status', label: 'Order Status' },
   { id: 'error', label: 'Error' },
 ]
