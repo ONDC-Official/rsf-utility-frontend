@@ -14,9 +14,9 @@ const HeaderSection: FC<HeaderSectionProps> = ({ counterpartyId, onCounterpartyC
   const { selectedUser } = useUserContext()
 
   const counterpartyOptions =
-    selectedUser?.counterparty_ids.map((id) => ({
-      value: id,
-      label: id,
+    selectedUser?.counterparty_infos?.map((info) => ({
+      value: info.id,
+      label: info.nickName,
     })) || []
 
   // Auto-select first option when counterparty options change

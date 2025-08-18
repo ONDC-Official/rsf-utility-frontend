@@ -41,7 +41,7 @@ const useOrdersReady = (): UseOrdersReadyReturn => {
 
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [receiverId, setReceiverId] = useState(selectedUser?.counterparty_ids[0] || '')
+  const [receiverId, setReceiverId] = useState(selectedUser?.counterparty_infos?.[0]?.id || '')
   const [selectedOrders, setSelectedOrders] = useState<Set<string>>(new Set())
   const [prepareButtonState, setPrepareButtonState] = useState<PrepareButtonState>(PrepareButtonState.DISABLED)
   const [toast, setToast] = useState<IToastState>({ isVisible: false, message: '', count: 0 })

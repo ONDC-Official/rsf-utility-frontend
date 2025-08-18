@@ -23,9 +23,8 @@ import { TypographyVariant } from 'enums/typography'
 // import Button from 'components/common/Button'
 
 const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) => {
+  const { selectedUser } = useUserContext()
   const [counterpartyId, setCounterpartyId] = useState('')
-
-  const { counterpartyIds, selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
 
   const {
@@ -88,7 +87,27 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
     setCounterpartyId(event.target.value as string)
   }
 
-  const counterpartyOptions = counterpartyIds.map((id) => ({ label: id, value: id }))
+  const counterpartyOptions = selectedUser?.counterparty_infos?.map((info) => ({ 
+    label: info.nickName, 
+    value: info.id 
+  })) || []
+
+  // Auto-select first option when counterparty options change
+  useEffect(() => {
+    if (counterpartyOptions.length > 0 && !counterpartyId) {
+      setCounterpartyId(counterpartyOptions[0].value)
+    }
+  }, [counterpartyOptions, counterpartyId])
+
+  // Reset selection when selected user changes to ensure sync
+  useEffect(() => {
+    if (counterpartyOptions.length > 0) {
+      const currentIsValid = counterpartyOptions.some((option) => option.value === counterpartyId)
+      if (!currentIsValid) {
+        setCounterpartyId(counterpartyOptions[0].value)
+      }
+    }
+  }, [selectedUser, counterpartyOptions, counterpartyId])
 
   const getItemId = (item: IReconciliationDataItem): string => item.order_id
 
@@ -135,8 +154,6 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
             onChange={handleCounterpartyChange}
             options={counterpartyOptions}
             size="small"
-            displayEmpty
-            renderValue={(selected) => (selected as string) || 'Choose'}
           />
         </TableReceiverSection>
       </Header>
