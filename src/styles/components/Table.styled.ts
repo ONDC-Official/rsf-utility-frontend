@@ -46,6 +46,10 @@ export const StyledTableBodyCell = styled(TableCell)({
   '&.highlight': {
     backgroundColor: colors.background.dark,
   },
+
+  '& .MuiCheckbox-root': {
+    padding: '4px',
+  },
 })
 
 export const StyledTableRow = styled(TableRow, {
@@ -94,7 +98,7 @@ export const TableBodyCheckboxCell = styled(TableCell)({
   fontSize: typography.body2_regular?.fontSize || '14px',
   color: colors.text.tertiary,
   fontFamily: typography.body2_regular.fontFamily,
-  padding: '4px 18x',
+  padding: '4px 8px',
   width: '60px',
   minWidth: '60px',
   maxWidth: '60px',

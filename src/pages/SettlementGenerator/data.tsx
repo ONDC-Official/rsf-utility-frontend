@@ -8,8 +8,8 @@ export const counterpartyOptions = [
 
 export const columns: ITableColumn<ISettlementOrder>[] = [
   { id: 'orderId', label: 'Order ID' },
-  { id: 'collectorId', label: 'Collector ID' },
-  { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'collectorId', label: 'Collector' },
+  { id: 'receiverId', label: 'Receiver' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
   { id: 'commission', label: 'BFF (Commission)' },
   { id: 'tcs', label: 'TCS' },

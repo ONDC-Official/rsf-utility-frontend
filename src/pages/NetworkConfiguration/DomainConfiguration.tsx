@@ -21,6 +21,11 @@ import { TypographyVariant } from 'enums/typography'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
+const typeOptions = [
+  { value: 'MSN', label: 'MSN' },
+  { value: 'ISN', label: 'ISN' },
+]
+
 const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => (
   <ConfigurationBox>
     <SettlementHeader>
@@ -140,28 +145,32 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
           />
         </div>
 
-        {role !== 'Buyer App' && (
+        {role === 'Seller App' && (
           <div>
             <RequiredFieldLabel>Type</RequiredFieldLabel>
+
             <Controller
               control={control}
               name="type"
               rules={{ required: 'Type is required' }}
-              render={({ field }) => (
-                <StyledSelect
-                  value={field.value || ''}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  error={!!errors.type}
-                  disabled={isEditing}
-                  displayEmpty
-                  renderValue={(selected: unknown) => (selected && selected !== '' ? String(selected) : 'Select Type')}
-                  options={[
-                    { value: 'MSN', label: 'MSN' },
-                    { value: 'ISN', label: 'ISN' },
-                  ]}
-                  formControlProps={{ error: !!errors.type, fullWidth: true }}
-                />
-              )}
+              render={({ field }) => {
+                return (
+                  <StyledSelect
+                    value={typeOptions?.find((d) => d?.value === field.value)?.label || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    error={!!errors.type}
+                    disabled={isEditing}
+                    displayEmpty
+                    renderValue={(selected: unknown) => {
+                      if (!selected) return 'Select Type'
+                      const selectedOption = typeOptions.find((opt) => opt.value === selected)
+                      return selectedOption ? selectedOption.value : String(selected)
+                    }}
+                    options={typeOptions}
+                    formControlProps={{ error: !!errors.type, fullWidth: true }}
+                  />
+                )
+              }}
             />
 
             {errors.type && (

@@ -13,7 +13,7 @@ import { TypographyVariant } from 'enums/typography'
 const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element => (
   <ConfigurationBox>
     <DomainConfigContainer>
-      <ConfigHeader>CounterParty Infos</ConfigHeader>
+      <ConfigHeader>Counterparty Details</ConfigHeader>
       <CounterPartyInfoFormContainer>
         <Controller
           control={control}
@@ -34,7 +34,7 @@ const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element =>
                   >
                     <div>
                       <Typography variant={TypographyVariant.Body2Medium} style={{ marginBottom: '8px' }}>
-                        ID
+                        ONDC Subscriber ID
                       </Typography>
                       <StyledInput value={info.id || ''} disabled={true} placeholder="Counterparty ID" />
                     </div>

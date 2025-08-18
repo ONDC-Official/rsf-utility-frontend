@@ -14,12 +14,8 @@ interface ExtendedOrdersReadyRowProps extends IOrdersReadyRowProps {
 const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({ order, selected, onCheckboxChange, onEditClick }) => {
   return (
     <>
-      <StyledTableBodyCell padding="checkbox">
-        <Checkbox
-          checked={selected}
-          onChange={(e) => onCheckboxChange(order.id, e.target.checked)}
-          inputProps={{ 'aria-label': 'select order' }}
-        />
+      <StyledTableBodyCell>
+        <Checkbox size="small" checked={selected} onChange={(e) => onCheckboxChange(order.id, e.target.checked)} />
       </StyledTableBodyCell>
 
       <StyledTableBodyCell>{order.orderId}</StyledTableBodyCell>

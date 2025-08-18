@@ -2,8 +2,8 @@ import { ITableColumn } from 'interfaces/table'
 
 export const columns: ITableColumn[] = [
   { id: 'orderId', label: 'Order ID' },
-  { id: 'collectorId', label: 'Collector ID' },
-  { id: 'receiverId', label: 'Receiver ID' },
+  { id: 'collectorId', label: 'Collector' },
+  { id: 'receiverId', label: 'Receiver' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
   { id: 'interNpSettlement', label: 'Inter NP Settlement' },
   { id: 'commission', label: 'Collector Settlement' },
