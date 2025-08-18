@@ -27,10 +27,11 @@ export const StyledTableCell = styled(TableCell)({
   fontWeight: typography.body3_semibold?.fontWeight || '600',
   fontSize: typography.body3_semibold?.fontSize || '12px',
   color: colors.text.tertiary,
-  padding: '4px 8px',
+  padding: '4px 20px',
   height: '40px',
   verticalAlign: 'middle',
   whiteSpace: 'nowrap',
+  textAlign: 'center',
 })
 
 export const StyledTableBodyCell = styled(TableCell)({
@@ -38,10 +39,14 @@ export const StyledTableBodyCell = styled(TableCell)({
   fontSize: typography.body2_regular?.fontSize || '14px',
   color: colors.text.tertiary,
   fontFamily: typography.body2_regular.fontFamily,
-  padding: '4px 8px',
+  padding: '4px 20px',
   height: '64px',
   verticalAlign: 'middle',
+  textAlign: 'center',
   borderBottom: `1px solid ${colors.border.main}`,
+  whiteSpace: 'nowrap',
+  // overflow: 'hidden',
+  // textOverflow: 'ellipsis',
 
   '&.highlight': {
     backgroundColor: colors.background.dark,
@@ -88,6 +93,8 @@ export const TableHeaderCheckboxCell = styled(TableCell)({
   maxWidth: '60px',
   height: '56px',
   verticalAlign: 'middle',
+  textAlign: 'center',
+
   '& .MuiCheckbox-root': {
     padding: '4px',
   },
@@ -104,10 +111,13 @@ export const TableBodyCheckboxCell = styled(TableCell)({
   maxWidth: '60px',
   height: '64px',
   verticalAlign: 'middle',
+  textAlign: 'center',
+
   borderBottom: `1px solid ${colors.border.main}`,
   '& .MuiCheckbox-root': {
     padding: '4px',
   },
+
   '&.highlight': {
     backgroundColor: colors.background.dark,
   },

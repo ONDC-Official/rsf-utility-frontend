@@ -27,7 +27,7 @@ const OrdersReadyRow: React.FC<ExtendedOrdersReadyRowProps> = ({ order, selected
       <StyledTableBodyCell>{DOMAIN_CATEGORY_LABELS[order.domain]}</StyledTableBodyCell>
 
       <StyledTableBodyCell>
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box>
           {order.dueDate ? (
             formatDate(order.dueDate)
           ) : (

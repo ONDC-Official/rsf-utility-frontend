@@ -6,7 +6,7 @@ export const columns: ITableColumn<ISettlementItem>[] = [
   { id: 'providerName', label: 'Provider Name' },
   { id: 'accountNumber', label: 'Account Number' },
   { id: 'ifscCode', label: 'IFSC Code' },
-  { id: 'amount', label: 'amount' },
+  { id: 'amount', label: 'Amount' },
   { id: 'providerAmount', label: 'Provider Amount' },
   { id: 'date', label: 'Date' },
 ]

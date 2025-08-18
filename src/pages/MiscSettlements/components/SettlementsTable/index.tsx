@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import Table from 'components/common/Table'
-import { TableCell } from '@mui/material'
-import { TableCellStyles } from 'enums/styles'
 import { useUserContext } from 'context/userContext'
 import useGetSettlements from 'hooks/queries/useGetSettlements'
 import { columns } from 'pages/MiscSettlements/data'
 import { ISettlementItem } from '@interfaces/settlement'
 import dayjs from 'dayjs'
 import { SettlementType } from 'enums/settlement'
+import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
 const SettlementsTable: React.FC = () => {
   const { selectedUser } = useUserContext()
@@ -30,13 +29,13 @@ const SettlementsTable: React.FC = () => {
 
     return (
       <>
-        <TableCell sx={TableCellStyles.DEFAULT}>{settlement.id || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.id || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.bank_details?.account_no || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.bank_details?.ifsc_code || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>₹{order.self?.amount?.value || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>{order.provider?.amount?.value || '-'}</TableCell>
-        <TableCell sx={TableCellStyles.DEFAULT}>{formattedDate}</TableCell>
+        <StyledTableBodyCell>{settlement.id || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>{order.provider?.id || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>{order.provider?.bank_details?.account_no || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>{order.provider?.bank_details?.ifsc_code || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>₹{order.self?.amount?.value || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>{order.provider?.amount?.value || '-'}</StyledTableBodyCell>
+        <StyledTableBodyCell>{formattedDate}</StyledTableBodyCell>
       </>
     )
   }
