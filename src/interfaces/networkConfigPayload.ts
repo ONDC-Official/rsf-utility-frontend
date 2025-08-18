@@ -5,6 +5,11 @@ export interface ProviderDetail {
   bank_name: string
 }
 
+export interface CounterpartyInfo {
+  id: string
+  nickName: string
+}
+
 export interface NetworkConfigPayload {
   title: string
   role: 'BPP' | 'BAP'
@@ -16,6 +21,7 @@ export interface NetworkConfigPayload {
   pr_tds: number
   msn: boolean
   provider_details?: ProviderDetail[]
+  counterparty_infos?: CounterpartyInfo[]
   tcs_applicability?: string
   tds_applicability?: string
 }

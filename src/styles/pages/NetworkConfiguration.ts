@@ -125,6 +125,23 @@ export const FormContainer = styled('div')(() => ({
   },
 }))
 
+export const CounterPartyInfoFormContainer = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: 'auto',
+  gap: '20px',
+  marginTop: '20px',
+  alignItems: 'start',
+  '& > div': {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
 export const ConfigHeader = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'space-between',

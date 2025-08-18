@@ -5,6 +5,7 @@ import { useToast } from 'context/toastContext'
 import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
 import DomainConfiguration from './DomainConfiguration'
 import ProviderBankDetails from './ProviderBankDetails'
+import CounterpartyInfos from './CounterpartyInfos'
 import SaveIcon from 'assets/images/svg/SaveIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import useDeleteNetworkConfig from 'hooks/mutations/useDeleteNetworkConfig'
@@ -34,6 +35,7 @@ const mapUserToFormData = (user: IUser): IFormData => ({
   type: user.msn ? 'MSN' : 'ISN',
   tcs_applicability: user.tcs_applicability || '',
   tds_applicability: user.tds_applicability || '',
+  counterparty_infos: user.counterparty_infos || [],
   providers: user.provider_details?.length
     ? user.provider_details.map((p) => ({
         providerId: p.provider_id || '',
@@ -60,7 +62,7 @@ const NetworkConfiguration: FC = () => {
     formState: { errors },
   } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
 
-  const { role, type, _id } = watch()
+  const { role, type, _id, counterparty_infos } = watch()
   const isEditing = !!_id
 
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
@@ -86,7 +88,11 @@ const NetworkConfiguration: FC = () => {
             ),
           )
 
-    const payload = { ...data, providers: cleanedProviders }
+    const payload = { 
+      ...data, 
+      providers: cleanedProviders,
+      counterparty_infos: data.counterparty_infos || []
+    }
 
     try {
       const res = await submitConfig(payload)
@@ -149,6 +155,10 @@ const NetworkConfiguration: FC = () => {
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <DomainConfiguration errors={errors} role={role} type={type} isEditing={isEditing} control={control} />
+
+        {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
+          <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
+        )}
 
         {role === 'Seller App' && type === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
 

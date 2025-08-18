@@ -9,6 +9,11 @@ export interface IProvider {
   providerName: string
 }
 
+export interface ICounterpartyInfo {
+  id: string
+  nickName: string
+}
+
 export interface ISelectedUser extends IUser {
   counterparty_ids: string[]
   createdAt: string
@@ -24,6 +29,7 @@ export interface IFormData {
   type: string
   subscriberUrl: string
   providers?: IProvider[]
+  counterparty_infos?: ICounterpartyInfo[]
   buyerNpToNpTcs?: number
   buyerNpToNpTds?: number
   sellerNpToTcs?: number
@@ -51,4 +57,10 @@ export interface IHeaderSectionProps {
 export interface IProviderBankDetailsProps {
   control: Control<IFormData>
   errors: FieldErrors<IFormData>
+}
+
+export interface ICounterpartyInfosProps {
+  control: Control<IFormData>
+  errors: FieldErrors<IFormData>
+  isEditing: boolean
 }

@@ -56,6 +56,14 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
     }))
   }
 
+  // Counterparty infos
+  if (data.counterparty_infos?.length) {
+    payload.counterparty_infos = data.counterparty_infos.map((cp) => ({
+      id: cp.id,
+      nickName: cp.nickName,
+    }))
+  }
+
   return payload as NetworkConfigPayload
 }
 

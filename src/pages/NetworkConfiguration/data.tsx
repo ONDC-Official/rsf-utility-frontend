@@ -21,4 +21,5 @@ export const defaultFormData: IFormData = {
   type: '',
   subscriberUrl: '',
   providers: [defaultProvider],
+  counterparty_infos: [],
 }

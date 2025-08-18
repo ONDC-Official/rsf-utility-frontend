@@ -7,6 +7,11 @@ export interface ProviderDetails {
   provider_name: string
 }
 
+export interface CounterpartyInfo {
+  id: string
+  nickName: string
+}
+
 export interface IUser {
   title: string
   role: string
@@ -21,6 +26,7 @@ export interface IUser {
   msn: boolean
   provider_details: ProviderDetails[]
   counterparty_ids: string[]
+  counterparty_infos: CounterpartyInfo[]
   _id: string
   tcs_applicability?: string
   tds_applicability?: string
