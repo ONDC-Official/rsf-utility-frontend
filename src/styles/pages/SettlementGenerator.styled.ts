@@ -169,7 +169,8 @@ export const ModalContainer = styled(Box)({
   width: '600px',
   maxWidth: '90vw',
   maxHeight: '80vh',
-  overflowY: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
 })
 
 export const Content = styled(Box)({
@@ -177,6 +178,9 @@ export const Content = styled(Box)({
   borderRadius: 8,
   boxShadow: `6px 6px 54px 0px ${colors.shadow.main}`,
   padding: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  maxHeight: '100%',
 })
 
 export const CloseButton = styled(IconButton)({
@@ -186,6 +190,10 @@ export const CloseButton = styled(IconButton)({
 
 export const StyledForm = styled('form')({
   padding: '24px',
+  flex: 1,
+  overflowY: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
 })
 
 export const FormRow = styled(Box)({
@@ -199,9 +207,10 @@ export const ButtonContainer = styled(Box)({
   display: 'flex',
   justifyContent: 'flex-end',
   gap: '12px',
-  marginTop: '24px',
+  marginTop: 'auto',
   paddingTop: '24px',
   borderTop: `1px solid ${colors.border.main}`,
+  flexShrink: 0,
 })
 
 export const Header = styled(Box)({
@@ -210,6 +219,7 @@ export const Header = styled(Box)({
   alignItems: 'center',
   padding: '20px 24px',
   borderBottom: `1px solid ${colors.border.main}`,
+  flexShrink: 0,
 })
 
 export const ActionsCell = styled(StyledTableBodyCell)({

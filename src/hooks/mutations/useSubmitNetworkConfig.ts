@@ -16,7 +16,7 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
 
   const isBuyer = data?.role === 'Buyer App'
   const isSeller = data?.role === 'Seller App'
-  const isMsn = data?.type === 'MSN'
+  const isMsn = data?.selectedType === 'MSN'
 
   payload.title = data.title
   payload.tcs_applicability = data.tcs_applicability || ''

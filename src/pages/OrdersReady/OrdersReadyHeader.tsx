@@ -1,12 +1,14 @@
 import { FC, useEffect } from 'react'
 import { Box, Typography, SelectChangeEvent } from '@mui/material'
 import Select from 'components/common/Select'
+import Button from 'components/common/Button'
 import { IOrdersReadyHeaderProps } from 'pages/OrdersReady/types'
 import { ORDER_HEADER_LABELS, PrepareButtonState } from 'pages/OrdersReady/constants'
 import { PrepareButton } from 'styles/components/PrepareButton.styled'
 import { PageHeader as Container, HeaderLeft, HeaderRight } from 'styles/pages/OrdersReady.styled'
 import { TypographyVariant } from 'enums/typography'
 import { useUserContext } from 'context/userContext'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 
 const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   receiverId,
@@ -15,6 +17,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
   prepareButtonState,
   handleReceiverChange,
   handlePrepareClick,
+  onExport,
 }) => {
   const { selectedUser } = useUserContext()
 
@@ -56,6 +59,9 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
       <HeaderRight>
         <Typography variant={TypographyVariant.Body1Medium}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
         <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
+        <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
+          Export
+        </Button>
         <Box>
           <PrepareButton
             variant="outlined"

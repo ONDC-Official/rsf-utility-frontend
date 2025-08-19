@@ -26,7 +26,7 @@ export interface IFormData {
   title: string
   role: string
   domainCategory: string
-  type: string
+  selectedType: string
   subscriberUrl: string
   providers?: IProvider[]
   counterparty_infos?: ICounterpartyInfo[]

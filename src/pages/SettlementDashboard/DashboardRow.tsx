@@ -1,8 +1,6 @@
 import React from 'react'
-import { Info } from '@mui/icons-material'
-import { Tooltip } from '@mui/material'
 import StatusChip from 'components/common/StatusChip'
-import { StyledTableBodyCell, ErrorInfoContainer } from 'styles/components/Table.styled'
+import { StyledTableBodyCell } from 'styles/components/Table.styled'
 import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL, ACTION_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 import Button from 'components/common/Button'
@@ -50,12 +48,7 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
       <StyledTableBodyCell>{order.settlement_reference}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {order.error ? (
-          <ErrorInfoContainer>
-            <Tooltip title={order.error}>
-              <Info fontSize="small" color="error" />
-            </Tooltip>
-            <span>{order.error.length > 20 ? `${order.error.substring(0, 20)}...` : order.error}</span>
-          </ErrorInfoContainer>
+          <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap', lineHeight: '1.2' }}>{order.error}</div>
         ) : (
           TABLE_CELL_DEFAULTS.ERROR
         )}

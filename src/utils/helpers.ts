@@ -66,52 +66,31 @@ export const downloadOrdersAsCSV = (orders: any[], filename: string = 'orders.cs
       return false
     }
 
-    // Define CSV headers based on the order structure
-
+    // Define CSV headers to match the table column display names
     const headers = [
-      'order_id',
-      'total_order_value',
-      'withholding_amount',
-      'tds',
-      'tcs',
-      'commission',
-      'collector_settlement',
-      'collector_id',
-      'receiver_id',
-      'inter_np_settlement',
-      'provider_id',
-      'due_date',
-      'status',
-      'self_status',
-      'provider_status',
-      'type',
+      'Order ID',
+      'Collector',
+      'Receiver',
+      'Total Order Value',
+      'BFF',
+      'Seller Type',
+      'Domain',
+      'Due Date',
     ]
-
-    // order_id,total_order_value,withholding_amount, tds, tcs, commission, collector_settlement
 
     // Convert orders to CSV rows
     const csvRows = [
       headers.join(','), // Header row
       ...orders.map((order) =>
         [
-          `"${order.order_id || ''}"`,
-          order.total_order_value || 0,
-          order.withholding_amount || 0,
-          order.tds || 0,
-          order.tcs || 0,
+          `"${order.order_id || order.orderId || ''}"`,
+          `"${order.collector_id || order.collectorId || ''}"`,
+          `"${order.receiver_id || order.receiverId || ''}"`,
+          order.total_order_value || order.totalOrderValue || 0,
           order.commission || 0,
-          order.collector_settlement || 0,
-
-          `"${order.collector_id || ''}"`,
-          `"${order.receiver_id || ''}"`,
-          order.inter_np_settlement || 0,
-          `"${order.provider_id || ''}"`,
-          `"${order.due_date || ''}"`,
-          `"${order.status || ''}"`,
-          `"${order.self_status || ''}"`,
-          `"${order.provider_status || ''}"`,
-
-          `"${order.type || ''}"`,
+          `"${order.seller_type || order.sellerType || ''}"`,
+          `"${order.domain || ''}"`,
+          `"${order.due_date || order.dueDate || ''}"`,
         ].join(','),
       ),
     ]

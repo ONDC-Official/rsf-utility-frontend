@@ -78,7 +78,7 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
                   <Controller
                     name={`${orderId}.self_value`}
                     control={control}
-                    rules={{ required: true, min: 0 }}
+                    rules={{ min: 0 }}
                     render={({ field }) => (
                       <InputField
                         label="Self Amount"
@@ -88,7 +88,6 @@ const OrderSummaryFormModal: FC<IOrderSummaryModalProps> = ({
                         size="small"
                         style={{ marginRight: '1rem', flex: 1 }}
                         inputProps={{ min: '0' }}
-                        required
                       />
                     )}
                   />

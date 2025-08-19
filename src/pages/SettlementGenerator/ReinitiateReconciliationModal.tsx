@@ -35,8 +35,9 @@ const ReinitiateReconciliationModal: FC<
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SettlementPayload>({
+    mode: 'onChange',
     defaultValues: {
       order_id: data?.order_id || '',
       total_order_value: 0,
@@ -232,7 +233,7 @@ const ReinitiateReconciliationModal: FC<
               <OutlinedFilterButton variant="outlined" type="button" onClick={onClose}>
                 {RECONCILIATION_LABELS.FORM_CANCEL}
               </OutlinedFilterButton>
-              <ContainedExportButton variant="contained" type="submit">
+              <ContainedExportButton variant="contained" type="submit" disabled={!isValid}>
                 {RECONCILIATION_LABELS.FORM_SAVE}
               </ContainedExportButton>
             </ButtonContainer>

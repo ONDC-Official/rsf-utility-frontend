@@ -11,7 +11,8 @@ import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'
 import { useUserContext } from 'context/userContext'
 import dayjs from 'dayjs'
 import { useToast } from 'context/toastContext'
-import { ORDER_PATCH_MESSAGES } from 'constants/toastMessages'
+import { ORDER_PATCH_MESSAGES, CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
+import { downloadOrdersAsCSV } from 'utils/helpers'
 
 const OrdersReady: FC = () => {
   const {
@@ -94,6 +95,20 @@ const OrdersReady: FC = () => {
     // This will be called from the modal for additional handling if needed
   }
 
+  const handleExport = (): void => {
+    if (currentOrders.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadOrdersAsCSV(currentOrders, `orders-ready-${timestamp}.csv`)
+      if (success) {
+        muiToast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        muiToast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      muiToast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
+  }
+
   const renderRow = (order: IOrderReady, index: number): JSX.Element => (
     <OrdersReadyRow
       editedDueDates={editedDueDates}
@@ -120,6 +135,7 @@ const OrdersReady: FC = () => {
         handlePrepareClick={handlePrepareClick}
         selectedCount={selectedOrders.size}
         prepareButtonState={prepareButtonState}
+        onExport={handleExport}
       />
 
       <OrdersReadyTable

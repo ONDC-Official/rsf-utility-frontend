@@ -5,7 +5,7 @@ export const RECONCILIATION_LABELS = {
   TAB_GENERATE: 'Generate Recon Request',
   TAB_REVIEW: 'Review Recon Requests',
   TAB_OUTGOING: 'Reconciliation In Progress',
-  RECEIVER_LABEL: 'Counterparty ID',
+  RECEIVER_LABEL: 'Counterparty',
   EXPORT: 'Export',
   FILTER_BY_DATE: 'Filter by date',
   OUTGOING_TITLE: 'Outgoing Reconciliation Requests',

@@ -76,12 +76,13 @@ export const NetworkIdentityTitle = styled('div')(() => ({
 
 export const LabelWrapper = styled('div')({
   display: 'flex',
-  alignItems: 'flex-end',
-  gap: '6px',
+  alignItems: 'center',
+  gap: '8px',
 })
 
 export const IconWrapper = styled('div')({
   cursor: 'pointer',
+  height: '20px',
 })
 
 export const BulkButton = styled(Button)(() => ({
@@ -111,14 +112,15 @@ export const ConfigTitleSection = styled('div')(() => ({
 export const FormContainer = styled('div')(() => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
-  gap: '20px',
-  marginTop: '20px',
+  gap: '24px',
+  marginTop: '24px',
   alignItems: 'start',
   '& > div': {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: '6px',
+    gap: '8px',
+    minHeight: '88px', // Consistent height for fields with error messages
   },
   '@media (max-width: 768px)': {
     gridTemplateColumns: '1fr',
@@ -161,12 +163,37 @@ export const SaveButtonContainer = styled('div')(() => ({
 }))
 
 export const StyledSelect = styled(Select)({
+  '& .MuiOutlinedInput-root': {
+    height: '48px', // Fixed height for all selects
+    backgroundColor: colors.background.light,
+    borderRadius: 10,
+    '& fieldset': {
+      borderColor: colors.neutral.main,
+      borderRadius: 10,
+    },
+    '&:hover fieldset': {
+      borderColor: colors.primary.main,
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: colors.primary.main,
+    },
+  },
   '& .MuiSelect-select': {
     fontSize: '14px',
     color: colors.text.main,
+    padding: '12px 14px',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
   },
   '& .Mui-disabled': {
     backgroundColor: '#ececec',
+  },
+  '& .MuiFormHelperText-root': {
+    marginLeft: '0px',
+    marginTop: '4px',
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 })
 
@@ -175,10 +202,10 @@ export const StyledInput = styled(InputField)({
   '& .MuiOutlinedInput-root': {
     backgroundColor: colors.background.light,
     borderRadius: 10,
+    height: '48px', // Fixed height for all inputs
     '& fieldset': {
       borderColor: colors.neutral.main,
       borderRadius: 10,
-      height: 62,
     },
     '&:hover fieldset': {
       borderColor: colors.primary.main,
@@ -188,7 +215,7 @@ export const StyledInput = styled(InputField)({
     },
     '& .MuiInputBase-input': {
       height: '100%',
-      padding: '20px 14px',
+      padding: '12px 14px',
       boxSizing: 'border-box',
     },
     '&.Mui-disabled': {
@@ -197,5 +224,11 @@ export const StyledInput = styled(InputField)({
   },
   '& .MuiInputLabel-root': {
     display: 'none',
+  },
+  '& .MuiFormHelperText-root': {
+    marginLeft: '0px',
+    marginTop: '4px',
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 })

@@ -117,7 +117,7 @@ const OrdersInProgress: React.FC = () => {
           <Typography variant={TypographyVariant.Body1Regular}>Monitor orders currently being processed</Typography>
         </HeaderLeft>
         <HeaderRight>
-          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
+          <Typography variant={TypographyVariant.Body1Medium}>Counterparty</Typography>
           <Select
             value={counterpartyId}
             onChange={(e) => setCounterpartyId(e.target.value as string)}

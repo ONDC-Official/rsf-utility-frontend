@@ -29,4 +29,5 @@ export interface IOrdersReadyHeaderProps {
   prepareButtonState: 'disabled' | 'prepare' | 'generate'
   handleReceiverChange: (e: SelectChangeEvent<unknown>) => void
   handlePrepareClick: () => void
+  onExport?: () => void
 }

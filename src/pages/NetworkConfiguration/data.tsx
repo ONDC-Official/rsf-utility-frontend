@@ -18,8 +18,10 @@ export const defaultFormData: IFormData = {
   sellerNpToTds: 0,
   sellerNpToProviderTcs: 0,
   sellerNpToProviderTds: 0,
-  type: '',
+  selectedType: '',
   subscriberUrl: '',
+  tcs_applicability: '',
+  tds_applicability: '',
   providers: [defaultProvider],
   counterparty_infos: [],
 }

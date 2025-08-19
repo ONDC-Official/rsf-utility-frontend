@@ -46,7 +46,7 @@ const ModeSelection: FC<IModeSelectionProps> = ({ isManualMode, onToggleMode, co
       </ModeContent>
 
       <ModeRight>
-        <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
+        <Typography variant={TypographyVariant.Body1Medium}>Counterparty</Typography>
         <Select
           value={counterpartyId}
           onChange={(e: SelectChangeEvent<unknown>) => setCounterpartyId(e.target.value as string)}

@@ -1,7 +1,7 @@
 export const DASHBOARD_LABELS = {
   TITLE: 'Settlement Dashboard',
   SUBTITLE: 'Monitor settlement status and manage reconciliation',
-  COUNTERPARTY_LABEL: 'Counterparty ID',
+  COUNTERPARTY_LABEL: 'Counterparty',
   CHOOSE_PLACEHOLDER: 'Choose...',
   FILTER_BY_DATE: 'Filter by date',
   EXPORT: 'Export',

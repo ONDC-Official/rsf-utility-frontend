@@ -1,6 +1,7 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Modal, Typography } from '@mui/material'
 import { Close, Event } from '@mui/icons-material'
+import { useForm, Controller } from 'react-hook-form'
 import InputField from 'components/common/InputField'
 import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'
 import { useUserContext } from 'context/userContext'
@@ -26,16 +27,30 @@ interface EditDueDateModalProps {
   onEditSuccess?: (message: string) => void
 }
 
-const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm, orderId, onEditSuccess }) => {
-  const [dueDate, setDueDate] = useState('')
+interface FormData {
+  dueDate: string
+}
 
+const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm, orderId, onEditSuccess }) => {
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
   const patchOrderDueDate = usePatchOrderDueDate(selectedUser?._id || '')
 
-  const handleConfirm = async (): Promise<void> => {
-    if (!orderId || !dueDate) {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: 'onChange',
+    defaultValues: {
+      dueDate: '',
+    },
+  })
+
+  const onSubmit = async (formData: FormData): Promise<void> => {
+    if (!orderId || !formData.dueDate) {
       return
     }
 
@@ -45,14 +60,14 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
       const payload = [
         {
           order_id: orderId,
-          due_date: dueDate,
+          due_date: formData.dueDate,
         },
       ]
 
       const res = await patchOrderDueDate.patchOrderAsync(payload)
 
       hideLoader()
-      setDueDate('')
+      reset()
       onConfirm()
 
       if (res.success) {
@@ -73,7 +88,7 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
 
   const handleCancel = (): void => {
     onClose()
-    setDueDate('')
+    reset()
   }
 
   return (
@@ -87,23 +102,41 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
             </CloseButton>
           </Header>
 
-          <StyledForm style={{ padding: '0 24px 24px 24px' }}>
+          <StyledForm onSubmit={handleSubmit(onSubmit)} style={{ padding: '0 24px 24px 24px' }}>
             <Typography variant={TypographyVariant.Body1Regular}>Edit due date for Order ID: {orderId}</Typography>
 
-            <InputField
-              label="Due Date *"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-              placeholder="YYYY-MM-DD"
-              type="date"
-              required
+            <Controller
+              name="dueDate"
+              control={control}
+              rules={{
+                required: 'Due date is required',
+                validate: {
+                  notPastDate: (value) => {
+                    const selectedDate = new Date(value)
+                    const today = new Date()
+                    today.setHours(0, 0, 0, 0)
+                    return selectedDate >= today || 'Due date cannot be in the past'
+                  },
+                },
+              }}
+              render={({ field }) => (
+                <InputField
+                  label="Due Date *"
+                  {...field}
+                  error={!!errors.dueDate}
+                  helperText={errors.dueDate?.message}
+                  placeholder="YYYY-MM-DD"
+                  type="date"
+                  required
+                />
+              )}
             />
 
             <ButtonContainer>
-              <OutlinedFilterButton variant="outlined" onClick={handleCancel}>
+              <OutlinedFilterButton variant="outlined" type="button" onClick={handleCancel}>
                 Cancel
               </OutlinedFilterButton>
-              <ContainedExportButton variant="contained" onClick={handleConfirm} startIcon={<Event />}>
+              <ContainedExportButton variant="contained" type="submit" disabled={!isValid} startIcon={<Event />}>
                 Update Due Date
               </ContainedExportButton>
             </ButtonContainer>

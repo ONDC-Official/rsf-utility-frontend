@@ -181,7 +181,7 @@ const OrderTable: FC<IOrderTableProps> = ({
     <Container>
       <Header>
         <ActionsContainer>
-          <Typography variant={TypographyVariant.Body1Medium}>Counterparty ID</Typography>
+          <Typography variant={TypographyVariant.Body1Medium}>Counterparty</Typography>
           <Select
             value={counterpartyId}
             onChange={(e) => setCounterpartyId(e.target.value as string)}

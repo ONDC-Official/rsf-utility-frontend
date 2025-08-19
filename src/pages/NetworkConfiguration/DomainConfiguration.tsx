@@ -21,11 +21,6 @@ import { TypographyVariant } from 'enums/typography'
 
 const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
 
-const typeOptions = [
-  { value: 'MSN', label: 'MSN' },
-  { value: 'ISN', label: 'ISN' },
-]
-
 const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => (
   <ConfigurationBox>
     <SettlementHeader>
@@ -148,34 +143,28 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
         {role === 'Seller App' && (
           <div>
             <RequiredFieldLabel>Type</RequiredFieldLabel>
-
             <Controller
               control={control}
-              name="type"
+              name="selectedType"
               rules={{ required: 'Type is required' }}
-              render={({ field }) => {
-                return (
-                  <StyledSelect
-                    value={typeOptions?.find((d) => d?.value === field.value)?.label || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.type}
-                    disabled={isEditing}
-                    displayEmpty
-                    renderValue={(selected: unknown) => {
-                      if (!selected) return 'Select Type'
-                      const selectedOption = typeOptions.find((opt) => opt.value === selected)
-                      return selectedOption ? selectedOption.value : String(selected)
-                    }}
-                    options={typeOptions}
-                    formControlProps={{ error: !!errors.type, fullWidth: true }}
-                  />
-                )
-              }}
+              render={({ field }) => (
+                <StyledSelect
+                  value={field.value || ''}
+                  onChange={(e) => field.onChange(e.target.value)}
+                  error={!!errors.selectedType}
+                  displayEmpty
+                  renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Type')}
+                  options={[
+                    { value: 'MSN', label: 'MSN' },
+                    { value: 'ISN', label: 'ISN' },
+                  ]}
+                  formControlProps={{ error: !!errors.selectedType, fullWidth: true }}
+                />
+              )}
             />
-
-            {errors.type && (
+            {errors.selectedType && (
               <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                {errors.type.message}
+                {errors.selectedType.message}
               </Typography>
             )}
           </div>
@@ -222,6 +211,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tcs_applicability"
+                rules={{ required: 'TCS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}
@@ -286,6 +276,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tds_applicability"
+                rules={{ required: 'TDS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}
@@ -354,6 +345,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tcs_applicability"
+                rules={{ required: 'TCS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}
@@ -417,6 +409,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tds_applicability"
+                rules={{ required: 'TDS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}
@@ -484,6 +477,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tcs_applicability"
+                rules={{ required: 'TCS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}
@@ -547,6 +541,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
               <Controller
                 control={control}
                 name="tds_applicability"
+                rules={{ required: 'TDS Applicability is required' }}
                 render={({ field }) => (
                   <StyledSelect
                     value={field.value || ''}

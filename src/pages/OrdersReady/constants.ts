@@ -7,7 +7,7 @@ export enum PrepareButtonState {
 export const ORDER_HEADER_LABELS = {
   title: 'Orders Ready',
   subtitle: 'Select orders to prepare for settlement.',
-  receiverLabel: 'Counterparty ID',
+  receiverLabel: 'Counterparty',
   prepareZero: 'Prepare (0 selected)',
   prepareWithCount: (count: number): string => `Prepare (${count} selected)`,
   generateWithCount: (count: number): string => `Generate (${count} selected)`,

@@ -20,32 +20,37 @@ import AddIcon from 'assets/images/svg/AddIcon'
 import { HeaderSection as HeaderSectionStyled } from 'styles/pages/NetworkConfiguration'
 import Button from 'components/common/Button'
 
-const mapUserToFormData = (user: IUser): IFormData => ({
-  _id: user?._id,
-  title: user.title || '',
-  role: user.role === 'BPP' ? 'Seller App' : user.role === 'BAP' ? 'Buyer App' : '',
-  subscriberUrl: user.subscriber_url || '',
-  domainCategory: user.domain?.toUpperCase() || '',
-  buyerNpToNpTcs: user.np_tcs || 0,
-  buyerNpToNpTds: user.np_tds || 0,
-  sellerNpToTcs: user.pr_tcs || 0,
-  sellerNpToTds: user.pr_tds || 0,
-  sellerNpToProviderTcs: user.pr_provider_tcs || 0,
-  sellerNpToProviderTds: user.pr_provider_tds || 0,
-  type: user.msn ? 'MSN' : 'ISN',
-  tcs_applicability: user.tcs_applicability || '',
-  tds_applicability: user.tds_applicability || '',
-  counterparty_infos: user.counterparty_infos || [],
-  providers: user.provider_details?.length
-    ? user.provider_details.map((p) => ({
-        providerId: p.provider_id || '',
-        accountNumber: p.account_number || '',
-        ifscCode: p.ifsc_code || '',
-        bankName: p.bank_name || '',
-        providerName: p.provider_name || '',
-      }))
-    : [defaultProvider],
-})
+const mapUserToFormData = (user: IUser): IFormData => {
+  // For new users or users without saved config, start with empty type field
+  const shouldSetType = user._id && user.role === 'BPP' && user.msn !== undefined
+
+  return {
+    _id: user?._id,
+    title: user.title || '',
+    role: user.role === 'BPP' ? 'Seller App' : user.role === 'BAP' ? 'Buyer App' : '',
+    subscriberUrl: user.subscriber_url || '',
+    domainCategory: user.domain?.toUpperCase() || '',
+    buyerNpToNpTcs: user.np_tcs || 0,
+    buyerNpToNpTds: user.np_tds || 0,
+    sellerNpToTcs: user.pr_tcs || 0,
+    sellerNpToTds: user.pr_tds || 0,
+    sellerNpToProviderTcs: user.pr_provider_tcs || 0,
+    sellerNpToProviderTds: user.pr_provider_tds || 0,
+    selectedType: shouldSetType ? (user.msn ? 'MSN' : 'ISN') : '',
+    tcs_applicability: user.tcs_applicability || '',
+    tds_applicability: user.tds_applicability || '',
+    counterparty_infos: user.counterparty_infos || [],
+    providers: user.provider_details?.length
+      ? user.provider_details.map((p) => ({
+          providerId: p.provider_id || '',
+          accountNumber: p.account_number || '',
+          ifscCode: p.ifsc_code || '',
+          bankName: p.bank_name || '',
+          providerName: p.provider_name || '',
+        }))
+      : [defaultProvider],
+  }
+}
 
 const NetworkConfiguration: FC = () => {
   const toast = useToast()
@@ -60,9 +65,9 @@ const NetworkConfiguration: FC = () => {
     reset,
     watch,
     formState: { errors },
-  } = useForm<IFormData>({ mode: 'onBlur', defaultValues: defaultFormData })
+  } = useForm<IFormData>({ mode: 'onChange', defaultValues: defaultFormData })
 
-  const { role, type, _id, counterparty_infos } = watch()
+  const { role, selectedType, _id, counterparty_infos } = watch()
   const isEditing = !!_id
 
   const { triggerAsync: submitConfig, isLoading: isSubmitLoading } = useSubmitNetworkConfig()
@@ -70,7 +75,8 @@ const NetworkConfiguration: FC = () => {
 
   useEffect(() => {
     if (selectedUser) {
-      reset(mapUserToFormData(selectedUser))
+      const mappedData = mapUserToFormData(selectedUser)
+      reset(mappedData)
     } else {
       reset(defaultFormData)
     }
@@ -148,19 +154,19 @@ const NetworkConfiguration: FC = () => {
   return (
     <Container>
       <HeaderSectionStyled>
-        <Button variant="outlined" onClick={reset} aria-label="Add configuration">
+        <Button variant="outlined" onClick={() => reset(defaultFormData)} aria-label="Add configuration">
           <AddIcon /> Add Configuration
         </Button>
       </HeaderSectionStyled>
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration errors={errors} role={role} type={type} isEditing={isEditing} control={control} />
+        <DomainConfiguration errors={errors} role={role} type={selectedType} isEditing={isEditing} control={control} />
 
         {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
           <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
         )}
 
-        {role === 'Seller App' && type === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
+        {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
 
         <SaveButtonContainer>
           <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
