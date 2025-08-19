@@ -205,7 +205,7 @@ const OrderTable: FC<IOrderTableProps> = ({
           />
 
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
-            Export
+            Export as CSV
           </Button>
 
           <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleImportClick}>

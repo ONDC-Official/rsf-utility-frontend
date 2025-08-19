@@ -19,10 +19,10 @@ import {
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
 import { TypographyVariant } from 'enums/typography'
-// import ExportIcon from 'assets/images/svg/ExportIcon'
-// import Button from 'components/common/Button'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import Button from 'components/common/Button'
 
-const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) => {
+const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect, onExport }) => {
   const { selectedUser } = useUserContext()
   const [counterpartyId, setCounterpartyId] = useState('')
   const { showLoader, hideLoader } = useLoader()
@@ -158,6 +158,9 @@ const ReconRequestTable: FC<IReconRequestTableProps> = ({ onCheckboxSelect }) =>
             options={counterpartyOptions}
             size="small"
           />
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
+            Export as CSV
+          </Button>
         </TableReceiverSection>
       </Header>
 

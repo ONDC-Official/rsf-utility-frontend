@@ -12,6 +12,7 @@ export interface IDashboardTableProps {
   counterpartyId: string
   onDateRangeChange?: (dateRange: IDateRange) => void
   dateRange?: IDateRange
+  onExport?: () => void
 }
 
 export interface IHeaderSectionProps {

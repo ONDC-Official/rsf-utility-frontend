@@ -13,13 +13,35 @@ import {
 import Button from 'components/common/Button'
 import ExportIcon from 'assets/images/svg/ExportIcon'
 import { useLoader } from 'context/loaderContext'
+import { useToast } from 'context/toastContext'
+import { downloadIncomingRequestsCSV } from 'utils/helpers'
+import { CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
+import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
+import { useUserContext } from 'context/userContext'
+import { INCOMING_RECON_STATUSES } from 'enums/recon'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
   const [acceptModalOpen, setAcceptModalOpen] = useState(false)
   const [rejectModalOpen, setRejectModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<IIncomingRequest | null>(null)
+  // const [incomingData, setIncomingData] = useState<IIncomingRequest[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { showLoader, hideLoader } = useLoader()
+  const toast = useToast()
+  const { selectedUser } = useUserContext()
+
+  // Get incoming requests data for export
+  const { data: incomingReconData } = useGetReconData(
+    selectedUser?._id || '',
+    {
+      page: 1,
+      limit: 100,
+      recon_status: INCOMING_RECON_STATUSES,
+    },
+    {
+      enabled: !!selectedUser?._id,
+    },
+  )
 
   // Note: incomingRequests now fetched directly in IncomingRequestsTable via API
 
@@ -93,8 +115,44 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
     }
   }
 
-  const handleSettleOffline = (): void => {
-    console.log('hi')
+  const handleSettleOffline = (order: IIncomingRequest): void => {
+    console.log('Settle offline for order:', order.orderId)
+    onToastShow('Settle offline functionality will be implemented')
+  }
+
+  const handleExport = (): void => {
+    // Process the data similar to IncomingRequestsTable
+    const incomingRequests = (incomingReconData?.data?.recons || []).flatMap((parentRecon) =>
+      (parentRecon.recons || []).map((item: IReconDataItem) => ({
+        id: item._id,
+        reconTransactionId: parentRecon.transaction_id,
+        orderId: item.order_id,
+        receiverId: item.receiver_id || '-',
+        collectorId: item.collector_id || '-',
+        inter_np_settlement: item.recon_breakdown.amount,
+        commission: item.recon_breakdown.commission,
+        reason: 'Reconciliation request',
+        receivedDate: item.createdAt,
+        recon_status: item.recon_status,
+        withholding_amount: item.recon_breakdown.withholding_amount,
+        tcs: item.recon_breakdown.tcs,
+        tds: item.recon_breakdown.tds,
+        settlement_id: item.settlement_id,
+        payment_id: item.payment_id,
+      })),
+    )
+
+    if (incomingRequests.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadIncomingRequestsCSV(incomingRequests, `incoming-recon-requests-${timestamp}.csv`)
+      if (success) {
+        toast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        toast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      toast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
   }
 
   return (
@@ -105,8 +163,8 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
             <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleImportClick}>
               Import
             </Button>
-            <Button variant="contained" onClick={handleSettleOffline}>
-              Settle Offline
+            <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleExport}>
+              Export as CSV
             </Button>
             <input
               type="file"
@@ -119,7 +177,12 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
         </Header>
 
         <Wrapper>
-          <IncomingRequestsTable onAccept={handleAccept} onReject={handleReject} />
+          <IncomingRequestsTable
+            onAccept={handleAccept}
+            onReject={handleReject}
+            onSettleOffline={handleSettleOffline}
+            onExport={handleExport}
+          />
         </Wrapper>
       </Container>
 

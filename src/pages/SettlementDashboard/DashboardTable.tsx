@@ -12,10 +12,11 @@ import {
   Actions,
   Wrapper,
 } from 'styles/pages/SettlementDashboard.styled'
-// import ExportIcon from 'assets/images/svg/ExportIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
+import Button from 'components/common/Button'
 import { IUserSettlementItem } from '@interfaces/settlement'
 
-const DashboardTable: FC<IDashboardTableProps> = ({ orders, onDateRangeChange, dateRange }) => {
+const DashboardTable: FC<IDashboardTableProps> = ({ orders, onDateRangeChange, dateRange, onExport }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id
 
   const {
@@ -60,9 +61,9 @@ const DashboardTable: FC<IDashboardTableProps> = ({ orders, onDateRangeChange, d
             onDateRangeChange={handleDateRangeChange}
           />
 
-          {/* <Button variant="outlined" startIcon={<ExportIcon />}>
-            Export
-          </Button> */}
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
+            Export as CSV
+          </Button>
         </Actions>
       </Header>
 

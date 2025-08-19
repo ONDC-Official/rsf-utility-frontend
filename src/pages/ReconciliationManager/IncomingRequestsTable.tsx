@@ -7,6 +7,7 @@ import { IIncomingRequest } from 'interfaces/reconciliationManager'
 import { incomingRequestColumns } from 'pages/ReconciliationManager/data'
 import { usePaginatedSelectableData } from 'hooks/usePaginatedSelectableData'
 import { IIncomingRequestsTableProps } from 'pages/ReconciliationManager/types'
+import Button from 'components/common/Button'
 import { CURRENCY_SYMBOL, TABLE_CELL_DEFAULTS } from 'pages/ReconciliationManager/constants'
 import { StyledTableBodyCell, ExpandableCell, ActionIconButton } from 'styles/components/Table.styled'
 import { useUserContext } from 'context/userContext'
@@ -14,7 +15,7 @@ import { useLoader } from 'context/loaderContext'
 import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
 import { INCOMING_RECON_STATUSES, ReconStatus } from 'enums/recon'
 
-const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onReject }) => {
+const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onReject, onSettleOffline }) => {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
 
   const { selectedUser } = useUserContext()
@@ -148,13 +149,16 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>{formatDate(item.receivedDate)}</StyledTableBodyCell>
 
         <StyledTableBodyCell>
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
             <ActionIconButton onClick={() => onAccept(item)} acceptButton={true} disabled={isRejected}>
               <Check fontSize="small" />
             </ActionIconButton>
             <ActionIconButton onClick={() => onReject(item)} rejectButton={true} disabled={isRejected}>
               <Close fontSize="small" />
             </ActionIconButton>
+            <Button variant="outlined" size="small" onClick={() => onSettleOffline?.(item)}>
+              Settle Offline
+            </Button>
           </div>
         </StyledTableBodyCell>
       </>

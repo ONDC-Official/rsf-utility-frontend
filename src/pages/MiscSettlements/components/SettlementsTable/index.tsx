@@ -8,7 +8,12 @@ import dayjs from 'dayjs'
 import { SettlementType } from 'enums/settlement'
 import { StyledTableBodyCell } from 'styles/components/Table.styled'
 
-const SettlementsTable: React.FC = () => {
+interface ISettlementsTableProps {
+  onExport?: () => void
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const SettlementsTable: React.FC<ISettlementsTableProps> = ({ onExport }) => {
   const { selectedUser } = useUserContext()
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)

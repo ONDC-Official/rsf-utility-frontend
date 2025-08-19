@@ -4,8 +4,11 @@ import DashboardTable from 'pages/SettlementDashboard/DashboardTable'
 import { Container } from 'styles/pages/SettlementDashboard.styled'
 import useGetUserSettlements from 'hooks/queries/useGetUserSettlements'
 import { useUserContext } from 'context/userContext'
+import { useToast } from 'context/toastContext'
 import { SettlementStatus } from 'enums/settlement'
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
+import { downloadSettlementDashboardCSV } from 'utils/helpers'
+import { CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
 
 export const SETTLEMENT_STATUSES_PAYLOAD: SettlementStatus[] = [
   SettlementStatus.PENDING,
@@ -15,6 +18,7 @@ export const SETTLEMENT_STATUSES_PAYLOAD: SettlementStatus[] = [
 
 const SettlementDashboard: FC = () => {
   const { selectedUser } = useUserContext()
+  const toast = useToast()
   const [counterpartyId, setCounterpartyId] = useState('')
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
@@ -43,6 +47,21 @@ const SettlementDashboard: FC = () => {
 
   const counterpartyInfos = selectedUser?.counterparty_infos || []
 
+  const handleExport = (): void => {
+    const settlements = fetchedSettlements?.data?.settlements || []
+    if (settlements.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadSettlementDashboardCSV(settlements, `settlement-dashboard-${timestamp}.csv`)
+      if (success) {
+        toast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        toast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      toast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
+  }
+
   return (
     <Container>
       <HeaderSection counterpartyId={counterpartyId} onCounterpartyChange={handleCounterpartyChange} />
@@ -60,6 +79,7 @@ const SettlementDashboard: FC = () => {
         counterpartyId={counterpartyId}
         onDateRangeChange={handleDateRangeChange}
         dateRange={dateRange}
+        onExport={handleExport}
       />
     </Container>
   )

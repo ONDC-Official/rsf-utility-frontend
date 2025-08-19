@@ -3,15 +3,19 @@ import { FC } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { Typography } from '@mui/material'
 import Button from 'components/common/Button'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 import SettlementsTable from './components/SettlementsTable'
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import useGenerateMiscSettlement from 'hooks/mutations/useGenerateMiscSettlement'
+import useGetSettlements from 'hooks/queries/useGetSettlements'
 import { useToast } from 'context/toastContext'
 import { useLoader } from 'context/loaderContext'
 import { useUserContext } from 'context/userContext'
 import { TypographyVariant } from 'enums/typography'
 import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
-import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION } from 'constants/toastMessages'
+import { GENERATE_MISC_SETTLEMENT, TRIGGER_ACTION, CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
+import { downloadMiscSettlementsCSV } from 'utils/helpers'
+import { SettlementType } from 'enums/settlement'
 import {
   Container,
   Header,
@@ -51,6 +55,11 @@ const MiscSettlements: FC = () => {
 
   const miscMutation = useGenerateMiscSettlement(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
+
+  // Fetch settlements data for export
+  const { data: settlementsForExport } = useGetSettlements(1, 1000, SettlementType.MISC, {
+    enabled: !!selectedUser,
+  })
 
   const { control, handleSubmit, setValue, formState } = useForm<FormValues>({
     defaultValues: { settlements: [{ ...emptyFormValues }] },
@@ -127,6 +136,21 @@ const MiscSettlements: FC = () => {
     }
   }
 
+  const handleExport = (): void => {
+    const settlements = settlementsForExport?.data || []
+    if (settlements.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadMiscSettlementsCSV(settlements, `misc-settlements-${timestamp}.csv`)
+      if (success) {
+        toast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        toast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      toast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -176,8 +200,11 @@ const MiscSettlements: FC = () => {
       <Wrapper>
         <TableHeader>
           <Typography variant={TypographyVariant.H6Bold}>Miscellaneous Settlement Details</Typography>
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleExport}>
+            Export as CSV
+          </Button>
         </TableHeader>
-        <SettlementsTable />
+        <SettlementsTable onExport={handleExport} />
       </Wrapper>
     </Container>
   )

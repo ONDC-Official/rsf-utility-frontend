@@ -4,11 +4,13 @@ import { IReconciliationDataItem } from 'hooks/queries/useGetReconciliationData'
 export interface IReconRequestTableProps {
   allOrders?: IReconciliationOrder[]
   onCheckboxSelect: (selectedCount: number, selectedSettlements: IReconciliationDataItem[]) => void
+  onExport?: () => void
 }
 
 export interface IOutgoingRequestsTableProps {
   requests?: IOutgoingRequest[]
   onReinitiate: (order: IOutgoingRequest) => void
+  onExport?: () => void
 }
 
 export interface IReinitiateModalProps {
@@ -40,6 +42,8 @@ export interface IIncomingRequestsTableProps {
   data?: IIncomingRequest[]
   onAccept: (order: IIncomingRequest) => void
   onReject: (order: IIncomingRequest) => void
+  onSettleOffline?: (order: IIncomingRequest) => void
+  onExport?: () => void
 }
 
 export interface IReviewReconRequestsProps {

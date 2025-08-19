@@ -10,8 +10,10 @@ import useGenerateRecon, { IReconDataItem } from 'hooks/mutations/useGenerateRec
 import useTriggerAction from 'hooks/mutations/useTriggerAction'
 import { useUserContext } from 'context/userContext'
 import PayloadPreview from 'pages/ReconciliationManager/PayloadPreview'
-import { TRIGGER_ACTION } from 'constants/toastMessages'
+import { TRIGGER_ACTION, CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
 import { useToast } from 'context/toastContext'
+import useGetReconciliationData from 'hooks/queries/useGetReconciliationData'
+import { downloadReconRequestCSV } from 'utils/helpers'
 
 const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onSelectionChange }) => {
   const toast = useToast()
@@ -25,6 +27,11 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
   const { selectedUser } = useUserContext()
   const generateRecon = useGenerateRecon(selectedUser?._id || '')
   const triggerAction = useTriggerAction(selectedUser?._id || '')
+
+  // Get reconciliation data for export
+  const { data: reconDataForExport } = useGetReconciliationData(selectedUser?._id || '', 1, 1000, undefined, {
+    enabled: !!selectedUser?._id,
+  })
 
   // Note: outgoingRequests now fetched directly in OutgoingRequestsTable via API
 
@@ -135,9 +142,24 @@ const GenerateReconRequest: FC<IGenerateReconRequestProps> = ({ onToastShow, onS
     // due to React Query's automatic refetching behavior
   }
 
+  const handleExport = (): void => {
+    const settlements = reconDataForExport?.data?.settlements || []
+    if (settlements.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadReconRequestCSV(settlements, `recon-requests-${timestamp}.csv`)
+      if (success) {
+        toast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        toast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      toast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
+  }
+
   return (
     <>
-      <ReconRequestTable onCheckboxSelect={handleCheckboxSelect} />
+      <ReconRequestTable onCheckboxSelect={handleCheckboxSelect} onExport={handleExport} />
       {/* <OutgoingRequestsTable onReinitiate={handleReinitiate} /> */}
       <ReinitiateModal
         open={modalOpen}

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { TableCell, Typography } from '@mui/material'
 import Table from 'components/common/Table'
 import Select from 'components/common/Select'
+import Button from 'components/common/Button'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 import useGetOrders from 'hooks/queries/useGetOrders'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
+import { useToast } from 'context/toastContext'
 import { columns } from 'pages/OrdersInProgress/data'
 import { TableCellStyles } from 'enums/styles'
 import { TypographyVariant } from 'enums/typography'
@@ -13,10 +16,12 @@ import { Container, Header, HeaderLeft, HeaderRight, Wrapper } from 'styles/page
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import StatusChip from 'components/common/StatusChip'
 import { formatDate, formatCurrency, formatNumber } from 'utils/formatters'
+import { downloadOrdersProgressCSV } from 'utils/helpers'
+import { CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
 
 const OrdersInProgress: React.FC = () => {
   const { selectedUser } = useUserContext()
-
+  const toast = useToast()
   const { showLoader, hideLoader } = useLoader()
 
   const [page, setPage] = useState(1)
@@ -110,6 +115,20 @@ const OrdersInProgress: React.FC = () => {
 
   const counterpartyInfos = selectedUser?.counterparty_infos || []
 
+  const handleExport = (): void => {
+    if (orders.length > 0) {
+      const timestamp = new Date().toISOString().split('T')[0]
+      const success = downloadOrdersProgressCSV(orders, `orders-in-progress-${timestamp}.csv`)
+      if (success) {
+        toast(CSV_EXPORT_MESSAGES.SUCCESS)
+      } else {
+        toast(CSV_EXPORT_MESSAGES.ERROR)
+      }
+    } else {
+      toast(CSV_EXPORT_MESSAGES.NO_DATA)
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -124,6 +143,9 @@ const OrdersInProgress: React.FC = () => {
             options={counterpartyOptions}
             size="small"
           />
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleExport}>
+            Export as CSV
+          </Button>
         </HeaderRight>
       </Header>
       <Wrapper>

@@ -23,9 +23,9 @@ import {
   Wrapper,
 } from 'styles/pages/ReconciliationManager.styled'
 import Button from 'components/common/Button'
-// import ExportIcon from 'assets/images/svg/ExportIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 
-const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }) => {
+const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate, onExport }) => {
   const [dateRange, setDateRange] = useState<IDateRange>({ startDate: null, endDate: null })
 
   const { selectedUser } = useUserContext()
@@ -171,6 +171,9 @@ const OutgoingRequestsTable: FC<IOutgoingRequestsTableProps> = ({ onReinitiate }
             selectedDateRange={dateRange}
             onDateRangeChange={handleDateRangeChange}
           />
+          <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
+            Export as CSV
+          </Button>
         </Actions>
       </Header>
 

@@ -20,7 +20,7 @@ import { IUserSettlementItem, SettlementPayload } from 'interfaces/settlement'
 import { useLoader } from 'context/loaderContext'
 import { SettlementStatus } from 'enums/settlement'
 import usePatchSettlements from 'hooks/mutations/usePatchSettlements'
-import { downloadOrdersAsCSV } from 'utils/helpers'
+import { downloadSettlementGeneratorCSV } from 'utils/helpers'
 
 const SettlementGenerator: FC = () => {
   const toast = useToast()
@@ -244,7 +244,7 @@ const SettlementGenerator: FC = () => {
             const orders = fetchedOrders?.data?.settlements || []
             if (orders.length > 0) {
               const timestamp = new Date().toISOString().split('T')[0]
-              const success = downloadOrdersAsCSV(orders, `settlement-orders-${timestamp}.csv`)
+              const success = downloadSettlementGeneratorCSV(orders, `settlement-orders-${timestamp}.csv`)
               if (success) {
                 toast(CSV_EXPORT_MESSAGES.SUCCESS)
               } else {

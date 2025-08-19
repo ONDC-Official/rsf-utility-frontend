@@ -60,7 +60,7 @@ const OrdersReadyHeader: FC<IOrdersReadyHeaderProps> = ({
         <Typography variant={TypographyVariant.Body1Medium}>{ORDER_HEADER_LABELS.receiverLabel}</Typography>
         <Select value={receiverId} onChange={handleReceiverChange} options={counterpartyOptions} size="small" />
         <Button variant="outlined" startIcon={<ExportIcon />} onClick={onExport}>
-          Export
+          Export as CSV
         </Button>
         <Box>
           <PrepareButton
