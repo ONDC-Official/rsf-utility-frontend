@@ -213,6 +213,15 @@ export const StyledInput = styled(InputField)({
     '&.Mui-focused fieldset': {
       borderColor: colors.primary.main,
     },
+    '&.Mui-error fieldset': {
+      borderColor: colors.error.main,
+    },
+    '&.Mui-error:hover fieldset': {
+      borderColor: colors.error.main,
+    },
+    '&.Mui-error.Mui-focused fieldset': {
+      borderColor: colors.error.main,
+    },
     '& .MuiInputBase-input': {
       height: '100%',
       padding: '12px 14px',
@@ -230,5 +239,8 @@ export const StyledInput = styled(InputField)({
     marginTop: '4px',
     fontSize: '12px',
     lineHeight: '16px',
+    '&.Mui-error': {
+      color: colors.error.main,
+    },
   },
 })

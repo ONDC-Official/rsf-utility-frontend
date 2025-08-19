@@ -11,7 +11,7 @@ import {
   ActionButtonGroup,
 } from 'styles/pages/ReconciliationManager.styled'
 import Button from 'components/common/Button'
-import UploadIcon from 'assets/images/svg/UploadIcon'
+import ExportIcon from 'assets/images/svg/ExportIcon'
 import { useLoader } from 'context/loaderContext'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
@@ -102,7 +102,7 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
       <Container>
         <Header>
           <ActionButtonGroup>
-            <Button variant="outlined" startIcon={<UploadIcon />} onClick={handleImportClick}>
+            <Button variant="outlined" startIcon={<ExportIcon />} onClick={handleImportClick}>
               Import
             </Button>
             <Button variant="contained" onClick={handleSettleOffline}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import StatusChip from 'components/common/StatusChip'
-import { StyledTableBodyCell } from 'styles/components/Table.styled'
+import { StyledTableBodyCell, ErrorTableCell, ErrorMessage } from 'styles/components/Table.styled'
 import { TABLE_CELL_DEFAULTS, CURRENCY_SYMBOL, ACTION_LABELS } from 'pages/SettlementDashboard/constants'
 import { IDashboardRowProps } from 'pages/SettlementDashboard/types'
 import Button from 'components/common/Button'
@@ -46,13 +46,9 @@ const DashboardRow: React.FC<IDashboardRowProps> = ({ order }) => {
         {order.provider_status ? <StatusChip status={order.provider_status} /> : 'Not Applicable'}
       </StyledTableBodyCell>
       <StyledTableBodyCell>{order.settlement_reference}</StyledTableBodyCell>
-      <StyledTableBodyCell>
-        {order.error ? (
-          <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap', lineHeight: '1.2' }}>{order.error}</div>
-        ) : (
-          TABLE_CELL_DEFAULTS.ERROR
-        )}
-      </StyledTableBodyCell>
+      <ErrorTableCell>
+        {order.error ? <ErrorMessage>{order.error}</ErrorMessage> : TABLE_CELL_DEFAULTS.ERROR}
+      </ErrorTableCell>
       <StyledTableBodyCell>{formatDate(order.initiated_date)}</StyledTableBodyCell>
       <StyledTableBodyCell>
         {order?.status === 'NOT_SETTLED' ? (

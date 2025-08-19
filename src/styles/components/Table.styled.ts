@@ -177,3 +177,14 @@ export const ErrorInfoContainer = styled('div')({
   alignItems: 'center',
   gap: '4px',
 })
+
+export const ErrorTableCell = styled(StyledTableBodyCell)({
+  minWidth: '150px',
+})
+
+export const ErrorMessage = styled('div')({
+  wordBreak: 'break-word',
+  whiteSpace: 'pre-wrap',
+  lineHeight: '1.2',
+  color: colors.error.main,
+})
