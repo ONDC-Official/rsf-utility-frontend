@@ -31,7 +31,7 @@ export const StyledTableCell = styled(TableCell)({
   height: '40px',
   verticalAlign: 'middle',
   whiteSpace: 'nowrap',
-  textAlign: 'center',
+  textAlign: 'left',
 })
 
 export const StyledTableBodyCell = styled(TableCell)({
@@ -42,7 +42,7 @@ export const StyledTableBodyCell = styled(TableCell)({
   padding: '4px 20px',
   height: '64px',
   verticalAlign: 'middle',
-  textAlign: 'center',
+  textAlign: 'left',
   borderBottom: `1px solid ${colors.border.main}`,
   whiteSpace: 'nowrap',
   // overflow: 'hidden',

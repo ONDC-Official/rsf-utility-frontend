@@ -45,7 +45,7 @@ const PayloadPreview: FC<IPayloadPreviewProps> = ({ data, onTrigger, open, onClo
       <ModalContainer>
         <Content>
           <Header>
-            <Typography variant={TypographyVariant.H6Bold}>Settlement Payload Preview</Typography>
+            <Typography variant={TypographyVariant.H6Bold}>Recon Payload Preview</Typography>
             <CloseButton onClick={onClose}>
               <Close />
             </CloseButton>
@@ -57,7 +57,7 @@ const PayloadPreview: FC<IPayloadPreviewProps> = ({ data, onTrigger, open, onClo
             <PayloadHeader>
               <PayloadActions>
                 <Button variant="outlined" startIcon={<Visibility />} onClick={onTrigger}>
-                  Trigger Settlement API
+                  Trigger Recon API
                 </Button>
                 <Button variant="outlined" startIcon={<Download />} onClick={handleDownload} disabled={!data}>
                   Download Payload

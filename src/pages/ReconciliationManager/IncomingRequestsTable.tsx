@@ -149,14 +149,14 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
         <StyledTableBodyCell>{formatDate(item.receivedDate)}</StyledTableBodyCell>
 
         <StyledTableBodyCell>
-          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
             <ActionIconButton onClick={() => onAccept(item)} acceptButton={true} disabled={isRejected}>
               <Check fontSize="small" />
             </ActionIconButton>
             <ActionIconButton onClick={() => onReject(item)} rejectButton={true} disabled={isRejected}>
               <Close fontSize="small" />
             </ActionIconButton>
-            <Button variant="outlined" size="small" onClick={() => onSettleOffline?.(item)}>
+            <Button variant="contained" size="small" onClick={() => onSettleOffline?.(item)}>
               Settle Offline
             </Button>
           </div>

@@ -135,6 +135,9 @@ const OrderTable: FC<IOrderTableProps> = ({
           {formatCurrency(merged.total_order_value)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
+          {formatCurrency(merged.inter_np_settlement || 0)}
+        </StyledTableBodyCell>
+        <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>
           {formatCurrency(merged.commission)}
         </StyledTableBodyCell>
         <StyledTableBodyCell className={isEdited ? 'highlight' : ''}>

@@ -11,6 +11,7 @@ export const columns: ITableColumn<ISettlementOrder>[] = [
   { id: 'collectorId', label: 'Collector' },
   { id: 'receiverId', label: 'Receiver' },
   { id: 'totalOrderValue', label: 'Total Order Value' },
+  { id: 'inter_np_settlement', label: 'Inter NP Settlement' },
   {
     id: 'commission',
     label: (
