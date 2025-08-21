@@ -1,13 +1,16 @@
 import { Tooltip, Typography } from '@mui/material'
-import TaxesIcon from 'assets/images/svg/TaxesIcon'
 import ToolTipIcon from 'assets/images/svg/ToolTipIcon'
+import DateInput from 'components/common/DateInput'
 import {
-  ConfigurationBox,
-  SettlementHeader,
-  NetworkIdentityHeader,
   DomainConfigContainer,
-  ConfigHeader,
-  FormContainer,
+  SectionTitle,
+  FullWidthFieldContainer,
+  FieldRow,
+  TaxContainer,
+  TaxSection,
+  ApplicabilityContainer,
+  TaxFieldRow,
+  FieldContainer,
   LabelWrapper,
   IconWrapper,
   StyledInput,
@@ -18,626 +21,182 @@ import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
 import { DOMAIN_CATEGORIES } from 'constants/domains'
 import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { TypographyVariant } from 'enums/typography'
+import {
+  basicFields,
+  buyerTaxFields,
+  sellerTaxFields,
+  sellerProviderTaxFields,
+  applicabilityFields,
+} from './fieldConfigs'
 
-const regexUrl = new RegExp('^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\\/?$')
+const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => {
+  const renderField = (field: any, disabled = false) => {
+    const fieldError = errors[field.name as keyof typeof errors]
 
-const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => (
-  <ConfigurationBox>
-    <SettlementHeader>
-      <NetworkIdentityHeader>
-        <TaxesIcon />
-        <Typography variant={TypographyVariant.H5Bold}>Settlement Configuration</Typography>
-      </NetworkIdentityHeader>
-    </SettlementHeader>
+    if (field.type === 'select') {
+      const options = field.name === 'domainCategory' ? DOMAIN_CATEGORIES : field.options
 
-    <DomainConfigContainer>
-      <ConfigHeader>Domain Configuration</ConfigHeader>
-      <FormContainer>
-        <div>
-          <RequiredFieldLabel>Title</RequiredFieldLabel>
+      return (
+        <FieldContainer key={field.name}>
+          <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
           <Controller
             control={control}
-            name="title"
+            name={field.name}
             rules={{
-              required: 'Title is required',
+              required: field.required ? `${field.label} is required` : undefined,
+              ...field.validation,
             }}
-            render={({ field }) => (
-              <StyledInput
-                placeholder="Enter configuration title"
-                value={field.value ?? ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.title}
-                helperText={errors.title?.message}
-              />
-            )}
-          />
-        </div>
-
-        <div>
-          <RequiredFieldLabel>Role</RequiredFieldLabel>
-          <Controller
-            control={control}
-            name="role"
-            rules={{ required: 'Role is required' }}
-            render={({ field }) => (
+            render={({ field: controllerField }) => (
               <StyledSelect
-                value={field.value || ''}
-                onChange={(e) => field.onChange(e.target.value)}
-                error={!!errors.role}
-                disabled={isEditing}
-                displayEmpty
-                renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Role')}
-                options={[
-                  { value: 'Seller App', label: 'Seller App' },
-                  { value: 'Buyer App', label: 'Buyer App' },
-                ]}
-                formControlProps={{ error: !!errors.role, fullWidth: true }}
-              />
-            )}
-          />
-          {errors.role && (
-            <Typography variant={TypographyVariant.Caption1Regular} color="error">
-              {errors.role.message}
-            </Typography>
-          )}
-        </div>
-
-        <div>
-          <RequiredFieldLabel>Domain Category</RequiredFieldLabel>
-          <Controller
-            control={control}
-            name="domainCategory"
-            rules={{ required: 'Domain category is required' }}
-            render={({ field }) => (
-              <StyledSelect
-                value={DOMAIN_CATEGORIES?.find((d) => d?.value === field.value)?.label || ''}
-                onChange={(e) => field.onChange(e.target.value)}
-                error={!!errors.domainCategory}
-                disabled={isEditing}
+                value={controllerField.value || ''}
+                onChange={(e) => controllerField.onChange(e.target.value)}
+                error={!!fieldError}
+                disabled={disabled}
                 displayEmpty
                 renderValue={(selected: unknown) => {
-                  if (!selected) return 'Select Domain Category'
-                  const selectedOption = DOMAIN_CATEGORIES.find((opt) => opt.value === selected)
-                  return selectedOption ? selectedOption.value : String(selected)
+                  if (!selected) return field.placeholder
+                  if (field.name === 'domainCategory') {
+                    const selectedOption = DOMAIN_CATEGORIES.find((opt) => opt.value === selected)
+                    return selectedOption ? selectedOption.value : String(selected)
+                  }
+
+                  return String(selected)
                 }}
-                options={DOMAIN_CATEGORIES}
-                formControlProps={{ error: !!errors.domainCategory, fullWidth: true }}
+                options={options}
+                formControlProps={{ error: !!fieldError, fullWidth: true }}
               />
             )}
           />
-          {errors.domainCategory && (
+          {fieldError && (
             <Typography variant={TypographyVariant.Caption1Regular} color="error">
-              {errors.domainCategory.message}
+              {fieldError.message}
             </Typography>
           )}
-        </div>
+        </FieldContainer>
+      )
+    }
 
-        <div>
-          <RequiredFieldLabel>Subscriber URL</RequiredFieldLabel>
+    if (field.type === 'date') {
+      return (
+        <FieldContainer key={field.name}>
+          <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
           <Controller
             control={control}
-            name="subscriberUrl"
-            rules={{
-              required: 'URL is required',
-              pattern: { value: regexUrl, message: 'Invalid URL' },
-            }}
-            render={({ field }) => (
-              <StyledInput
-                placeholder="Enter Subscriber URL"
-                value={field.value || ''}
-                onChange={field.onChange}
-                onBlur={field.onBlur}
-                name={field.name}
-                inputRef={field.ref}
-                error={!!errors.subscriberUrl}
-                helperText={errors.subscriberUrl?.message}
-                disabled={isEditing}
+            name={field.name}
+            rules={{ required: field.required ? `${field.label} is required` : undefined }}
+            render={({ field: controllerField }) => (
+              <DateInput
+                value={controllerField.value || ''}
+                onChange={controllerField.onChange}
+                onBlur={controllerField.onBlur}
+                name={controllerField.name}
+                inputRef={controllerField.ref}
+                error={!!fieldError}
+                helperText={fieldError?.message}
+                placeholder={field.placeholder}
+                disabled={disabled}
               />
             )}
           />
-        </div>
+        </FieldContainer>
+      )
+    }
 
-        {role === 'Seller App' && (
-          <div>
-            <RequiredFieldLabel>Type</RequiredFieldLabel>
-            <Controller
-              control={control}
-              name="selectedType"
-              rules={{ required: 'Type is required' }}
-              render={({ field }) => (
-                <StyledSelect
-                  value={field.value || ''}
-                  onChange={(e) => field.onChange(e.target.value)}
-                  error={!!errors.selectedType}
-                  displayEmpty
-                  renderValue={(selected: unknown) => (selected ? String(selected) : 'Select Type')}
-                  options={[
-                    { value: 'MSN', label: 'MSN' },
-                    { value: 'ISN', label: 'ISN' },
-                  ]}
-                  formControlProps={{ error: !!errors.selectedType, fullWidth: true }}
-                />
-              )}
+    return (
+      <FieldContainer key={field.name}>
+        {field.hasTooltip ? (
+          <LabelWrapper>
+            <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
+            <Tooltip title={field.tooltipText} arrow placement="right-start">
+              <IconWrapper>
+                <ToolTipIcon />
+              </IconWrapper>
+            </Tooltip>
+          </LabelWrapper>
+        ) : (
+          <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
+        )}
+        <Controller
+          control={control}
+          name={field.name}
+          rules={{
+            required: field.required ? `${field.label} is required` : undefined,
+            ...field.validation,
+          }}
+          render={({ field: controllerField }) => (
+            <StyledInput
+              type={field.type}
+              inputProps={field.type === 'number' ? { step: 'any' } : undefined}
+              placeholder={field.placeholder}
+              value={controllerField.value ?? ''}
+              onChange={controllerField.onChange}
+              onBlur={controllerField.onBlur}
+              name={controllerField.name}
+              inputRef={controllerField.ref}
+              error={!!fieldError}
+              helperText={fieldError?.message}
+              disabled={disabled}
             />
-            {errors.selectedType && (
-              <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                {errors.selectedType.message}
-              </Typography>
-            )}
-          </div>
-        )}
+          )}
+        />
+      </FieldContainer>
+    )
+  }
 
-        {role === 'Buyer App' && (
-          <>
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
-                <Tooltip title="TCS applicable for Buyer NP to NP" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="buyerNpToNpTcs"
-                rules={{
-                  required: 'NP to NP TCS is required',
-                  min: { value: 0, message: 'TCS cannot be negative' },
-                  max: { value: 100, message: 'TCS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TCS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.buyerNpToNpTcs}
-                    helperText={errors.buyerNpToNpTcs?.message}
-                  />
-                )}
-              />
-            </div>
+  const renderTaxSection = (taxFields: any[]) => (
+    <TaxContainer>
+      {taxFields.map((section) => (
+        <TaxSection key={section.section}>
+          {section.fields.map((field: any) => (
+            <TaxFieldRow key={field.name}>{renderField(field)}</TaxFieldRow>
+          ))}
+        </TaxSection>
+      ))}
+    </TaxContainer>
+  )
 
-            <div>
-              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tcs_applicability"
-                rules={{ required: 'TCS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tcs_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'BOTH' },
-                      { value: 'None', label: 'NONE' },
-                    ]}
-                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tcs_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tcs_applicability.message}
-                </Typography>
-              )}
-            </div>
+  return (
+    <DomainConfigContainer>
+      <SectionTitle>Domain Configuration 1</SectionTitle>
 
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
-                <Tooltip title="TDS applicable for Buyer NP to NP" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="buyerNpToNpTds"
-                rules={{
-                  required: 'NP to NP TDS is required',
-                  min: { value: 0, message: 'TDS cannot be negative' },
-                  max: { value: 100, message: 'TDS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TDS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.buyerNpToNpTds}
-                    helperText={errors.buyerNpToNpTds?.message}
-                  />
-                )}
-              />
-            </div>
+      {/* Title Field - Full Width */}
+      <FullWidthFieldContainer>
+        {renderField({
+          name: 'title',
+          label: 'Title',
+          type: 'input',
+          required: true,
+          placeholder: 'Enter title of a configuration',
+        })}
+      </FullWidthFieldContainer>
 
-            <div>
-              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tds_applicability"
-                rules={{ required: 'TDS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tds_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'BOTH' },
-                      { value: 'None', label: 'NONE' },
-                    ]}
-                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tds_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tds_applicability.message}
-                </Typography>
-              )}
-            </div>
-          </>
-        )}
+      {/* Basic Fields Row */}
+      <FieldRow>
+        {basicFields
+          .filter((field) => !field.showCondition || field.showCondition(role))
+          .map((field) =>
+            renderField(field, isEditing && ['role', 'domainCategory', 'subscriberUrl'].includes(field.name)),
+          )}
+      </FieldRow>
 
-        {role === 'Seller App' && type !== 'MSN' && (
-          <>
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
-                <Tooltip title="TCS applicable for Seller NP to NP (MSN false)" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToTcs"
-                rules={{
-                  required: 'NP to NP TCS is required',
-                  min: { value: 0, message: 'TCS cannot be negative' },
-                  max: { value: 100, message: 'TCS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TCS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToTcs}
-                    helperText={errors.sellerNpToTcs?.message}
-                  />
-                )}
-              />
-            </div>
+      {/* Tax Fields based on Role */}
+      {role === 'Buyer App' && renderTaxSection(buyerTaxFields)}
 
-            <div>
-              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tcs_applicability"
-                rules={{ required: 'TCS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tcs_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
-                    ]}
-                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tcs_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tcs_applicability.message}
-                </Typography>
-              )}
-            </div>
+      {role === 'Seller App' && type !== 'MSN' && renderTaxSection(sellerTaxFields)}
 
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
-                <Tooltip title="TDS applicable for Seller NP to NP" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToTds"
-                rules={{
-                  required: 'NP to NP TDS is required',
-                  min: { value: 0, message: 'TDS cannot be negative' },
-                  max: { value: 100, message: 'TDS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TDS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToTds}
-                    helperText={errors.sellerNpToTds?.message}
-                  />
-                )}
-              />
-            </div>
+      {role === 'Seller App' && type === 'MSN' && (
+        <>
+          {renderTaxSection(sellerTaxFields)}
+          {renderTaxSection(sellerProviderTaxFields)}
+        </>
+      )}
 
-            <div>
-              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tds_applicability"
-                rules={{ required: 'TDS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tds_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
-                    ]}
-                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tds_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tds_applicability.message}
-                </Typography>
-              )}
-            </div>
-          </>
-        )}
-
-        {role === 'Seller App' && type === 'MSN' && (
-          <>
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TCS (%)</RequiredFieldLabel>
-                <Tooltip title="TCS applicable for Seller NP to NP" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToTcs"
-                rules={{
-                  required: 'NP to NP TCS is required',
-                  min: { value: 0, message: 'TCS cannot be negative' },
-                  max: { value: 100, message: 'TCS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TCS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToTcs}
-                    helperText={errors.sellerNpToTcs?.message}
-                  />
-                )}
-              />
-            </div>
-
-            <div>
-              <RequiredFieldLabel>TCS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tcs_applicability"
-                rules={{ required: 'TCS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tcs_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
-                    ]}
-                    formControlProps={{ error: !!errors.tcs_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tcs_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tcs_applicability.message}
-                </Typography>
-              )}
-            </div>
-
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to NP TDS (%)</RequiredFieldLabel>
-                <Tooltip title="TDS applicable for Seller NP to NP " arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToTds"
-                rules={{
-                  required: 'NP to NP TDS is required',
-                  min: { value: 0, message: 'TDS cannot be negative' },
-                  max: { value: 100, message: 'TDS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to NP TDS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToTds}
-                    helperText={errors.sellerNpToTds?.message}
-                  />
-                )}
-              />
-            </div>
-
-            <div>
-              <RequiredFieldLabel>TDS Applicability</RequiredFieldLabel>
-              <Controller
-                control={control}
-                name="tds_applicability"
-                rules={{ required: 'TDS Applicability is required' }}
-                render={({ field }) => (
-                  <StyledSelect
-                    value={field.value || ''}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    error={!!errors.tds_applicability}
-                    displayEmpty
-                    renderValue={(selected: unknown) => (selected ? String(selected) : 'Select')}
-                    options={[
-                      { value: 'None', label: 'None' },
-                      { value: 'ISN', label: 'ISN' },
-                      { value: 'MSN', label: 'MSN' },
-                      { value: 'Both', label: 'Both' },
-                    ]}
-                    formControlProps={{ error: !!errors.tds_applicability, fullWidth: true }}
-                  />
-                )}
-              />
-              {errors.tds_applicability && (
-                <Typography variant={TypographyVariant.Caption1Regular} color="error">
-                  {errors.tds_applicability.message}
-                </Typography>
-              )}
-            </div>
-
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to Provider TCS (%)</RequiredFieldLabel>
-                <Tooltip title="TCS applicable for Seller NP to Provider" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToProviderTcs"
-                rules={{
-                  required: 'NP to Provider TCS is required',
-                  min: { value: 0, message: 'TCS cannot be negative' },
-                  max: { value: 100, message: 'TCS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to Provider TCS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToProviderTcs}
-                    helperText={errors.sellerNpToProviderTcs?.message}
-                  />
-                )}
-              />
-            </div>
-
-            <div>
-              <LabelWrapper>
-                <RequiredFieldLabel>NP to Provider TDS (%)</RequiredFieldLabel>
-                <Tooltip title="TDS applicable for Seller NP to Provider" arrow placement="right-start">
-                  <IconWrapper>
-                    <ToolTipIcon />
-                  </IconWrapper>
-                </Tooltip>
-              </LabelWrapper>
-              <Controller
-                control={control}
-                name="sellerNpToProviderTds"
-                rules={{
-                  required: 'NP to Provider TDS is required',
-                  min: { value: 0, message: 'TDS cannot be negative' },
-                  max: { value: 100, message: 'TDS cannot exceed 100%' },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    type="number"
-                    inputProps={{ step: 'any' }}
-                    placeholder="Enter NP to Provider TDS (%)"
-                    value={field.value ?? ''}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.sellerNpToProviderTds}
-                    helperText={errors.sellerNpToProviderTds?.message}
-                  />
-                )}
-              />
-            </div>
-          </>
-        )}
-      </FormContainer>
+      {/* Applicability Fields */}
+      {(role === 'Buyer App' || role === 'Seller App') && (
+        <ApplicabilityContainer>{applicabilityFields.map((field) => renderField(field))}</ApplicabilityContainer>
+      )}
     </DomainConfigContainer>
-  </ConfigurationBox>
-)
+  )
+}
 
 export default DomainConfiguration

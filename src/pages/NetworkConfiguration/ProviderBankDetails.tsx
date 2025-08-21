@@ -1,22 +1,26 @@
 import { FC } from 'react'
 import { useFieldArray, Controller } from 'react-hook-form'
+import { Typography } from '@mui/material'
 import BankIcon from 'assets/images/svg/BankIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
 import RemoveIcon from 'assets/images/svg/RemoveIcon'
 import { IProviderBankDetailsProps } from 'pages/NetworkConfiguration/type'
 import { defaultProvider } from './data'
 import {
-  ConfigurationBox,
-  SettlementHeader,
-  NetworkIdentityHeader,
-  NetworkIdentityTitle,
-  DomainConfigContainer,
-  ConfigHeader,
-  FormContainer,
+  ProviderContainer,
+  ProviderHeader,
+  SectionTitle,
+  ProviderButtonGroup,
+  ProvidersGrid,
+  ProviderSection,
+  ProviderSectionHeader,
+  ProviderFieldsContainer,
+  FieldContainer,
   StyledInput,
+  BulkButton,
 } from 'styles/pages/NetworkConfiguration'
-import { Typography } from '@mui/material'
-import Button from 'components/common/Button'
+import { providerFields } from './fieldConfigs'
+import { TypographyVariant } from 'enums/typography'
 
 const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
   const { fields, append, remove } = useFieldArray({
@@ -24,168 +28,72 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
     name: 'providers',
   })
 
+  const renderProviderField = (field: any, providerIndex: number) => {
+    const fieldError = errors.providers?.[providerIndex]?.[field.name as keyof (typeof errors.providers)[0]] as any
+
+    return (
+      <FieldContainer key={field.name}>
+        <Typography variant={TypographyVariant.Body2Medium} sx={{ mb: 1 }}>
+          {field.label}
+        </Typography>
+        <Controller
+          control={control}
+          name={`providers.${providerIndex}.${field.name}` as any}
+          rules={{
+            required: field.required ? `${field.label} is required` : undefined,
+            ...field.validation,
+          }}
+          render={({ field: controllerField }) => (
+            <StyledInput
+              placeholder={field.placeholder}
+              value={controllerField.value || ''}
+              onChange={controllerField.onChange}
+              onBlur={controllerField.onBlur}
+              name={controllerField.name}
+              inputRef={controllerField.ref}
+              error={!!fieldError}
+              helperText={fieldError?.message}
+            />
+          )}
+        />
+      </FieldContainer>
+    )
+  }
+
   return (
-    <ConfigurationBox>
-      <SettlementHeader>
-        <NetworkIdentityHeader>
+    <ProviderContainer>
+      <ProviderHeader>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <BankIcon />
-          <NetworkIdentityTitle>Provider Bank Account Details</NetworkIdentityTitle>
-        </NetworkIdentityHeader>
-        <Button variant="outlined" onClick={() => append(defaultProvider)}>
-          <AddIcon /> Add Provider
-        </Button>
-      </SettlementHeader>
+          <SectionTitle style={{ marginBottom: 0 }}>Provider Bank Account Details</SectionTitle>
+        </div>
+        <ProviderButtonGroup>
+          <BulkButton variant="outlined" onClick={() => append(defaultProvider)}>
+            <AddIcon /> Add Provider
+          </BulkButton>
+          <BulkButton variant="contained">Bulk upload</BulkButton>
+        </ProviderButtonGroup>
+      </ProviderHeader>
 
-      {fields.map((field, index) => (
-        <DomainConfigContainer key={field.id}>
-          <ConfigHeader>
-            <div>Provider {index + 1}</div>
-            {fields.length > 1 && (
-              <Button variant="text">
-                <RemoveIcon onClick={() => remove(index)} />
-              </Button>
-            )}
-          </ConfigHeader>
+      <ProvidersGrid>
+        {fields.map((field, index) => (
+          <ProviderSection key={field.id}>
+            <ProviderSectionHeader>
+              <Typography variant={TypographyVariant.Body1Medium}>Provider {index + 1}</Typography>
+              {fields.length > 1 && (
+                <BulkButton variant="text" onClick={() => remove(index)}>
+                  <RemoveIcon />
+                </BulkButton>
+              )}
+            </ProviderSectionHeader>
 
-          <FormContainer>
-            {/* Provider ID */}
-
-            <div>
-              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                Provider Name
-              </Typography>
-              <Controller
-                control={control}
-                name={`providers.${index}.providerName`}
-                rules={{}}
-                render={({ field }) => (
-                  <StyledInput
-                    placeholder="Enter Provider Name"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.providers?.[index]?.providerName}
-                    helperText={errors.providers?.[index]?.providerName?.message}
-                  />
-                )}
-              />
-            </div>
-
-            <div>
-              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                Provider ID
-              </Typography>
-              <Controller
-                control={control}
-                name={`providers.${index}.providerId`}
-                rules={{}}
-                render={({ field }) => (
-                  <StyledInput
-                    placeholder="Enter Provider ID"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.providers?.[index]?.providerId}
-                    helperText={errors.providers?.[index]?.providerId?.message}
-                  />
-                )}
-              />
-            </div>
-
-            {/* IFSC Code */}
-            <div>
-              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                IFSC Code
-              </Typography>
-              <Controller
-                control={control}
-                name={`providers.${index}.ifscCode`}
-                rules={{
-                  pattern: {
-                    value: /^[A-Z]{4}0[A-Z0-9]{6}$/,
-                    message: 'Invalid IFSC code',
-                  },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    placeholder="Enter IFSC Code"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.providers?.[index]?.ifscCode}
-                    helperText={errors.providers?.[index]?.ifscCode?.message}
-                  />
-                )}
-              />
-            </div>
-
-            {/* Account Number */}
-            <div>
-              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                Account Number
-              </Typography>
-              <Controller
-                control={control}
-                name={`providers.${index}.accountNumber`}
-                rules={{
-                  pattern: {
-                    value: /^\d{9,18}$/,
-                    message: 'Must be 9-18 digits',
-                  },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    placeholder="Enter Account Number"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.providers?.[index]?.accountNumber}
-                    helperText={errors.providers?.[index]?.accountNumber?.message}
-                  />
-                )}
-              />
-            </div>
-
-            {/* Bank Name */}
-            <div>
-              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                Bank Name
-              </Typography>
-              <Controller
-                control={control}
-                name={`providers.${index}.bankName`}
-                rules={{
-                  minLength: {
-                    value: 3,
-                    message: 'Minimum 3 characters',
-                  },
-                }}
-                render={({ field }) => (
-                  <StyledInput
-                    placeholder="Enter Bank Name"
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    inputRef={field.ref}
-                    error={!!errors.providers?.[index]?.bankName}
-                    helperText={errors.providers?.[index]?.bankName?.message}
-                  />
-                )}
-              />
-            </div>
-          </FormContainer>
-        </DomainConfigContainer>
-      ))}
-    </ConfigurationBox>
+            <ProviderFieldsContainer>
+              {providerFields.map((fieldConfig) => renderProviderField(fieldConfig, index))}
+            </ProviderFieldsContainer>
+          </ProviderSection>
+        ))}
+      </ProvidersGrid>
+    </ProviderContainer>
   )
 }
 

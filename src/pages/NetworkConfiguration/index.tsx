@@ -7,21 +7,26 @@ import DomainConfiguration from './DomainConfiguration'
 import ProviderBankDetails from './ProviderBankDetails'
 import CounterpartyInfos from './CounterpartyInfos'
 import SaveIcon from 'assets/images/svg/SaveIcon'
+import AddIcon from 'assets/images/svg/AddIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
 import useDeleteNetworkConfig from 'hooks/mutations/useDeleteNetworkConfig'
-import { Container, StyledForm, SaveButtonContainer, BulkButton } from 'styles/pages/NetworkConfiguration'
+import {
+  Container,
+  MainContainer,
+  HeaderSection,
+  HeaderTitle,
+  StyledForm,
+  SaveButtonContainer,
+  BulkButton,
+} from 'styles/pages/NetworkConfiguration'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/data'
 import { useLoader } from 'context/loaderContext'
 import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
 import Loader from 'components/common/Loader'
 import { IUser } from '@interfaces/user'
-import AddIcon from 'assets/images/svg/AddIcon'
-import { HeaderSection as HeaderSectionStyled } from 'styles/pages/NetworkConfiguration'
-import Button from 'components/common/Button'
 
 const mapUserToFormData = (user: IUser): IFormData => {
-  // For new users or users without saved config, start with empty type field
   const shouldSetType = user._id && user.role === 'BPP' && user.msn !== undefined
 
   return {
@@ -49,6 +54,12 @@ const mapUserToFormData = (user: IUser): IFormData => {
           providerName: p.provider_name || '',
         }))
       : [defaultProvider],
+    effectiveDate1: '',
+    effectiveDate2: '',
+    effectiveDate3: '',
+    effectiveDate4: '',
+    effectiveDate5: '',
+    effectiveDate6: '',
   }
 }
 
@@ -132,11 +143,9 @@ const NetworkConfiguration: FC = () => {
 
       if (users?.length) {
         const remainingUsers = users.filter((u) => u._id !== _id)
-
         const lastUser = remainingUsers.length > 0 ? remainingUsers[remainingUsers.length - 1] : null
-
         setSelectedUser(lastUser)
-        reset(lastUser || defaultFormData)
+        reset(lastUser ? mapUserToFormData(lastUser) : defaultFormData)
       }
 
       toast({
@@ -153,48 +162,56 @@ const NetworkConfiguration: FC = () => {
 
   return (
     <Container>
-      <HeaderSectionStyled>
-        <Button variant="outlined" onClick={() => reset(defaultFormData)} aria-label="Add configuration">
-          <AddIcon /> Add Configuration
-        </Button>
-      </HeaderSectionStyled>
-
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <DomainConfiguration errors={errors} role={role} type={selectedType} isEditing={isEditing} control={control} />
-
-        {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
-          <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
-        )}
-
-        {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
-
-        <SaveButtonContainer>
-          <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
-            <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
+      <MainContainer>
+        <HeaderSection>
+          <HeaderTitle>Settlement Configuration</HeaderTitle>
+          <BulkButton variant="outlined" onClick={() => reset(defaultFormData)} aria-label="Add configuration">
+            <AddIcon /> Add Configuration
           </BulkButton>
+        </HeaderSection>
 
-          {selectedUser?._id && (
-            <BulkButton
-              variant="outlined"
-              color="error"
-              onClick={() => setDeleteModalOpen(true)}
-              disabled={isDeleteLoading}
-              style={{ marginLeft: 12 }}
-            >
-              Delete
-            </BulkButton>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <DomainConfiguration
+            errors={errors}
+            role={role}
+            type={selectedType}
+            isEditing={isEditing}
+            control={control}
+          />
+
+          {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
+            <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
           )}
-        </SaveButtonContainer>
-      </StyledForm>
 
-      <DeleteConfirmationModal
-        open={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        onConfirm={handleDeleteConfirm}
-        title="Confirm Deletion"
-        message="Are you sure you want to delete this configuration? This action cannot be undone."
-        isLoading={isDeleteLoading}
-      />
+          {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
+
+          <SaveButtonContainer>
+            <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
+              <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
+            </BulkButton>
+
+            {selectedUser?._id && (
+              <BulkButton
+                variant="outlined"
+                color="error"
+                onClick={() => setDeleteModalOpen(true)}
+                disabled={isDeleteLoading}
+              >
+                Delete
+              </BulkButton>
+            )}
+          </SaveButtonContainer>
+        </StyledForm>
+
+        <DeleteConfirmationModal
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={handleDeleteConfirm}
+          title="Confirm Deletion"
+          message="Are you sure you want to delete this configuration? This action cannot be undone."
+          isLoading={isDeleteLoading}
+        />
+      </MainContainer>
     </Container>
   )
 }

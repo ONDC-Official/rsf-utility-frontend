@@ -24,4 +24,8 @@ export interface NetworkConfigPayload {
   counterparty_infos?: CounterpartyInfo[]
   tcs_applicability?: string
   tds_applicability?: string
+  np_tcs_with_effective_date?: string
+  np_tds_with_effective_date?: string
+  pr_tcs_with_effective_date?: string
+  pr_tds_with_effective_date?: string
 }

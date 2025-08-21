@@ -11,67 +11,176 @@ export const Container = styled('div')(() => ({
   gap: '20px',
 }))
 
+export const MainContainer = styled('div')(() => ({
+  background: '#FFFFFF',
+  boxShadow: '6px 6px 54px 0px #0000000D',
+  borderRadius: '12px',
+  padding: '24px',
+}))
+
 export const HeaderSection = styled('div')(() => ({
   display: 'flex',
-  justifyContent: 'flex-end',
-  alignItems: 'start',
-  paddingTop: '16px',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '24px',
 }))
 
-export const HeaderCard = styled('div')(() => ({
-  borderRadius: '12px',
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '16px',
-  gap: 20,
-}))
-
-export const SectionDescription = styled('div')(() => ({
+export const HeaderTitle = styled('div')(() => ({
   fontFamily: 'Inter',
-  fontWeight: 400,
-  fontSize: '18px',
-  lineHeight: '24px',
-  color: '#757575',
-  margin: 0,
+  fontWeight: 700,
+  fontSize: '24px',
+  lineHeight: '32px',
+  color: colors.text.caption,
 }))
 
 export const StyledForm = styled('form')({
   display: 'flex',
   flexDirection: 'column',
-  gap: '20px',
+  gap: '24px',
 })
 
-export const ConfigurationBox = styled('div')(() => ({
+export const DomainConfigContainer = styled('div')(() => ({
+  background: '#FFFFFF',
+  border: '1px solid #DFE0E5',
+  borderRadius: '12px',
+  padding: '24px',
+}))
+
+export const SectionTitle = styled('div')(() => ({
+  fontFamily: 'Inter',
+  fontWeight: 600,
+  fontSize: '18px',
+  lineHeight: '24px',
+  color: colors.text.caption,
+  marginBottom: '20px',
+}))
+
+export const FullWidthFieldContainer = styled('div')(() => ({
+  width: '100%',
+  marginBottom: '20px',
+}))
+
+export const FieldRow = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  gap: '20px',
+  marginBottom: '20px',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const TaxContainer = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '20px',
+  marginBottom: '20px',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const TaxSection = styled('div')(() => ({
+  border: '1px dashed #DEDEDE',
+  borderRadius: '8px',
+  padding: '16px',
+}))
+
+export const ApplicabilityContainer = styled('div')(() => ({
+  border: '1px dashed #DEDEDE',
+  borderRadius: '8px',
+  padding: '16px',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '20px',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const TaxFieldRow = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: '16px',
+  marginBottom: '16px',
+  '&:last-child': {
+    marginBottom: 0,
+  },
+}))
+
+export const ProviderContainer = styled('div')(() => ({
+  background: '#FFFFFF',
+  boxShadow: '6px 6px 54px 0px #0000000D',
+  borderRadius: '12px',
+  padding: '24px',
+}))
+
+export const ProviderHeader = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '24px',
+}))
+
+export const ProviderButtonGroup = styled('div')(() => ({
+  display: 'flex',
+  gap: '12px',
+}))
+
+export const ProvidersGrid = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: '16px',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const ProviderSection = styled('div')(() => ({
+  border: '1px solid #DFE0E5',
+  borderRadius: '8px',
+  padding: '16px',
+}))
+
+export const ProviderSectionHeader = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: '16px',
+}))
+
+export const ProviderFieldsContainer = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '16px',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const CounterpartyContainer = styled('div')(() => ({
+  background: '#FFFFFF',
+  boxShadow: '6px 6px 54px 0px #0000000D',
+  borderRadius: '12px',
+  padding: '24px',
+}))
+
+export const CounterpartyFieldsContainer = styled('div')(() => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '16px',
+  '@media (max-width: 1200px)': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: '1fr',
+  },
+}))
+
+export const FieldContainer = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px',
-  borderRadius: '20px',
-  padding: '16px',
-  background: colors.text.light,
-  boxShadow: '6px 6px 54px 0px #0000000d',
-}))
-
-export const NetworkIdentityHeader = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: '10px',
-}))
-
-export const SettlementHeader = styled('div')(() => ({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  gap: '10px',
-  marginLeft: 4,
-}))
-
-export const NetworkIdentityTitle = styled('div')(() => ({
-  fontFamily: 'Inter',
-  fontWeight: 700,
-  fontSize: '24px',
-  lineHeight: '16px',
-  color: colors.text.caption,
+  gap: '8px',
 }))
 
 export const LabelWrapper = styled('div')({
@@ -89,93 +198,38 @@ export const BulkButton = styled(Button)(() => ({
   borderRadius: '8px',
   fontSize: '14px',
   fontWeight: 600,
-  padding: '8px 10px',
+  padding: '8px 16px',
   display: 'flex',
-  gap: '7px',
-}))
-
-export const DomainConfigContainer = styled('div')(() => ({
-  border: '1px solid #dfe0e5',
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '20px',
-  borderRadius: '16px',
-}))
-
-export const ConfigTitleSection = styled('div')(() => ({
-  height: '64px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '5px',
-}))
-
-export const FormContainer = styled('div')(() => ({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: '24px',
-  marginTop: '24px',
-  alignItems: 'start',
-  '& > div': {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    minHeight: '88px', // Consistent height for fields with error messages
-  },
-  '@media (max-width: 768px)': {
-    gridTemplateColumns: '1fr',
-  },
-}))
-
-export const CounterPartyInfoFormContainer = styled('div')(() => ({
-  display: 'grid',
-  gridTemplateColumns: 'auto',
-  gap: '20px',
-  marginTop: '20px',
-  alignItems: 'start',
-  '& > div': {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '6px',
-  },
-  '@media (max-width: 768px)': {
-    gridTemplateColumns: '1fr',
-  },
-}))
-
-export const ConfigHeader = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  gridColumn: '1 / -1',
-  color: colors.text.caption,
-}))
-
-export const ButtonGroup = styled('div')(() => ({
-  display: 'flex',
-  gap: '20px',
+  gap: '8px',
 }))
 
 export const SaveButtonContainer = styled('div')(() => ({
   display: 'flex',
-  justifyContent: 'end',
-  marginBottom: '20px',
+  justifyContent: 'flex-end',
+  gap: '12px',
+  marginTop: '24px',
 }))
-
 export const StyledSelect = styled(Select)({
   '& .MuiOutlinedInput-root': {
-    height: '48px', // Fixed height for all selects
+    height: '48px',
     backgroundColor: colors.background.light,
-    borderRadius: 10,
+    borderRadius: 8,
+    overflow: 'hidden',
     '& fieldset': {
       borderColor: colors.neutral.main,
-      borderRadius: 10,
+      borderRadius: 8,
     },
     '&:hover fieldset': {
       borderColor: colors.primary.main,
     },
     '&.Mui-focused fieldset': {
       borderColor: colors.primary.main,
+    },
+    '&.Mui-disabled': {
+      backgroundColor: '#ececec',
+      '& .MuiSelect-select': {
+        backgroundColor: 'transparent',
+      },
     },
   },
   '& .MuiSelect-select': {
@@ -185,9 +239,6 @@ export const StyledSelect = styled(Select)({
     height: '100%',
     display: 'flex',
     alignItems: 'center',
-  },
-  '& .Mui-disabled': {
-    backgroundColor: '#ececec',
   },
   '& .MuiFormHelperText-root': {
     marginLeft: '0px',
@@ -201,11 +252,12 @@ export const StyledInput = styled(InputField)({
   width: '100%',
   '& .MuiOutlinedInput-root': {
     backgroundColor: colors.background.light,
-    borderRadius: 10,
-    height: '48px', // Fixed height for all inputs
+    borderRadius: 8,
+    height: '48px',
+    overflow: 'hidden',
     '& fieldset': {
       borderColor: colors.neutral.main,
-      borderRadius: 10,
+      borderRadius: 8,
     },
     '&:hover fieldset': {
       borderColor: colors.primary.main,
@@ -222,13 +274,16 @@ export const StyledInput = styled(InputField)({
     '&.Mui-error.Mui-focused fieldset': {
       borderColor: colors.error.main,
     },
+    '&.Mui-disabled': {
+      backgroundColor: '#ececec',
+      '& .MuiInputBase-input': {
+        backgroundColor: 'transparent',
+      },
+    },
     '& .MuiInputBase-input': {
       height: '100%',
       padding: '12px 14px',
       boxSizing: 'border-box',
-    },
-    '&.Mui-disabled': {
-      backgroundColor: '#ececec',
     },
   },
   '& .MuiInputLabel-root': {

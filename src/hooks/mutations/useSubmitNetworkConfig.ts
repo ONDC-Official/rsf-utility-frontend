@@ -64,6 +64,23 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
     }))
   }
 
+  // Add effective date fields to payload
+  if (data.effectiveDate1) {
+    payload.np_tcs_with_effective_date = new Date(data.effectiveDate1).toISOString()
+  }
+
+  if (data.effectiveDate2) {
+    payload.np_tds_with_effective_date = new Date(data.effectiveDate2).toISOString()
+  }
+
+  if (data.effectiveDate3) {
+    payload.pr_tcs_with_effective_date = new Date(data.effectiveDate3).toISOString()
+  }
+
+  if (data.effectiveDate4) {
+    payload.pr_tds_with_effective_date = new Date(data.effectiveDate4).toISOString()
+  }
+
   return payload as NetworkConfigPayload
 }
 

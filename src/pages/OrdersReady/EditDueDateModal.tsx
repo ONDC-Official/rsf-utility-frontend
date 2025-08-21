@@ -41,7 +41,7 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
     control,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
@@ -66,23 +66,24 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
 
       const res = await patchOrderDueDate.patchOrderAsync(payload)
 
-      hideLoader()
-      reset()
-      onConfirm()
-
       if (res.success) {
         toast(ORDER_PATCH_MESSAGES.SUCCESS)
+        reset()
+        onConfirm() // This will trigger refetch in parent component
+      } else {
+        toast(ORDER_PATCH_MESSAGES.ERROR)
       }
 
       if (onEditSuccess) {
-        onEditSuccess('Due date updated successfully!')
+        onEditSuccess(res.success ? 'Due date updated successfully!' : 'Failed to update due date')
       }
     } catch (error) {
-      hideLoader()
-
+      toast(ORDER_PATCH_MESSAGES.ERROR)
       if (onEditSuccess) {
         onEditSuccess('Failed to update due date')
       }
+    } finally {
+      hideLoader()
     }
   }
 
@@ -112,6 +113,7 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
                 required: 'Due date is required',
                 validate: {
                   notPastDate: (value) => {
+                    if (!value) return true
                     const selectedDate = new Date(value)
                     const today = new Date()
                     today.setHours(0, 0, 0, 0)
@@ -136,7 +138,7 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
               <OutlinedFilterButton variant="outlined" type="button" onClick={handleCancel}>
                 Cancel
               </OutlinedFilterButton>
-              <ContainedExportButton variant="contained" type="submit" disabled={!isValid} startIcon={<Event />}>
+              <ContainedExportButton variant="contained" type="submit" startIcon={<Event />}>
                 Update Due Date
               </ContainedExportButton>
             </ButtonContainer>

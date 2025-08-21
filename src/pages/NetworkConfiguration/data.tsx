@@ -24,4 +24,10 @@ export const defaultFormData: IFormData = {
   tds_applicability: '',
   providers: [defaultProvider],
   counterparty_infos: [],
+  effectiveDate1: '',
+  effectiveDate2: '',
+  effectiveDate3: '',
+  effectiveDate4: '',
+  effectiveDate5: '',
+  effectiveDate6: '',
 }

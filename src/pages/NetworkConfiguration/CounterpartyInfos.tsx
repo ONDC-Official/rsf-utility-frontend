@@ -1,12 +1,11 @@
 import { Typography } from '@mui/material'
 import { Controller } from 'react-hook-form'
 import {
-  ConfigurationBox,
-  DomainConfigContainer,
-  CounterPartyInfoFormContainer,
+  CounterpartyContainer,
+  SectionTitle,
+  CounterpartyFieldsContainer,
+  FieldContainer,
   StyledInput,
-  SettlementHeader,
-  NetworkIdentityHeader,
 } from 'styles/pages/NetworkConfiguration'
 import { ICounterpartyInfosProps } from 'pages/NetworkConfiguration/type'
 import { TypographyVariant } from 'enums/typography'
@@ -15,73 +14,65 @@ import { useToast } from 'context/toastContext'
 const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element => {
   const showToast = useToast()
 
+  const counterpartyFieldConfig = [
+    { name: 'id', label: 'ONDC Subscriber ID', disabled: true },
+    { name: 'nickName', label: 'Name', disabled: false },
+  ]
+
   return (
-    <ConfigurationBox>
-      <SettlementHeader>
-        <NetworkIdentityHeader>
-          <Typography variant={TypographyVariant.H5Bold}>Counterparty Details</Typography>
-        </NetworkIdentityHeader>
-      </SettlementHeader>
+    <CounterpartyContainer>
+      <SectionTitle>Counterparty Details</SectionTitle>
 
-      <DomainConfigContainer>
-        <CounterPartyInfoFormContainer>
-          <Controller
-            control={control}
-            name="counterparty_infos"
-            render={({ field }) => {
-              const counterpartyInfos = field.value || []
+      <Controller
+        control={control}
+        name="counterparty_infos"
+        render={({ field }) => {
+          const counterpartyInfos = field.value || []
 
-              if (!counterpartyInfos.length) {
-                return <></>
-              }
+          if (!counterpartyInfos.length) {
+            return <></>
+          }
 
-              return (
-                <>
-                  {counterpartyInfos.map((info, index) => (
-                    <div
-                      key={`${info.id}-${index}`}
-                      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}
-                    >
-                      <div>
-                        <Typography variant={TypographyVariant.Body2Medium} style={{ marginBottom: '8px' }}>
-                          ONDC Subscriber ID
-                        </Typography>
-                        <StyledInput value={info.id || ''} disabled={true} placeholder="Counterparty ID" />
-                      </div>
-                      <div>
-                        <Typography variant={TypographyVariant.Body2Medium} style={{ marginBottom: '8px' }}>
-                          Name
-                        </Typography>
-                        <StyledInput
-                          disabled={info?.nickName?.toLowerCase() === 'self'}
-                          value={info.nickName || ''}
-                          onChange={(e) => {
-                            const value = e.target.value
+          return (
+            <CounterpartyFieldsContainer>
+              {counterpartyInfos.map((info: any, index: number) =>
+                counterpartyFieldConfig.map((fieldConfig) => (
+                  <FieldContainer key={`${info.id}-${index}-${fieldConfig.name}`}>
+                    <Typography variant={TypographyVariant.Body2Medium} sx={{ mb: 1 }}>
+                      {fieldConfig.label}
+                    </Typography>
+                    <StyledInput
+                      value={fieldConfig.name === 'id' ? info.id || '' : info.nickName || ''}
+                      disabled={fieldConfig.disabled || info?.nickName?.toLowerCase() === 'self'}
+                      placeholder={fieldConfig.name === 'id' ? 'Counterparty ID' : 'Enter counterparty name'}
+                      onChange={
+                        fieldConfig.name === 'nickName'
+                          ? (e) => {
+                              const value = e.target.value
 
-                            if (value.toLowerCase() === 'self') {
-                              showToast({
-                                message: 'Cannot use "self" as counterparty name',
-                                severity: 'error',
-                              })
-                              return
+                              if (value.toLowerCase() === 'self') {
+                                showToast({
+                                  message: 'Cannot use "self" as counterparty name',
+                                  severity: 'error',
+                                })
+                                return
+                              }
+
+                              const updatedInfos = [...counterpartyInfos]
+                              updatedInfos[index] = { ...updatedInfos[index], nickName: value }
+                              field.onChange(updatedInfos)
                             }
-
-                            const updatedInfos = [...counterpartyInfos]
-                            updatedInfos[index] = { ...updatedInfos[index], nickName: value }
-                            field.onChange(updatedInfos)
-                          }}
-                          placeholder="Enter counterparty name"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </>
-              )
-            }}
-          />
-        </CounterPartyInfoFormContainer>
-      </DomainConfigContainer>
-    </ConfigurationBox>
+                          : undefined
+                      }
+                    />
+                  </FieldContainer>
+                )),
+              )}
+            </CounterpartyFieldsContainer>
+          )
+        }}
+      />
+    </CounterpartyContainer>
   )
 }
 

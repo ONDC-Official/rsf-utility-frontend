@@ -38,6 +38,13 @@ export interface IFormData {
   sellerNpToProviderTds?: number
   tcs_applicability?: string
   tds_applicability?: string
+  // Effective date fields
+  effectiveDate1?: string
+  effectiveDate2?: string
+  effectiveDate3?: string
+  effectiveDate4?: string
+  effectiveDate5?: string
+  effectiveDate6?: string
 }
 
 export interface IDomainConfigurationProps {
@@ -63,4 +70,11 @@ export interface ICounterpartyInfosProps {
   control: Control<IFormData>
   errors: FieldErrors<IFormData>
   isEditing: boolean
+}
+
+// Calendar component types
+export interface ICalendarProps {
+  value?: Date | null
+  onChange?: (date: Date) => void
+  disabled?: boolean
 }
