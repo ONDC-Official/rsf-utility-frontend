@@ -242,6 +242,7 @@ export const StyledSelect = styled(Select)({
     },
     '&.Mui-disabled': {
       backgroundColor: colors.neutral.disabled,
+      border: `1px solid ${colors.neutral.main}`,
       '& .MuiSelect-select': {
         backgroundColor: 'transparent',
       },
@@ -270,9 +271,13 @@ export const StyledInput = styled(InputField)({
     borderRadius: 8,
     height: '48px',
     overflow: 'hidden',
+    border: `1px solid ${colors.neutral.main}`,
     '& fieldset': {
       borderColor: colors.neutral.main,
       borderRadius: 8,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      lineHeight: '12px !important',
     },
     '&:hover fieldset': {
       borderColor: colors.primary.main,
@@ -308,7 +313,6 @@ export const StyledInput = styled(InputField)({
     marginLeft: '0px',
     marginTop: '4px',
     fontSize: '12px',
-    lineHeight: '16px',
     '&.Mui-error': {
       color: colors.error.main,
     },

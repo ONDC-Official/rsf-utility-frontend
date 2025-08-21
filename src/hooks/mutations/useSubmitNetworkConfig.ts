@@ -74,11 +74,19 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
   }
 
   if (data.effectiveDate3) {
-    payload.pr_tcs_with_effective_date = new Date(data.effectiveDate3).toISOString()
+    payload.np_tcs_with_effective_date = new Date(data.effectiveDate3).toISOString()
   }
 
   if (data.effectiveDate4) {
-    payload.pr_tds_with_effective_date = new Date(data.effectiveDate4).toISOString()
+    payload.np_tds_with_effective_date = new Date(data.effectiveDate4).toISOString()
+  }
+
+  if (data.effectiveDate5) {
+    payload.pr_tcs_with_effective_date = new Date(data.effectiveDate5).toISOString()
+  }
+
+  if (data.effectiveDate6) {
+    payload.pr_tds_with_effective_date = new Date(data.effectiveDate6).toISOString()
   }
 
   return payload as NetworkConfigPayload

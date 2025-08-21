@@ -54,7 +54,7 @@ export const basicFields: IBasicFieldConfig[] = [
     placeholder: 'Enter Subscriber URL',
     validation: {
       pattern: {
-        value: /^(https?:\/\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([\\/\\w.-]*)*\/?$/,
+        value: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/i,
         message: 'Invalid URL',
       },
     },
@@ -250,6 +250,19 @@ export const applicabilityFields: ITaxFieldConfig[] = [
 ]
 
 export const providerFields: IFieldConfig[] = [
+  {
+    name: 'providerName',
+    label: 'Provider Name',
+    type: 'input',
+    placeholder: 'Enter Provider Name',
+    required: false,
+    validation: {
+      minLength: {
+        value: 2,
+        message: 'Minimum 2 characters',
+      },
+    },
+  },
   {
     name: 'providerId',
     label: 'Provider ID',
