@@ -1,4 +1,4 @@
-import { FC, useState, useRef } from 'react'
+import { FC, useState, useRef, useCallback } from 'react'
 import IncomingRequestsTable from 'pages/ReconciliationManager/IncomingRequestsTable'
 import AcceptModal from 'pages/ReconciliationManager/AcceptModal'
 import RejectModal from 'pages/ReconciliationManager/RejectModal'
@@ -19,16 +19,23 @@ import { CSV_EXPORT_MESSAGES } from 'constants/toastMessages'
 import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
 import { useUserContext } from 'context/userContext'
 import { INCOMING_RECON_STATUSES } from 'enums/recon'
+import usePatchImportRecon from 'hooks/mutations/usePatchImportRecon'
+import { SETTLEMENT_PATCH_MESSAGES } from 'constants/toastMessages'
 
 const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => {
   const [acceptModalOpen, setAcceptModalOpen] = useState(false)
   const [rejectModalOpen, setRejectModalOpen] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<IIncomingRequest | null>(null)
-  // const [incomingData, setIncomingData] = useState<IIncomingRequest[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
   const { selectedUser } = useUserContext()
+
+  // Ref to store the refetch function from IncomingRequestsTable
+  const refetchIncomingRequestsRef = useRef<(() => void) | null>(null)
+
+  // Hook for importing recon data
+  const bulkImportMutation = usePatchImportRecon(selectedUser?._id ?? '')
 
   // Get incoming requests data for export
   const { data: incomingReconData } = useGetReconData(
@@ -89,21 +96,13 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
 
     try {
       showLoader()
-      // For now using a test endpoint as requested
-      const formData = new FormData()
-      formData.append('file', file)
-
-      const response = await fetch('/test', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (response.ok) {
-        onToastShow('Import successful!')
-        // Refresh the page data by calling any available refetch method if needed
-        // This would typically refetch the IncomingRequestsTable data
-      } else {
-        onToastShow('Import failed!')
+      const result = await bulkImportMutation.triggerAsync(file)
+      if (result.success) {
+        toast(SETTLEMENT_PATCH_MESSAGES.SUCCESS)
+        // Refetch the incoming requests data
+        if (refetchIncomingRequestsRef.current) {
+          refetchIncomingRequestsRef.current()
+        }
       }
     } catch (error) {
       onToastShow('Import failed!')
@@ -119,6 +118,11 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
     console.log('Settle offline for order:', order.orderId)
     onToastShow('Settle offline functionality will be implemented')
   }
+
+  // Callback to receive refetch function from IncomingRequestsTable
+  const handleRefetchReady = useCallback((refetch: () => void) => {
+    refetchIncomingRequestsRef.current = refetch
+  }, [])
 
   const handleExport = (): void => {
     // Process the data similar to IncomingRequestsTable
@@ -182,6 +186,7 @@ const ReviewReconRequests: FC<IReviewReconRequestsProps> = ({ onToastShow }) => 
             onReject={handleReject}
             onSettleOffline={handleSettleOffline}
             onExport={handleExport}
+            onRefetchReady={handleRefetchReady}
           />
         </Wrapper>
       </Container>

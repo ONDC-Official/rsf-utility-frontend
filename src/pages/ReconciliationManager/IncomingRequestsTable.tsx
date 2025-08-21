@@ -15,13 +15,22 @@ import { useLoader } from 'context/loaderContext'
 import useGetReconData, { IReconDataItem } from 'hooks/queries/useGetReconData'
 import { INCOMING_RECON_STATUSES, ReconStatus } from 'enums/recon'
 
-const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onReject, onSettleOffline }) => {
+const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({
+  onAccept,
+  onReject,
+  onSettleOffline,
+  onRefetchReady,
+}) => {
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set())
 
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
 
-  const { data: reconData, isLoading } = useGetReconData(
+  const {
+    data: reconData,
+    isLoading,
+    refetch,
+  } = useGetReconData(
     selectedUser?._id || '',
     {
       page: 1,
@@ -32,6 +41,13 @@ const IncomingRequestsTable: FC<IIncomingRequestsTableProps> = ({ onAccept, onRe
       enabled: !!selectedUser?._id,
     },
   )
+
+  // Expose refetch to parent component
+  useEffect(() => {
+    if (onRefetchReady && refetch) {
+      onRefetchReady(refetch)
+    }
+  }, [refetch, onRefetchReady])
 
   useEffect(() => {
     if (isLoading) {

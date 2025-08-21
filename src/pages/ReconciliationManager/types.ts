@@ -44,6 +44,7 @@ export interface IIncomingRequestsTableProps {
   onReject: (order: IIncomingRequest) => void
   onSettleOffline?: (order: IIncomingRequest) => void
   onExport?: () => void
+  onRefetchReady?: (refetch: () => void) => void
 }
 
 export interface IReviewReconRequestsProps {
