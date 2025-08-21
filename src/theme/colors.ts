@@ -54,14 +54,6 @@ const colors: IColors = {
     contrastText: '#18273A',
     tertiary: '#DEDEDE',
   },
-  shadow: {
-    main: '#1B2F5717',
-    primary: '#1B2F5717',
-    secondary: '#0A0D120D',
-    tertiary: '#E6E6E6',
-    disabled: '#E9EBEF',
-    contrastText: '#FCFCFC',
-  },
   button: {
     main: '#3B5998',
     primary: '#3B5998',
@@ -82,6 +74,17 @@ const colors: IColors = {
     light: '#F8F9FA',
     dark: '#6C757D',
     contrastText: '#495057',
+    disabled: '#ECECEC',
+    dashed: '#DEDEDE',
+  },
+  shadow: {
+    main: '#1B2F5717',
+    primary: '#1B2F5717',
+    secondary: '#0A0D120D',
+    tertiary: '#E6E6E6',
+    disabled: '#E9EBEF',
+    contrastText: '#FCFCFC',
+    card: '6px 6px 54px 0px #0000000D',
   },
 }
 

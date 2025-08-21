@@ -78,3 +78,57 @@ export interface ICalendarProps {
   onChange?: (date: Date) => void
   disabled?: boolean
 }
+
+// Field configuration types
+export interface IFieldValidation {
+  min?: { value: number; message: string }
+  max?: { value: number; message: string }
+  pattern?: { value: RegExp; message: string }
+  minLength?: { value: number; message: string }
+}
+
+export interface IFieldConfig {
+  name: keyof IProvider
+  label: string
+  type: 'input' | 'select' | 'date'
+  placeholder: string
+  required: boolean
+  validation?: IFieldValidation
+}
+
+export interface ITaxFieldConfig {
+  name: keyof IFormData
+  label: string
+  type: 'input' | 'select' | 'date' | 'number'
+  placeholder: string
+  required: boolean
+  hasTooltip?: boolean
+  tooltipText?: string
+  validation?: IFieldValidation
+  options?: Array<{ value: string; label: string }>
+}
+
+export interface ITaxSection {
+  section: string
+  fields: ITaxFieldConfig[]
+}
+
+// Counterparty field config
+export interface ICounterpartyFieldConfig {
+  name: 'id' | 'nickName'
+  label: string
+  disabled: boolean
+}
+
+// Generic field config for mixed field types
+export interface IGenericFieldConfig {
+  name: string
+  label: string
+  type: string
+  required: boolean
+  placeholder: string
+  options?: Array<{ value: string; label: string }>
+  validation?: IFieldValidation
+  hasTooltip?: boolean
+  tooltipText?: string
+}

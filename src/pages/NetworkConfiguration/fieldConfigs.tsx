@@ -1,6 +1,20 @@
 // Field configuration objects to reduce repetitive code
+import { IFieldConfig, ITaxSection, ITaxFieldConfig } from 'pages/NetworkConfiguration/type'
 
-export const basicFields = [
+interface IBasicFieldConfig {
+  name: 'role' | 'domainCategory' | 'selectedType' | 'subscriberUrl'
+  label: string
+  type: 'input' | 'select'
+  required: boolean
+  placeholder: string
+  options?: Array<{ value: string; label: string }>
+  showCondition?: (role: string) => boolean
+  validation?: {
+    pattern?: { value: RegExp; message: string }
+  }
+}
+
+export const basicFields: IBasicFieldConfig[] = [
   {
     name: 'role' as const,
     label: 'Role',
@@ -47,7 +61,7 @@ export const basicFields = [
   },
 ]
 
-export const buyerTaxFields = [
+export const buyerTaxFields: ITaxSection[] = [
   {
     section: 'left',
     fields: [
@@ -100,7 +114,7 @@ export const buyerTaxFields = [
   },
 ]
 
-export const sellerTaxFields = [
+export const sellerTaxFields: ITaxSection[] = [
   {
     section: 'left',
     fields: [
@@ -153,7 +167,7 @@ export const sellerTaxFields = [
   },
 ]
 
-export const sellerProviderTaxFields = [
+export const sellerProviderTaxFields: ITaxSection[] = [
   {
     section: 'left',
     fields: [
@@ -206,7 +220,7 @@ export const sellerProviderTaxFields = [
   },
 ]
 
-export const applicabilityFields = [
+export const applicabilityFields: ITaxFieldConfig[] = [
   {
     name: 'tcs_applicability' as const,
     label: 'TCS Applicability',
@@ -235,16 +249,16 @@ export const applicabilityFields = [
   },
 ]
 
-export const providerFields = [
+export const providerFields: IFieldConfig[] = [
   {
-    name: 'providerId' as const,
+    name: 'providerId',
     label: 'Provider ID',
     type: 'input',
     placeholder: 'Enter Provider ID',
     required: false,
   },
   {
-    name: 'accountNumber' as const,
+    name: 'accountNumber',
     label: 'Account Number',
     type: 'input',
     placeholder: 'Enter Account Number',
@@ -257,7 +271,7 @@ export const providerFields = [
     },
   },
   {
-    name: 'ifscCode' as const,
+    name: 'ifscCode',
     label: 'IFSC Code',
     type: 'input',
     placeholder: 'Enter IFSC Code',
@@ -270,7 +284,7 @@ export const providerFields = [
     },
   },
   {
-    name: 'bankName' as const,
+    name: 'bankName',
     label: 'Bank Name',
     type: 'input',
     placeholder: 'Enter Bank Name',

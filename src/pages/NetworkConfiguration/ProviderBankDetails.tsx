@@ -1,15 +1,16 @@
 import { FC } from 'react'
-import { useFieldArray, Controller } from 'react-hook-form'
+import { useFieldArray, Controller, FieldError } from 'react-hook-form'
 import { Typography } from '@mui/material'
 import BankIcon from 'assets/images/svg/BankIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
 import RemoveIcon from 'assets/images/svg/RemoveIcon'
-import { IProviderBankDetailsProps } from 'pages/NetworkConfiguration/type'
-import { defaultProvider } from './data'
+import { IProviderBankDetailsProps, IFieldConfig } from 'pages/NetworkConfiguration/type'
+import { defaultProvider } from 'pages/NetworkConfiguration/data'
 import {
   ProviderContainer,
   ProviderHeader,
-  SectionTitle,
+  ProviderHeaderTitleContainer,
+  ProviderSectionTitleNoMargin,
   ProviderButtonGroup,
   ProvidersGrid,
   ProviderSection,
@@ -19,7 +20,7 @@ import {
   StyledInput,
   BulkButton,
 } from 'styles/pages/NetworkConfiguration'
-import { providerFields } from './fieldConfigs'
+import { providerFields } from 'pages/NetworkConfiguration/fieldConfigs'
 import { TypographyVariant } from 'enums/typography'
 
 const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors }) => {
@@ -28,8 +29,8 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
     name: 'providers',
   })
 
-  const renderProviderField = (field: any, providerIndex: number) => {
-    const fieldError = errors.providers?.[providerIndex]?.[field.name as keyof (typeof errors.providers)[0]] as any
+  const renderProviderField = (field: IFieldConfig, providerIndex: number) => {
+    const fieldError = errors.providers?.[providerIndex]?.[field.name] as FieldError | undefined
 
     return (
       <FieldContainer key={field.name}>
@@ -38,7 +39,7 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
         </Typography>
         <Controller
           control={control}
-          name={`providers.${providerIndex}.${field.name}` as any}
+          name={`providers.${providerIndex}.${field.name}` as const}
           rules={{
             required: field.required ? `${field.label} is required` : undefined,
             ...field.validation,
@@ -63,10 +64,10 @@ const ProviderBankDetails: FC<IProviderBankDetailsProps> = ({ control, errors })
   return (
     <ProviderContainer>
       <ProviderHeader>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <ProviderHeaderTitleContainer>
           <BankIcon />
-          <SectionTitle style={{ marginBottom: 0 }}>Provider Bank Account Details</SectionTitle>
-        </div>
+          <ProviderSectionTitleNoMargin>Provider Bank Account Details</ProviderSectionTitleNoMargin>
+        </ProviderHeaderTitleContainer>
         <ProviderButtonGroup>
           <BulkButton variant="outlined" onClick={() => append(defaultProvider)}>
             <AddIcon /> Add Provider

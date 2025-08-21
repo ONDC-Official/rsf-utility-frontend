@@ -1,6 +1,8 @@
 import { Tooltip, Typography } from '@mui/material'
+import { Controller, FieldError } from 'react-hook-form'
 import ToolTipIcon from 'assets/images/svg/ToolTipIcon'
 import DateInput from 'components/common/DateInput'
+import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import {
   DomainConfigContainer,
   SectionTitle,
@@ -16,10 +18,13 @@ import {
   StyledInput,
   StyledSelect,
 } from 'styles/pages/NetworkConfiguration'
-import { Controller } from 'react-hook-form'
-import { IDomainConfigurationProps } from 'pages/NetworkConfiguration/type'
+import {
+  IDomainConfigurationProps,
+  ITaxFieldConfig,
+  ITaxSection,
+  IGenericFieldConfig,
+} from 'pages/NetworkConfiguration/type'
 import { DOMAIN_CATEGORIES } from 'constants/domains'
-import RequiredFieldLabel from 'components/common/RequiredFieldLabel'
 import { TypographyVariant } from 'enums/typography'
 import {
   basicFields,
@@ -27,11 +32,11 @@ import {
   sellerTaxFields,
   sellerProviderTaxFields,
   applicabilityFields,
-} from './fieldConfigs'
+} from 'pages/NetworkConfiguration/fieldConfigs'
 
 const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => {
-  const renderField = (field: any, disabled = false) => {
-    const fieldError = errors[field.name as keyof typeof errors]
+  const renderField = (field: ITaxFieldConfig | IGenericFieldConfig, disabled = false) => {
+    const fieldError = errors[field.name as keyof typeof errors] as FieldError | undefined
 
     if (field.type === 'select') {
       const options = field.name === 'domainCategory' ? DOMAIN_CATEGORIES : field.options
@@ -41,7 +46,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
           <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
           <Controller
             control={control}
-            name={field.name}
+            name={field.name as any}
             rules={{
               required: field.required ? `${field.label} is required` : undefined,
               ...field.validation,
@@ -62,7 +67,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
 
                   return String(selected)
                 }}
-                options={options}
+                options={options || []}
                 formControlProps={{ error: !!fieldError, fullWidth: true }}
               />
             )}
@@ -82,11 +87,11 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
           <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
           <Controller
             control={control}
-            name={field.name}
+            name={field.name as any}
             rules={{ required: field.required ? `${field.label} is required` : undefined }}
             render={({ field: controllerField }) => (
               <DateInput
-                value={controllerField.value || ''}
+                value={String(controllerField.value || '')}
                 onChange={controllerField.onChange}
                 onBlur={controllerField.onBlur}
                 name={controllerField.name}
@@ -118,7 +123,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
         )}
         <Controller
           control={control}
-          name={field.name}
+          name={field.name as any}
           rules={{
             required: field.required ? `${field.label} is required` : undefined,
             ...field.validation,
@@ -143,11 +148,11 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
     )
   }
 
-  const renderTaxSection = (taxFields: any[]) => (
+  const renderTaxSection = (taxFields: ITaxSection[]) => (
     <TaxContainer>
       {taxFields.map((section) => (
         <TaxSection key={section.section}>
-          {section.fields.map((field: any) => (
+          {section.fields.map((field: ITaxFieldConfig) => (
             <TaxFieldRow key={field.name}>{renderField(field)}</TaxFieldRow>
           ))}
         </TaxSection>

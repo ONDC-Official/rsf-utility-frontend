@@ -14,6 +14,8 @@ export interface IColorVariant {
   primary?: string
   accepted?: string
   pending?: string
+  dashed?: string
+  card?: string
 }
 
 export interface IColors {

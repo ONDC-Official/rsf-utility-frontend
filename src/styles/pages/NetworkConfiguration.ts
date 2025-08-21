@@ -1,4 +1,5 @@
 import { styled } from '@mui/material/styles'
+import { Typography } from '@mui/material'
 import colors from 'theme/colors'
 import Button from 'components/common/Button'
 import Select from 'components/common/Select'
@@ -12,8 +13,8 @@ export const Container = styled('div')(() => ({
 }))
 
 export const MainContainer = styled('div')(() => ({
-  background: '#FFFFFF',
-  boxShadow: '6px 6px 54px 0px #0000000D',
+  background: colors.background.light,
+  boxShadow: colors.shadow.card,
   borderRadius: '12px',
   padding: '24px',
 }))
@@ -40,8 +41,8 @@ export const StyledForm = styled('form')({
 })
 
 export const DomainConfigContainer = styled('div')(() => ({
-  background: '#FFFFFF',
-  border: '1px solid #DFE0E5',
+  background: colors.background.light,
+  border: `1px solid ${colors.neutral.main}`,
   borderRadius: '12px',
   padding: '24px',
 }))
@@ -81,13 +82,13 @@ export const TaxContainer = styled('div')(() => ({
 }))
 
 export const TaxSection = styled('div')(() => ({
-  border: '1px dashed #DEDEDE',
+  border: `1px dashed ${colors.neutral.dashed}`,
   borderRadius: '8px',
   padding: '16px',
 }))
 
 export const ApplicabilityContainer = styled('div')(() => ({
-  border: '1px dashed #DEDEDE',
+  border: `1px dashed ${colors.neutral.dashed}`,
   borderRadius: '8px',
   padding: '16px',
   display: 'grid',
@@ -109,8 +110,8 @@ export const TaxFieldRow = styled('div')(() => ({
 }))
 
 export const ProviderContainer = styled('div')(() => ({
-  background: '#FFFFFF',
-  boxShadow: '6px 6px 54px 0px #0000000D',
+  background: colors.background.light,
+  boxShadow: colors.shadow.card,
   borderRadius: '12px',
   padding: '24px',
 }))
@@ -137,7 +138,7 @@ export const ProvidersGrid = styled('div')(() => ({
 }))
 
 export const ProviderSection = styled('div')(() => ({
-  border: '1px solid #DFE0E5',
+  border: `1px solid ${colors.neutral.main}`,
   borderRadius: '8px',
   padding: '16px',
 }))
@@ -159,8 +160,8 @@ export const ProviderFieldsContainer = styled('div')(() => ({
 }))
 
 export const CounterpartyContainer = styled('div')(() => ({
-  background: '#FFFFFF',
-  boxShadow: '6px 6px 54px 0px #0000000D',
+  background: colors.background.light,
+  boxShadow: colors.shadow.card,
   borderRadius: '12px',
   padding: '24px',
 }))
@@ -183,6 +184,10 @@ export const FieldContainer = styled('div')(() => ({
   gap: '8px',
 }))
 
+export const FieldLabel = styled(Typography)(() => ({
+  marginBottom: '8px',
+}))
+
 export const LabelWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
@@ -193,6 +198,16 @@ export const IconWrapper = styled('div')({
   cursor: 'pointer',
   height: '20px',
 })
+
+export const ProviderHeaderTitleContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+}))
+
+export const ProviderSectionTitleNoMargin = styled(SectionTitle)(() => ({
+  marginBottom: 0,
+}))
 
 export const BulkButton = styled(Button)(() => ({
   borderRadius: '8px',
@@ -226,7 +241,7 @@ export const StyledSelect = styled(Select)({
       borderColor: colors.primary.main,
     },
     '&.Mui-disabled': {
-      backgroundColor: '#ececec',
+      backgroundColor: colors.neutral.disabled,
       '& .MuiSelect-select': {
         backgroundColor: 'transparent',
       },
@@ -275,7 +290,7 @@ export const StyledInput = styled(InputField)({
       borderColor: colors.error.main,
     },
     '&.Mui-disabled': {
-      backgroundColor: '#ececec',
+      backgroundColor: colors.neutral.disabled,
       '& .MuiInputBase-input': {
         backgroundColor: 'transparent',
       },

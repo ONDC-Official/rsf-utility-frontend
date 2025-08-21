@@ -1,20 +1,20 @@
-import { Typography } from '@mui/material'
 import { Controller } from 'react-hook-form'
+import { useToast } from 'context/toastContext'
 import {
   CounterpartyContainer,
   SectionTitle,
   CounterpartyFieldsContainer,
   FieldContainer,
+  FieldLabel,
   StyledInput,
 } from 'styles/pages/NetworkConfiguration'
-import { ICounterpartyInfosProps } from 'pages/NetworkConfiguration/type'
+import { ICounterpartyInfosProps, ICounterpartyInfo, ICounterpartyFieldConfig } from 'pages/NetworkConfiguration/type'
 import { TypographyVariant } from 'enums/typography'
-import { useToast } from 'context/toastContext'
 
 const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element => {
   const showToast = useToast()
 
-  const counterpartyFieldConfig = [
+  const counterpartyFieldConfig: ICounterpartyFieldConfig[] = [
     { name: 'id', label: 'ONDC Subscriber ID', disabled: true },
     { name: 'nickName', label: 'Name', disabled: false },
   ]
@@ -35,12 +35,10 @@ const CounterpartyInfos = ({ control }: ICounterpartyInfosProps): JSX.Element =>
 
           return (
             <CounterpartyFieldsContainer>
-              {counterpartyInfos.map((info: any, index: number) =>
+              {counterpartyInfos.map((info: ICounterpartyInfo, index: number) =>
                 counterpartyFieldConfig.map((fieldConfig) => (
                   <FieldContainer key={`${info.id}-${index}-${fieldConfig.name}`}>
-                    <Typography variant={TypographyVariant.Body2Medium} sx={{ mb: 1 }}>
-                      {fieldConfig.label}
-                    </Typography>
+                    <FieldLabel variant={TypographyVariant.Body2Medium}>{fieldConfig.label}</FieldLabel>
                     <StyledInput
                       value={fieldConfig.name === 'id' ? info.id || '' : info.nickName || ''}
                       disabled={fieldConfig.disabled || info?.nickName?.toLowerCase() === 'self'}
