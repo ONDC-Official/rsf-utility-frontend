@@ -24,17 +24,17 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
 
   // Role-based tax mapping
   if (isBuyer) {
-    payload.np_tcs = toNumber(data.buyerNpToNpTcs)
-    payload.np_tds = toNumber(data.buyerNpToNpTds)
+    payload.np_tcs_effective = toNumber(data.buyerNpToNpTcs)
+    payload.np_tds_effective = toNumber(data.buyerNpToNpTds)
   }
 
   if (isSeller) {
-    payload.np_tcs = toNumber(data.sellerNpToTcs)
-    payload.np_tds = toNumber(data.sellerNpToTds)
+    payload.np_tcs_effective = toNumber(data.sellerNpToTcs)
+    payload.np_tds_effective = toNumber(data.sellerNpToTds)
 
     if (isMsn) {
-      payload.pr_tcs = toNumber(data.sellerNpToProviderTcs)
-      payload.pr_tds = toNumber(data.sellerNpToProviderTds)
+      payload.pr_tcs_effective = toNumber(data.sellerNpToProviderTcs)
+      payload.pr_tds_effective = toNumber(data.sellerNpToProviderTds)
     }
   }
 

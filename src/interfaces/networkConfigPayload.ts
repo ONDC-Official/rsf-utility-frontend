@@ -15,10 +15,10 @@ export interface NetworkConfigPayload {
   role: 'BPP' | 'BAP'
   subscriber_url: string
   domain: string
-  np_tcs: number
-  np_tds: number
-  pr_tcs: number
-  pr_tds: number
+  np_tcs_effective: number
+  np_tds_effective: number
+  pr_tcs_effective: number
+  pr_tds_effective: number
   msn: boolean
   provider_details?: ProviderDetail[]
   counterparty_infos?: CounterpartyInfo[]
