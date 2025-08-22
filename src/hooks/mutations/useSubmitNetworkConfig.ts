@@ -66,12 +66,23 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
 
   // Helper function to validate and convert date
   const convertToISODate = (dateValue: string | undefined): string | undefined => {
-    if (!dateValue || dateValue.trim() === '') return undefined
-    const date = new Date(dateValue)
-    return isNaN(date.getTime()) ? undefined : date.toISOString()
+    if (!dateValue || dateValue.trim() === '') {
+      return undefined
+    }
+
+    let date: Date
+    if (dateValue.includes('/') && dateValue.split('/').length === 3) {
+      const [day, month, year] = dateValue.split('/')
+      date = new Date(`${month}/${day}/${year}`)
+    } else {
+      date = new Date(dateValue)
+    }
+
+    const isValid = !isNaN(date.getTime())
+    console.log('Date validation - input:', dateValue, 'parsed date:', date, 'isValid:', isValid)
+    return isValid ? date.toISOString() : undefined
   }
 
-  // Add effective date fields to payload
   const isoDate1 = convertToISODate(data.effectiveDate1)
   if (isoDate1) {
     payload.np_tcs_with_effective_date = isoDate1
