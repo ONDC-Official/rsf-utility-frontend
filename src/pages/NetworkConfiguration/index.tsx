@@ -45,6 +45,23 @@ const mapUserToFormData = (user: IUser): IFormData => {
     }
   }
 
+  // Helper function to convert ISO date back to DD/MM/YYYY format
+  const formatDateForDisplay = (isoDateString: string | undefined): string => {
+    if (!isoDateString) return ''
+    try {
+      const date = new Date(isoDateString)
+      if (isNaN(date.getTime())) return ''
+
+      const day = date.getDate().toString().padStart(2, '0')
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const year = date.getFullYear()
+
+      return `${day}/${month}/${year}`
+    } catch {
+      return ''
+    }
+  }
+
   return {
     _id: user?._id,
     title: user.title || '',
@@ -70,12 +87,12 @@ const mapUserToFormData = (user: IUser): IFormData => {
           providerName: p.provider_name || '',
         }))
       : [defaultProvider],
-    effectiveDate1: '',
-    effectiveDate2: '',
-    effectiveDate3: '',
-    effectiveDate4: '',
-    effectiveDate5: '',
-    effectiveDate6: '',
+    effectiveDate1: formatDateForDisplay(user.np_tcs_with_effective_date),
+    effectiveDate2: formatDateForDisplay(user.np_tds_with_effective_date),
+    effectiveDate3: formatDateForDisplay(user.np_tcs_with_effective_date),
+    effectiveDate4: formatDateForDisplay(user.np_tds_with_effective_date),
+    effectiveDate5: formatDateForDisplay(user.pr_tcs_with_effective_date),
+    effectiveDate6: formatDateForDisplay(user.pr_tds_with_effective_date),
   }
 }
 
@@ -204,23 +221,6 @@ const NetworkConfiguration: FC = () => {
             isEditing={isEditing}
             control={control}
           />
-
-          <SaveButtonContainer>
-            <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
-              <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
-            </BulkButton>
-
-            {selectedUser?._id && (
-              <BulkButton
-                variant="outlined"
-                color="error"
-                onClick={() => setDeleteModalOpen(true)}
-                disabled={isDeleteLoading}
-              >
-                Delete
-              </BulkButton>
-            )}
-          </SaveButtonContainer>
         </StyledForm>
 
         <DeleteConfirmationModal
@@ -238,6 +238,23 @@ const NetworkConfiguration: FC = () => {
       )}
 
       {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
+
+      <SaveButtonContainer>
+        <BulkButton variant="contained" onClick={handleSubmit(onSubmit)} disabled={isSubmitLoading}>
+          <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
+        </BulkButton>
+
+        {selectedUser?._id && (
+          <BulkButton
+            variant="outlined"
+            color="error"
+            onClick={() => setDeleteModalOpen(true)}
+            disabled={isDeleteLoading}
+          >
+            Delete
+          </BulkButton>
+        )}
+      </SaveButtonContainer>
     </Container>
   )
 }
