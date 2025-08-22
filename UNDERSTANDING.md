@@ -373,6 +373,31 @@ Scripts:
 - **Asset Optimization:** Image and font compression
 
 ---
+
+## Recent Changes (August 2025)
+
+### Documentation Enhancement
+- **Commit 8d21de1** (Aug 19, 2025): Comprehensive documentation overhaul
+  - Complete README.md rewrite with production-grade structure
+  - New UNDERSTANDING.md with detailed architecture documentation
+  - Enhanced component documentation and architecture patterns
+  - Added comprehensive development workflow documentation
+
+### Documentation Coverage Added
+- **Component Architecture:** Detailed provider hierarchy and layout system
+- **State Management:** React Query + Context API integration patterns
+- **API Integration:** Axios interceptors and error handling patterns
+- **Testing Strategy:** Component, hook, and integration test guidelines
+- **Performance Optimization:** React optimization patterns and bundle analysis
+
+### Integration Updates
+- **Backend Compatibility:** Updated for `REACT_APP_CLIENT_ID` environment variable standard
+- **Cross-Repository References:** Enhanced documentation linking with main repository
+
+---
 This document should be updated whenever significant changes are made to the frontend architecture, workflows, or component structure.
 
 **📔 Documentation Sync**: Changes to this document should be reflected in the [main repository UNDERSTANDING.md](../UNDERSTANDING.md) to maintain system-wide consistency.
+
+**Last Understood Commit**: 8d21de1 (feat - add comprehensive documentation for RSF Utility Frontend) - 2025-08-19
+**Next Update Trigger**: Any component architecture changes, new feature additions, or state management pattern modifications
