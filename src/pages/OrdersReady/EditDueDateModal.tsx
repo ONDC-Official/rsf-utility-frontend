@@ -1,8 +1,7 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Modal, Typography } from '@mui/material'
 import { Close, Event } from '@mui/icons-material'
-import { useForm, Controller } from 'react-hook-form'
-import InputField from 'components/common/InputField'
+import DateInput from 'components/common/DateInput'
 import usePatchOrderDueDate from 'hooks/mutations/usePatchOrder'
 import { useUserContext } from 'context/userContext'
 import { useLoader } from 'context/loaderContext'
@@ -27,30 +26,75 @@ interface EditDueDateModalProps {
   onEditSuccess?: (message: string) => void
 }
 
-interface FormData {
-  dueDate: string
-}
-
 const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm, orderId, onEditSuccess }) => {
+  const [dueDate, setDueDate] = useState('')
+  const [error, setError] = useState('')
+
   const { selectedUser } = useUserContext()
   const { showLoader, hideLoader } = useLoader()
   const toast = useToast()
   const patchOrderDueDate = usePatchOrderDueDate(selectedUser?._id || '')
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({
-    mode: 'onChange',
-    defaultValues: {
-      dueDate: '',
-    },
-  })
+  const parseDate = (dateString: string): Date | null => {
+    if (!dateString) return null
 
-  const onSubmit = async (formData: FormData): Promise<void> => {
-    if (!orderId || !formData.dueDate) {
+    // Handle dd/mm/yyyy format from DateInput component
+    const parts = dateString.split(/[-/]/)
+    if (parts.length !== 3) return null
+
+    // Assume dd/mm/yyyy format
+    const day = parseInt(parts[0], 10)
+    const month = parseInt(parts[1], 10) - 1 // months are 0-indexed
+    const year = parseInt(parts[2], 10)
+
+    const date = new Date(year, month, day)
+
+    // Validate the date
+    if (date.getDate() === day && date.getMonth() === month && date.getFullYear() === year) {
+      return date
+    }
+
+    return null
+  }
+
+  const formatDateForAPI = (dateString: string): string => {
+    const date = parseDate(dateString)
+    if (!date) return ''
+    // Format as YYYY-MM-DD for API
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
+
+  const validateDueDate = (value: string): string => {
+    if (!value) {
+      return 'Due date is required'
+    }
+
+    const selectedDate = parseDate(value)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    if (!selectedDate) {
+      return 'Please enter a valid date'
+    }
+
+    if (selectedDate < today) {
+      return 'Due date cannot be in the past'
+    }
+
+    return ''
+  }
+
+  const handleConfirm = async (): Promise<void> => {
+    const validationError = validateDueDate(dueDate)
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+
+    if (!orderId || !dueDate) {
       return
     }
 
@@ -60,24 +104,28 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
       const payload = [
         {
           order_id: orderId,
-          due_date: formData.dueDate,
+          due_date: formatDateForAPI(dueDate),
         },
       ]
 
       const res = await patchOrderDueDate.patchOrderAsync(payload)
 
-      if (res.success) {
+      if (res?.success) {
         toast(ORDER_PATCH_MESSAGES.SUCCESS)
-        reset()
+        handleCancel() // Reset and close modal
         onConfirm() // This will trigger refetch in parent component
+
+        if (onEditSuccess) {
+          onEditSuccess('Due date updated successfully!')
+        }
       } else {
         toast(ORDER_PATCH_MESSAGES.ERROR)
-      }
-
-      if (onEditSuccess) {
-        onEditSuccess(res.success ? 'Due date updated successfully!' : 'Failed to update due date')
+        if (onEditSuccess) {
+          onEditSuccess('Failed to update due date')
+        }
       }
     } catch (error) {
+      console.error('Error updating due date:', error)
       toast(ORDER_PATCH_MESSAGES.ERROR)
       if (onEditSuccess) {
         onEditSuccess('Failed to update due date')
@@ -89,56 +137,56 @@ const EditDueDateModal: FC<EditDueDateModalProps> = ({ open, onClose, onConfirm,
 
   const handleCancel = (): void => {
     onClose()
-    reset()
+    setDueDate('')
+    setError('')
+  }
+
+  const handleDateChange = (value: string): void => {
+    setDueDate(value)
+
+    // Clear error when user starts typing
+    if (error) {
+      setError('')
+    }
   }
 
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="edit-due-date-modal">
+    <Modal open={open} onClose={handleCancel} aria-labelledby="edit-due-date-modal">
       <Container>
         <Content>
           <Header>
             <Typography variant={TypographyVariant.H6Bold}>Edit Due Date</Typography>
-            <CloseButton onClick={onClose}>
+            <CloseButton onClick={handleCancel}>
               <Close />
             </CloseButton>
           </Header>
 
-          <StyledForm onSubmit={handleSubmit(onSubmit)} style={{ padding: '0 24px 24px 24px' }}>
+          <StyledForm>
             <Typography variant={TypographyVariant.Body1Regular}>Edit due date for Order ID: {orderId}</Typography>
 
-            <Controller
-              name="dueDate"
-              control={control}
-              rules={{
-                required: 'Due date is required',
-                validate: {
-                  notPastDate: (value) => {
-                    if (!value) return true
-                    const selectedDate = new Date(value)
-                    const today = new Date()
-                    today.setHours(0, 0, 0, 0)
-                    return selectedDate >= today || 'Due date cannot be in the past'
-                  },
-                },
-              }}
-              render={({ field }) => (
-                <InputField
-                  label="Due Date *"
-                  {...field}
-                  error={!!errors.dueDate}
-                  helperText={errors.dueDate?.message}
-                  placeholder="YYYY-MM-DD"
-                  type="date"
-                  required
-                />
-              )}
-            />
+            <div style={{ marginBottom: '8px' }}>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Due Date *
+              </Typography>
+              <DateInput
+                value={dueDate}
+                onChange={handleDateChange}
+                placeholder="dd/mm/yyyy"
+                error={!!error}
+                helperText={error}
+              />
+            </div>
 
             <ButtonContainer>
-              <OutlinedFilterButton variant="outlined" type="button" onClick={handleCancel}>
+              <OutlinedFilterButton variant="outlined" onClick={handleCancel}>
                 Cancel
               </OutlinedFilterButton>
-              <ContainedExportButton variant="contained" type="submit" startIcon={<Event />}>
+              <ContainedExportButton
+                variant="contained"
+                onClick={handleConfirm}
+                startIcon={<Event />}
+                disabled={!dueDate || !!error}
+              >
                 Update Due Date
               </ContainedExportButton>
             </ButtonContainer>

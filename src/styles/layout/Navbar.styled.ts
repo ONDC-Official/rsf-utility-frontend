@@ -35,13 +35,10 @@ export const ConfigurationLabel = styled(Typography)({
 
 export const StyledSelect = styled(Select)({
   width: '140px',
-  height: '24px',
+  height: '32px',
   justifyContent: 'space-between',
   borderRadius: '8px',
-  paddingTop: '8px',
-  paddingRight: '10px',
-  paddingBottom: '8px',
-  paddingLeft: '10px',
+  padding: '8px 10px',
   border: `1px solid ${colors.button.subHeading}`,
   backgroundColor: colors.primary.main,
   fontSize: '12px',

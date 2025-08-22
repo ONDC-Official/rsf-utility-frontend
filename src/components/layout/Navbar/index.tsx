@@ -44,7 +44,7 @@ const Navbar: FC = () => {
         </TitleContainer>
 
         <RightSection>
-          <Typography variant={TypographyVariant.Caption1Bold}>Configuration</Typography>
+          <Typography variant={TypographyVariant.Caption1Bold}>Settlement Configuration</Typography>
 
           <StyledSelect
             value={selectedUser?._id ?? ''}

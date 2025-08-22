@@ -271,19 +271,20 @@ export const StyledInput = styled(InputField)({
     borderRadius: 8,
     height: '48px',
     overflow: 'hidden',
-    border: `1px solid ${colors.neutral.main}`,
     '& fieldset': {
       borderColor: colors.neutral.main,
       borderRadius: 8,
+      border: `1px solid ${colors.neutral.main}`,
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      lineHeight: '12px !important',
+      borderColor: `${colors.neutral.main} !important`,
+      border: `1px solid ${colors.neutral.main} !important`,
     },
     '&:hover fieldset': {
       borderColor: colors.primary.main,
     },
     '&.Mui-focused fieldset': {
-      borderColor: colors.primary.main,
+      borderColor: `${colors.primary.main} !important`,
     },
     '&.Mui-error fieldset': {
       borderColor: colors.error.main,
