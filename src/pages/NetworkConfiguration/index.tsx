@@ -179,12 +179,6 @@ const NetworkConfiguration: FC = () => {
             control={control}
           />
 
-          {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
-            <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
-          )}
-
-          {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
-
           <SaveButtonContainer>
             <BulkButton variant="contained" type="submit" disabled={isSubmitLoading}>
               <SaveIcon /> {isSubmitLoading ? 'Submitting...' : isEditing ? 'Update' : 'Save & Proceed'}
@@ -212,6 +206,12 @@ const NetworkConfiguration: FC = () => {
           isLoading={isDeleteLoading}
         />
       </MainContainer>
+
+      {isEditing && counterparty_infos && counterparty_infos.length > 0 && (
+        <CounterpartyInfos control={control} errors={errors} isEditing={isEditing} />
+      )}
+
+      {role === 'Seller App' && selectedType === 'MSN' && <ProviderBankDetails control={control} errors={errors} />}
     </Container>
   )
 }
