@@ -34,7 +34,52 @@ import {
   applicabilityFields,
 } from 'pages/NetworkConfiguration/fieldConfigs'
 
-const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomainConfigurationProps): JSX.Element => {
+const DomainConfiguration = ({
+  control,
+  errors,
+  role,
+  isEditing,
+  type,
+  selectedUser,
+}: IDomainConfigurationProps): JSX.Element => {
+  // Function to get dynamic tooltip text based on field and edit mode
+  const getDynamicTooltipText = (field: ITaxFieldConfig | IGenericFieldConfig): string => {
+    if (!field.hasTooltip) return field.tooltipText || ''
+
+    // If not editing, return default tooltip text
+    if (!isEditing || !selectedUser) {
+      return field.tooltipText || ''
+    }
+
+    // Map field names to user API values
+    let apiValue: number | undefined
+    switch (field.name) {
+      case 'buyerNpToNpTcs':
+      case 'sellerNpToTcs':
+        apiValue = selectedUser.np_tcs
+        break
+      case 'buyerNpToNpTds':
+      case 'sellerNpToTds':
+        apiValue = selectedUser.np_tds
+        break
+      case 'sellerNpToProviderTcs':
+        apiValue = selectedUser.pr_tcs
+        break
+      case 'sellerNpToProviderTds':
+        apiValue = selectedUser.pr_tds
+        break
+      default:
+        return field.tooltipText || ''
+    }
+
+    // Show API value with % if available
+    if (apiValue !== undefined && apiValue !== null) {
+      return `Current value: ${apiValue}%`
+    }
+
+    return field.tooltipText || ''
+  }
+
   const renderField = (field: ITaxFieldConfig | IGenericFieldConfig, disabled = false) => {
     const fieldError = errors[field.name as keyof typeof errors] as FieldError | undefined
 
@@ -112,7 +157,7 @@ const DomainConfiguration = ({ control, errors, role, isEditing, type }: IDomain
         {field.hasTooltip ? (
           <LabelWrapper>
             <RequiredFieldLabel>{field.label}</RequiredFieldLabel>
-            <Tooltip title={field.tooltipText} arrow placement="right-start">
+            <Tooltip title={getDynamicTooltipText(field)} arrow placement="right-start">
               <IconWrapper>
                 <ToolTipIcon />
               </IconWrapper>

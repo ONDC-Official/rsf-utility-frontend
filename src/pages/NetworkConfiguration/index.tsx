@@ -220,6 +220,7 @@ const NetworkConfiguration: FC = () => {
             type={selectedType}
             isEditing={isEditing}
             control={control}
+            selectedUser={selectedUser}
           />
         </StyledForm>
 

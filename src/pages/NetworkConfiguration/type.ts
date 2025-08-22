@@ -53,6 +53,7 @@ export interface IDomainConfigurationProps {
   type: string
   isEditing: boolean
   control: Control<IFormData>
+  selectedUser?: IUser | null
 }
 
 export interface IHeaderSectionProps {

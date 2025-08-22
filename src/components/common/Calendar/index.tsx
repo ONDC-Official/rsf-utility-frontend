@@ -3,7 +3,7 @@ import { Box, Typography, IconButton, Paper } from '@mui/material'
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import { ICalendarProps } from 'components/common/Calendar/types'
 
-const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => {
+const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false, minDate, maxDate }) => {
   const [currentDate, setCurrentDate] = useState(value || new Date())
 
   const getDaysInMonth = (date: Date): number => {
@@ -24,6 +24,33 @@ const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => 
 
   const handleDateClick = (day: number): void => {
     const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+
+    // Check if the selected date is before minDate
+    if (minDate) {
+      const minDateWithoutTime = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
+      const selectedDateWithoutTime = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+      )
+      if (selectedDateWithoutTime < minDateWithoutTime) {
+        return // Don't allow selection of past dates
+      }
+    }
+
+    // Check if the selected date is after maxDate
+    if (maxDate) {
+      const maxDateWithoutTime = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())
+      const selectedDateWithoutTime = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+      )
+      if (selectedDateWithoutTime > maxDateWithoutTime) {
+        return // Don't allow selection of future dates beyond maxDate
+      }
+    }
+
     if (onChange) {
       onChange(selectedDate)
     }
@@ -86,6 +113,7 @@ const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => 
         {/* Actual days */}
         {Array.from({ length: daysInMonth }).map((_, index) => {
           const day = index + 1
+          const dayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
           const isToday =
             today.getDate() === day &&
             today.getMonth() === currentDate.getMonth() &&
@@ -96,6 +124,24 @@ const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => 
             value.getMonth() === currentDate.getMonth() &&
             value.getFullYear() === currentDate.getFullYear()
 
+          // Check if day is disabled due to minDate/maxDate
+          let isDisabledDate = false
+          if (minDate) {
+            const minDateWithoutTime = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate())
+            const dayDateWithoutTime = new Date(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate())
+            if (dayDateWithoutTime < minDateWithoutTime) {
+              isDisabledDate = true
+            }
+          }
+
+          if (maxDate && !isDisabledDate) {
+            const maxDateWithoutTime = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate())
+            const dayDateWithoutTime = new Date(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate())
+            if (dayDateWithoutTime > maxDateWithoutTime) {
+              isDisabledDate = true
+            }
+          }
+
           return (
             <Box
               key={day}
@@ -105,20 +151,28 @@ const Calendar: FC<ICalendarProps> = ({ value, onChange, disabled = false }) => 
               height={36}
               width={36}
               sx={{
-                cursor: disabled ? 'default' : 'pointer',
+                cursor: disabled || isDisabledDate ? 'default' : 'pointer',
                 borderRadius: '50%',
                 backgroundColor: isSelected ? 'primary.main' : isToday ? 'primary.light' : 'transparent',
-                color: isSelected ? 'primary.contrastText' : isToday ? 'primary.main' : 'text.primary',
+                color: isDisabledDate
+                  ? 'text.disabled'
+                  : isSelected
+                  ? 'primary.contrastText'
+                  : isToday
+                  ? 'primary.main'
+                  : 'text.primary',
                 border: isToday && !isSelected ? '1px solid' : 'none',
                 borderColor: 'primary.main',
-                '&:hover': !disabled
-                  ? {
-                      backgroundColor: isSelected ? 'primary.dark' : 'action.hover',
-                    }
-                  : {},
+                opacity: isDisabledDate ? 0.3 : 1,
+                '&:hover':
+                  !disabled && !isDisabledDate
+                    ? {
+                        backgroundColor: isSelected ? 'primary.dark' : 'action.hover',
+                      }
+                    : {},
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => !disabled && handleDateClick(day)}
+              onClick={() => !disabled && !isDisabledDate && handleDateClick(day)}
             >
               <Typography variant="body2" fontWeight={isSelected ? 'bold' : 'normal'}>
                 {day}

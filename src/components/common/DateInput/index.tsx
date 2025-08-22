@@ -67,14 +67,35 @@ const DateInput: FC<IDateInputProps> = ({
     handleCalendarClose()
   }
 
+  const validateDateInput = (dateString: string): boolean => {
+    if (!dateString) return true // Empty is valid
+
+    const parsedDate = parseDate(dateString)
+    if (!parsedDate) return false // Invalid date format
+
+    // Check if date is in the past (before today)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0) // Set to start of today
+
+    return parsedDate >= today
+  }
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value
     if (onChange) {
-      onChange(event.target.value)
+      onChange(inputValue)
     }
   }
 
   const currentDate = value ? parseDate(value) : null
   const open = Boolean(anchorEl)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0) // Set to start of today
+
+  // Check if current value is a past date and show error
+  const isPastDate = value && !validateDateInput(value)
+  const effectiveError = Boolean(error) || Boolean(isPastDate)
+  const effectiveHelperText = isPastDate ? 'Date cannot be in the past' : helperText
 
   return (
     <>
@@ -84,8 +105,8 @@ const DateInput: FC<IDateInputProps> = ({
         onBlur={onBlur}
         name={name}
         inputRef={inputRef}
-        error={error}
-        helperText={helperText}
+        error={effectiveError}
+        helperText={effectiveHelperText}
         placeholder={placeholder}
         disabled={disabled}
         InputProps={{
@@ -115,7 +136,7 @@ const DateInput: FC<IDateInputProps> = ({
           sx: { mt: 1 },
         }}
       >
-        <Calendar value={currentDate} onChange={handleDateSelect} disabled={disabled} />
+        <Calendar value={currentDate} onChange={handleDateSelect} disabled={disabled} minDate={today} />
       </Popover>
     </>
   )
