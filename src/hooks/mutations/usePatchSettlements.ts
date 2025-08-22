@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import usePatch from 'hooks/usePatch'
 import { APIRoute } from 'enums/api'
-import { SettlementPayload } from '@interfaces/settlement'
+import { SettlementPayload } from 'interfaces/settlement'
 import { buildApiUrl } from 'utils/helpers'
 
 interface PatchSettlementsPayload {

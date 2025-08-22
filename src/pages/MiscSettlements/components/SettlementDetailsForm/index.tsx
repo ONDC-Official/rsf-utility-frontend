@@ -13,7 +13,7 @@ import {
 } from 'styles/pages/MiscSettlements.styled'
 import InputField from 'components/common/InputField'
 import { TypographyVariant } from 'enums/typography'
-import { MiscSettlementFormValues } from '@interfaces/miscSettlements'
+import { MiscSettlementFormValues } from 'interfaces/miscSettlements'
 import Select from 'components/common/Select'
 import { useUserContext } from 'context/userContext'
 

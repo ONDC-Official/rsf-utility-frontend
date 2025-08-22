@@ -1,7 +1,7 @@
 import React from 'react'
 import { Checkbox, Box } from '@mui/material'
 import { Edit } from '@mui/icons-material'
-import { IOrdersReadyRowProps } from './types'
+import { IOrdersReadyRowProps } from 'pages/OrdersReady/types'
 import { StyledTableBodyCell, ActionIconButton } from 'styles/components/Table.styled'
 import { DOMAIN_CATEGORY_LABELS } from 'constants/domains'
 import { formatCurrency } from 'utils/helpers'

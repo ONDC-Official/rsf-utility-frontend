@@ -1,4 +1,4 @@
-import { ISettlementItem } from '@interfaces/settlement'
+import { ISettlementItem } from 'interfaces/settlement'
 import { ITableColumn } from 'interfaces/table'
 
 export const columns: ITableColumn<ISettlementItem>[] = [

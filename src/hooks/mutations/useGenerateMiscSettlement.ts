@@ -1,6 +1,6 @@
 import usePost, { IParams } from 'hooks/usePost'
-import { IGenerateMiscSettlementPayload } from '@interfaces/miscSettlements'
-import { IApiResponse } from '@interfaces/api'
+import { IGenerateMiscSettlementPayload } from 'interfaces/miscSettlements'
+import { IApiResponse } from 'interfaces/api'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 import { UseMutationResult } from 'react-query'

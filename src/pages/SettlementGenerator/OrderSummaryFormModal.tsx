@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Modal, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import { useForm, Controller } from 'react-hook-form'
-import { IOrderSummaryModalProps } from './types'
+import { IOrderSummaryModalProps } from 'pages/SettlementGenerator/types'
 import {
   ModalContainer,
   Content,
@@ -15,7 +15,7 @@ import {
 } from 'styles/pages/SettlementGenerator.styled'
 import InputField from 'components/common/InputField'
 import Button from 'components/common/Button'
-import { ISettleNpDataItem } from '@interfaces/settlementGenerator'
+import { ISettleNpDataItem } from 'interfaces/settlementGenerator'
 import { useUserContext } from 'context/userContext'
 import { TypographyVariant } from 'enums/typography'
 

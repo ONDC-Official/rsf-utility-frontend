@@ -1,4 +1,4 @@
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { IOrder, OrderQueryParams } from 'interfaces/order'
 import useGet from 'hooks/useGet'
 import { UseQueryOptions, UseQueryResult } from 'react-query'

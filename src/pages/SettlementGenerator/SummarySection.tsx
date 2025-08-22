@@ -3,8 +3,8 @@ import { Visibility, Edit } from '@mui/icons-material'
 // import { Event } from '@mui/icons-material'
 import SummaryCard from 'components/common/SummaryCard'
 // import InputField from 'components/common/InputField'
-import OrderSummaryFormModal from './OrderSummaryFormModal'
-import { IProps } from './types'
+import OrderSummaryFormModal from 'pages/SettlementGenerator/OrderSummaryFormModal'
+import { IProps } from 'pages/SettlementGenerator/types'
 import {
   SummaryContainer as Container,
   SummaryCards,

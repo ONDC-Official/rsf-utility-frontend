@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import useDelete from 'hooks/useDelete'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
-import { IUser } from '@interfaces/user'
+import { IUser } from 'interfaces/user'
 
 const useDeleteNetworkConfig = (): {
   triggerAsync: (userId: string) => Promise<IApiResponse<IUser>>

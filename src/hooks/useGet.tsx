@@ -1,4 +1,4 @@
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { useQuery, UseQueryResult, UseQueryOptions, QueryKey } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 

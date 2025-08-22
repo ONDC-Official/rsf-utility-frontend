@@ -8,7 +8,7 @@ import {
   DateFieldsContainer,
   ActionsContainer,
 } from 'styles/components/DateRangePickerButton.styled'
-import Button from '../Button'
+import Button from 'components/common/Button'
 import CalendarIcon from 'assets/images/svg/CalendarIcon'
 import ChevronIcon from 'assets/images/svg/ChevronIcon'
 

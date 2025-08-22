@@ -14,7 +14,7 @@ import {
 } from 'styles/pages/SettlementDashboard.styled'
 import ExportIcon from 'assets/images/svg/ExportIcon'
 import Button from 'components/common/Button'
-import { IUserSettlementItem } from '@interfaces/settlement'
+import { IUserSettlementItem } from 'interfaces/settlement'
 
 const DashboardTable: FC<IDashboardTableProps> = ({ orders, onDateRangeChange, dateRange, onExport }) => {
   const getItemId = (item: IUserSettlementItem): string => item.order_id

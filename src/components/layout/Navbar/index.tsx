@@ -4,7 +4,7 @@ import { TypographyVariant } from 'enums/typography'
 import { StyledAppBar, StyledToolbar, TitleContainer, RightSection, StyledSelect } from 'styles/layout/Navbar.styled'
 import { useUserContext } from 'context/userContext'
 import { useLocation } from 'react-router-dom'
-import { sidebarMenuItems } from '../Sidebar/sidebarMenuItems'
+import { sidebarMenuItems } from 'components/layout/Sidebar/sidebarMenuItems'
 
 const Navbar: FC = () => {
   const { users, selectedUser, setSelectedUser } = useUserContext()

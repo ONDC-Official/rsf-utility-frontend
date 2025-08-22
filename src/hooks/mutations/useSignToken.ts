@@ -1,8 +1,8 @@
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import usePost, { IParams } from 'hooks/usePost'
 import { UseMutationResult } from 'react-query'
 import { APIRoute } from 'enums/api'
-import { ISignTokenPayload, ISignTokenResponse } from '@interfaces/auth'
+import { ISignTokenPayload, ISignTokenResponse } from 'interfaces/auth'
 
 const useSignToken = (): UseMutationResult<IApiResponse<ISignTokenResponse>, unknown, IParams, unknown> & {
   signTokenAsync: (payload: ISignTokenPayload) => Promise<IApiResponse<ISignTokenResponse>>

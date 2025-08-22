@@ -1,4 +1,4 @@
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { APIRoute } from 'enums/api'
 import usePost, { IParams } from 'hooks/usePost'
 import { buildApiUrl } from 'utils/helpers'

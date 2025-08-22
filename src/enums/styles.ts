@@ -1,4 +1,4 @@
-import { TypographyVariant } from './typography'
+import { TypographyVariant } from 'enums/typography'
 
 export const TableCellStyles = {
   DEFAULT: {

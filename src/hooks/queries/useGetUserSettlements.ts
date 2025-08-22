@@ -1,8 +1,8 @@
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import useGet from 'hooks/useGet'
 import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
-import { SettlementQueryParams, IUserSettlementsResponse } from '@interfaces/settlement'
+import { SettlementQueryParams, IUserSettlementsResponse } from 'interfaces/settlement'
 import { APIRoute } from 'enums/api'
 
 const useGetUserSettlements = (

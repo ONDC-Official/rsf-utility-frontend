@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import usePatch from 'hooks/usePatch'
 import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'

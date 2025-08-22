@@ -2,18 +2,16 @@ import { FC } from 'react'
 import { Modal, Typography } from '@mui/material'
 import { Close } from '@mui/icons-material'
 import Button from 'components/common/Button'
-import { ModalContainer, Content, Header, ModalTitle, CloseButton, StyledForm, ButtonContainer } from './styles'
-
-interface DeleteConfirmationModalProps {
-  open: boolean
-  onClose: () => void
-  onConfirm: () => void
-  title?: string
-  message?: string
-  confirmText?: string
-  cancelText?: string
-  isLoading?: boolean
-}
+import { DeleteConfirmationModalProps } from 'components/common/DeleteConfirmationModal/types'
+import {
+  ModalContainer,
+  Content,
+  Header,
+  ModalTitle,
+  CloseButton,
+  StyledForm,
+  ButtonContainer,
+} from 'styles/components/DeleteConfirmationModal'
 
 const DeleteConfirmationModal: FC<DeleteConfirmationModalProps> = ({
   open,

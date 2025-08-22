@@ -1,12 +1,12 @@
 import { useCallback } from 'react'
 import usePost from 'hooks/usePost'
 import usePatch from 'hooks/usePatch'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { APIRoute } from 'enums/api'
 import { buildApiUrl } from 'utils/helpers'
 import { IFormData } from 'pages/NetworkConfiguration/type'
 import { NetworkConfigPayload } from 'interfaces/networkConfigPayload'
-import { IUser } from '@interfaces/user'
+import { IUser } from 'interfaces/user'
 
 // helper to safely parse numbers
 const toNumber = (val: unknown) => (val !== undefined && val !== null && val !== '' ? parseFloat(`${val}`) : 0)

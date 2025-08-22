@@ -21,7 +21,7 @@
       "@pages/*": ["pages/*"],
       "@theme/*": ["theme/*"],
       "@types/*": ["types/*"],
-      "@interfaces/*": ["interfaces/*"],
+      "interfaces/*": ["interfaces/*"],
       "@constants/*": ["constants/*"],
       "@data/*": ["data/*"],
       "@routes/*": ["routes/*"],

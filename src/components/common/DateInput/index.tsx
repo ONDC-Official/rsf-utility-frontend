@@ -3,7 +3,7 @@ import { InputAdornment, IconButton, Popover } from '@mui/material'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import { StyledInput } from 'styles/pages/NetworkConfiguration'
 import Calendar from 'components/common/Calendar'
-import { IDateInputProps } from './types'
+import { IDateInputProps } from 'components/common/DateInput/types'
 
 const DateInput: FC<IDateInputProps> = ({
   value,

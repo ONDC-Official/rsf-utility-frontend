@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form'
 import { useUserContext } from 'context/userContext'
 import { useToast } from 'context/toastContext'
 import { NETWORK_CONFIGURATION } from 'constants/toastMessages'
-import DomainConfiguration from './DomainConfiguration'
-import ProviderBankDetails from './ProviderBankDetails'
-import CounterpartyInfos from './CounterpartyInfos'
+import DomainConfiguration from 'pages/NetworkConfiguration/DomainConfiguration'
+import ProviderBankDetails from 'pages/NetworkConfiguration/ProviderBankDetails'
+import CounterpartyInfos from 'pages/NetworkConfiguration/CounterpartyInfos'
 import SaveIcon from 'assets/images/svg/SaveIcon'
 import AddIcon from 'assets/images/svg/AddIcon'
 import useSubmitNetworkConfig from 'hooks/mutations/useSubmitNetworkConfig'
@@ -24,7 +24,7 @@ import { defaultFormData, defaultProvider } from 'pages/NetworkConfiguration/dat
 import { useLoader } from 'context/loaderContext'
 import DeleteConfirmationModal from 'components/common/DeleteConfirmationModal'
 import Loader from 'components/common/Loader'
-import { IUser } from '@interfaces/user'
+import { IUser } from 'interfaces/user'
 
 const mapUserToFormData = (user: IUser): IFormData => {
   const shouldSetType = user._id && user.role === 'BPP' && user.msn !== undefined

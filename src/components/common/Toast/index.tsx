@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Close, Inventory2, ErrorOutline, CheckCircle, InfoOutlined, WarningAmber } from '@mui/icons-material'
-import { IToastProps } from './types'
+import { IToastProps } from 'components/common/Toast/types'
 import {
   Container,
   ToastContent,

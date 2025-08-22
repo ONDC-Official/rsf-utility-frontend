@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { menuItems } from './data'
+import { menuItems } from 'components/layout/Sidebar/data'
 import OndcLogo from 'assets/images/svg/OndcLogo'
 import { StyledIcon, MenuContainer, MenuItem, SidebarContainer, StyledText } from 'styles/layout/Layout.styled'
 import { useUserContext } from 'context/userContext'

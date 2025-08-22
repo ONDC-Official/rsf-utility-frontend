@@ -1,9 +1,9 @@
 // hooks/api/useGetSettlements.ts
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import useGet from 'hooks/useGet'
 import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { buildApiUrl } from 'utils/helpers'
-import { ISettlementItem } from '@interfaces/settlement'
+import { ISettlementItem } from 'interfaces/settlement'
 import { APIRoute } from 'enums/api'
 
 const useGetSettlements = (

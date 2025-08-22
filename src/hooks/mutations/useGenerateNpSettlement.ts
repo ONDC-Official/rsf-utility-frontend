@@ -1,5 +1,5 @@
 import usePost from 'hooks/usePost'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import { buildApiUrl } from 'utils/helpers'
 import { APIRoute } from 'enums/api'
 import { IGenerateNpSettlementPayload } from 'interfaces/settlementGenerator'

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import useSignToken from 'hooks/mutations/useSignToken'
-import { IApiResponse } from '@interfaces/api'
+import { IApiResponse } from 'interfaces/api'
 import Loader from 'components/common/Loader'
 import { AuthContextType, ISignTokenPayload, ISignTokenResponse } from 'interfaces/auth'
 

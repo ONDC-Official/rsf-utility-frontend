@@ -1,4 +1,4 @@
-import { IUser } from '@interfaces/user'
+import { IUser } from 'interfaces/user'
 import { FieldErrors, UseFormReset, Control } from 'react-hook-form'
 
 export interface IProvider {

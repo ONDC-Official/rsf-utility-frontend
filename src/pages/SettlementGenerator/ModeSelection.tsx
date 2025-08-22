@@ -3,7 +3,7 @@ import { SelectChangeEvent, Typography } from '@mui/material'
 import Switch from 'components/common/Switch'
 import Select from 'components/common/Select'
 import { useUserContext } from 'context/userContext'
-import { IModeSelectionProps } from './types'
+import { IModeSelectionProps } from 'pages/SettlementGenerator/types'
 import { SettlementModeContainer, ModeContent, ModeRow, ModeRight } from 'styles/pages/SettlementGenerator.styled'
 import { TypographyVariant } from 'enums/typography'
 

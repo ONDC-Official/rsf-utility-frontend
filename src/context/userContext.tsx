@@ -1,6 +1,6 @@
 import { FC, createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import useGetUsers from 'hooks/queries/useGetUsers'
-import { IUser, IUserContext } from '@interfaces/user'
+import { IUser, IUserContext } from 'interfaces/user'
 import { useLoader } from 'context/loaderContext'
 import { LOCAL_STORAGE_KEY } from 'constants/user'
 

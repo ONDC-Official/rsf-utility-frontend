@@ -5,7 +5,7 @@ import ReconciliationTabs from 'pages/ReconciliationManager/ReconciliationTabs'
 import GenerateReconRequest from 'pages/ReconciliationManager/GenerateReconRequest'
 import ReviewReconRequests from 'pages/ReconciliationManager/ReviewReconRequests'
 import { Container } from 'styles/pages/SettlementGenerator.styled'
-import OutgoingRequestsSection from './OutgoingRequestSection'
+import OutgoingRequestsSection from 'pages/ReconciliationManager/OutgoingRequestSection'
 
 const ReconciliationManager: FC = () => {
   const [activeTab, setActiveTab] = useState(0)

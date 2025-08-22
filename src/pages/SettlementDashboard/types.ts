@@ -1,4 +1,4 @@
-import { IUserSettlementItem } from '@interfaces/settlement'
+import { IUserSettlementItem } from 'interfaces/settlement'
 import { IDateRange } from 'components/common/DateRangePickerButton/types'
 
 export interface IDashboardRowProps {
