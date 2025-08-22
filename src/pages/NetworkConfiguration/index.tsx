@@ -29,6 +29,22 @@ import { IUser } from 'interfaces/user'
 const mapUserToFormData = (user: IUser): IFormData => {
   const shouldSetType = user._id && user.role === 'BPP' && user.msn !== undefined
 
+  // Helper function to normalize applicability values
+  const normalizeApplicability = (value: string | undefined): string => {
+    if (!value) return ''
+    const upperValue = value.toUpperCase()
+    // Map old format to new format
+    switch (upperValue) {
+      case 'NONE':
+      case 'ISN':
+      case 'MSN':
+      case 'BOTH':
+        return upperValue
+      default:
+        return ''
+    }
+  }
+
   return {
     _id: user?._id,
     title: user.title || '',
@@ -42,8 +58,8 @@ const mapUserToFormData = (user: IUser): IFormData => {
     sellerNpToProviderTcs: user.pr_provider_tcs || 0,
     sellerNpToProviderTds: user.pr_provider_tds || 0,
     selectedType: shouldSetType ? (user.msn ? 'MSN' : 'ISN') : '',
-    tcs_applicability: user.tcs_applicability || '',
-    tds_applicability: user.tds_applicability || '',
+    tcs_applicability: normalizeApplicability(user.tcs_applicability),
+    tds_applicability: normalizeApplicability(user.tds_applicability),
     counterparty_infos: user.counterparty_infos || [],
     providers: user.provider_details?.length
       ? user.provider_details.map((p) => ({
@@ -127,6 +143,11 @@ const NetworkConfiguration: FC = () => {
         })
       }
     } catch (err) {
+      console.error('Network configuration submission failed:', err)
+      toast({
+        message: NETWORK_CONFIGURATION.ERROR.message,
+        severity: NETWORK_CONFIGURATION.ERROR.severity,
+      })
     } finally {
       hideLoader()
     }
@@ -152,7 +173,12 @@ const NetworkConfiguration: FC = () => {
         message: 'User deleted successfully.',
         severity: NETWORK_CONFIGURATION.SUCCESS.severity,
       })
-    } catch {
+    } catch (err) {
+      console.error('Failed to delete user:', err)
+      toast({
+        message: 'Failed to delete user. Please try again.',
+        severity: NETWORK_CONFIGURATION.ERROR.severity,
+      })
     } finally {
       hideLoader()
     }

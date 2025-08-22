@@ -64,29 +64,42 @@ const mapToPayload = (data: IFormData): NetworkConfigPayload => {
     }))
   }
 
+  // Helper function to validate and convert date
+  const convertToISODate = (dateValue: string | undefined): string | undefined => {
+    if (!dateValue || dateValue.trim() === '') return undefined
+    const date = new Date(dateValue)
+    return isNaN(date.getTime()) ? undefined : date.toISOString()
+  }
+
   // Add effective date fields to payload
-  if (data.effectiveDate1) {
-    payload.np_tcs_with_effective_date = new Date(data.effectiveDate1).toISOString()
+  const isoDate1 = convertToISODate(data.effectiveDate1)
+  if (isoDate1) {
+    payload.np_tcs_with_effective_date = isoDate1
   }
 
-  if (data.effectiveDate2) {
-    payload.np_tds_with_effective_date = new Date(data.effectiveDate2).toISOString()
+  const isoDate2 = convertToISODate(data.effectiveDate2)
+  if (isoDate2) {
+    payload.np_tds_with_effective_date = isoDate2
   }
 
-  if (data.effectiveDate3) {
-    payload.np_tcs_with_effective_date = new Date(data.effectiveDate3).toISOString()
+  const isoDate3 = convertToISODate(data.effectiveDate3)
+  if (isoDate3) {
+    payload.np_tcs_with_effective_date = isoDate3
   }
 
-  if (data.effectiveDate4) {
-    payload.np_tds_with_effective_date = new Date(data.effectiveDate4).toISOString()
+  const isoDate4 = convertToISODate(data.effectiveDate4)
+  if (isoDate4) {
+    payload.np_tds_with_effective_date = isoDate4
   }
 
-  if (data.effectiveDate5) {
-    payload.pr_tcs_with_effective_date = new Date(data.effectiveDate5).toISOString()
+  const isoDate5 = convertToISODate(data.effectiveDate5)
+  if (isoDate5) {
+    payload.pr_tcs_with_effective_date = isoDate5
   }
 
-  if (data.effectiveDate6) {
-    payload.pr_tds_with_effective_date = new Date(data.effectiveDate6).toISOString()
+  const isoDate6 = convertToISODate(data.effectiveDate6)
+  if (isoDate6) {
+    payload.pr_tds_with_effective_date = isoDate6
   }
 
   return payload as NetworkConfigPayload

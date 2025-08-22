@@ -228,10 +228,10 @@ export const applicabilityFields: ITaxFieldConfig[] = [
     required: true,
     placeholder: 'Select',
     options: [
-      { value: 'None', label: 'None' },
+      { value: 'NONE', label: 'None' },
       { value: 'ISN', label: 'ISN' },
       { value: 'MSN', label: 'MSN' },
-      { value: 'Both', label: 'Both' },
+      { value: 'BOTH', label: 'Both' },
     ],
   },
   {
@@ -241,10 +241,10 @@ export const applicabilityFields: ITaxFieldConfig[] = [
     required: true,
     placeholder: 'Select',
     options: [
-      { value: 'None', label: 'None' },
+      { value: 'NONE', label: 'None' },
       { value: 'ISN', label: 'ISN' },
       { value: 'MSN', label: 'MSN' },
-      { value: 'Both', label: 'Both' },
+      { value: 'BOTH', label: 'Both' },
     ],
   },
 ]
